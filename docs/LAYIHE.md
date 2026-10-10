@@ -136,3 +136,12 @@ docs/
 - [ ] Quraşdırma faylı (installer) — məsələn, `dotnet publish -r win-x64 --self-contained` + Inno Setup.
 - [ ] Parolun təkrar istifadəsinə qadağa (keçmiş parollar) — hələ yoxdur.
 - [ ] Çox böyük Excel fayllarının (500 000+ sətir) idxalında yaddaş istifadəsinin yoxlanması.
+
+## Dəyişikliklər — UI düzəlişləri (Windows sınağından sonra)
+- **Yumru pəncərə + kölgə:** bütün çərçivəsiz formalarda `Win32.Yumru` (Win11 DWM, Win10 Region) + `CS_DROPSHADOW`.
+- **CaptionButton** (Toolbox): kiçilt / böyüt⇄bərpa / bağla — xətlərlə çəkilir, şriftdən asılı deyil. MainForm-da istifadə olunur.
+- **Səhifə keçidi:** `Animator` artıq canlı kontrolları sürüşdürmür; yeni səhifənin şəkli sürüşür (≈140 ms). `PageBase` fonu bitmap-də keşlənir, `RoundPanel` valideyni yenidən çəkmir (`Gfx.ParentBack`).
+- **EditPage:** `PageTabs` (başlıqsız TabControl, Designer-də başlıq görünür) + `ChipTabBar` (bütün 9 qrup sətirlərə bölünərək görünür).
+- **RoundTextBox / RoundComboBox / RoundDatePicker** (Toolbox): bütün Designer fayllarında adi TextBox/ComboBox/DateTimePicker əvəzinə.
+- **10 nümunə texnika:** baza boşdursa ilk girişdə avtomatik (`Parametrler.Numune10`), həmçinin Admin → PC → say = 10.
+- Qeyd: `.Designer.cs` faylları artıq əl ilə/VS Designer-də düzəldilir; köhnə Python generatoru bu dəyişiklikləri bilmir — yenidən işə salmayın.

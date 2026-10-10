@@ -67,12 +67,29 @@ namespace TexnikaReyestri.Controls
             BackColor = Theme.Bg; Padding = new Padding(22, 16, 22, 14);
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e) => Gfx.PageBackground(e.Graphics, ClientRectangle);
+        // Fon (işıq ləkələri + qalxan) bir dəfə bitmap-ə çəkilir; uşaq panellər də ondan kəsik götürür — keçidlər sürətli olur.
+        private Bitmap _bg;
+        internal Bitmap Fon
+        {
+            get
+            {
+                if (Width <= 0 || Height <= 0) return null;
+                if (_bg == null || _bg.Size != ClientSize)
+                {
+                    _bg?.Dispose(); _bg = new Bitmap(ClientSize.Width, ClientSize.Height);
+                    using var g = Graphics.FromImage(_bg); Gfx.PageBackground(g, new Rectangle(Point.Empty, ClientSize));
+                }
+                return _bg;
+            }
+        }
+        private void FonSil() { _bg?.Dispose(); _bg = null; }
+        protected override void OnPaintBackground(PaintEventArgs e) { var b = Fon; if (b != null) e.Graphics.DrawImage(b, e.ClipRectangle, e.ClipRectangle, GraphicsUnit.Pixel); }
+        protected override void Dispose(bool disposing) { if (disposing) FonSil(); base.Dispose(disposing); }
 
         /// <summary>Səhifə göstəriləndə çağırılır (MainForm tərəfindən). Məlumatı burada yükləyin.</summary>
         public virtual Task OnShownAsync() => Task.CompletedTask;
 
-        public virtual void OnThemeChanged() { BackColor = Theme.Bg; Invalidate(); }
+        public virtual void OnThemeChanged() { FonSil(); BackColor = Theme.Bg; Invalidate(); }
     }
 
     /// <summary>Seçim düymələri qrupu (30 gün | 3 ay | 6 ay | 1 il). Items — mətnlər, SelectedIndex — seçilən.</summary>

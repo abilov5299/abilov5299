@@ -11,11 +11,13 @@ namespace TexnikaReyestri.Core
             Repair = "", Filter = "", Lock = "", Usb = "", User = "", Org = "", Pc = "",
             Shield = "", Key = "", Settings = "", Journal = "", Refresh = "", Excel = "", Cancel = "";
 
-        private static Font _cache; private static float _size;
+        private static readonly Dictionary<float, Font> _cache = new();
+        /// <summary>Windows 11-də "Segoe Fluent Icons", yoxdursa "Segoe MDL2 Assets" (eyni kodlar).</summary>
+        public static readonly string Family = new System.Drawing.Text.InstalledFontCollection().Families.Any(f => f.Name == "Segoe Fluent Icons") ? "Segoe Fluent Icons" : FontName;
         public static Font Font(float size)
         {
-            if (_cache == null || _size != size) { _cache = new Font(FontName, size); _size = size; }
-            return _cache;
+            if (!_cache.TryGetValue(size, out var f)) _cache[size] = f = new Font(Family, size, GraphicsUnit.Point);
+            return f;
         }
     }
 }

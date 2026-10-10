@@ -34,5 +34,8 @@ namespace TexnikaReyestri.Forms
 
         private void btnExit_Click(object sender, EventArgs e) => Close();
         protected override void OnPaint(PaintEventArgs e) { base.OnPaint(e); Ui.Kenar(this, e); }
+
+        protected override CreateParams CreateParams { get { var cp = base.CreateParams; cp.ClassStyle |= Win32.CS_DROPSHADOW; return cp; } }
+        protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); Win32.Yumru(this); }
     }
 }

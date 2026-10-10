@@ -28,15 +28,8 @@ namespace TexnikaReyestri.Controls
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             // Valideynin fonu (kölgə üçün şəffaf görünüş)
-            if (Parent != null)
-            {
-                var st = e.Graphics.Save();
-                e.Graphics.TranslateTransform(-Left, -Top);
-                using (var pe = new PaintEventArgs(e.Graphics, new Rectangle(Left, Top, Width, Height)))
-                { InvokePaintBackground(Parent, pe); InvokePaint(Parent, pe); }
-                e.Graphics.Restore(st);
-            }
-            var g = e.Graphics; Gfx.Smooth(g);
+            var g = e.Graphics;
+            Gfx.ParentBack(this, g); Gfx.Smooth(g);
             var r = new RectangleF(3, 2, Width - 7, Height - 7);
             if (_shadow && _fill != PanelFill.Transparent) Gfx.Shadow(g, r, _radius, Theme.Shadow, 5);
             using var path = Gfx.Round(r, _radius);

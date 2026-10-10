@@ -32,7 +32,7 @@
             this.kLast = new System.Windows.Forms.Label();
             this.vLast = new System.Windows.Forms.Label();
             this.kDrive = new System.Windows.Forms.Label();
-            this.cmbDrive = new System.Windows.Forms.ComboBox();
+            this.cmbDrive = new TexnikaReyestri.Controls.RoundComboBox();
             this.btnDrives = new TexnikaReyestri.Controls.FlatButton();
             this.btnExport = new TexnikaReyestri.Controls.FlatButton();
             this.rpImport = new TexnikaReyestri.Controls.RoundPanel();
@@ -494,7 +494,7 @@
         private System.Windows.Forms.Label kLast;
         private System.Windows.Forms.Label vLast;
         private System.Windows.Forms.Label kDrive;
-        private System.Windows.Forms.ComboBox cmbDrive;
+        private TexnikaReyestri.Controls.RoundComboBox cmbDrive;
         private TexnikaReyestri.Controls.FlatButton btnDrives;
         private TexnikaReyestri.Controls.FlatButton btnExport;
         private TexnikaReyestri.Controls.RoundPanel rpImport;

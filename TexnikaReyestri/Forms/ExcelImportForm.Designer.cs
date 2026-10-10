@@ -28,7 +28,7 @@
             this.lblDrop = new System.Windows.Forms.Label();
             this.lblFile = new System.Windows.Forms.Label();
             this.lSheet = new System.Windows.Forms.Label();
-            this.cmbSheet = new System.Windows.Forms.ComboBox();
+            this.cmbSheet = new TexnikaReyestri.Controls.RoundComboBox();
             this.lHeader = new System.Windows.Forms.Label();
             this.vHeader = new System.Windows.Forms.Label();
             this.lData = new System.Windows.Forms.Label();
@@ -694,7 +694,7 @@
         private System.Windows.Forms.Label lblDrop;
         private System.Windows.Forms.Label lblFile;
         private System.Windows.Forms.Label lSheet;
-        private System.Windows.Forms.ComboBox cmbSheet;
+        private TexnikaReyestri.Controls.RoundComboBox cmbSheet;
         private System.Windows.Forms.Label lHeader;
         private System.Windows.Forms.Label vHeader;
         private System.Windows.Forms.Label lData;

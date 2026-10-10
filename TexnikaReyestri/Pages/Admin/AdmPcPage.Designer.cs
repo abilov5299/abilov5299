@@ -286,7 +286,7 @@
             this.numDemo.Size = new System.Drawing.Size(110, 25);
             this.numDemo.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numDemo.Maximum = new decimal(new int[] { 2000000, 0, 0, 0 });
-            this.numDemo.Minimum = new decimal(new int[] { 100, 0, 0, 0 });
+            this.numDemo.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             this.numDemo.Increment = new decimal(new int[] { 10000, 0, 0, 0 });
             this.numDemo.Value = new decimal(new int[] { 100000, 0, 0, 0 });
             this.numDemo.Name = "numDemo";

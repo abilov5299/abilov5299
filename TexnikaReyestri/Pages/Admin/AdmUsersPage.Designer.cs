@@ -17,8 +17,8 @@
             this.pnlHead = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnAdd = new TexnikaReyestri.Controls.FlatButton();
-            this.cmbOrg = new System.Windows.Forms.ComboBox();
-            this.txtFilter = new System.Windows.Forms.TextBox();
+            this.cmbOrg = new TexnikaReyestri.Controls.RoundComboBox();
+            this.txtFilter = new TexnikaReyestri.Controls.RoundTextBox();
             this.rpGrid = new TexnikaReyestri.Controls.RoundPanel();
             this.grid = new TexnikaReyestri.Controls.ModernGrid();
             this.colLogin = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,7 +81,6 @@
             this.txtFilter.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtFilter.Location = new System.Drawing.Point(440, 8);
             this.txtFilter.Size = new System.Drawing.Size(192, 25);
-            this.txtFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFilter.PlaceholderText = "Ad və ya login";
             this.txtFilter.Name = "txtFilter";
@@ -205,8 +204,8 @@
         private System.Windows.Forms.Panel pnlHead;
         private System.Windows.Forms.Label lblTitle;
         private TexnikaReyestri.Controls.FlatButton btnAdd;
-        private System.Windows.Forms.ComboBox cmbOrg;
-        private System.Windows.Forms.TextBox txtFilter;
+        private TexnikaReyestri.Controls.RoundComboBox cmbOrg;
+        private TexnikaReyestri.Controls.RoundTextBox txtFilter;
         private TexnikaReyestri.Controls.RoundPanel rpGrid;
         private TexnikaReyestri.Controls.ModernGrid grid;
         private System.Windows.Forms.DataGridViewTextBoxColumn colLogin;

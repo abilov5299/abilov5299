@@ -157,5 +157,8 @@ namespace TexnikaReyestri.Forms
         }
         private void btnBack_Click(object sender, EventArgs e) => Goster(Math.Max(0, _addim - 1));
         private void btnCancel_Click(object sender, EventArgs e) => DialogResult = _addim == 3 ? DialogResult.OK : DialogResult.Cancel;
+
+        protected override CreateParams CreateParams { get { var cp = base.CreateParams; cp.ClassStyle |= Win32.CS_DROPSHADOW; return cp; } }
+        protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); Win32.Yumru(this); }
     }
 }

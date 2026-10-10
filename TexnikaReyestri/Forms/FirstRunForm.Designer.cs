@@ -18,19 +18,19 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lQurum = new System.Windows.Forms.Label();
-            this.cmbQurum = new System.Windows.Forms.ComboBox();
+            this.cmbQurum = new TexnikaReyestri.Controls.RoundComboBox();
             this.lSecAdmin = new System.Windows.Forms.Label();
             this.lSecUser = new System.Windows.Forms.Label();
             this.ltxtAdmin = new System.Windows.Forms.Label();
-            this.txtAdmin = new System.Windows.Forms.TextBox();
+            this.txtAdmin = new TexnikaReyestri.Controls.RoundTextBox();
             this.ltxtAdmin2 = new System.Windows.Forms.Label();
-            this.txtAdmin2 = new System.Windows.Forms.TextBox();
+            this.txtAdmin2 = new TexnikaReyestri.Controls.RoundTextBox();
             this.ltxtLogin = new System.Windows.Forms.Label();
-            this.txtLogin = new System.Windows.Forms.TextBox();
+            this.txtLogin = new TexnikaReyestri.Controls.RoundTextBox();
             this.ltxtName = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtName = new TexnikaReyestri.Controls.RoundTextBox();
             this.ltxtPass = new System.Windows.Forms.Label();
-            this.txtPass = new System.Windows.Forms.TextBox();
+            this.txtPass = new TexnikaReyestri.Controls.RoundTextBox();
             this.lblErr = new System.Windows.Forms.Label();
             this.btnOk = new TexnikaReyestri.Controls.FlatButton();
             this.btnCancel = new TexnikaReyestri.Controls.FlatButton();
@@ -131,7 +131,6 @@
             this.txtAdmin.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtAdmin.Location = new System.Drawing.Point(24, 212);
             this.txtAdmin.Size = new System.Drawing.Size(270, 25);
-            this.txtAdmin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAdmin.UseSystemPasswordChar = true;
             this.txtAdmin.Name = "txtAdmin";
             // 
@@ -149,7 +148,6 @@
             this.txtAdmin2.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtAdmin2.Location = new System.Drawing.Point(24, 262);
             this.txtAdmin2.Size = new System.Drawing.Size(270, 25);
-            this.txtAdmin2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAdmin2.UseSystemPasswordChar = true;
             this.txtAdmin2.Name = "txtAdmin2";
             // 
@@ -167,7 +165,6 @@
             this.txtLogin.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtLogin.Location = new System.Drawing.Point(316, 212);
             this.txtLogin.Size = new System.Drawing.Size(270, 25);
-            this.txtLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLogin.Name = "txtLogin";
             // 
             // ltxtName
@@ -184,7 +181,6 @@
             this.txtName.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtName.Location = new System.Drawing.Point(316, 262);
             this.txtName.Size = new System.Drawing.Size(270, 25);
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Name = "txtName";
             // 
             // ltxtPass
@@ -201,7 +197,6 @@
             this.txtPass.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtPass.Location = new System.Drawing.Point(316, 312);
             this.txtPass.Size = new System.Drawing.Size(270, 25);
-            this.txtPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPass.UseSystemPasswordChar = true;
             this.txtPass.Name = "txtPass";
             // 
@@ -258,19 +253,19 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lQurum;
-        private System.Windows.Forms.ComboBox cmbQurum;
+        private TexnikaReyestri.Controls.RoundComboBox cmbQurum;
         private System.Windows.Forms.Label lSecAdmin;
         private System.Windows.Forms.Label lSecUser;
         private System.Windows.Forms.Label ltxtAdmin;
-        private System.Windows.Forms.TextBox txtAdmin;
+        private TexnikaReyestri.Controls.RoundTextBox txtAdmin;
         private System.Windows.Forms.Label ltxtAdmin2;
-        private System.Windows.Forms.TextBox txtAdmin2;
+        private TexnikaReyestri.Controls.RoundTextBox txtAdmin2;
         private System.Windows.Forms.Label ltxtLogin;
-        private System.Windows.Forms.TextBox txtLogin;
+        private TexnikaReyestri.Controls.RoundTextBox txtLogin;
         private System.Windows.Forms.Label ltxtName;
-        private System.Windows.Forms.TextBox txtName;
+        private TexnikaReyestri.Controls.RoundTextBox txtName;
         private System.Windows.Forms.Label ltxtPass;
-        private System.Windows.Forms.TextBox txtPass;
+        private TexnikaReyestri.Controls.RoundTextBox txtPass;
         private System.Windows.Forms.Label lblErr;
         private TexnikaReyestri.Controls.FlatButton btnOk;
         private TexnikaReyestri.Controls.FlatButton btnCancel;

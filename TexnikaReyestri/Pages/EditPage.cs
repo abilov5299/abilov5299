@@ -107,21 +107,5 @@ namespace TexnikaReyestri.Pages
         private void tabs_SelectedIndexChanged(object sender, EventArgs e) => Duymeler();
         private void Duymeler() { btnPrevG.Enabled = tabs.SelectedIndex > 0; btnNextG.Enabled = tabs.SelectedIndex < tabs.TabCount - 1; }
 
-        // Tabları düymə kimi çəkir: seçilmiş tünd firuzəyi, qalanları açıq
-        private void tabs_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            var g = e.Graphics; var r = tabs.GetTabRect(e.Index); bool sel = e.Index == tabs.SelectedIndex;
-            using (var bg = new SolidBrush(Theme.Bg)) g.FillRectangle(bg, r);
-            r.Inflate(-3, -4);
-            using (var p = Gfx_Round(r)) using (var b = new SolidBrush(sel ? Theme.Nav : Theme.Card)) { g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; g.FillPath(b, p); if (!sel) using (var pen = new Pen(Theme.Line)) g.DrawPath(pen, p); }
-            TextRenderer.DrawText(g, Lang.T(tabs.TabPages[e.Index].Text), tabs.Font, r, sel ? Color.White : Theme.Ink, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
-        }
-
-        private static System.Drawing.Drawing2D.GraphicsPath Gfx_Round(Rectangle r)
-        {
-            var p = new System.Drawing.Drawing2D.GraphicsPath(); int d = 16;
-            p.AddArc(r.X, r.Y, d, d, 180, 90); p.AddArc(r.Right - d, r.Y, d, d, 270, 90); p.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90); p.AddArc(r.X, r.Bottom - d, d, d, 90, 90); p.CloseFigure();
-            return p;
-        }
     }
 }

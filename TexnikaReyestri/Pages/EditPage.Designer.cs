@@ -19,164 +19,165 @@
             this.btnSave = new TexnikaReyestri.Controls.FlatButton();
             this.btnNextG = new TexnikaReyestri.Controls.FlatButton();
             this.btnPrevG = new TexnikaReyestri.Controls.FlatButton();
-            this.tabs = new System.Windows.Forms.TabControl();
+            this.tabs = new TexnikaReyestri.Controls.PageTabs();
+            this.chipTabs = new TexnikaReyestri.Controls.ChipTabBar();
             this.lblFoot = new System.Windows.Forms.Label();
             this.tabPasport = new System.Windows.Forms.TabPage();
             this.tlpEPasport = new System.Windows.Forms.TableLayoutPanel();
             this.pf_Nov = new System.Windows.Forms.Panel();
             this.lbl_Nov = new System.Windows.Forms.Label();
-            this.in_Nov = new System.Windows.Forms.ComboBox();
+            this.in_Nov = new TexnikaReyestri.Controls.RoundComboBox();
             this.pf_Marka = new System.Windows.Forms.Panel();
             this.lbl_Marka = new System.Windows.Forms.Label();
-            this.in_Marka = new System.Windows.Forms.TextBox();
+            this.in_Marka = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_ZavodNo = new System.Windows.Forms.Panel();
             this.lbl_ZavodNo = new System.Windows.Forms.Label();
-            this.in_ZavodNo = new System.Windows.Forms.TextBox();
+            this.in_ZavodNo = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_IstehsalIli = new System.Windows.Forms.Panel();
             this.lbl_IstehsalIli = new System.Windows.Forms.Label();
-            this.in_IstehsalIli = new System.Windows.Forms.TextBox();
+            this.in_IstehsalIli = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_IstehsalciZavod = new System.Windows.Forms.Panel();
             this.lbl_IstehsalciZavod = new System.Windows.Forms.Label();
-            this.in_IstehsalciZavod = new System.Windows.Forms.TextBox();
+            this.in_IstehsalciZavod = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_Derece = new System.Windows.Forms.Panel();
             this.lbl_Derece = new System.Windows.Forms.Label();
-            this.in_Derece = new System.Windows.Forms.ComboBox();
+            this.in_Derece = new TexnikaReyestri.Controls.RoundComboBox();
             this.tabTemirtarixcesi = new System.Windows.Forms.TabPage();
             this.tlpETemirtarixcesi = new System.Windows.Forms.TableLayoutPanel();
             this.pf_OrtaTemir = new System.Windows.Forms.Panel();
             this.lbl_OrtaTemir = new System.Windows.Forms.Label();
-            this.in_OrtaTemir = new System.Windows.Forms.TextBox();
+            this.in_OrtaTemir = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_EsasliTemir = new System.Windows.Forms.Panel();
             this.lbl_EsasliTemir = new System.Windows.Forms.Label();
-            this.in_EsasliTemir = new System.Windows.Forms.TextBox();
+            this.in_EsasliTemir = new TexnikaReyestri.Controls.RoundTextBox();
             this.tabIstismargoster = new System.Windows.Forms.TabPage();
             this.tlpEIstismargoster = new System.Windows.Forms.TableLayoutPanel();
             this.pf_HerbiHisse = new System.Windows.Forms.Panel();
             this.lbl_HerbiHisse = new System.Windows.Forms.Label();
-            this.in_HerbiHisse = new System.Windows.Forms.TextBox();
+            this.in_HerbiHisse = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_Km = new System.Windows.Forms.Panel();
             this.lbl_Km = new System.Windows.Forms.Label();
-            this.in_Km = new System.Windows.Forms.TextBox();
+            this.in_Km = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_Motosaat = new System.Windows.Forms.Panel();
             this.lbl_Motosaat = new System.Windows.Forms.Label();
-            this.in_Motosaat = new System.Windows.Forms.TextBox();
+            this.in_Motosaat = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_Atislar = new System.Windows.Forms.Panel();
             this.lbl_Atislar = new System.Windows.Forms.Label();
-            this.in_Atislar = new System.Windows.Forms.TextBox();
+            this.in_Atislar = new TexnikaReyestri.Controls.RoundTextBox();
             this.tabSilahsistemi = new System.Windows.Forms.TabPage();
             this.tlpESilahsistemi = new System.Windows.Forms.TableLayoutPanel();
             this.pf_TopCapi = new System.Windows.Forms.Panel();
             this.lbl_TopCapi = new System.Windows.Forms.Label();
-            this.in_TopCapi = new System.Windows.Forms.TextBox();
+            this.in_TopCapi = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_TopMarka = new System.Windows.Forms.Panel();
             this.lbl_TopMarka = new System.Windows.Forms.Label();
-            this.in_TopMarka = new System.Windows.Forms.TextBox();
+            this.in_TopMarka = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_LuleNo = new System.Windows.Forms.Panel();
             this.lbl_LuleNo = new System.Windows.Forms.Label();
-            this.in_LuleNo = new System.Windows.Forms.TextBox();
+            this.in_LuleNo = new TexnikaReyestri.Controls.RoundTextBox();
             this.tabTexnikiveziyye = new System.Windows.Forms.TabPage();
             this.tlpETexnikiveziyye = new System.Windows.Forms.TableLayoutPanel();
             this.pf_VMuherrik = new System.Windows.Forms.Panel();
             this.lbl_VMuherrik = new System.Windows.Forms.Label();
-            this.in_VMuherrik = new System.Windows.Forms.TextBox();
+            this.in_VMuherrik = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_VSassi = new System.Windows.Forms.Panel();
             this.lbl_VSassi = new System.Windows.Forms.Label();
-            this.in_VSassi = new System.Windows.Forms.TextBox();
+            this.in_VSassi = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_VLule = new System.Windows.Forms.Panel();
             this.lbl_VLule = new System.Windows.Forms.Label();
-            this.in_VLule = new System.Windows.Forms.TextBox();
+            this.in_VLule = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_VAis = new System.Windows.Forms.Panel();
             this.lbl_VAis = new System.Windows.Forms.Label();
-            this.in_VAis = new System.Windows.Forms.TextBox();
+            this.in_VAis = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_VOptik = new System.Windows.Forms.Panel();
             this.lbl_VOptik = new System.Windows.Forms.Label();
-            this.in_VOptik = new System.Windows.Forms.TextBox();
+            this.in_VOptik = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_VDiger = new System.Windows.Forms.Panel();
             this.lbl_VDiger = new System.Windows.Forms.Label();
-            this.in_VDiger = new System.Windows.Forms.TextBox();
+            this.in_VDiger = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_Qeyd = new System.Windows.Forms.Panel();
             this.lbl_Qeyd = new System.Windows.Forms.Label();
-            this.in_Qeyd = new System.Windows.Forms.TextBox();
+            this.in_Qeyd = new TexnikaReyestri.Controls.RoundTextBox();
             this.tabCaritemir = new System.Windows.Forms.TabPage();
             this.tlpECaritemir = new System.Windows.Forms.TableLayoutPanel();
             this.pf_Status = new System.Windows.Forms.Panel();
             this.lbl_Status = new System.Windows.Forms.Label();
-            this.in_Status = new System.Windows.Forms.ComboBox();
+            this.in_Status = new TexnikaReyestri.Controls.RoundComboBox();
             this.pf_TemirNovu = new System.Windows.Forms.Panel();
             this.lbl_TemirNovu = new System.Windows.Forms.Label();
-            this.in_TemirNovu = new System.Windows.Forms.ComboBox();
+            this.in_TemirNovu = new TexnikaReyestri.Controls.RoundComboBox();
             this.pf_KritikHisse = new System.Windows.Forms.Panel();
             this.lbl_KritikHisse = new System.Windows.Forms.Label();
-            this.in_KritikHisse = new System.Windows.Forms.ComboBox();
+            this.in_KritikHisse = new TexnikaReyestri.Controls.RoundComboBox();
             this.pf_BaslamaTarixi = new System.Windows.Forms.Panel();
             this.lbl_BaslamaTarixi = new System.Windows.Forms.Label();
-            this.in_BaslamaTarixi = new System.Windows.Forms.DateTimePicker();
+            this.in_BaslamaTarixi = new TexnikaReyestri.Controls.RoundDatePicker();
             this.pf_GozlenilenBitme = new System.Windows.Forms.Panel();
             this.lbl_GozlenilenBitme = new System.Windows.Forms.Label();
-            this.in_GozlenilenBitme = new System.Windows.Forms.DateTimePicker();
+            this.in_GozlenilenBitme = new TexnikaReyestri.Controls.RoundDatePicker();
             this.pf_GecikmeSebebi = new System.Windows.Forms.Panel();
             this.lbl_GecikmeSebebi = new System.Windows.Forms.Label();
-            this.in_GecikmeSebebi = new System.Windows.Forms.TextBox();
+            this.in_GecikmeSebebi = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_Merhele = new System.Windows.Forms.Panel();
             this.lbl_Merhele = new System.Windows.Forms.Label();
-            this.in_Merhele = new System.Windows.Forms.ComboBox();
+            this.in_Merhele = new TexnikaReyestri.Controls.RoundComboBox();
             this.pf_YararsizSebeb = new System.Windows.Forms.Panel();
             this.lbl_YararsizSebeb = new System.Windows.Forms.Label();
-            this.in_YararsizSebeb = new System.Windows.Forms.TextBox();
+            this.in_YararsizSebeb = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_TemirQeyd = new System.Windows.Forms.Panel();
             this.lbl_TemirQeyd = new System.Windows.Forms.Label();
-            this.in_TemirQeyd = new System.Windows.Forms.TextBox();
+            this.in_TemirQeyd = new TexnikaReyestri.Controls.RoundTextBox();
             this.tabQebulveicra = new System.Windows.Forms.TabPage();
             this.tlpEQebulveicra = new System.Windows.Forms.TableLayoutPanel();
             this.pf_TemirZavodu = new System.Windows.Forms.Panel();
             this.lbl_TemirZavodu = new System.Windows.Forms.Label();
-            this.in_TemirZavodu = new System.Windows.Forms.ComboBox();
+            this.in_TemirZavodu = new TexnikaReyestri.Controls.RoundComboBox();
             this.pf_DaxilolmaTarixi = new System.Windows.Forms.Panel();
             this.lbl_DaxilolmaTarixi = new System.Windows.Forms.Label();
-            this.in_DaxilolmaTarixi = new System.Windows.Forms.DateTimePicker();
+            this.in_DaxilolmaTarixi = new TexnikaReyestri.Controls.RoundDatePicker();
             this.pf_GonderenQurum = new System.Windows.Forms.Panel();
             this.lbl_GonderenQurum = new System.Windows.Forms.Label();
-            this.in_GonderenQurum = new System.Windows.Forms.TextBox();
+            this.in_GonderenQurum = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_QebulSenedi = new System.Windows.Forms.Panel();
             this.lbl_QebulSenedi = new System.Windows.Forms.Label();
-            this.in_QebulSenedi = new System.Windows.Forms.TextBox();
+            this.in_QebulSenedi = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_IcraMuddeti = new System.Windows.Forms.Panel();
             this.lbl_IcraMuddeti = new System.Windows.Forms.Label();
-            this.in_IcraMuddeti = new System.Windows.Forms.TextBox();
+            this.in_IcraMuddeti = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_PlanDeyisikliyi = new System.Windows.Forms.Panel();
             this.lbl_PlanDeyisikliyi = new System.Windows.Forms.Label();
-            this.in_PlanDeyisikliyi = new System.Windows.Forms.TextBox();
+            this.in_PlanDeyisikliyi = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_MesulIcraci = new System.Windows.Forms.Panel();
             this.lbl_MesulIcraci = new System.Windows.Forms.Label();
-            this.in_MesulIcraci = new System.Windows.Forms.TextBox();
+            this.in_MesulIcraci = new TexnikaReyestri.Controls.RoundTextBox();
             this.tabEhtiyathissele = new System.Windows.Forms.TabPage();
             this.tlpEEhtiyathissele = new System.Windows.Forms.TableLayoutPanel();
             this.pf_TelebHisseler = new System.Windows.Forms.Panel();
             this.lbl_TelebHisseler = new System.Windows.Forms.Label();
-            this.in_TelebHisseler = new System.Windows.Forms.TextBox();
+            this.in_TelebHisseler = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_Mektublar = new System.Windows.Forms.Panel();
             this.lbl_Mektublar = new System.Windows.Forms.Label();
-            this.in_Mektublar = new System.Windows.Forms.TextBox();
+            this.in_Mektublar = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_TeminEden = new System.Windows.Forms.Panel();
             this.lbl_TeminEden = new System.Windows.Forms.Label();
-            this.in_TeminEden = new System.Windows.Forms.TextBox();
+            this.in_TeminEden = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_SorguStatus = new System.Windows.Forms.Panel();
             this.lbl_SorguStatus = new System.Windows.Forms.Label();
-            this.in_SorguStatus = new System.Windows.Forms.ComboBox();
+            this.in_SorguStatus = new TexnikaReyestri.Controls.RoundComboBox();
             this.pf_HisseDaxilolma = new System.Windows.Forms.Panel();
             this.lbl_HisseDaxilolma = new System.Windows.Forms.Label();
-            this.in_HisseDaxilolma = new System.Windows.Forms.TextBox();
+            this.in_HisseDaxilolma = new TexnikaReyestri.Controls.RoundTextBox();
             this.pf_Senedler = new System.Windows.Forms.Panel();
             this.lbl_Senedler = new System.Windows.Forms.Label();
-            this.in_Senedler = new System.Windows.Forms.TextBox();
+            this.in_Senedler = new TexnikaReyestri.Controls.RoundTextBox();
             this.tabTehvil = new System.Windows.Forms.TabPage();
             this.tlpETehvil = new System.Windows.Forms.TableLayoutPanel();
             this.pf_FaktikiBitme = new System.Windows.Forms.Panel();
             this.lbl_FaktikiBitme = new System.Windows.Forms.Label();
-            this.in_FaktikiBitme = new System.Windows.Forms.DateTimePicker();
+            this.in_FaktikiBitme = new TexnikaReyestri.Controls.RoundDatePicker();
             this.pf_TehvilSenedi = new System.Windows.Forms.Panel();
             this.lbl_TehvilSenedi = new System.Windows.Forms.Label();
-            this.in_TehvilSenedi = new System.Windows.Forms.TextBox();
+            this.in_TehvilSenedi = new TexnikaReyestri.Controls.RoundTextBox();
             this.pnlHead.SuspendLayout();
             this.tabs.SuspendLayout();
             this.tabPasport.SuspendLayout();
@@ -310,12 +311,13 @@
             this.tabs.Controls.Add(this.tabPasport);
             this.tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabs.Font = new System.Drawing.Font("Segoe UI Semibold", 9.0F);
-            this.tabs.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabs.ItemSize = new System.Drawing.Size(150, 34);
-            this.tabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabs.Padding = new System.Drawing.Point(12, 4);
             this.tabs.Name = "tabs";
-            this.tabs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabs_DrawItem);
+            // 
+            // chipTabs
+            // 
+            this.chipTabs.Dock = System.Windows.Forms.DockStyle.Top;
+            this.chipTabs.Target = this.tabs;
+            this.chipTabs.Name = "chipTabs";
             this.tabs.SelectedIndexChanged += new System.EventHandler(this.tabs_SelectedIndexChanged);
             // 
             // lblFoot
@@ -411,8 +413,7 @@
             // 
             this.in_Marka.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_Marka.Location = new System.Drawing.Point(0, 20);
-            this.in_Marka.Size = new System.Drawing.Size(300, 25);
-            this.in_Marka.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_Marka.Size = new System.Drawing.Size(300, 32);
             this.in_Marka.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_Marka.Name = "in_Marka";
             // 
@@ -440,8 +441,7 @@
             // 
             this.in_ZavodNo.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_ZavodNo.Location = new System.Drawing.Point(0, 20);
-            this.in_ZavodNo.Size = new System.Drawing.Size(300, 25);
-            this.in_ZavodNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_ZavodNo.Size = new System.Drawing.Size(300, 32);
             this.in_ZavodNo.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_ZavodNo.Name = "in_ZavodNo";
             // 
@@ -469,8 +469,7 @@
             // 
             this.in_IstehsalIli.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_IstehsalIli.Location = new System.Drawing.Point(0, 20);
-            this.in_IstehsalIli.Size = new System.Drawing.Size(300, 25);
-            this.in_IstehsalIli.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_IstehsalIli.Size = new System.Drawing.Size(300, 32);
             this.in_IstehsalIli.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_IstehsalIli.Name = "in_IstehsalIli";
             // 
@@ -498,8 +497,7 @@
             // 
             this.in_IstehsalciZavod.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_IstehsalciZavod.Location = new System.Drawing.Point(0, 20);
-            this.in_IstehsalciZavod.Size = new System.Drawing.Size(300, 25);
-            this.in_IstehsalciZavod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_IstehsalciZavod.Size = new System.Drawing.Size(300, 32);
             this.in_IstehsalciZavod.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_IstehsalciZavod.Name = "in_IstehsalciZavod";
             // 
@@ -579,8 +577,7 @@
             // 
             this.in_OrtaTemir.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_OrtaTemir.Location = new System.Drawing.Point(0, 20);
-            this.in_OrtaTemir.Size = new System.Drawing.Size(300, 25);
-            this.in_OrtaTemir.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_OrtaTemir.Size = new System.Drawing.Size(300, 32);
             this.in_OrtaTemir.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_OrtaTemir.Name = "in_OrtaTemir";
             // 
@@ -608,8 +605,7 @@
             // 
             this.in_EsasliTemir.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_EsasliTemir.Location = new System.Drawing.Point(0, 20);
-            this.in_EsasliTemir.Size = new System.Drawing.Size(300, 25);
-            this.in_EsasliTemir.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_EsasliTemir.Size = new System.Drawing.Size(300, 32);
             this.in_EsasliTemir.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_EsasliTemir.Name = "in_EsasliTemir";
             // 
@@ -663,8 +659,7 @@
             // 
             this.in_HerbiHisse.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_HerbiHisse.Location = new System.Drawing.Point(0, 20);
-            this.in_HerbiHisse.Size = new System.Drawing.Size(300, 25);
-            this.in_HerbiHisse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_HerbiHisse.Size = new System.Drawing.Size(300, 32);
             this.in_HerbiHisse.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_HerbiHisse.Name = "in_HerbiHisse";
             // 
@@ -692,8 +687,7 @@
             // 
             this.in_Km.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_Km.Location = new System.Drawing.Point(0, 20);
-            this.in_Km.Size = new System.Drawing.Size(300, 25);
-            this.in_Km.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_Km.Size = new System.Drawing.Size(300, 32);
             this.in_Km.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_Km.Name = "in_Km";
             // 
@@ -721,8 +715,7 @@
             // 
             this.in_Motosaat.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_Motosaat.Location = new System.Drawing.Point(0, 20);
-            this.in_Motosaat.Size = new System.Drawing.Size(300, 25);
-            this.in_Motosaat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_Motosaat.Size = new System.Drawing.Size(300, 32);
             this.in_Motosaat.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_Motosaat.Name = "in_Motosaat";
             // 
@@ -750,8 +743,7 @@
             // 
             this.in_Atislar.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_Atislar.Location = new System.Drawing.Point(0, 20);
-            this.in_Atislar.Size = new System.Drawing.Size(300, 25);
-            this.in_Atislar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_Atislar.Size = new System.Drawing.Size(300, 32);
             this.in_Atislar.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_Atislar.Name = "in_Atislar";
             // 
@@ -803,8 +795,7 @@
             // 
             this.in_TopCapi.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_TopCapi.Location = new System.Drawing.Point(0, 20);
-            this.in_TopCapi.Size = new System.Drawing.Size(300, 25);
-            this.in_TopCapi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_TopCapi.Size = new System.Drawing.Size(300, 32);
             this.in_TopCapi.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_TopCapi.Name = "in_TopCapi";
             // 
@@ -832,8 +823,7 @@
             // 
             this.in_TopMarka.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_TopMarka.Location = new System.Drawing.Point(0, 20);
-            this.in_TopMarka.Size = new System.Drawing.Size(300, 25);
-            this.in_TopMarka.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_TopMarka.Size = new System.Drawing.Size(300, 32);
             this.in_TopMarka.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_TopMarka.Name = "in_TopMarka";
             // 
@@ -861,8 +851,7 @@
             // 
             this.in_LuleNo.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_LuleNo.Location = new System.Drawing.Point(0, 20);
-            this.in_LuleNo.Size = new System.Drawing.Size(300, 25);
-            this.in_LuleNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_LuleNo.Size = new System.Drawing.Size(300, 32);
             this.in_LuleNo.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_LuleNo.Name = "in_LuleNo";
             // 
@@ -931,8 +920,7 @@
             // 
             this.in_VMuherrik.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_VMuherrik.Location = new System.Drawing.Point(0, 20);
-            this.in_VMuherrik.Size = new System.Drawing.Size(300, 25);
-            this.in_VMuherrik.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_VMuherrik.Size = new System.Drawing.Size(300, 76);
             this.in_VMuherrik.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_VMuherrik.Multiline = true;
             this.in_VMuherrik.Height = 72;
@@ -963,8 +951,7 @@
             // 
             this.in_VSassi.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_VSassi.Location = new System.Drawing.Point(0, 20);
-            this.in_VSassi.Size = new System.Drawing.Size(300, 25);
-            this.in_VSassi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_VSassi.Size = new System.Drawing.Size(300, 76);
             this.in_VSassi.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_VSassi.Multiline = true;
             this.in_VSassi.Height = 72;
@@ -995,8 +982,7 @@
             // 
             this.in_VLule.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_VLule.Location = new System.Drawing.Point(0, 20);
-            this.in_VLule.Size = new System.Drawing.Size(300, 25);
-            this.in_VLule.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_VLule.Size = new System.Drawing.Size(300, 76);
             this.in_VLule.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_VLule.Multiline = true;
             this.in_VLule.Height = 72;
@@ -1027,8 +1013,7 @@
             // 
             this.in_VAis.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_VAis.Location = new System.Drawing.Point(0, 20);
-            this.in_VAis.Size = new System.Drawing.Size(300, 25);
-            this.in_VAis.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_VAis.Size = new System.Drawing.Size(300, 76);
             this.in_VAis.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_VAis.Multiline = true;
             this.in_VAis.Height = 72;
@@ -1059,8 +1044,7 @@
             // 
             this.in_VOptik.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_VOptik.Location = new System.Drawing.Point(0, 20);
-            this.in_VOptik.Size = new System.Drawing.Size(300, 25);
-            this.in_VOptik.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_VOptik.Size = new System.Drawing.Size(300, 76);
             this.in_VOptik.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_VOptik.Multiline = true;
             this.in_VOptik.Height = 72;
@@ -1091,8 +1075,7 @@
             // 
             this.in_VDiger.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_VDiger.Location = new System.Drawing.Point(0, 20);
-            this.in_VDiger.Size = new System.Drawing.Size(300, 25);
-            this.in_VDiger.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_VDiger.Size = new System.Drawing.Size(300, 76);
             this.in_VDiger.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_VDiger.Multiline = true;
             this.in_VDiger.Height = 72;
@@ -1123,8 +1106,7 @@
             // 
             this.in_Qeyd.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_Qeyd.Location = new System.Drawing.Point(0, 20);
-            this.in_Qeyd.Size = new System.Drawing.Size(300, 25);
-            this.in_Qeyd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_Qeyd.Size = new System.Drawing.Size(300, 76);
             this.in_Qeyd.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_Qeyd.Multiline = true;
             this.in_Qeyd.Height = 72;
@@ -1340,8 +1322,7 @@
             // 
             this.in_GecikmeSebebi.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_GecikmeSebebi.Location = new System.Drawing.Point(0, 20);
-            this.in_GecikmeSebebi.Size = new System.Drawing.Size(300, 25);
-            this.in_GecikmeSebebi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_GecikmeSebebi.Size = new System.Drawing.Size(300, 76);
             this.in_GecikmeSebebi.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_GecikmeSebebi.Multiline = true;
             this.in_GecikmeSebebi.Height = 72;
@@ -1401,8 +1382,7 @@
             // 
             this.in_YararsizSebeb.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_YararsizSebeb.Location = new System.Drawing.Point(0, 20);
-            this.in_YararsizSebeb.Size = new System.Drawing.Size(300, 25);
-            this.in_YararsizSebeb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_YararsizSebeb.Size = new System.Drawing.Size(300, 76);
             this.in_YararsizSebeb.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_YararsizSebeb.Multiline = true;
             this.in_YararsizSebeb.Height = 72;
@@ -1433,8 +1413,7 @@
             // 
             this.in_TemirQeyd.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_TemirQeyd.Location = new System.Drawing.Point(0, 20);
-            this.in_TemirQeyd.Size = new System.Drawing.Size(300, 25);
-            this.in_TemirQeyd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_TemirQeyd.Size = new System.Drawing.Size(300, 76);
             this.in_TemirQeyd.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_TemirQeyd.Multiline = true;
             this.in_TemirQeyd.Height = 72;
@@ -1556,8 +1535,7 @@
             // 
             this.in_GonderenQurum.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_GonderenQurum.Location = new System.Drawing.Point(0, 20);
-            this.in_GonderenQurum.Size = new System.Drawing.Size(300, 25);
-            this.in_GonderenQurum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_GonderenQurum.Size = new System.Drawing.Size(300, 32);
             this.in_GonderenQurum.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_GonderenQurum.Name = "in_GonderenQurum";
             // 
@@ -1585,8 +1563,7 @@
             // 
             this.in_QebulSenedi.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_QebulSenedi.Location = new System.Drawing.Point(0, 20);
-            this.in_QebulSenedi.Size = new System.Drawing.Size(300, 25);
-            this.in_QebulSenedi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_QebulSenedi.Size = new System.Drawing.Size(300, 32);
             this.in_QebulSenedi.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_QebulSenedi.Name = "in_QebulSenedi";
             // 
@@ -1614,8 +1591,7 @@
             // 
             this.in_IcraMuddeti.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_IcraMuddeti.Location = new System.Drawing.Point(0, 20);
-            this.in_IcraMuddeti.Size = new System.Drawing.Size(300, 25);
-            this.in_IcraMuddeti.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_IcraMuddeti.Size = new System.Drawing.Size(300, 32);
             this.in_IcraMuddeti.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_IcraMuddeti.Name = "in_IcraMuddeti";
             // 
@@ -1643,8 +1619,7 @@
             // 
             this.in_PlanDeyisikliyi.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_PlanDeyisikliyi.Location = new System.Drawing.Point(0, 20);
-            this.in_PlanDeyisikliyi.Size = new System.Drawing.Size(300, 25);
-            this.in_PlanDeyisikliyi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_PlanDeyisikliyi.Size = new System.Drawing.Size(300, 76);
             this.in_PlanDeyisikliyi.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_PlanDeyisikliyi.Multiline = true;
             this.in_PlanDeyisikliyi.Height = 72;
@@ -1675,8 +1650,7 @@
             // 
             this.in_MesulIcraci.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_MesulIcraci.Location = new System.Drawing.Point(0, 20);
-            this.in_MesulIcraci.Size = new System.Drawing.Size(300, 25);
-            this.in_MesulIcraci.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_MesulIcraci.Size = new System.Drawing.Size(300, 32);
             this.in_MesulIcraci.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_MesulIcraci.Name = "in_MesulIcraci";
             // 
@@ -1739,8 +1713,7 @@
             // 
             this.in_TelebHisseler.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_TelebHisseler.Location = new System.Drawing.Point(0, 20);
-            this.in_TelebHisseler.Size = new System.Drawing.Size(300, 25);
-            this.in_TelebHisseler.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_TelebHisseler.Size = new System.Drawing.Size(300, 76);
             this.in_TelebHisseler.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_TelebHisseler.Multiline = true;
             this.in_TelebHisseler.Height = 72;
@@ -1771,8 +1744,7 @@
             // 
             this.in_Mektublar.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_Mektublar.Location = new System.Drawing.Point(0, 20);
-            this.in_Mektublar.Size = new System.Drawing.Size(300, 25);
-            this.in_Mektublar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_Mektublar.Size = new System.Drawing.Size(300, 76);
             this.in_Mektublar.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_Mektublar.Multiline = true;
             this.in_Mektublar.Height = 72;
@@ -1803,8 +1775,7 @@
             // 
             this.in_TeminEden.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_TeminEden.Location = new System.Drawing.Point(0, 20);
-            this.in_TeminEden.Size = new System.Drawing.Size(300, 25);
-            this.in_TeminEden.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_TeminEden.Size = new System.Drawing.Size(300, 32);
             this.in_TeminEden.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_TeminEden.Name = "in_TeminEden";
             // 
@@ -1861,8 +1832,7 @@
             // 
             this.in_HisseDaxilolma.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_HisseDaxilolma.Location = new System.Drawing.Point(0, 20);
-            this.in_HisseDaxilolma.Size = new System.Drawing.Size(300, 25);
-            this.in_HisseDaxilolma.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_HisseDaxilolma.Size = new System.Drawing.Size(300, 76);
             this.in_HisseDaxilolma.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_HisseDaxilolma.Multiline = true;
             this.in_HisseDaxilolma.Height = 72;
@@ -1893,8 +1863,7 @@
             // 
             this.in_Senedler.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_Senedler.Location = new System.Drawing.Point(0, 20);
-            this.in_Senedler.Size = new System.Drawing.Size(300, 25);
-            this.in_Senedler.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_Senedler.Size = new System.Drawing.Size(300, 76);
             this.in_Senedler.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_Senedler.Multiline = true;
             this.in_Senedler.Height = 72;
@@ -1978,8 +1947,7 @@
             // 
             this.in_TehvilSenedi.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.in_TehvilSenedi.Location = new System.Drawing.Point(0, 20);
-            this.in_TehvilSenedi.Size = new System.Drawing.Size(300, 25);
-            this.in_TehvilSenedi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.in_TehvilSenedi.Size = new System.Drawing.Size(300, 32);
             this.in_TehvilSenedi.Dock = System.Windows.Forms.DockStyle.Top;
             this.in_TehvilSenedi.Name = "in_TehvilSenedi";
             // 
@@ -1989,6 +1957,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Size = new System.Drawing.Size(1216, 712);
             this.Controls.Add(this.tabs);
+            this.Controls.Add(this.chipTabs);
             this.Controls.Add(this.lblFoot);
             this.Controls.Add(this.pnlHead);
             this.Name = "EditPage";
@@ -2135,163 +2104,164 @@
         private TexnikaReyestri.Controls.FlatButton btnSave;
         private TexnikaReyestri.Controls.FlatButton btnNextG;
         private TexnikaReyestri.Controls.FlatButton btnPrevG;
-        private System.Windows.Forms.TabControl tabs;
+        private TexnikaReyestri.Controls.PageTabs tabs;
+        private TexnikaReyestri.Controls.ChipTabBar chipTabs;
         private System.Windows.Forms.Label lblFoot;
         private System.Windows.Forms.TabPage tabPasport;
         private System.Windows.Forms.TableLayoutPanel tlpEPasport;
         private System.Windows.Forms.Panel pf_Nov;
         private System.Windows.Forms.Label lbl_Nov;
-        private System.Windows.Forms.ComboBox in_Nov;
+        private TexnikaReyestri.Controls.RoundComboBox in_Nov;
         private System.Windows.Forms.Panel pf_Marka;
         private System.Windows.Forms.Label lbl_Marka;
-        private System.Windows.Forms.TextBox in_Marka;
+        private TexnikaReyestri.Controls.RoundTextBox in_Marka;
         private System.Windows.Forms.Panel pf_ZavodNo;
         private System.Windows.Forms.Label lbl_ZavodNo;
-        private System.Windows.Forms.TextBox in_ZavodNo;
+        private TexnikaReyestri.Controls.RoundTextBox in_ZavodNo;
         private System.Windows.Forms.Panel pf_IstehsalIli;
         private System.Windows.Forms.Label lbl_IstehsalIli;
-        private System.Windows.Forms.TextBox in_IstehsalIli;
+        private TexnikaReyestri.Controls.RoundTextBox in_IstehsalIli;
         private System.Windows.Forms.Panel pf_IstehsalciZavod;
         private System.Windows.Forms.Label lbl_IstehsalciZavod;
-        private System.Windows.Forms.TextBox in_IstehsalciZavod;
+        private TexnikaReyestri.Controls.RoundTextBox in_IstehsalciZavod;
         private System.Windows.Forms.Panel pf_Derece;
         private System.Windows.Forms.Label lbl_Derece;
-        private System.Windows.Forms.ComboBox in_Derece;
+        private TexnikaReyestri.Controls.RoundComboBox in_Derece;
         private System.Windows.Forms.TabPage tabTemirtarixcesi;
         private System.Windows.Forms.TableLayoutPanel tlpETemirtarixcesi;
         private System.Windows.Forms.Panel pf_OrtaTemir;
         private System.Windows.Forms.Label lbl_OrtaTemir;
-        private System.Windows.Forms.TextBox in_OrtaTemir;
+        private TexnikaReyestri.Controls.RoundTextBox in_OrtaTemir;
         private System.Windows.Forms.Panel pf_EsasliTemir;
         private System.Windows.Forms.Label lbl_EsasliTemir;
-        private System.Windows.Forms.TextBox in_EsasliTemir;
+        private TexnikaReyestri.Controls.RoundTextBox in_EsasliTemir;
         private System.Windows.Forms.TabPage tabIstismargoster;
         private System.Windows.Forms.TableLayoutPanel tlpEIstismargoster;
         private System.Windows.Forms.Panel pf_HerbiHisse;
         private System.Windows.Forms.Label lbl_HerbiHisse;
-        private System.Windows.Forms.TextBox in_HerbiHisse;
+        private TexnikaReyestri.Controls.RoundTextBox in_HerbiHisse;
         private System.Windows.Forms.Panel pf_Km;
         private System.Windows.Forms.Label lbl_Km;
-        private System.Windows.Forms.TextBox in_Km;
+        private TexnikaReyestri.Controls.RoundTextBox in_Km;
         private System.Windows.Forms.Panel pf_Motosaat;
         private System.Windows.Forms.Label lbl_Motosaat;
-        private System.Windows.Forms.TextBox in_Motosaat;
+        private TexnikaReyestri.Controls.RoundTextBox in_Motosaat;
         private System.Windows.Forms.Panel pf_Atislar;
         private System.Windows.Forms.Label lbl_Atislar;
-        private System.Windows.Forms.TextBox in_Atislar;
+        private TexnikaReyestri.Controls.RoundTextBox in_Atislar;
         private System.Windows.Forms.TabPage tabSilahsistemi;
         private System.Windows.Forms.TableLayoutPanel tlpESilahsistemi;
         private System.Windows.Forms.Panel pf_TopCapi;
         private System.Windows.Forms.Label lbl_TopCapi;
-        private System.Windows.Forms.TextBox in_TopCapi;
+        private TexnikaReyestri.Controls.RoundTextBox in_TopCapi;
         private System.Windows.Forms.Panel pf_TopMarka;
         private System.Windows.Forms.Label lbl_TopMarka;
-        private System.Windows.Forms.TextBox in_TopMarka;
+        private TexnikaReyestri.Controls.RoundTextBox in_TopMarka;
         private System.Windows.Forms.Panel pf_LuleNo;
         private System.Windows.Forms.Label lbl_LuleNo;
-        private System.Windows.Forms.TextBox in_LuleNo;
+        private TexnikaReyestri.Controls.RoundTextBox in_LuleNo;
         private System.Windows.Forms.TabPage tabTexnikiveziyye;
         private System.Windows.Forms.TableLayoutPanel tlpETexnikiveziyye;
         private System.Windows.Forms.Panel pf_VMuherrik;
         private System.Windows.Forms.Label lbl_VMuherrik;
-        private System.Windows.Forms.TextBox in_VMuherrik;
+        private TexnikaReyestri.Controls.RoundTextBox in_VMuherrik;
         private System.Windows.Forms.Panel pf_VSassi;
         private System.Windows.Forms.Label lbl_VSassi;
-        private System.Windows.Forms.TextBox in_VSassi;
+        private TexnikaReyestri.Controls.RoundTextBox in_VSassi;
         private System.Windows.Forms.Panel pf_VLule;
         private System.Windows.Forms.Label lbl_VLule;
-        private System.Windows.Forms.TextBox in_VLule;
+        private TexnikaReyestri.Controls.RoundTextBox in_VLule;
         private System.Windows.Forms.Panel pf_VAis;
         private System.Windows.Forms.Label lbl_VAis;
-        private System.Windows.Forms.TextBox in_VAis;
+        private TexnikaReyestri.Controls.RoundTextBox in_VAis;
         private System.Windows.Forms.Panel pf_VOptik;
         private System.Windows.Forms.Label lbl_VOptik;
-        private System.Windows.Forms.TextBox in_VOptik;
+        private TexnikaReyestri.Controls.RoundTextBox in_VOptik;
         private System.Windows.Forms.Panel pf_VDiger;
         private System.Windows.Forms.Label lbl_VDiger;
-        private System.Windows.Forms.TextBox in_VDiger;
+        private TexnikaReyestri.Controls.RoundTextBox in_VDiger;
         private System.Windows.Forms.Panel pf_Qeyd;
         private System.Windows.Forms.Label lbl_Qeyd;
-        private System.Windows.Forms.TextBox in_Qeyd;
+        private TexnikaReyestri.Controls.RoundTextBox in_Qeyd;
         private System.Windows.Forms.TabPage tabCaritemir;
         private System.Windows.Forms.TableLayoutPanel tlpECaritemir;
         private System.Windows.Forms.Panel pf_Status;
         private System.Windows.Forms.Label lbl_Status;
-        private System.Windows.Forms.ComboBox in_Status;
+        private TexnikaReyestri.Controls.RoundComboBox in_Status;
         private System.Windows.Forms.Panel pf_TemirNovu;
         private System.Windows.Forms.Label lbl_TemirNovu;
-        private System.Windows.Forms.ComboBox in_TemirNovu;
+        private TexnikaReyestri.Controls.RoundComboBox in_TemirNovu;
         private System.Windows.Forms.Panel pf_KritikHisse;
         private System.Windows.Forms.Label lbl_KritikHisse;
-        private System.Windows.Forms.ComboBox in_KritikHisse;
+        private TexnikaReyestri.Controls.RoundComboBox in_KritikHisse;
         private System.Windows.Forms.Panel pf_BaslamaTarixi;
         private System.Windows.Forms.Label lbl_BaslamaTarixi;
-        private System.Windows.Forms.DateTimePicker in_BaslamaTarixi;
+        private TexnikaReyestri.Controls.RoundDatePicker in_BaslamaTarixi;
         private System.Windows.Forms.Panel pf_GozlenilenBitme;
         private System.Windows.Forms.Label lbl_GozlenilenBitme;
-        private System.Windows.Forms.DateTimePicker in_GozlenilenBitme;
+        private TexnikaReyestri.Controls.RoundDatePicker in_GozlenilenBitme;
         private System.Windows.Forms.Panel pf_GecikmeSebebi;
         private System.Windows.Forms.Label lbl_GecikmeSebebi;
-        private System.Windows.Forms.TextBox in_GecikmeSebebi;
+        private TexnikaReyestri.Controls.RoundTextBox in_GecikmeSebebi;
         private System.Windows.Forms.Panel pf_Merhele;
         private System.Windows.Forms.Label lbl_Merhele;
-        private System.Windows.Forms.ComboBox in_Merhele;
+        private TexnikaReyestri.Controls.RoundComboBox in_Merhele;
         private System.Windows.Forms.Panel pf_YararsizSebeb;
         private System.Windows.Forms.Label lbl_YararsizSebeb;
-        private System.Windows.Forms.TextBox in_YararsizSebeb;
+        private TexnikaReyestri.Controls.RoundTextBox in_YararsizSebeb;
         private System.Windows.Forms.Panel pf_TemirQeyd;
         private System.Windows.Forms.Label lbl_TemirQeyd;
-        private System.Windows.Forms.TextBox in_TemirQeyd;
+        private TexnikaReyestri.Controls.RoundTextBox in_TemirQeyd;
         private System.Windows.Forms.TabPage tabQebulveicra;
         private System.Windows.Forms.TableLayoutPanel tlpEQebulveicra;
         private System.Windows.Forms.Panel pf_TemirZavodu;
         private System.Windows.Forms.Label lbl_TemirZavodu;
-        private System.Windows.Forms.ComboBox in_TemirZavodu;
+        private TexnikaReyestri.Controls.RoundComboBox in_TemirZavodu;
         private System.Windows.Forms.Panel pf_DaxilolmaTarixi;
         private System.Windows.Forms.Label lbl_DaxilolmaTarixi;
-        private System.Windows.Forms.DateTimePicker in_DaxilolmaTarixi;
+        private TexnikaReyestri.Controls.RoundDatePicker in_DaxilolmaTarixi;
         private System.Windows.Forms.Panel pf_GonderenQurum;
         private System.Windows.Forms.Label lbl_GonderenQurum;
-        private System.Windows.Forms.TextBox in_GonderenQurum;
+        private TexnikaReyestri.Controls.RoundTextBox in_GonderenQurum;
         private System.Windows.Forms.Panel pf_QebulSenedi;
         private System.Windows.Forms.Label lbl_QebulSenedi;
-        private System.Windows.Forms.TextBox in_QebulSenedi;
+        private TexnikaReyestri.Controls.RoundTextBox in_QebulSenedi;
         private System.Windows.Forms.Panel pf_IcraMuddeti;
         private System.Windows.Forms.Label lbl_IcraMuddeti;
-        private System.Windows.Forms.TextBox in_IcraMuddeti;
+        private TexnikaReyestri.Controls.RoundTextBox in_IcraMuddeti;
         private System.Windows.Forms.Panel pf_PlanDeyisikliyi;
         private System.Windows.Forms.Label lbl_PlanDeyisikliyi;
-        private System.Windows.Forms.TextBox in_PlanDeyisikliyi;
+        private TexnikaReyestri.Controls.RoundTextBox in_PlanDeyisikliyi;
         private System.Windows.Forms.Panel pf_MesulIcraci;
         private System.Windows.Forms.Label lbl_MesulIcraci;
-        private System.Windows.Forms.TextBox in_MesulIcraci;
+        private TexnikaReyestri.Controls.RoundTextBox in_MesulIcraci;
         private System.Windows.Forms.TabPage tabEhtiyathissele;
         private System.Windows.Forms.TableLayoutPanel tlpEEhtiyathissele;
         private System.Windows.Forms.Panel pf_TelebHisseler;
         private System.Windows.Forms.Label lbl_TelebHisseler;
-        private System.Windows.Forms.TextBox in_TelebHisseler;
+        private TexnikaReyestri.Controls.RoundTextBox in_TelebHisseler;
         private System.Windows.Forms.Panel pf_Mektublar;
         private System.Windows.Forms.Label lbl_Mektublar;
-        private System.Windows.Forms.TextBox in_Mektublar;
+        private TexnikaReyestri.Controls.RoundTextBox in_Mektublar;
         private System.Windows.Forms.Panel pf_TeminEden;
         private System.Windows.Forms.Label lbl_TeminEden;
-        private System.Windows.Forms.TextBox in_TeminEden;
+        private TexnikaReyestri.Controls.RoundTextBox in_TeminEden;
         private System.Windows.Forms.Panel pf_SorguStatus;
         private System.Windows.Forms.Label lbl_SorguStatus;
-        private System.Windows.Forms.ComboBox in_SorguStatus;
+        private TexnikaReyestri.Controls.RoundComboBox in_SorguStatus;
         private System.Windows.Forms.Panel pf_HisseDaxilolma;
         private System.Windows.Forms.Label lbl_HisseDaxilolma;
-        private System.Windows.Forms.TextBox in_HisseDaxilolma;
+        private TexnikaReyestri.Controls.RoundTextBox in_HisseDaxilolma;
         private System.Windows.Forms.Panel pf_Senedler;
         private System.Windows.Forms.Label lbl_Senedler;
-        private System.Windows.Forms.TextBox in_Senedler;
+        private TexnikaReyestri.Controls.RoundTextBox in_Senedler;
         private System.Windows.Forms.TabPage tabTehvil;
         private System.Windows.Forms.TableLayoutPanel tlpETehvil;
         private System.Windows.Forms.Panel pf_FaktikiBitme;
         private System.Windows.Forms.Label lbl_FaktikiBitme;
-        private System.Windows.Forms.DateTimePicker in_FaktikiBitme;
+        private TexnikaReyestri.Controls.RoundDatePicker in_FaktikiBitme;
         private System.Windows.Forms.Panel pf_TehvilSenedi;
         private System.Windows.Forms.Label lbl_TehvilSenedi;
-        private System.Windows.Forms.TextBox in_TehvilSenedi;
+        private TexnikaReyestri.Controls.RoundTextBox in_TehvilSenedi;
     }
 }

@@ -22,12 +22,12 @@
             this.pnlForm = new System.Windows.Forms.Panel();
             this.btnClose = new TexnikaReyestri.Controls.FlatButton();
             this.btnTheme = new TexnikaReyestri.Controls.FlatButton();
-            this.cmbLang = new System.Windows.Forms.ComboBox();
+            this.cmbLang = new TexnikaReyestri.Controls.RoundComboBox();
             this.lblHeader = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
-            this.txtUser = new System.Windows.Forms.TextBox();
+            this.txtUser = new TexnikaReyestri.Controls.RoundTextBox();
             this.lblPass = new System.Windows.Forms.Label();
-            this.txtPass = new System.Windows.Forms.TextBox();
+            this.txtPass = new TexnikaReyestri.Controls.RoundTextBox();
             this.btnLogin = new TexnikaReyestri.Controls.FlatButton();
             this.lblError = new System.Windows.Forms.Label();
             this.pnlBrand.SuspendLayout();
@@ -157,7 +157,6 @@
             this.txtUser.Font = new System.Drawing.Font("Segoe UI", 11.0F);
             this.txtUser.Location = new System.Drawing.Point(120, 224);
             this.txtUser.Size = new System.Drawing.Size(300, 27);
-            this.txtUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUser.Name = "txtUser";
             // 
             // lblPass
@@ -174,7 +173,6 @@
             this.txtPass.Font = new System.Drawing.Font("Segoe UI", 11.0F);
             this.txtPass.Location = new System.Drawing.Point(120, 286);
             this.txtPass.Size = new System.Drawing.Size(300, 27);
-            this.txtPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPass.UseSystemPasswordChar = true;
             this.txtPass.Name = "txtPass";
             // 
@@ -230,12 +228,12 @@
         private System.Windows.Forms.Panel pnlForm;
         private TexnikaReyestri.Controls.FlatButton btnClose;
         private TexnikaReyestri.Controls.FlatButton btnTheme;
-        private System.Windows.Forms.ComboBox cmbLang;
+        private TexnikaReyestri.Controls.RoundComboBox cmbLang;
         private System.Windows.Forms.Label lblHeader;
         private System.Windows.Forms.Label lblUser;
-        private System.Windows.Forms.TextBox txtUser;
+        private TexnikaReyestri.Controls.RoundTextBox txtUser;
         private System.Windows.Forms.Label lblPass;
-        private System.Windows.Forms.TextBox txtPass;
+        private TexnikaReyestri.Controls.RoundTextBox txtPass;
         private TexnikaReyestri.Controls.FlatButton btnLogin;
         private System.Windows.Forms.Label lblError;
     }

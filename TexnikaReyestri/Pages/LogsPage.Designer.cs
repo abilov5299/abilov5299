@@ -16,10 +16,10 @@
         {
             this.pnlHead = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.dtFrom = new System.Windows.Forms.DateTimePicker();
+            this.dtFrom = new TexnikaReyestri.Controls.RoundDatePicker();
             this.lblDash = new System.Windows.Forms.Label();
-            this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.cmbType = new System.Windows.Forms.ComboBox();
+            this.dtTo = new TexnikaReyestri.Controls.RoundDatePicker();
+            this.cmbType = new TexnikaReyestri.Controls.RoundComboBox();
             this.btnSearch = new TexnikaReyestri.Controls.FlatButton();
             this.rpGrid = new TexnikaReyestri.Controls.RoundPanel();
             this.grid = new TexnikaReyestri.Controls.ModernGrid();
@@ -197,10 +197,10 @@
 
         private System.Windows.Forms.Panel pnlHead;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.DateTimePicker dtFrom;
+        private TexnikaReyestri.Controls.RoundDatePicker dtFrom;
         private System.Windows.Forms.Label lblDash;
-        private System.Windows.Forms.DateTimePicker dtTo;
-        private System.Windows.Forms.ComboBox cmbType;
+        private TexnikaReyestri.Controls.RoundDatePicker dtTo;
+        private TexnikaReyestri.Controls.RoundComboBox cmbType;
         private TexnikaReyestri.Controls.FlatButton btnSearch;
         private TexnikaReyestri.Controls.RoundPanel rpGrid;
         private TexnikaReyestri.Controls.ModernGrid grid;

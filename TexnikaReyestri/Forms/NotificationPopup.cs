@@ -42,5 +42,8 @@ namespace TexnikaReyestri.Forms
         private async void lnkReadAll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) { await SistemRepo.OxunduAsync(null); await MainForm.Current.BadgeYenileAsync(); Close(); }
         private async void lnkAll_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) { Close(); await MainForm.Current.AcAsync("noti"); }
         private void NotificationPopup_Deactivate(object sender, EventArgs e) => Close();
+
+        protected override CreateParams CreateParams { get { var cp = base.CreateParams; cp.ClassStyle |= Win32.CS_DROPSHADOW; return cp; } }
+        protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); Win32.Yumru(this); }
     }
 }

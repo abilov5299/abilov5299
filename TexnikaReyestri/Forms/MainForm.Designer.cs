@@ -29,12 +29,12 @@
             this.lblQurum = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
             this.btnTheme = new TexnikaReyestri.Controls.FlatButton();
-            this.cmbLang = new System.Windows.Forms.ComboBox();
+            this.cmbLang = new TexnikaReyestri.Controls.RoundComboBox();
             this.btnBell = new TexnikaReyestri.Controls.FlatButton();
             this.lblBadge = new System.Windows.Forms.Label();
-            this.btnMin = new TexnikaReyestri.Controls.FlatButton();
-            this.btnMax = new TexnikaReyestri.Controls.FlatButton();
-            this.btnClose = new TexnikaReyestri.Controls.FlatButton();
+            this.btnMin = new TexnikaReyestri.Controls.CaptionButton();
+            this.btnMax = new TexnikaReyestri.Controls.CaptionButton();
+            this.btnClose = new TexnikaReyestri.Controls.CaptionButton();
             this.pnlContent = new System.Windows.Forms.Panel();
             this.pnlNav.SuspendLayout();
             this.pnlTop.SuspendLayout();
@@ -242,39 +242,27 @@
             // 
             // btnMin
             // 
-            this.btnMin.Kind = TexnikaReyestri.Controls.ButtonKind.Ghost;
+            this.btnMin.Kind = TexnikaReyestri.Controls.CaptionKind.Minimize;
             this.btnMin.Location = new System.Drawing.Point(1070, 0);
             this.btnMin.Size = new System.Drawing.Size(46, 48);
-            this.btnMin.Text = "";
-            this.btnMin.Glyph = "\uE921";
             this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMin.CornerRadius = 0;
             this.btnMin.Name = "btnMin";
-            this.btnMin.Click += new System.EventHandler(this.btnMin_Click);
             // 
             // btnMax
             // 
-            this.btnMax.Kind = TexnikaReyestri.Controls.ButtonKind.Ghost;
+            this.btnMax.Kind = TexnikaReyestri.Controls.CaptionKind.Maximize;
             this.btnMax.Location = new System.Drawing.Point(1116, 0);
             this.btnMax.Size = new System.Drawing.Size(46, 48);
-            this.btnMax.Text = "";
-            this.btnMax.Glyph = "\uE922";
             this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMax.CornerRadius = 0;
             this.btnMax.Name = "btnMax";
-            this.btnMax.Click += new System.EventHandler(this.btnMax_Click);
             // 
             // btnClose
             // 
-            this.btnClose.Kind = TexnikaReyestri.Controls.ButtonKind.Ghost;
+            this.btnClose.Kind = TexnikaReyestri.Controls.CaptionKind.Close;
             this.btnClose.Location = new System.Drawing.Point(1162, 0);
             this.btnClose.Size = new System.Drawing.Size(46, 48);
-            this.btnClose.Text = "";
-            this.btnClose.Glyph = "\uE8BB";
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.CornerRadius = 0;
             this.btnClose.Name = "btnClose";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // pnlContent
             // 
@@ -326,12 +314,12 @@
         private System.Windows.Forms.Label lblQurum;
         private System.Windows.Forms.Label lblUser;
         private TexnikaReyestri.Controls.FlatButton btnTheme;
-        private System.Windows.Forms.ComboBox cmbLang;
+        private TexnikaReyestri.Controls.RoundComboBox cmbLang;
         private TexnikaReyestri.Controls.FlatButton btnBell;
         private System.Windows.Forms.Label lblBadge;
-        private TexnikaReyestri.Controls.FlatButton btnMin;
-        private TexnikaReyestri.Controls.FlatButton btnMax;
-        private TexnikaReyestri.Controls.FlatButton btnClose;
+        private TexnikaReyestri.Controls.CaptionButton btnMin;
+        private TexnikaReyestri.Controls.CaptionButton btnMax;
+        private TexnikaReyestri.Controls.CaptionButton btnClose;
         private System.Windows.Forms.Panel pnlContent;
     }
 }

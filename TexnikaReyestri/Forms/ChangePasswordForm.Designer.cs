@@ -18,9 +18,9 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.ltxtNew = new System.Windows.Forms.Label();
-            this.txtNew = new System.Windows.Forms.TextBox();
+            this.txtNew = new TexnikaReyestri.Controls.RoundTextBox();
             this.ltxtNew2 = new System.Windows.Forms.Label();
-            this.txtNew2 = new System.Windows.Forms.TextBox();
+            this.txtNew2 = new TexnikaReyestri.Controls.RoundTextBox();
             this.lblErr = new System.Windows.Forms.Label();
             this.btnOk = new TexnikaReyestri.Controls.FlatButton();
             this.btnCancel = new TexnikaReyestri.Controls.FlatButton();
@@ -76,7 +76,6 @@
             this.txtNew.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtNew.Location = new System.Drawing.Point(24, 116);
             this.txtNew.Size = new System.Drawing.Size(300, 25);
-            this.txtNew.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNew.UseSystemPasswordChar = true;
             this.txtNew.Name = "txtNew";
             // 
@@ -94,7 +93,6 @@
             this.txtNew2.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtNew2.Location = new System.Drawing.Point(24, 166);
             this.txtNew2.Size = new System.Drawing.Size(300, 25);
-            this.txtNew2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNew2.UseSystemPasswordChar = true;
             this.txtNew2.Name = "txtNew2";
             // 
@@ -151,9 +149,9 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label ltxtNew;
-        private System.Windows.Forms.TextBox txtNew;
+        private TexnikaReyestri.Controls.RoundTextBox txtNew;
         private System.Windows.Forms.Label ltxtNew2;
-        private System.Windows.Forms.TextBox txtNew2;
+        private TexnikaReyestri.Controls.RoundTextBox txtNew2;
         private System.Windows.Forms.Label lblErr;
         private TexnikaReyestri.Controls.FlatButton btnOk;
         private TexnikaReyestri.Controls.FlatButton btnCancel;

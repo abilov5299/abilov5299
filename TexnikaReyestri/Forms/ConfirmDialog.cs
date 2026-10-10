@@ -21,5 +21,8 @@ namespace TexnikaReyestri.Forms
         protected override void OnLoad(EventArgs e) { Ui.Hazirla(this); BackColor = Theme.Line; base.OnLoad(e); }
         private void btnOk_Click(object sender, EventArgs e) { DialogResult = DialogResult.OK; }
         private void btnCancel_Click(object sender, EventArgs e) { DialogResult = DialogResult.Cancel; }
+
+        protected override CreateParams CreateParams { get { var cp = base.CreateParams; cp.ClassStyle |= Win32.CS_DROPSHADOW; return cp; } }
+        protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); Win32.Yumru(this); }
     }
 }

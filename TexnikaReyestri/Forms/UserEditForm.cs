@@ -58,5 +58,8 @@ namespace TexnikaReyestri.Forms
             catch (Exception ex) { lblErr.Text = ex.Message; }
         }
         private void btnCancel_Click(object sender, EventArgs e) => DialogResult = DialogResult.Cancel;
+
+        protected override CreateParams CreateParams { get { var cp = base.CreateParams; cp.ClassStyle |= Win32.CS_DROPSHADOW; return cp; } }
+        protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); Win32.Yumru(this); }
     }
 }

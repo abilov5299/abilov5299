@@ -17,15 +17,15 @@
             this.pnlBody = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.ltxtLogin = new System.Windows.Forms.Label();
-            this.txtLogin = new System.Windows.Forms.TextBox();
+            this.txtLogin = new TexnikaReyestri.Controls.RoundTextBox();
             this.ltxtName = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtName = new TexnikaReyestri.Controls.RoundTextBox();
             this.lQurum = new System.Windows.Forms.Label();
-            this.cmbQurum = new System.Windows.Forms.ComboBox();
+            this.cmbQurum = new TexnikaReyestri.Controls.RoundComboBox();
             this.lRol = new System.Windows.Forms.Label();
-            this.cmbRol = new System.Windows.Forms.ComboBox();
+            this.cmbRol = new TexnikaReyestri.Controls.RoundComboBox();
             this.ltxtPass = new System.Windows.Forms.Label();
-            this.txtPass = new System.Windows.Forms.TextBox();
+            this.txtPass = new TexnikaReyestri.Controls.RoundTextBox();
             this.chkTemp = new System.Windows.Forms.CheckBox();
             this.lblRoleInfo = new System.Windows.Forms.Label();
             this.lblErr = new System.Windows.Forms.Label();
@@ -80,7 +80,6 @@
             this.txtLogin.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtLogin.Location = new System.Drawing.Point(24, 76);
             this.txtLogin.Size = new System.Drawing.Size(270, 25);
-            this.txtLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLogin.Name = "txtLogin";
             // 
             // ltxtName
@@ -97,7 +96,6 @@
             this.txtName.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtName.Location = new System.Drawing.Point(316, 76);
             this.txtName.Size = new System.Drawing.Size(270, 25);
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Name = "txtName";
             // 
             // lQurum
@@ -150,7 +148,6 @@
             this.txtPass.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtPass.Location = new System.Drawing.Point(24, 176);
             this.txtPass.Size = new System.Drawing.Size(270, 25);
-            this.txtPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPass.Name = "txtPass";
             // 
             // chkTemp
@@ -223,15 +220,15 @@
         private System.Windows.Forms.Panel pnlBody;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label ltxtLogin;
-        private System.Windows.Forms.TextBox txtLogin;
+        private TexnikaReyestri.Controls.RoundTextBox txtLogin;
         private System.Windows.Forms.Label ltxtName;
-        private System.Windows.Forms.TextBox txtName;
+        private TexnikaReyestri.Controls.RoundTextBox txtName;
         private System.Windows.Forms.Label lQurum;
-        private System.Windows.Forms.ComboBox cmbQurum;
+        private TexnikaReyestri.Controls.RoundComboBox cmbQurum;
         private System.Windows.Forms.Label lRol;
-        private System.Windows.Forms.ComboBox cmbRol;
+        private TexnikaReyestri.Controls.RoundComboBox cmbRol;
         private System.Windows.Forms.Label ltxtPass;
-        private System.Windows.Forms.TextBox txtPass;
+        private TexnikaReyestri.Controls.RoundTextBox txtPass;
         private System.Windows.Forms.CheckBox chkTemp;
         private System.Windows.Forms.Label lblRoleInfo;
         private System.Windows.Forms.Label lblErr;

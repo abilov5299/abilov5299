@@ -21,9 +21,9 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnExport = new TexnikaReyestri.Controls.FlatButton();
             this.btnImport = new TexnikaReyestri.Controls.FlatButton();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.cmbStatus = new System.Windows.Forms.ComboBox();
-            this.cmbZavod = new System.Windows.Forms.ComboBox();
+            this.txtSearch = new TexnikaReyestri.Controls.RoundTextBox();
+            this.cmbStatus = new TexnikaReyestri.Controls.RoundComboBox();
+            this.cmbZavod = new TexnikaReyestri.Controls.RoundComboBox();
             this.cardAll = new TexnikaReyestri.Controls.StatCard();
             this.cardRepair = new TexnikaReyestri.Controls.StatCard();
             this.cardLate = new TexnikaReyestri.Controls.StatCard();
@@ -126,7 +126,6 @@
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtSearch.Location = new System.Drawing.Point(706, 8);
             this.txtSearch.Size = new System.Drawing.Size(212, 25);
-            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearch.PlaceholderText = "Marka, zavod nömrəsi...";
             this.txtSearch.Name = "txtSearch";
@@ -314,9 +313,9 @@
         private System.Windows.Forms.Label lblTitle;
         private TexnikaReyestri.Controls.FlatButton btnExport;
         private TexnikaReyestri.Controls.FlatButton btnImport;
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.ComboBox cmbStatus;
-        private System.Windows.Forms.ComboBox cmbZavod;
+        private TexnikaReyestri.Controls.RoundTextBox txtSearch;
+        private TexnikaReyestri.Controls.RoundComboBox cmbStatus;
+        private TexnikaReyestri.Controls.RoundComboBox cmbZavod;
         private TexnikaReyestri.Controls.StatCard cardAll;
         private TexnikaReyestri.Controls.StatCard cardRepair;
         private TexnikaReyestri.Controls.StatCard cardLate;

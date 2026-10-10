@@ -29,6 +29,24 @@ namespace TexnikaReyestri.Controls
             return Core.Theme.Bg;
         }
 
+        /// <summary>Şəffaf kontrolun arxa fonunu ucuz yolla çəkir: rəngli valideyn → düz rəng, səhifə → keşlənmiş bitmap kəsiyi.</summary>
+        public static void ParentBack(Control c, Graphics g)
+        {
+            for (var p = c.Parent; p != null; p = p.Parent)
+            {
+                if (p is RoundPanel rp && rp.Fill != PanelFill.Transparent) { using var b = new SolidBrush(rp.FillColor); g.FillRectangle(b, c.ClientRectangle); return; }
+                if (p is PageBase pb)
+                {
+                    var bmp = pb.Fon; if (bmp == null) break;
+                    var o = pb.PointToClient(c.PointToScreen(Point.Empty));
+                    g.DrawImage(bmp, new Rectangle(Point.Empty, c.Size), new Rectangle(o, c.Size), GraphicsUnit.Pixel);
+                    return;
+                }
+                if (p is not RoundPanel && p.BackColor.A == 255) { using var b = new SolidBrush(p.BackColor); g.FillRectangle(b, c.ClientRectangle); return; }
+            }
+            using (var b2 = new SolidBrush(Core.Theme.Bg)) g.FillRectangle(b2, c.ClientRectangle);
+        }
+
         public static void Smooth(Graphics g)
         {
             g.SmoothingMode = SmoothingMode.AntiAlias;

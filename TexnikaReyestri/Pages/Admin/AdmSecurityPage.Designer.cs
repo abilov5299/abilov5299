@@ -40,9 +40,9 @@
             this.unumIdle = new System.Windows.Forms.Label();
             this.lblAdminPw = new System.Windows.Forms.Label();
             this.lNew = new System.Windows.Forms.Label();
-            this.txtNew = new System.Windows.Forms.TextBox();
+            this.txtNew = new TexnikaReyestri.Controls.RoundTextBox();
             this.lNew2 = new System.Windows.Forms.Label();
-            this.txtNew2 = new System.Windows.Forms.TextBox();
+            this.txtNew2 = new TexnikaReyestri.Controls.RoundTextBox();
             this.btnAdminPw = new TexnikaReyestri.Controls.FlatButton();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numExp)).BeginInit();
@@ -321,7 +321,6 @@
             this.txtNew.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtNew.Location = new System.Drawing.Point(14, 220);
             this.txtNew.Size = new System.Drawing.Size(200, 25);
-            this.txtNew.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNew.UseSystemPasswordChar = true;
             this.txtNew.Name = "txtNew";
             // 
@@ -339,7 +338,6 @@
             this.txtNew2.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtNew2.Location = new System.Drawing.Point(222, 220);
             this.txtNew2.Size = new System.Drawing.Size(200, 25);
-            this.txtNew2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNew2.UseSystemPasswordChar = true;
             this.txtNew2.Name = "txtNew2";
             // 
@@ -405,9 +403,9 @@
         private System.Windows.Forms.Label unumIdle;
         private System.Windows.Forms.Label lblAdminPw;
         private System.Windows.Forms.Label lNew;
-        private System.Windows.Forms.TextBox txtNew;
+        private TexnikaReyestri.Controls.RoundTextBox txtNew;
         private System.Windows.Forms.Label lNew2;
-        private System.Windows.Forms.TextBox txtNew2;
+        private TexnikaReyestri.Controls.RoundTextBox txtNew2;
         private TexnikaReyestri.Controls.FlatButton btnAdminPw;
     }
 }

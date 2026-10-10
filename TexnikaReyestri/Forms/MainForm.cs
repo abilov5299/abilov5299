@@ -43,6 +43,9 @@ namespace TexnikaReyestri.Forms
             int y = 70;
             foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navNoti, navSync, navLogs, navBackup }.Where(n => n.Visible)) { n.Top = y; y += 52; }
             Ui.Hazirla(this); YerlesdirBaslig();
+            // Sınaq üçün: baza boşdursa bir dəfə 10 nümunə texnika yazılır
+            if (await SistemRepo.ParamStrAsync("Numune10") == null && await TexnikaRepo.SayAsync(new ReyestrFiltr()) == 0)
+            { await DemoData.On10Async(Session.ZavodFiltri); await SistemRepo.ParamYazAsync("Numune10", "1"); }
             await AcAsync("home");
             _badge.Start(); _idle.Start();
             Application.AddMessageFilter(new FealiyyetFiltri(() => _sonFealiyyet = DateTime.Now));
@@ -110,7 +113,6 @@ namespace TexnikaReyestri.Forms
         // ---------------- Başlıq zolağı ----------------
         private void pnlTop_MouseDown(object sender, MouseEventArgs e) { if (e.Button == MouseButtons.Left && e.Clicks == 1) Win32.DragWindow(this); }
         private void pnlTop_Paint(object sender, PaintEventArgs e) { using var p = new Pen(Theme.Line); e.Graphics.DrawLine(p, 0, pnlTop.Height - 1, pnlTop.Width, pnlTop.Height - 1); }
-        private void btnMin_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
         private void btnMax_Click(object sender, EventArgs e)
         {
             MaximizedBounds = Screen.FromControl(this).WorkingArea;
@@ -133,7 +135,6 @@ namespace TexnikaReyestri.Forms
             CixisEdildi = true; Close();
         }
 
-        private void btnClose_Click(object sender, EventArgs e) => Close();
         private bool _baglamaTesdiq;
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -190,7 +191,12 @@ namespace TexnikaReyestri.Forms
             }
         }
 
-        protected override void OnPaint(PaintEventArgs e) { base.OnPaint(e); Ui.Kenar(this, e); }
+        protected override void OnPaint(PaintEventArgs e) { base.OnPaint(e); if (WindowState == FormWindowState.Normal) Ui.Kenar(this, e); }
+        // Böyüdüləndə tapşırıq panelini örtməsin (pəncərə hansı ekrandadırsa)
+        protected override void OnMove(EventArgs e) { base.OnMove(e); if (WindowState == FormWindowState.Normal) MaximizedBounds = Screen.FromHandle(Handle).WorkingArea; }
         protected override void OnFormClosed(FormClosedEventArgs e) { _badge.Stop(); _idle.Stop(); Current = null; base.OnFormClosed(e); }
+
+        protected override CreateParams CreateParams { get { var cp = base.CreateParams; cp.ClassStyle |= Win32.CS_DROPSHADOW; return cp; } }
+        protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); Win32.Yumru(this); }
     }
 }

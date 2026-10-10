@@ -18,7 +18,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
             this.ltxtPass = new System.Windows.Forms.Label();
-            this.txtPass = new System.Windows.Forms.TextBox();
+            this.txtPass = new TexnikaReyestri.Controls.RoundTextBox();
             this.lblErr = new System.Windows.Forms.Label();
             this.btnOk = new TexnikaReyestri.Controls.FlatButton();
             this.btnCancel = new TexnikaReyestri.Controls.FlatButton();
@@ -71,7 +71,6 @@
             this.txtPass.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.txtPass.Location = new System.Drawing.Point(24, 102);
             this.txtPass.Size = new System.Drawing.Size(300, 25);
-            this.txtPass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPass.UseSystemPasswordChar = true;
             this.txtPass.Name = "txtPass";
             // 
@@ -127,7 +126,7 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label ltxtPass;
-        private System.Windows.Forms.TextBox txtPass;
+        private TexnikaReyestri.Controls.RoundTextBox txtPass;
         private System.Windows.Forms.Label lblErr;
         private TexnikaReyestri.Controls.FlatButton btnOk;
         private TexnikaReyestri.Controls.FlatButton btnCancel;
