@@ -9,7 +9,7 @@ namespace TexnikaReyestri.Forms
         private readonly string _login;
         public ChangePasswordForm() { InitializeComponent(); }
         public ChangePasswordForm(string login) : this() { _login = login; }
-        protected override void OnLoad(EventArgs e) { Ui.Hazirla(this); BackColor = Theme.Line; base.OnLoad(e); }
+        protected override void OnLoad(EventArgs e) { lblInfo.Text = "Müvəqqəti parolla daxil oldunuz və ya parolun müddəti bitib. Davam etmək üçün yeni parol təyin edin."; Ui.Hazirla(this); BackColor = Theme.Line; base.OnLoad(e); }
 
         private async void btnOk_Click(object sender, EventArgs e)
         {

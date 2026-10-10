@@ -21,17 +21,19 @@ namespace TexnikaReyestri.Services
 
         public static async Task<(GirisNetice netice, int qalan)> GirisAsync(string login, string parol)
         {
-            int limit = await SistemRepo.ParamAsync("Blok", 5);
+            int limit = await SistemRepo.ParamAsync("Blok", 5), muddet = await SistemRepo.ParamAsync("ParolMuddet", 90);
             return await Task.Run(() => LocalDb.YazAsync(async (con, tr) =>
             {
                 using var cmd = con.CreateCommand(); cmd.Transaction = tr;
-                cmd.CommandText = "SELECT i.AdSoyad, i.Rol, i.Hash, i.Duz, i.Aktiv, i.YanlisCehd, i.Muveqqeti, q.Kod, q.Ad, q.Tip FROM Istifadeciler i JOIN Qurumlar q ON q.Kod=i.QurumKod WHERE i.Login=$l;";
+                cmd.CommandText = "SELECT i.AdSoyad, i.Rol, i.Hash, i.Duz, i.Aktiv, i.YanlisCehd, i.Muveqqeti, q.Kod, q.Ad, q.Tip, i.ParolTarixi FROM Istifadeciler i JOIN Qurumlar q ON q.Kod=i.QurumKod WHERE i.Login=$l;";
                 cmd.Parameters.AddWithValue("$l", login.Trim());
                 using var r = await cmd.ExecuteReaderAsync();
                 if (!await r.ReadAsync()) return (GirisNetice.Yanlis, limit);
                 string ad = r.GetString(0), rol = r.GetString(1); var h = (byte[])r[2]; var s = (byte[])r[3];
                 bool aktiv = r.GetInt32(4) == 1; int cehd = r.GetInt32(5); bool tmp = r.GetInt32(6) == 1;
                 string qk = r.GetString(7), qa = r.GetString(8); var tip = (QurumTip)r.GetInt32(9);
+                // Parolun müddəti bitibsə, girişdən sonra yeni parol tələb olunur
+                if (muddet > 0 && !r.IsDBNull(10) && (Vaxt.Indi - r.GetInt64(10)) > muddet * 86_400_000L) tmp = true;
                 await r.CloseAsync();
                 if (!aktiv) return (GirisNetice.Bloklanib, 0);
                 using var u = con.CreateCommand(); u.Transaction = tr; u.Parameters.AddWithValue("$l", login.Trim());
