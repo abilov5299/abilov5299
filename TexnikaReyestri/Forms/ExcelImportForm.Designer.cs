@@ -221,6 +221,11 @@
             this.lblDrop.Size = new System.Drawing.Size(884, 120);
             this.lblDrop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblDrop.Name = "lblDrop";
+            this.lblDrop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblDrop.AllowDrop = true;
+            this.lblDrop.Click += new System.EventHandler(this.btnPick_Click);
+            this.lblDrop.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlDrop_DragEnter);
+            this.lblDrop.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlDrop_DragDrop);
             // 
             // lblFile
             // 

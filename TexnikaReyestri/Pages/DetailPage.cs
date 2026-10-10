@@ -94,8 +94,15 @@ namespace TexnikaReyestri.Pages
                         if (ch is TableLayoutPanel t)
                             foreach (Control l in t.Controls) if (l is Label lb) lb.MaximumSize = new Size((int)(w * (lb.Name.StartsWith("cap_") ? 0.46 : 0.5)), 0);
                     }
-                    card.PerformLayout();
-                    int h = card.Controls.Cast<Control>().Where(x => x.Visible).Select(x => x.Bottom).DefaultIfEmpty(30).Max() + card.Padding.Bottom + 6;
+                    // Hündürlük məzmunun "istədiyi" ölçüdən hesablanır (köhnə yerləşmədən yox) — pəncərə böyüyəndə kartlar sıxılmır
+                    int iw = w - card.Padding.Horizontal, h = card.Padding.Top;
+                    foreach (Control ch in card.Controls)
+                    {
+                        if (!ch.Visible) continue;
+                        if (ch is TableLayoutPanel or FlowLayoutPanel) ch.Height = ch.GetPreferredSize(new Size(iw, 0)).Height;
+                        h += ch.Height;
+                    }
+                    h += card.Padding.Bottom + 6;
                     card.Height = Math.Max(60, h);
                     card.Top = top - scroll.Offset; top += card.Height + gap;
                 }

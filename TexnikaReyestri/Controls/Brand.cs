@@ -152,12 +152,15 @@ namespace TexnikaReyestri.Controls
             int max = Math.Max(0, ContentHeight - ClientSize.Height);
             int n = Math.Clamp(_offset + dy, 0, max), d = n - _offset;
             if (d == 0) return;
-            _offset = n; SuspendLayout();
-            foreach (Control c in Controls) c.Top -= d;
-            ResumeLayout(); Invalidate();
+            _offset = n;
+            // Windows-un öz sürüşdürməsi: görünən hissə bir dəfə köçürülür, yalnız açılan zolaq yenidən çəkilir (donma və qırıq şəkil olmur)
+            ScrollWindowEx(Handle, 0, -d, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, 0x0001 | 0x0002 | 0x0004); // SCROLLCHILDREN|INVALIDATE|ERASE
+            Update();
         }
 
         public void ScrollToTop() => ScrollBy(-_offset);
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern int ScrollWindowEx(IntPtr h, int dx, int dy, IntPtr scroll, IntPtr clip, IntPtr rgn, IntPtr upd, int flags);
         protected override void OnMouseWheel(MouseEventArgs e) { ScrollBy(-e.Delta / 120 * 48); base.OnMouseWheel(e); }
     }
 }
