@@ -268,7 +268,7 @@
             // btnSave
             // 
             this.btnSave.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnSave.Location = new System.Drawing.Point(1086, 4);
+            this.btnSave.Location = new System.Drawing.Point(1036, 4);
             this.btnSave.Size = new System.Drawing.Size(130, 34);
             this.btnSave.Text = "Yadda saxla";
             this.btnSave.Glyph = "\uE74E";
@@ -279,7 +279,7 @@
             // btnNextG
             // 
             this.btnNextG.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnNextG.Location = new System.Drawing.Point(946, 4);
+            this.btnNextG.Location = new System.Drawing.Point(896, 4);
             this.btnNextG.Size = new System.Drawing.Size(134, 34);
             this.btnNextG.Text = "Növbəti qrup";
             this.btnNextG.Glyph = "\uE72A";
@@ -290,7 +290,7 @@
             // btnPrevG
             // 
             this.btnPrevG.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnPrevG.Location = new System.Drawing.Point(806, 4);
+            this.btnPrevG.Location = new System.Drawing.Point(756, 4);
             this.btnPrevG.Size = new System.Drawing.Size(134, 34);
             this.btnPrevG.Text = "Əvvəlki qrup";
             this.btnPrevG.Glyph = "\uE72B";

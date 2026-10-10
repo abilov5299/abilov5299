@@ -237,7 +237,7 @@
             // btnEdit
             // 
             this.btnEdit.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnEdit.Location = new System.Drawing.Point(1082, 20);
+            this.btnEdit.Location = new System.Drawing.Point(1046, 20);
             this.btnEdit.Size = new System.Drawing.Size(112, 34);
             this.btnEdit.Text = "Redaktə";
             this.btnEdit.Glyph = "\uE70F";
@@ -248,7 +248,7 @@
             // btnPdf
             // 
             this.btnPdf.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnPdf.Location = new System.Drawing.Point(954, 20);
+            this.btnPdf.Location = new System.Drawing.Point(918, 20);
             this.btnPdf.Size = new System.Drawing.Size(122, 34);
             this.btnPdf.Text = "PDF pasport";
             this.btnPdf.Glyph = "\uE749";
@@ -259,7 +259,7 @@
             // btnNext
             // 
             this.btnNext.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnNext.Location = new System.Drawing.Point(850, 20);
+            this.btnNext.Location = new System.Drawing.Point(814, 20);
             this.btnNext.Size = new System.Drawing.Size(98, 34);
             this.btnNext.Text = "Növbəti";
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -269,7 +269,7 @@
             // btnPrev
             // 
             this.btnPrev.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnPrev.Location = new System.Drawing.Point(746, 20);
+            this.btnPrev.Location = new System.Drawing.Point(710, 20);
             this.btnPrev.Size = new System.Drawing.Size(98, 34);
             this.btnPrev.Text = "Əvvəlki";
             this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));

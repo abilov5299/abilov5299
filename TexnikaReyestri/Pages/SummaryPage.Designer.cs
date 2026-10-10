@@ -62,7 +62,7 @@
             // 
             this.lblAsOf.AutoSize = true;
             this.lblAsOf.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.lblAsOf.Location = new System.Drawing.Point(860, 14);
+            this.lblAsOf.Location = new System.Drawing.Point(810, 14);
             this.lblAsOf.Text = "Son idxala görə";
             this.lblAsOf.Tag = "muted";
             this.lblAsOf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -71,7 +71,7 @@
             // btnExport
             // 
             this.btnExport.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnExport.Location = new System.Drawing.Point(1076, 4);
+            this.btnExport.Location = new System.Drawing.Point(1026, 4);
             this.btnExport.Size = new System.Drawing.Size(140, 34);
             this.btnExport.Text = "Excel-ə çıxar";
             this.btnExport.Glyph = "\uE896";

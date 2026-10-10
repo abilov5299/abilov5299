@@ -83,7 +83,7 @@
             // 
             // segPeriod
             // 
-            this.segPeriod.Location = new System.Drawing.Point(956, 6);
+            this.segPeriod.Location = new System.Drawing.Point(906, 6);
             this.segPeriod.Size = new System.Drawing.Size(260, 30);
             this.segPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.segPeriod.Items = new string[] {

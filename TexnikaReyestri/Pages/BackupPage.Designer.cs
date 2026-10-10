@@ -68,7 +68,7 @@
             // btnNow
             // 
             this.btnNow.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnNow.Location = new System.Drawing.Point(1066, 4);
+            this.btnNow.Location = new System.Drawing.Point(1016, 4);
             this.btnNow.Size = new System.Drawing.Size(150, 34);
             this.btnNow.Text = "İndi nüsxə al";
             this.btnNow.Glyph = "\uE7B8";

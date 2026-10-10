@@ -30,7 +30,12 @@ namespace TexnikaReyestri.Core
         public static void Set(Language l) { Current = l; Changed?.Invoke(null, EventArgs.Empty); }
 
         /// <summary>Kodda yazılan mətnlər üçün: Lang.T("Yadda saxla")</summary>
-        public static string T(string az)
+        public static string T(string az) => T(az, Current);
+
+        /// <summary>Mətn bu orijinalın istənilən dildəki tərcüməsidirmi (dil dəyişəndə köhnə dildəki mətni tanımaq üçün).</summary>
+        private static bool Tercumesi(string az, string current) => current == az || current == T(az, Language.En) || current == T(az, Language.Ru);
+
+        private static string T(string az, Language Current)
         {
             if (Current == Language.Az || string.IsNullOrEmpty(az)) return az;
             string s = az.Trim();
@@ -73,7 +78,7 @@ namespace TexnikaReyestri.Core
             if (Orig.TryGetValue(o, out var az))
             {
                 // Mətn kodla dəyişibsə (tərcümə deyil), yeni dəyəri orijinal kimi qəbul et
-                if (current != T(az)) { Orig.AddOrUpdate(o, current); return current; }
+                if (!Tercumesi(az, current)) { Orig.AddOrUpdate(o, current); return current; }
                 return az;
             }
             Orig.Add(o, current);
@@ -84,7 +89,7 @@ namespace TexnikaReyestri.Core
         private static string Keep(ComboBox cb, string slot, string current)
         {
             var d = ItemOrig.GetOrCreateValue(cb);
-            if (d.TryGetValue(slot, out var az) && current == T(az)) return az;
+            if (d.TryGetValue(slot, out var az) && Tercumesi(az, current)) return az;
             d[slot] = current;
             return current;
         }

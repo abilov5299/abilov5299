@@ -75,7 +75,7 @@
             // btnSave
             // 
             this.btnSave.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnSave.Location = new System.Drawing.Point(828, 4);
+            this.btnSave.Location = new System.Drawing.Point(778, 4);
             this.btnSave.Size = new System.Drawing.Size(130, 34);
             this.btnSave.Text = "Yadda saxla";
             this.btnSave.Glyph = "\uE74E";

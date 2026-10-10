@@ -58,7 +58,7 @@
             // btnAdd
             // 
             this.btnAdd.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnAdd.Location = new System.Drawing.Point(808, 4);
+            this.btnAdd.Location = new System.Drawing.Point(758, 4);
             this.btnAdd.Size = new System.Drawing.Size(150, 34);
             this.btnAdd.Text = "Yeni istifadəçi";
             this.btnAdd.Glyph = "\uE710";
@@ -70,7 +70,7 @@
             // 
             this.cmbOrg.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOrg.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.cmbOrg.Location = new System.Drawing.Point(640, 8);
+            this.cmbOrg.Location = new System.Drawing.Point(590, 8);
             this.cmbOrg.Size = new System.Drawing.Size(160, 25);
             this.cmbOrg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbOrg.Name = "cmbOrg";
@@ -79,7 +79,7 @@
             // txtFilter
             // 
             this.txtFilter.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.txtFilter.Location = new System.Drawing.Point(440, 8);
+            this.txtFilter.Location = new System.Drawing.Point(390, 8);
             this.txtFilter.Size = new System.Drawing.Size(192, 25);
             this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFilter.PlaceholderText = "Ad və ya login";

@@ -59,7 +59,7 @@
             // btnAdd
             // 
             this.btnAdd.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnAdd.Location = new System.Drawing.Point(828, 4);
+            this.btnAdd.Location = new System.Drawing.Point(778, 4);
             this.btnAdd.Size = new System.Drawing.Size(130, 34);
             this.btnAdd.Text = "Yeni zavod";
             this.btnAdd.Glyph = "\uE710";

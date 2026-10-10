@@ -60,7 +60,7 @@
             // 
             this.lnkReadAll.AutoSize = true;
             this.lnkReadAll.Text = "Hamısını oxunmuş et";
-            this.lnkReadAll.Location = new System.Drawing.Point(250, 14);
+            this.lnkReadAll.Location = new System.Drawing.Point(178, 14);
             this.lnkReadAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkReadAll.Name = "lnkReadAll";
             this.lnkReadAll.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkReadAll_LinkClicked);

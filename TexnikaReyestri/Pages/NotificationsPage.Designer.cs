@@ -52,7 +52,7 @@
             // btnReadAll
             // 
             this.btnReadAll.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnReadAll.Location = new System.Drawing.Point(1040, 4);
+            this.btnReadAll.Location = new System.Drawing.Point(990, 4);
             this.btnReadAll.Size = new System.Drawing.Size(176, 34);
             this.btnReadAll.Text = "Hamısını oxunmuş et";
             this.btnReadAll.Glyph = "\uE73E";
@@ -62,7 +62,7 @@
             // 
             // segFilter
             // 
-            this.segFilter.Location = new System.Drawing.Point(400, 6);
+            this.segFilter.Location = new System.Drawing.Point(350, 6);
             this.segFilter.Size = new System.Drawing.Size(630, 30);
             this.segFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.segFilter.Items = new string[] {

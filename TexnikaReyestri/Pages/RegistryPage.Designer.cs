@@ -103,7 +103,7 @@
             // btnExport
             // 
             this.btnExport.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnExport.Location = new System.Drawing.Point(1076, 4);
+            this.btnExport.Location = new System.Drawing.Point(1026, 4);
             this.btnExport.Size = new System.Drawing.Size(140, 34);
             this.btnExport.Text = "Excel-ə çıxar";
             this.btnExport.Glyph = "\uE896";
@@ -114,7 +114,7 @@
             // btnImport
             // 
             this.btnImport.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnImport.Location = new System.Drawing.Point(926, 4);
+            this.btnImport.Location = new System.Drawing.Point(876, 4);
             this.btnImport.Size = new System.Drawing.Size(144, 34);
             this.btnImport.Text = "Excel-dən idxal";
             this.btnImport.Glyph = "\uE898";
@@ -125,7 +125,7 @@
             // txtSearch
             // 
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.txtSearch.Location = new System.Drawing.Point(706, 8);
+            this.txtSearch.Location = new System.Drawing.Point(656, 8);
             this.txtSearch.Size = new System.Drawing.Size(212, 25);
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearch.PlaceholderText = "Marka, zavod nömrəsi...";
@@ -135,7 +135,7 @@
             // 
             this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStatus.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.cmbStatus.Location = new System.Drawing.Point(540, 7);
+            this.cmbStatus.Location = new System.Drawing.Point(490, 7);
             this.cmbStatus.Size = new System.Drawing.Size(158, 25);
             this.cmbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbStatus.Name = "cmbStatus";
@@ -145,7 +145,7 @@
             // 
             this.cmbZavod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbZavod.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.cmbZavod.Location = new System.Drawing.Point(400, 7);
+            this.cmbZavod.Location = new System.Drawing.Point(350, 7);
             this.cmbZavod.Size = new System.Drawing.Size(132, 25);
             this.cmbZavod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbZavod.Name = "cmbZavod";
@@ -277,7 +277,7 @@
             // 
             this.lblHint.AutoSize = true;
             this.lblHint.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.lblHint.Location = new System.Drawing.Point(1000, 6);
+            this.lblHint.Location = new System.Drawing.Point(966, 6);
             this.lblHint.Text = "Ctrl+F axtarış · Ctrl+N yeni · F5 yenilə";
             this.lblHint.Tag = "muted";
             this.lblHint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));

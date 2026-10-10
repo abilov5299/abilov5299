@@ -56,7 +56,7 @@
             // btnOk
             // 
             this.btnOk.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnOk.Location = new System.Drawing.Point(304, 148);
+            this.btnOk.Location = new System.Drawing.Point(302, 148);
             this.btnOk.Size = new System.Drawing.Size(114, 36);
             this.btnOk.Text = "Bəli";
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -66,7 +66,7 @@
             // btnCancel
             // 
             this.btnCancel.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnCancel.Location = new System.Drawing.Point(182, 148);
+            this.btnCancel.Location = new System.Drawing.Point(180, 148);
             this.btnCancel.Size = new System.Drawing.Size(114, 36);
             this.btnCancel.Text = "Ləğv et";
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));

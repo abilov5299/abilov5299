@@ -59,7 +59,7 @@
             // 
             this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtFrom.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.dtFrom.Location = new System.Drawing.Point(640, 8);
+            this.dtFrom.Location = new System.Drawing.Point(590, 8);
             this.dtFrom.Size = new System.Drawing.Size(120, 25);
             this.dtFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtFrom.Name = "dtFrom";
@@ -68,7 +68,7 @@
             // 
             this.lblDash.AutoSize = true;
             this.lblDash.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.lblDash.Location = new System.Drawing.Point(766, 11);
+            this.lblDash.Location = new System.Drawing.Point(716, 11);
             this.lblDash.Text = "—";
             this.lblDash.Tag = "muted";
             this.lblDash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -78,7 +78,7 @@
             // 
             this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtTo.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.dtTo.Location = new System.Drawing.Point(788, 8);
+            this.dtTo.Location = new System.Drawing.Point(738, 8);
             this.dtTo.Size = new System.Drawing.Size(120, 25);
             this.dtTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtTo.Name = "dtTo";
@@ -87,7 +87,7 @@
             // 
             this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbType.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.cmbType.Location = new System.Drawing.Point(916, 8);
+            this.cmbType.Location = new System.Drawing.Point(866, 8);
             this.cmbType.Size = new System.Drawing.Size(160, 25);
             this.cmbType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbType.Name = "cmbType";
@@ -106,7 +106,7 @@
             // btnSearch
             // 
             this.btnSearch.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnSearch.Location = new System.Drawing.Point(1086, 4);
+            this.btnSearch.Location = new System.Drawing.Point(1036, 4);
             this.btnSearch.Size = new System.Drawing.Size(130, 34);
             this.btnSearch.Text = "Axtar";
             this.btnSearch.Glyph = "\uE721";

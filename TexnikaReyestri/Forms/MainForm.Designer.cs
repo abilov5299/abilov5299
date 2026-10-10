@@ -195,7 +195,7 @@
             // btnTheme
             // 
             this.btnTheme.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnTheme.Location = new System.Drawing.Point(904, 8);
+            this.btnTheme.Location = new System.Drawing.Point(878, 8);
             this.btnTheme.Size = new System.Drawing.Size(36, 32);
             this.btnTheme.Text = "";
             this.btnTheme.Glyph = "\uE708";
@@ -207,7 +207,7 @@
             // 
             this.cmbLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLang.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F);
-            this.cmbLang.Location = new System.Drawing.Point(946, 11);
+            this.cmbLang.Location = new System.Drawing.Point(920, 11);
             this.cmbLang.Size = new System.Drawing.Size(56, 25);
             this.cmbLang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbLang.Name = "cmbLang";
@@ -220,7 +220,7 @@
             // btnBell
             // 
             this.btnBell.Kind = TexnikaReyestri.Controls.ButtonKind.Ghost;
-            this.btnBell.Location = new System.Drawing.Point(1010, 8);
+            this.btnBell.Location = new System.Drawing.Point(984, 8);
             this.btnBell.Size = new System.Drawing.Size(40, 32);
             this.btnBell.Text = "";
             this.btnBell.Glyph = "\uEA8F";
@@ -232,7 +232,7 @@
             // 
             this.lblBadge.AutoSize = true;
             this.lblBadge.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
-            this.lblBadge.Location = new System.Drawing.Point(1034, 4);
+            this.lblBadge.Location = new System.Drawing.Point(1008, 4);
             this.lblBadge.Text = "0";
             this.lblBadge.Tag = "white";
             this.lblBadge.BackColor = System.Drawing.Color.FromArgb(201, 74, 68);
@@ -243,7 +243,7 @@
             // btnMin
             // 
             this.btnMin.Kind = TexnikaReyestri.Controls.CaptionKind.Minimize;
-            this.btnMin.Location = new System.Drawing.Point(1070, 0);
+            this.btnMin.Location = new System.Drawing.Point(1044, 0);
             this.btnMin.Size = new System.Drawing.Size(46, 48);
             this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMin.Name = "btnMin";
@@ -251,7 +251,7 @@
             // btnMax
             // 
             this.btnMax.Kind = TexnikaReyestri.Controls.CaptionKind.Maximize;
-            this.btnMax.Location = new System.Drawing.Point(1116, 0);
+            this.btnMax.Location = new System.Drawing.Point(1090, 0);
             this.btnMax.Size = new System.Drawing.Size(46, 48);
             this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMax.Name = "btnMax";
@@ -259,7 +259,7 @@
             // btnClose
             // 
             this.btnClose.Kind = TexnikaReyestri.Controls.CaptionKind.Close;
-            this.btnClose.Location = new System.Drawing.Point(1162, 0);
+            this.btnClose.Location = new System.Drawing.Point(1136, 0);
             this.btnClose.Size = new System.Drawing.Size(46, 48);
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Name = "btnClose";
