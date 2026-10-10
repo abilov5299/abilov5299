@@ -6,10 +6,10 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>TexnikaQeydiyyat</RootNamespace>
-    <ApplicationIcon>Assets\TemirNezaret.ico</ApplicationIcon>
-    <AssemblyTitle>Təmir Nəzarət</AssemblyTitle>
-    <Product>Təmir Nəzarət</Product>
-    <Description>Texnikanın təmir reyestri</Description>
+    <ApplicationIcon>Assets\TexnikaReyestri.ico</ApplicationIcon>
+    <AssemblyTitle>Texnika Reyestri</AssemblyTitle>
+    <Product>Texnika Reyestri</Product>
+    <Description>Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu</Description>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
