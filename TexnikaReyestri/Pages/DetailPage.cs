@@ -77,6 +77,22 @@ namespace TexnikaReyestri.Pages
         private int IndexOf() { for (int i = 0; i < _siyahi.Count; i++) if (_siyahi[i] == _id) return i; return -1; }
 
         /// <summary>Kartları 3 sütunda yerləşdirir və hündürlüklərini məzmuna görə təyin edir.</summary>
+        // Cədvəlin hündürlüyü: hər sətirdə ən hündür yazının (verilən endə) ölçüsü — köhnə yerləşmədən asılı deyil
+        private static int TlpH(TableLayoutPanel t, int w)
+        {
+            var cw = new int[t.ColumnCount]; float tot = t.ColumnStyles.Cast<ColumnStyle>().Sum(c => c.Width);
+            for (int i = 0; i < cw.Length; i++) cw[i] = (int)(w * (i < t.ColumnStyles.Count && tot > 0 ? t.ColumnStyles[i].Width / tot : 1f / cw.Length));
+            var rows = new Dictionary<int, int>();
+            foreach (Control c in t.Controls)
+            {
+                if (!c.Visible) continue;
+                var pos = t.GetPositionFromControl(c); int col = Math.Clamp(pos.Column, 0, cw.Length - 1);
+                int ph = c.GetPreferredSize(new Size(Math.Max(10, cw[col] - c.Margin.Horizontal), 0)).Height + c.Margin.Vertical;
+                rows[pos.Row] = Math.Max(rows.GetValueOrDefault(pos.Row), ph);
+            }
+            return rows.Values.Sum() + t.Padding.Vertical;
+        }
+
         private int _enSon;
         private void Duzle()
         {
@@ -102,8 +118,7 @@ namespace TexnikaReyestri.Pages
                     foreach (Control ch in card.Controls)
                     {
                         if (!ch.Visible) continue;
-                        if (ch is TableLayoutPanel or FlowLayoutPanel) ch.Height = ch.GetPreferredSize(new Size(iw, 0)).Height;
-                        h += ch.Height;
+                        h += ch switch { TableLayoutPanel t => TlpH(t, iw), FlowLayoutPanel f => f.Controls.Cast<Control>().Sum(x => x.Height + x.Margin.Vertical) + f.Padding.Vertical, _ => ch.Height };
                     }
                     h += card.Padding.Bottom + 6;
                     card.Height = Math.Max(60, h);

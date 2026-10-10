@@ -114,7 +114,7 @@
             // 
             this.colLogin.HeaderText = "Login";
             this.colLogin.Name = "colLogin";
-            this.colLogin.Width = 120;
+            this.colLogin.Width = 90;
             // 
             // colName
             // 
@@ -127,13 +127,13 @@
             // 
             this.colOrg.HeaderText = "Qurum";
             this.colOrg.Name = "colOrg";
-            this.colOrg.Width = 110;
+            this.colOrg.Width = 90;
             // 
             // colRole
             // 
             this.colRole.HeaderText = "Rol";
             this.colRole.Name = "colRole";
-            this.colRole.Width = 140;
+            this.colRole.Width = 130;
             // 
             // colLast
             // 
@@ -145,13 +145,13 @@
             // 
             this.colState.HeaderText = "Vəziyyət";
             this.colState.Name = "Status";
-            this.colState.Width = 100;
+            this.colState.Width = 80;
             // 
             // colEdit
             // 
             this.colEdit.HeaderText = "";
             this.colEdit.Name = "colEdit";
-            this.colEdit.Width = 90;
+            this.colEdit.Width = 84;
             this.colEdit.Text = "Redaktə";
             this.colEdit.UseColumnTextForButtonValue = true;
             // 
@@ -159,7 +159,7 @@
             // 
             this.colReset.HeaderText = "";
             this.colReset.Name = "colReset";
-            this.colReset.Width = 130;
+            this.colReset.Width = 116;
             this.colReset.Text = "Parolu sıfırla";
             this.colReset.UseColumnTextForButtonValue = true;
             // 

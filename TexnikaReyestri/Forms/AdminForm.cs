@@ -12,7 +12,7 @@ namespace TexnikaReyestri.Forms
 
         private async void AdminForm_Load(object sender, EventArgs e)
         {
-            Ui.Hazirla(this); BackColor = Theme.Line;
+            Ui.Hazirla(this); BackColor = Theme.Line; pnlAside.BackColor = Theme.C("#1B2B2A");   // tünd yan menyu (tema onu şəffaf etməsin)
             foreach (var r in new[] { radUsers, radOrgs, radPc, radSec, radKeys, radSys, radLog }) { r.FlatAppearance.BorderSize = 0; r.FlatAppearance.CheckedBackColor = Theme.C("#26393A"); r.FlatAppearance.MouseOverBackColor = Theme.C("#26393A"); }
             await AcAsync(radUsers);
         }
