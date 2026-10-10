@@ -5,17 +5,23 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>TexnikaQeydiyyat</RootNamespace>
+    <RootNamespace>TexnikaReyestri</RootNamespace>
+    <AssemblyName>TexnikaReyestri</AssemblyName>
     <ApplicationIcon>Assets\TexnikaReyestri.ico</ApplicationIcon>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <Version>1.0.0</Version>
     <AssemblyTitle>Texnika Reyestri</AssemblyTitle>
     <Product>Texnika Reyestri</Product>
     <Description>Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu</Description>
+    <!-- Linux/CI-da yalnız kompilyasiya yoxlaması üçün; Windows-da təsiri yoxdur -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />
+    <PackageReference Include="ClosedXML" Version="0.104.2" />
+    <PackageReference Include="PDFsharp" Version="6.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\TexnikaReyestri.ico" />
   </ItemGroup>
 </Project>

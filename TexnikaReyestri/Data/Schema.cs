@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.Data.Sqlite;
 
-namespace TexnikaQeydiyyat.Data.Local
+namespace TexnikaReyestri.Data
 {
     internal static class Schema
     {
@@ -19,14 +19,14 @@ CREATE TABLE IF NOT EXISTS Texnikalar (
   Silinib   INTEGER NOT NULL DEFAULT 0{cols}
 );");
             // Köhnə bazada olmayan yeni sütunları əlavə et (miqrasiya)
-            var var = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var movcud = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             using (var cmd = con.CreateCommand())
             {
                 cmd.CommandText = "PRAGMA table_info(Texnikalar);";
                 using var r = cmd.ExecuteReader();
-                while (r.Read()) var.Add(r.GetString(1));
+                while (r.Read()) movcud.Add(r.GetString(1));
             }
-            foreach (var s in Saheler.Hamisi.Where(s => !var.Contains(s.Kod)))
+            foreach (var s in Saheler.Hamisi.Where(s => !movcud.Contains(s.Kod)))
                 LocalDb.Exec(con, $"ALTER TABLE Texnikalar ADD COLUMN {s.Kod} {Saheler.SqlTip(s.Nov)};");
 
             LocalDb.Exec(con, @"
@@ -35,6 +35,8 @@ CREATE INDEX IF NOT EXISTS IX_T_Siyahi  ON Texnikalar(Silinib, TemirZavodu, Stat
 CREATE INDEX IF NOT EXISTS IX_T_Bitme   ON Texnikalar(Silinib, IFNULL(GozlenilenBitme,''), Id);
 CREATE INDEX IF NOT EXISTS IX_T_ZavodNo ON Texnikalar(ZavodNo);
 CREATE INDEX IF NOT EXISTS IX_T_Deyisdi ON Texnikalar(Deyisdi);
+CREATE INDEX IF NOT EXISTS IX_T_Daxil   ON Texnikalar(TemirZavodu, DaxilolmaTarixi);
+CREATE INDEX IF NOT EXISTS IX_T_Fakt    ON Texnikalar(TemirZavodu, FaktikiBitme);
 
 -- Mətn axtarışı: LIKE '%..%' əvəzinə (1 mln sətirdə ~6 ms)
 CREATE VIRTUAL TABLE IF NOT EXISTS TexnikaAxtar USING fts5(
@@ -65,6 +67,7 @@ CREATE TABLE IF NOT EXISTS Loglar (
   Id INTEGER PRIMARY KEY, Tarix INTEGER NOT NULL, Istifadeci TEXT, Zavod TEXT, Nov TEXT NOT NULL, Mesaj TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS IX_Loglar ON Loglar(Tarix DESC);
 ");
+            SistemSchema.Yarat(con);
         }
     }
 }

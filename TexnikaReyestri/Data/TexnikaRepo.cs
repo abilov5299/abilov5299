@@ -2,7 +2,7 @@ using System.Data;
 using System.Text;
 using Microsoft.Data.Sqlite;
 
-namespace TexnikaQeydiyyat.Data.Local
+namespace TexnikaReyestri.Data
 {
     public sealed class ReyestrFiltr
     {
@@ -15,7 +15,7 @@ namespace TexnikaQeydiyyat.Data.Local
     // Səhifənin sonuncu sətri: növbəti səhifə buradan davam edir (OFFSET yoxdur)
     public readonly record struct Kursor(string Bitme, long Id);
 
-    public static class TexnikaRepo
+    public static partial class TexnikaRepo
     {
         public const int SehifeOlcusu = 200;
         private static readonly string ReyestrSql = "Id, " + string.Join(", ", Saheler.Reyestr);
@@ -115,7 +115,7 @@ namespace TexnikaQeydiyyat.Data.Local
             return dt;
         }
 
-        private static StringBuilder Sert(ReyestrFiltr f, SqliteCommand cmd)
+        internal static StringBuilder Sert(ReyestrFiltr f, SqliteCommand cmd)
         {
             var w = new StringBuilder("Silinib = 0");
             if (f.Zavod != null) { w.Append(" AND TemirZavodu = $z"); cmd.Parameters.AddWithValue("$z", f.Zavod); }

@@ -1,6 +1,6 @@
 using Microsoft.Data.Sqlite;
 
-namespace TexnikaQeydiyyat.Data.Local
+namespace TexnikaReyestri.Data
 {
     // Lokal SQLite bazası. Qaydalar:
     //  - UI thread heç vaxt bazanı gözləmir: hər metod async-dir və CancellationToken qəbul edir.
@@ -48,14 +48,14 @@ namespace TexnikaQeydiyyat.Data.Local
         }
 
         // Yazı əməliyyatı: kilid + tranzaksiya. Xəta olsa, hamısı geri qaytarılır.
-        public static async Task<T> YazAsync<T>(Func<SqliteConnection, SqliteTransaction, Task<T>> is, CancellationToken ct = default)
+        public static async Task<T> YazAsync<T>(Func<SqliteConnection, SqliteTransaction, Task<T>> isFunc, CancellationToken ct = default)
         {
             await _yaz.WaitAsync(ct);
             try
             {
                 await using var con = await AcAsync(ct);
                 await using var tr = (SqliteTransaction)await con.BeginTransactionAsync(ct);
-                var netice = await is(con, tr);
+                var netice = await isFunc(con, tr);
                 await tr.CommitAsync(ct);
                 return netice;
             }

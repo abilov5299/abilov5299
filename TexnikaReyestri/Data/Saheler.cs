@@ -1,4 +1,4 @@
-namespace TexnikaQeydiyyat.Data.Local
+namespace TexnikaReyestri.Data
 {
     public enum SaheNov { Metn, Reqem, Tarix, Secim }
 
