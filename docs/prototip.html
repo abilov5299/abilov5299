@@ -1,0 +1,701 @@
+<title>Təmir Nəzarət</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+/* V4 prototipi: dar ikon menyu + kartlar; bütün ekranlar FIELDS siyahısından qurulur */
+:root{
+  --page:#DCE5E3; --bg:#EEF3F2; --nav:#0F4C4A; --navon:#1C6B68; --ink:#1B2B2A; --title:#0F4C4A;
+  --muted:#5D7472; --ln:#D4E2E0; --card:#FFFFFF; --alt:#F6F9F9; --sel:#DCEFEC; --white:#FFFFFF;
+  --ok:#2E9B57; --warn:#E08A00; --bad:#C94A44; --info:#3C8DBC; --gray:#7D8B8A;
+  --f-d:"Barlow Condensed","Arial Narrow",sans-serif; --f-b:"Barlow","Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+[hidden]{display:none!important}
+body{background:var(--page);color:var(--ink);font-family:var(--f-b);padding-inline:16px;padding-block:16px;box-sizing:border-box}
+.scroll{overflow-x:auto;height:100%}
+.app{width:1220px;height:760px;margin:0 auto;display:flex;border-radius:10px;overflow:hidden;box-shadow:0 12px 32px rgba(15,76,74,.28);background:var(--bg);font-size:13px;position:relative}
+.btn{border:0;font:inherit;font-weight:600;font-size:12px;padding:0 14px;height:32px;border-radius:8px;cursor:pointer;background:var(--nav);color:var(--white);white-space:nowrap}
+.btn.sec{background:var(--ln);color:var(--title)}
+.btn.sm{height:26px;padding:0 10px;font-size:11px}
+.btn:disabled{opacity:.45;cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--warn);outline-offset:1px}
+.inp{border:1px solid var(--ln);background:var(--card);height:32px;padding:0 10px;border-radius:8px;font:inherit;color:inherit;box-sizing:border-box}
+.lbl{color:var(--muted);font-size:12px}
+
+/* Giriş */
+.login{position:absolute;inset:0;display:flex;z-index:10;background:var(--card)}
+.login .l{width:420px;background:var(--nav);color:var(--white);padding:48px 40px;display:flex;flex-direction:column;gap:12px}
+.logo{width:48px;height:48px;border-radius:10px;background:var(--navon);display:grid;place-items:center;font-family:var(--f-d);font-size:20px;color:var(--white);flex:none}
+.login .l h1{font-family:var(--f-d);font-size:40px;line-height:1;margin:20px 0 0;letter-spacing:.03em}
+.login .l p{margin:0;color:#A9C9C6;max-width:30ch}
+.login .r{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 120px;gap:8px}
+.login h2{font-family:var(--f-d);font-size:30px;margin:0 0 12px;color:var(--title)}
+.login .inp{width:100%;height:38px;margin-bottom:8px}
+.login .btn{height:42px;letter-spacing:.06em;margin-top:4px}
+.hint{margin-top:18px;font-size:12px;color:var(--muted);line-height:1.7}
+.hint button{all:unset;cursor:pointer;color:var(--title);font-weight:600;text-decoration:underline;margin-right:10px}
+.err{color:var(--bad);font-size:12px;min-height:16px}
+
+/* Menyu */
+.nav{width:64px;background:var(--nav);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:8px;flex:none}
+.nav .logo{width:40px;height:40px;font-size:16px;margin-bottom:14px}
+.ic{all:unset;cursor:pointer;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:#A9C9C6;font-size:18px;position:relative}
+.ic:hover,.ic.on{background:var(--navon);color:var(--white)}
+.ic.on::before{content:"";position:absolute;left:-10px;top:10px;bottom:10px;width:4px;border-radius:2px;background:var(--warn)}
+.ic .tip{position:absolute;left:54px;background:var(--ink);color:var(--white);font-size:11px;padding:3px 8px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;z-index:5}
+.ic:hover .tip,.ic:focus-visible .tip{opacity:1}
+.ic .dot{position:absolute;top:6px;right:6px;min-width:16px;height:16px;border-radius:8px;background:var(--bad);color:var(--white);font-size:10px;display:grid;place-items:center;font-weight:700;padding:0 3px;box-sizing:border-box}
+.nav .out{margin-top:auto;color:#F0A8A3}
+.body{flex:1;display:flex;flex-direction:column;min-width:0}
+.tbar{height:48px;display:flex;align-items:center;padding-left:22px;gap:12px;border-bottom:1px solid var(--ln);background:var(--card);flex:none;position:relative}
+.tbar b{color:var(--title)}.tbar .u{color:var(--muted);font-size:12px}
+.bell{all:unset;cursor:pointer;margin-left:auto;width:40px;height:40px;border-radius:8px;display:grid;place-items:center;font-size:18px;position:relative;color:var(--title)}
+.bell:hover{background:var(--alt)}
+.bell .dot{position:absolute;top:4px;right:4px;min-width:16px;height:16px;border-radius:8px;background:var(--bad);color:var(--white);font-size:10px;display:grid;place-items:center;font-weight:700}
+.tbar .ctl{display:flex}.tbar .ctl span{width:46px;height:48px;display:grid;place-items:center;color:var(--muted)}
+.drop{position:absolute;top:46px;right:100px;width:380px;background:var(--card);border:1px solid var(--ln);border-radius:10px;box-shadow:0 12px 28px rgba(15,76,74,.22);z-index:6;overflow:hidden}
+.drop header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--ln)}
+.drop header b{font-family:var(--f-d);font-size:17px}
+.drop .all{all:unset;cursor:pointer;color:var(--title);font-weight:600;font-size:12px}
+.drop .list{max-height:330px;overflow:auto}
+.drop footer{padding:8px 14px;border-top:1px solid var(--ln);text-align:center}
+.toast{position:absolute;right:20px;bottom:20px;background:var(--ink);color:var(--white);padding:12px 16px;border-radius:10px;display:flex;gap:10px;align-items:center;z-index:8;box-shadow:0 8px 20px rgba(0,0,0,.25);max-width:360px}
+.toast i{font-style:normal;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none}
+
+.page{flex:1;padding:18px 22px;display:flex;flex-direction:column;gap:14px;min-height:0}
+.head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.head h3{font-family:var(--f-d);font-size:26px;margin:0 auto 0 0;color:var(--title)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tile{all:unset;cursor:pointer;background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.tile.on{border-color:var(--nav);box-shadow:inset 0 0 0 1px var(--nav)}
+.tile i{font-style:normal;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:18px;color:var(--white)}
+.tile span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.07em}
+.tile b{font-family:var(--f-d);font-size:28px;color:var(--title);line-height:1;font-variant-numeric:tabular-nums}
+.grid{background:var(--card);border:1px solid var(--ln);border-radius:10px;flex:1;overflow:auto;min-height:0}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th{background:var(--card);color:var(--muted);text-align:left;font-weight:600;padding:10px 14px;border-bottom:2px solid var(--ln);position:sticky;top:0;font-size:12px;z-index:1}
+td{padding:9px 14px;border-bottom:1px solid var(--alt)}
+tr:nth-child(even) td{background:var(--alt)}
+td.r{text-align:right;width:1%}
+.chip{font-size:11px;padding:2px 9px;border-radius:10px;font-weight:600;white-space:nowrap;display:inline-block}
+.s-tem{background:#DCEBF6;color:#1F5F8B}.s-goz{background:#FCE7D2;color:#A65A10}.s-teh{background:#DDF1E3;color:#23703E}.s-yar{background:#F8DCDB;color:#A3302C}.s-qeb{background:#E7ECEB;color:#4A5A59}
+.late{color:var(--bad);font-weight:600}
+.foot{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;gap:10px;flex-wrap:wrap}
+
+/* Detal */
+.dhead{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px 16px;flex-wrap:wrap}
+.dhead .big{font-family:var(--f-d);font-size:28px;color:var(--title);line-height:1}
+.dhead .sub{color:var(--muted);font-size:12px;margin-top:3px}
+.dhead .sp{margin-left:auto;display:flex;gap:8px}
+.stepper{display:flex;background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px 16px;gap:0}
+.st{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;font-size:11px;color:var(--muted);text-align:center}
+.st::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:3px;background:var(--ln)}
+.st:first-child::before{display:none}
+.st i{font-style:normal;width:24px;height:24px;border-radius:50%;background:var(--card);border:3px solid var(--ln);display:grid;place-items:center;font-size:11px;font-weight:700;z-index:1;box-sizing:border-box}
+.st.done i{background:var(--ok);border-color:var(--ok);color:var(--white)}.st.done::before{background:var(--ok)}
+.st.cur i{border-color:var(--warn);color:var(--warn)}.st.cur{color:var(--ink);font-weight:600}.st.cur::before{background:var(--ok)}
+.groups{columns:3 300px;column-gap:12px;flex:1;min-height:0;overflow:auto}
+.gcard{break-inside:avoid;background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.gcard h5{margin:0 0 6px;font-family:var(--f-d);font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed var(--ln)}
+.kv:last-child{border-bottom:0}
+.kv span{color:var(--muted);font-size:12px;flex:1}
+.kv b{font-variant-numeric:tabular-nums;text-align:right;font-weight:600;max-width:60%;overflow-wrap:anywhere}
+.kv b.e{color:#B2BDBC;font-weight:400}
+.kv b small{color:var(--muted);font-weight:400;margin-left:3px}
+
+/* Daxil et */
+.ftabs{display:flex;gap:6px;flex-wrap:wrap}
+.ftabs button{all:unset;cursor:pointer;padding:6px 12px;border-radius:16px;background:var(--card);border:1px solid var(--ln);font-size:12px}
+.ftabs button.on{background:var(--nav);color:var(--white);border-color:var(--nav)}
+.ftabs button .n{opacity:.6;margin-left:4px}
+.fbox{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:16px 18px;flex:1;overflow:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px 18px;align-content:start}
+.fbox label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.fbox .inp{width:100%}
+.fbox textarea.inp{height:62px;padding-top:7px;resize:vertical}
+.fbox .wide{grid-column:span 3}
+.fbox .req{color:var(--bad)}
+
+/* Bildirişlər */
+.nitem{display:flex;gap:12px;padding:11px 14px;border-bottom:1px solid var(--alt);cursor:pointer;align-items:flex-start}
+.nitem:hover{background:var(--alt)}
+.nitem.unread{background:#F3FAF9}
+.nitem.unread .nt::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--info);margin-left:6px;vertical-align:1px}
+.nitem i{font-style:normal;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;flex:none;color:var(--white);font-size:14px}
+.nitem .nt{font-weight:600}
+.nitem .nd{color:var(--muted);font-size:12px;margin-top:2px}
+.nitem .tm{margin-left:auto;color:var(--muted);font-size:11px;white-space:nowrap}
+.nf{display:flex;gap:6px}
+
+/* Sahələr */
+.cfg td{padding:5px 8px}
+.cfg input[type=text],.cfg select{height:26px;border:1px solid var(--ln);border-radius:6px;padding:0 6px;font:inherit;font-size:12px;background:var(--card);color:var(--ink);width:100%;box-sizing:border-box}
+.cfg .mv{all:unset;cursor:pointer;padding:0 4px;color:var(--muted)}
+.cfg .rm{all:unset;cursor:pointer;color:var(--bad);padding:0 6px;font-weight:700}
+.cfg tr.gh td{background:var(--sel);font-family:var(--f-d);font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--title)}
+
+.lg-err td:first-child{box-shadow:inset 4px 0 var(--bad)}.lg-in td:first-child{box-shadow:inset 4px 0 var(--info)}
+.lg-add td:first-child{box-shadow:inset 4px 0 var(--ok)}.lg-cfg td:first-child{box-shadow:inset 4px 0 var(--warn)}
+.empty{color:var(--muted);padding:24px;text-align:center}
+
+/* Panel animasiyası */
+@keyframes pin{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.page.anim{animation:pin .22s ease-out}
+@media (prefers-reduced-motion:reduce){.page.anim{animation:none}}
+/* Yüklənmə pərdəsi */
+.body{position:relative}
+.loading{position:absolute;inset:48px 0 0 64px;background:rgba(238,243,242,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:4;color:var(--title);font-weight:600}
+.spin{width:42px;height:42px;border-radius:50%;border:4px solid var(--ln);border-top-color:var(--nav);animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loading small{color:var(--muted);font-weight:400;font-variant-numeric:tabular-nums}
+.bar2{width:260px;height:6px;border-radius:3px;background:var(--ln);overflow:hidden}.bar2 i{display:block;height:100%;background:var(--nav);width:0;transition:width .15s}
+
+/* İxrac / İdxal */
+.sync{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0}
+.box{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.box h4{margin:0;font-family:var(--f-d);font-size:18px;color:var(--title)}
+.box p{margin:0;color:var(--muted);font-size:12px}
+.kv2{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:12px}.kv2 span{color:var(--muted)}
+.steps2{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.s2{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px}
+.s2 i{font-style:normal;width:22px;height:22px;border-radius:50%;border:2px solid var(--ln);display:grid;place-items:center;font-size:11px;font-weight:700;flex:none;box-sizing:border-box}
+.s2.done{color:var(--ink)}.s2.done i{background:var(--ok);border-color:var(--ok);color:var(--white)}
+.s2.run{color:var(--ink);font-weight:600}.s2.run i{border-color:var(--warn);border-top-color:transparent;animation:sp .8s linear infinite}
+.s2.fail{color:var(--bad);font-weight:600}.s2.fail i{background:var(--bad);border-color:var(--bad);color:var(--white)}
+.usb{display:flex;align-items:center;gap:12px;border:2px dashed var(--ln);border-radius:10px;padding:12px 14px}
+.usb.ok{border-color:var(--ok);border-style:solid;background:#F1FAF4}
+.usb b{display:block}.usb small{color:var(--muted)}
+.pk{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--ln);border-radius:8px;cursor:pointer}
+.pk:hover{background:var(--alt)}.pk.on{border-color:var(--nav);background:var(--sel)}
+.pk .bad2{color:var(--bad);font-size:11px;font-weight:600}
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.res div{background:var(--alt);border-radius:8px;padding:8px 10px;text-align:center}.res b{display:block;font-family:var(--f-d);font-size:24px;color:var(--title)}.res span{font-size:11px;color:var(--muted)}
+/* Modal pəncərə */
+.modal{position:absolute;inset:0;background:rgba(15,40,39,.45);display:grid;place-items:center;z-index:9}
+.mbox{background:var(--card);border-radius:12px;width:640px;max-height:90%;overflow:auto;padding:20px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,.3);animation:pin .2s ease-out}
+.mbox h4{margin:0;font-family:var(--f-d);font-size:22px;color:var(--title)}
+.mbox .ma{display:flex;gap:10px;justify-content:flex-end}
+.drop2{border:2px dashed var(--ln);border-radius:10px;padding:22px;text-align:center;color:var(--muted);cursor:pointer}
+.drop2:hover{border-color:var(--nav);background:var(--alt)}
+.ok2{color:var(--ok);font-weight:600}.no2{color:var(--bad);font-weight:600}
+/* PDF pasport önizləməsi */
+.paper{background:#fff;border:1px solid #CCC;padding:26px 30px;font-family:"Times New Roman",serif;color:#111;font-size:12px}
+.paper h2{text-align:center;font-size:16px;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}
+.paper .c{text-align:center;margin-bottom:12px}
+.paper table td{border:1px solid #999;padding:4px 6px;background:#fff!important}
+.paper table td:first-child{width:45%;color:#333}
+.paper .g{font-weight:700;background:#EEE!important}
+.paper .sg{display:flex;justify-content:space-between;margin-top:20px}
+/* Tarixçə */
+.tl{display:flex;flex-direction:column;gap:0}
+.tli{display:grid;grid-template-columns:110px 1fr;gap:10px;padding:7px 0;border-bottom:1px dashed var(--ln);font-size:12px}
+.tli:last-child{border-bottom:0}
+.tli .w{color:var(--muted)}
+.tli .ch{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tli s{color:var(--bad)}.tli ins{color:var(--ok);text-decoration:none;font-weight:600}
+.pbar{height:8px;border-radius:4px;background:var(--alt);overflow:hidden;display:flex;align-items:center}
+.pbar i{display:block;height:100%}
+.stale{color:var(--bad);font-weight:600}
+.home-css{}
+.seg{display:flex;background:var(--card);border:1px solid var(--ln);border-radius:8px;overflow:hidden}
+.seg button{all:unset;cursor:pointer;padding:6px 12px;font-size:12px;color:var(--muted)}
+.seg button.on{background:var(--nav);color:var(--white)}
+.hgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1;min-height:0;overflow:auto;align-content:start;--c1:#0F4C4A;--c2:#6FB1A9}
+.hc{background:var(--card);border:1px solid var(--ln);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.hc.span2{grid-column:span 2}
+.hh{display:flex;align-items:center;gap:10px}
+.hh h5{margin:0 auto 0 0;font-family:var(--f-d);font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.lg2{display:flex;gap:12px;font-size:11px;color:var(--muted)}.lg2 i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.lnk{all:unset;cursor:pointer;color:var(--title);font-weight:600;font-size:12px}
+.hb{display:grid;grid-template-columns:140px 1fr 44px;gap:8px;align-items:center;font-size:12px;padding:3px 0;cursor:pointer}
+.hb:hover .tr i{filter:brightness(1.15)}
+.hb .tr{height:12px;background:var(--alt);border-radius:0 4px 4px 0}
+.hb .tr i{display:block;height:100%;border-radius:0 4px 4px 0}
+.hb b{text-align:right;font-variant-numeric:tabular-nums}
+.stk{display:flex;height:22px;gap:2px;border-radius:4px;overflow:hidden}
+.stk i{display:block;height:100%;cursor:pointer}
+.sl{display:grid;grid-template-columns:12px 1fr auto auto;gap:6px 8px;align-items:center;font-size:12px;margin-top:6px}
+.sl i{width:10px;height:10px;border-radius:2px}.sl b{font-variant-numeric:tabular-nums;text-align:right}.sl span.p{color:var(--muted);width:36px;text-align:right}
+.ev{display:flex;gap:10px;padding:6px 0;border-bottom:1px dashed var(--ln);font-size:12px;align-items:center}.ev:last-child{border-bottom:0}
+.ev .t{color:var(--muted);width:110px;flex:none}
+.lt{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--ln);font-size:12px;cursor:pointer}.lt:last-child{border-bottom:0}
+.lt:hover{color:var(--title)}
+.tipbox{position:fixed;background:var(--ink);color:var(--white);font-size:12px;padding:6px 9px;border-radius:6px;pointer-events:none;z-index:20;white-space:nowrap}
+.warnbar{background:#FFF4E5;border:1px solid #F5D3A6;color:#8A4B06;border-radius:8px;padding:8px 12px;font-size:12px}
+</style>
+
+<div class="scroll">
+<div class="app" id="app">
+
+  <!-- GİRİŞ -->
+  <div class="login" id="login">
+    <div class="l">
+      <svg width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Təmir Nəzarət loqosu"><rect width="64" height="64" rx="14" fill="#1C6B68"/><path d="M32 10 L49 16 V31 C49 42 42 50 32 54 C22 50 15 42 15 31 V16 Z" fill="#FFFFFF"/><path d="M24 24 H40 M32 24 V43" stroke="#1C6B68" stroke-width="5" stroke-linecap="round"/><circle cx="44" cy="45" r="5" fill="#E08A00"/></svg>
+      <h1>TƏMİR<br>NƏZARƏT</h1>
+      <p>Texnikanın təmir reyestri</p>
+      <p style="margin-top:auto;font-size:12px">v1.0 · Lokal baza · 7 zavod</p>
+    </div>
+    <form class="r" id="lf">
+      <h2>Sistemə giriş</h2>
+      <label class="lbl" for="lu">İstifadəçi adı</label><input class="inp" id="lu" autocomplete="username">
+      <label class="lbl" for="lp">Parol</label><input class="inp" id="lp" type="password" autocomplete="current-password">
+      <button class="btn" type="submit">DAXİL OL</button>
+      <div class="err" id="lerr"></div>
+      <div class="hint">Prototip üçün sınaq girişləri (parol lazım deyil):<br>
+        <button type="button" data-u="zavod3">zavod3</button><button type="button" data-u="ustqurum">ustqurum</button><button type="button" data-u="enustqurum">enustqurum</button></div>
+    </form>
+  </div>
+
+  <nav class="nav">
+    <div style="margin-bottom:14px" title="Təmir Nəzarət"><svg width="40" height="40" viewBox="0 0 64 64" role="img" aria-label="Təmir Nəzarət loqosu"><rect width="64" height="64" rx="14" fill="#1C6B68"/><path d="M32 10 L49 16 V31 C49 42 42 50 32 54 C22 50 15 42 15 31 V16 Z" fill="#FFFFFF"/><path d="M24 24 H40 M32 24 V43" stroke="#1C6B68" stroke-width="5" stroke-linecap="round"/><circle cx="44" cy="45" r="5" fill="#E08A00"/></svg></div>
+    <button class="ic" data-p="home" aria-label="Ana səhifə">⌂<span class="tip">Ana səhifə (statistika)</span></button>
+    <button class="ic" data-p="sum" id="iSum" aria-label="İcmal">▦<span class="tip">İcmal (zavodlar üzrə)</span></button>
+    <button class="ic" data-p="list" aria-label="Reyestr">▤<span class="tip">Reyestr</span></button>
+    <button class="ic" data-p="add" id="iAdd" aria-label="Texnika daxil et">＋<span class="tip">Texnika daxil et</span></button>
+    <button class="ic" data-p="noti" aria-label="Bildirişlər">🔔︎<span class="dot" id="nDot2"></span><span class="tip">Bildirişlər</span></button>
+    <button class="ic" data-p="sync" aria-label="İxrac / İdxal">⇅<span class="tip">İxrac / İdxal (USB)</span></button>
+    <button class="ic" data-p="log" aria-label="Loglar">☰<span class="tip">Loglar</span></button>
+    <button class="ic" data-p="bak" aria-label="Ehtiyat nüsxə">⛨<span class="tip">Ehtiyat nüsxə</span></button>
+    <button class="ic out" id="logout" aria-label="Çıxış">⏻<span class="tip">Çıxış</span></button>
+  </nav>
+
+  <div class="body">
+    <div class="tbar"><b id="tq"></b><span class="u" id="tu"></span>
+      <button class="bell" id="bell" aria-label="Bildirişlər">🔔︎<span class="dot" id="nDot"></span></button>
+      <div class="ctl"><span>—</span><span>☐</span><span>✕</span></div>
+      <div class="drop" id="drop" hidden>
+        <header><b>Bildirişlər</b><button class="all" id="readAll">Hamısını oxunmuş et</button></header>
+        <div class="list" id="dropList"></div>
+        <footer><button class="all" id="seeAll">Hamısına bax →</button></footer>
+      </div>
+    </div>
+
+    <!-- ANA SƏHİFƏ -->
+    <div class="page" id="home" hidden>
+      <div class="head"><h3 id="hT">Ana səhifə</h3>
+        <div class="seg" id="hPer"><button data-per="30">30 gün</button><button data-per="90">3 ay</button><button data-per="180" class="on">6 ay</button><button data-per="365">1 il</button></div></div>
+      <div class="tiles" id="hTiles"></div>
+      <div class="hgrid">
+        <div class="hc span2"><div class="hh"><h5>Qəbul və təhvil, aylar üzrə</h5><div class="lg2"><span><i style="background:var(--c1)"></i>Qəbul edilib</span><span><i style="background:var(--c2)"></i>Təhvil verilib</span></div></div><div id="chM"></div></div>
+        <div class="hc"><div class="hh"><h5>Status bölgüsü</h5></div><div id="chS"></div></div>
+        <div class="hc"><div class="hh"><h5>Texnika növü üzrə</h5></div><div id="chN"></div></div>
+        <div class="hc" id="hZc"><div class="hh"><h5 id="chZt">Orta təmir müddəti (gün)</h5></div><div id="chZ"></div></div>
+        <div class="hc"><div class="hh"><h5>Ən çox gecikənlər</h5><button class="lnk" data-go="late">Hamısı →</button></div><div id="hLate"></div></div>
+        <div class="hc span2"><div class="hh"><h5>Son hadisələr</h5><button class="lnk" data-go="log">Loglar →</button></div><div id="hEv"></div></div>
+      </div>
+      <div class="foot"><span>Rəqəmlər nümunədir. Real proqramda bazadan hesablanır, hər karta və sütuna klikləmək reyestri həmin filtrlə açır.</span></div>
+    </div>
+
+    <!-- REYESTR -->
+    <div class="page" id="list">
+      <div class="head"><h3>Reyestr</h3>
+        <select class="inp" id="fZ" aria-label="Zavod"></select>
+        <select class="inp" id="fS" aria-label="Status"></select>
+        <input class="inp" id="q" placeholder="⌕ Marka, zavod nömrəsi..." style="width:200px">
+        <button class="btn sec" id="xlsImp">⇧ Excel-dən idxal</button><button class="btn sec" id="xlsExp">⇩ Excel-ə çıxar</button></div>
+      <div class="tiles" id="tiles"></div>
+      <div class="grid"><table><thead id="lh"></thead><tbody id="lb"></tbody></table></div>
+      <div class="foot"><span id="lc"></span><span>Sütunlar proqram kodunda təyin olunub</span></div>
+    </div>
+
+    <!-- DETAL -->
+    <div class="page" id="det" hidden>
+      <div class="dhead">
+        <button class="btn sec" id="back">← Reyestrə qayıt</button>
+        <div><div class="big" id="dT"></div><div class="sub" id="dS"></div></div>
+        <span id="dC"></span>
+        <div class="sp"><button class="btn sec" id="dP">‹ Əvvəlki</button><button class="btn sec" id="dN">Növbəti ›</button><button class="btn sec" id="dPdf">⎙ PDF pasport</button><button class="btn" id="dE">✎ Redaktə</button></div>
+      </div>
+      <div class="stepper" id="step"></div>
+      <div class="groups" id="dG"></div>
+    </div>
+
+    <!-- DAXİL ET -->
+    <div class="page" id="add" hidden>
+      <div class="head"><h3 id="addT">Texnika daxil et</h3><button class="btn sec" id="fPrev">‹ Əvvəlki qrup</button><button class="btn sec" id="fNext">Növbəti qrup ›</button><button class="btn" id="save">Yadda saxla</button></div>
+      <div class="ftabs" id="ftabs"></div>
+      <div class="fbox" id="fbox"></div>
+      <div class="foot"><span><span class="req">*</span> məcburi sahələr.</span></div>
+    </div>
+
+    <!-- BİLDİRİŞLƏR -->
+    <div class="page" id="noti" hidden>
+      <div class="head"><h3>Bildirişlər</h3>
+        <div class="nf" id="nf"></div><button class="btn sec" id="readAll2">Hamısını oxunmuş et</button></div>
+      <div class="grid" id="nList"></div>
+      <div class="foot"><span>Gecikmə, son tarix və hissə bildirişləri hər gün səhər avtomatik yoxlanılır (bu gün: 09.10.2026)</span></div>
+    </div>
+
+    <!-- İXRAC / İDXAL -->
+    <div class="page" id="sync" hidden>
+      <div class="head"><h3 id="syT">İxrac / İdxal</h3></div>
+      <div id="syWarn"></div>
+      <div class="sync" id="syBody"></div>
+    </div>
+
+    <!-- İCMAL -->
+    <div class="page" id="sum" hidden>
+      <div class="head"><h3>İcmal: zavodlar üzrə</h3><span class="lbl">Son idxala görə · 09.10.2026</span><button class="btn sec" id="sumExp">⇩ Excel-ə çıxar</button></div>
+      <div class="tiles" id="sumTiles"></div>
+      <div class="grid"><table><thead><tr><th>Zavod</th><th>Cəmi</th><th>Təmirdə</th><th>Hissə gözləyir</th><th>Gecikən</th><th style="width:170px">Gecikmə faizi</th><th>Orta təmir (gün)</th><th>Son paket</th></tr></thead><tbody id="sumB"></tbody></table></div>
+      <div class="foot"><span>Zavod sətrinə klikləyəndə həmin zavodun reyestri açılır. Zavod 3 və 5-dən başqa rəqəmlər nümunədir.</span></div>
+    </div>
+
+    <!-- EHTİYAT NÜSXƏ -->
+    <div class="page" id="bak" hidden>
+      <div class="head"><h3>Ehtiyat nüsxə</h3><button class="btn" id="bakNow">⛨ İndi nüsxə al</button></div>
+      <div class="sync">
+        <div class="box"><h4>Avtomatik nüsxə</h4><p>Proqram hər gün ilk açılışda bazanın şifrəli nüsxəsini götürür. Son 30 nüsxə saxlanılır, köhnələri avtomatik silinir.</p>
+          <div class="kv2"><span>Vəziyyət</span><b style="color:var(--ok)">● Aktivdir</b><span>Qovluq</span><b>D:\TexnikaReyestri\Backup</b><span>Son nüsxə</span><b id="bakLast">09.10.2026 08:01</b><span>Bazanın ölçüsü</span><b>48.6 MB</b><span>Saxlanılan</span><b id="bakCnt">30 nüsxə</b></div>
+          <div class="warnbar">Tövsiyə: nüsxə qovluğu başqa disk və ya xarici yaddaş olsun. Kompüterin diski xarab olsa, nüsxələr də itməsin.</div></div>
+        <div class="box"><h4>Nüsxələr</h4><div class="grid"><table><thead><tr><th>Tarix</th><th>Ölçü</th><th>Növ</th><th></th></tr></thead><tbody id="bakB"></tbody></table></div></div>
+      </div>
+    </div>
+
+    <!-- LOGLAR -->
+    <div class="page" id="log" hidden>
+      <div class="head"><h3>Loglar</h3>
+        <input class="inp" type="date" value="2026-10-01" aria-label="Başlanğıc"><span>—</span><input class="inp" type="date" value="2026-10-09" aria-label="Son">
+        <select class="inp" aria-label="Növ"><option>Növ: Hamısı</option><option>Giriş</option><option>Əlavə</option><option>Redaktə</option><option>İxrac/İdxal</option><option>Xəta</option></select><button class="btn">Axtar</button></div>
+      <div class="grid"><table><thead><tr><th>Tarix</th><th>İstifadəçi</th><th>Zavod</th><th>Növ</th><th>Hadisə</th></tr></thead><tbody id="logB"></tbody></table></div>
+    </div>
+
+  </div>
+  <div class="toast" id="toast" hidden></div>
+  <div class="modal" id="modal" hidden><div class="mbox" id="mbox"></div></div>
+  <div class="loading" id="loading" hidden><div class="spin"></div><span id="ldT">Yüklənir...</span><div class="bar2"><i id="ldB"></i></div><small id="ldS"></small></div>
+</div>
+</div>
+
+<script>
+const TODAY=new Date('2026-10-09');
+const GROUPS=['Pasport','Təmir tarixçəsi','İstismar göstəriciləri','Silah sistemi','Texniki vəziyyət','Cari təmir','Qəbul və icra','Ehtiyat hissələr və yazışma','Təhvil'];
+const F=(k,n,t,g,l=0,m=0)=>({k,n,t,g,l,m});
+let FIELDS=[
+ F('nov','Texnikanın növü','Seçim','Pasport',1,1),F('marka','Texnikanın markası','Mətn','Pasport',1,1),F('zno','Zavod nömrəsi','Mətn','Pasport',1,1),
+ F('il','İstehsal ili','Rəqəm','Pasport'),F('ist','İstehsalçı zavod','Mətn','Pasport'),F('der','Dərəcəsi','Seçim','Pasport'),
+ F('ot','Orta təmir (bitmə tarixi)','Mətn','Təmir tarixçəsi'),F('et','Əsaslı təmir (bitmə tarixi)','Mətn','Təmir tarixçəsi'),
+ F('hh','İstismarda olduğu h/h','Mətn','İstismar göstəriciləri'),F('km','Maşının iş uçotu (km)','Rəqəm','İstismar göstəriciləri'),F('ms','Mühərrikin iş uçotu (motosaat)','Rəqəm','İstismar göstəriciləri'),F('at','Atışların uçotu (say)','Rəqəm','İstismar göstəriciləri'),
+ F('cap','Topun çapı (mm)','Rəqəm','Silah sistemi'),F('tm','Topun markası','Mətn','Silah sistemi'),F('ln','Topun / lülənin nömrəsi','Mətn','Silah sistemi'),
+ F('v_muh','Mühərrikin vəziyyəti','Uzun mətn','Texniki vəziyyət'),F('v_sas','Şassinin vəziyyəti (transmissiya, təkər/tırtıl)','Uzun mətn','Texniki vəziyyət'),F('v_lul','Lülə və avtomatik doldurma sistemi','Uzun mətn','Texniki vəziyyət'),
+ F('v_ais','Atəşi idarəetmə sistemi və stabilizator','Uzun mətn','Texniki vəziyyət'),F('v_opt','Optik və termal cihazlar','Uzun mətn','Texniki vəziyyət'),F('v_dig','Digər nasazlıqlar','Uzun mətn','Texniki vəziyyət'),F('qeyd','Qeyd (qənimət və s.)','Uzun mətn','Texniki vəziyyət'),
+ F('status','Statusu','Seçim','Cari təmir',1,1),F('tnov','Təmir növü','Seçim','Cari təmir'),F('kritik','Kritik ehtiyat hissələrin mövcudluğu','Seçim','Cari təmir'),
+ F('bas','Təmirin başlama tarixi','Tarix','Cari təmir'),F('gbit','Təmirin gözlənilən bitmə tarixi','Tarix','Cari təmir',1),F('gec','Gecikmə səbəbi','Uzun mətn','Cari təmir'),
+ F('mer','Təmirin icra mərhələsi','Seçim','Cari təmir'),F('yarsiz','Təmirə yararlı deyilsə, səbəbi','Uzun mətn','Cari təmir'),F('tqeyd','Təmirə aid digər vacib qeydlər','Uzun mətn','Cari təmir'),
+ F('tzavod','Təmiri aparan zavod','Seçim','Qəbul və icra',0,1),F('dax','Zavoda daxilolma tarixi','Tarix','Qəbul və icra'),F('gq','Göndərən qurum','Mətn','Qəbul və icra'),
+ F('qsened','Qəbul sənədinin nömrəsi və tarixi','Mətn','Qəbul və icra'),F('icra','İcra müddəti (gün)','Rəqəm','Qəbul və icra'),F('plan','Plan dəyişikliyinin səbəbi və əsası','Uzun mətn','Qəbul və icra'),F('mesul','Zavodda məsul icraçı','Mətn','Qəbul və icra'),
+ F('hisse','Tələb olunan hissələr (ad / kod, miqdar, vahid)','Uzun mətn','Ehtiyat hissələr və yazışma'),F('mektub','Əlaqəli məktubların nömrələri və tarixləri','Uzun mətn','Ehtiyat hissələr və yazışma'),
+ F('temin','Təmin edən idarə və icraçı','Mətn','Ehtiyat hissələr və yazışma'),F('sorgu','Sorğuların icra statusları','Seçim','Ehtiyat hissələr və yazışma'),
+ F('hdax','Hissələr üzrə daxilolma tarixləri və miqdarları','Uzun mətn','Ehtiyat hissələr və yazışma'),F('sened','Əlaqəli sənədlər (nömrə, tarix, fayl)','Uzun mətn','Ehtiyat hissələr və yazışma'),
+ F('fbit','Təmirin faktiki bitmə tarixi','Tarix','Təhvil'),F('tsened','Təhvil sənədinin nömrəsi və tarixi','Mətn','Təhvil')
+];
+const OPTS={nov:['Əsas döyüş tankı','Piyadaların döyüş maşını','Zirehli transportyor','Özüyeriyən artilleriya qurğusu','Təkərli texnika'],der:['I','II','III','IV','V'],
+ status:['Qəbul edilib','Təmirdə','Hissə gözləyir','Təhvil verilib','Təmirə yararsız'],tnov:['Cari','Orta','Əsaslı'],kritik:['Var','Qismən','Yoxdur'],
+ mer:['Qəbul','Defekt aşkarlama','Hissə təminatı','Təmir','Sınaq','Təhvil'],tzavod:['Zavod 1','Zavod 2','Zavod 3','Zavod 4','Zavod 5','Zavod 6','Zavod 7'],sorgu:['Göndərilib','Cavab gözlənilir','İcra olunub','İmtina']};
+const SCLS={'Qəbul edilib':'s-qeb','Təmirdə':'s-tem','Hissə gözləyir':'s-goz','Təhvil verilib':'s-teh','Təmirə yararsız':'s-yar'};
+// 1-ci sətir faylınızdandır, qalanları prototip üçün nümunədir
+let DATA=[
+ {id:1,nov:'Əsas döyüş tankı',marka:'T-72 M-1',zno:'B12BT3716',il:1979,ist:'Нижний Тагил',der:'II',ot:'09.10.24',et:'-',hh:'329',km:52,ms:35.9,cap:125,tm:'2A46M',ln:'1E7266',
+  v_muh:'Yağ sızması, start sistemi zəif',v_sas:'Sol tırtıl gərginliyi normadan aşağı',status:'Təmirdə',tnov:'Orta',kritik:'Qismən',bas:'2026-08-12',gbit:'2026-10-05',gec:'Yanacaq nasosu gecikir',mer:'Təmir',
+  tzavod:'Zavod 3',dax:'2026-08-05',gq:'Nümunə qurum',qsened:'Q-112 / 05.08.2026',icra:54,mesul:'Əli Məmmədov',hisse:'Yanacaq nasosu (NK-12), 1 əd.',sorgu:'Cavab gözlənilir'},
+ {id:2,nov:'Piyadaların döyüş maşını',marka:'BMP-2',zno:'NÜMUNƏ-0218',il:1986,der:'III',status:'Hissə gözləyir',tnov:'Cari',kritik:'Yoxdur',bas:'2026-09-01',gbit:'2026-10-12',mer:'Hissə təminatı',tzavod:'Zavod 3',dax:'2026-08-28',km:4120,ms:812,cap:30,sorgu:'Göndərilib',mesul:'Nigar Həsənova',hisse:'Transmissiya podşipniki, 4 əd.'},
+ {id:3,nov:'Zirehli transportyor',marka:'BTR-80',zno:'NÜMUNƏ-0731',il:1991,der:'II',status:'Təmirdə',tnov:'Əsaslı',kritik:'Var',bas:'2026-07-20',gbit:'2026-11-30',mer:'Təmir',tzavod:'Zavod 3',dax:'2026-07-15',km:18450,ms:2240,cap:14.5,mesul:'Əli Məmmədov'},
+ {id:4,nov:'Əsas döyüş tankı',marka:'T-72 B',zno:'NÜMUNƏ-1044',il:1984,der:'III',status:'Təhvil verilib',tnov:'Orta',kritik:'Var',bas:'2026-05-02',gbit:'2026-08-30',fbit:'2026-08-27',tsened:'T-87 / 28.08.2026',mer:'Təhvil',tzavod:'Zavod 3',dax:'2026-04-28',km:3310,ms:640,cap:125},
+ {id:5,nov:'Özüyeriyən artilleriya qurğusu',marka:'2S1',zno:'NÜMUNƏ-0390',il:1982,der:'IV',status:'Təmirə yararsız',tnov:'Əsaslı',kritik:'Yoxdur',yarsiz:'Gövdə deformasiyası, bərpa iqtisadi cəhətdən məqsədəuyğun deyil',mer:'Defekt aşkarlama',tzavod:'Zavod 3',dax:'2026-09-10',cap:122},
+ {id:6,nov:'Təkərli texnika',marka:'KamAZ-4310',zno:'NÜMUNƏ-5521',il:1995,der:'II',status:'Qəbul edilib',tnov:'Cari',bas:'2026-10-08',gbit:'2026-10-25',mer:'Qəbul',tzavod:'Zavod 3',dax:'2026-10-08',km:96200,mesul:'Nigar Həsənova'},
+ {id:7,nov:'Piyadaların döyüş maşını',marka:'BMP-1',zno:'NÜMUNƏ-0077',il:1979,der:'III',status:'Təmirdə',tnov:'Orta',kritik:'Qismən',bas:'2026-08-25',gbit:'2026-10-11',mer:'Sınaq',tzavod:'Zavod 3',dax:'2026-08-20',km:6100,ms:1180,cap:73},
+ {id:8,nov:'Zirehli transportyor',marka:'BTR-70',zno:'NÜMUNƏ-0912',il:1983,der:'III',status:'Hissə gözləyir',tnov:'Orta',kritik:'Yoxdur',bas:'2026-08-01',gbit:'2026-09-28',gec:'Təkər reduktoru təmin edilməyib',mer:'Hissə təminatı',tzavod:'Zavod 5',dax:'2026-07-28',sorgu:'Cavab gözlənilir'}
+];
+let NOTI=[
+ {id:20,t:'sync',ti:'Zavoddan paket gəlməyib',d:'Zavod 4 10 gündür ixrac paketi göndərməyib (son paket 29.09.2026)',tm:'Bu gün 08:00',r:0,z:'Zavod 4'},
+ {id:21,t:'sync',ti:'Zavoddan paket gəlməyib',d:'Zavod 2 8 gündür ixrac paketi göndərməyib (son paket 01.10.2026)',tm:'Bu gün 08:00',r:0,z:'Zavod 2'},
+ {id:1,t:'late',ti:'Təmir gecikir',d:'T-72 M-1 (B12BT3716): gözlənilən bitmə tarixi 05.10.2026 idi, 4 gün keçib',tm:'Bu gün 08:00',r:0,rec:1,z:'Zavod 3'},
+ {id:2,t:'soon',ti:'Son tarix yaxınlaşır',d:'BMP-1 (NÜMUNƏ-0077): təmirin bitməsinə 2 gün qalıb',tm:'Bu gün 08:00',r:0,rec:7,z:'Zavod 3'},
+ {id:3,t:'soon',ti:'Son tarix yaxınlaşır',d:'BMP-2 (NÜMUNƏ-0218): təmirin bitməsinə 3 gün qalıb, hissə hələ gəlməyib',tm:'Bu gün 08:00',r:0,rec:2,z:'Zavod 3'},
+ {id:4,t:'part',ti:'Kritik hissə yoxdur',d:'BMP-2 (NÜMUNƏ-0218): transmissiya podşipniki üzrə sorğu 38 gündür cavabsızdır',tm:'Dünən 16:20',r:0,rec:2,z:'Zavod 3'},
+ {id:5,t:'new',ti:'Yeni texnika qəbul edildi',d:'KamAZ-4310 (NÜMUNƏ-5521) Zavod 3-ə daxil oldu',tm:'Dünən 11:05',r:1,rec:6,z:'Zavod 3'},
+ {id:6,t:'late',ti:'Təmir gecikir',d:'BTR-70 (NÜMUNƏ-0912): 11 gün gecikmə, səbəb: təkər reduktoru təmin edilməyib',tm:'Dünən 08:00',r:0,rec:8,z:'Zavod 5'},
+ {id:7,t:'done',ti:'Təmir yararsız elan edildi',d:'2S1 (NÜMUNƏ-0390): gövdə deformasiyası',tm:'12.09.2026',r:1,rec:5,z:'Zavod 3'},
+];
+const NT={sync:['#B4570B','⇅'],late:['var(--bad)','⏱'],soon:['var(--warn)','⌛'],part:['#8A5CC2','⚙'],new:['var(--info)','＋'],done:['var(--gray)','✕'],cfg:['var(--title)','✎']};
+const NF=[['all','Hamısı'],['unread','Oxunmamış'],['sync','Paket'],['late','Gecikmə'],['soon','Son tarix'],['part','Hissə'],['new','Yeni qəbul']];
+let LOGS=[
+ ['09.10.2026 10:42','Əli Məmmədov','Zavod 3','Redaktə','T-72 M-1 (B12BT3716): status "Təmirdə", mərhələ "Təmir"','lg-cfg'],
+ ['09.10.2026 10:37','Əli Məmmədov','Zavod 3','Giriş','Əli Məmmədov daxil oldu','lg-in'],
+ ['09.10.2026 10:35','-','-','Giriş xətası','Yanlış parol: zavod3','lg-err'],
+ ['08.10.2026 11:05','Nigar Həsənova','Zavod 3','Əlavə','Yeni texnika: KamAZ-4310 (NÜMUNƏ-5521)','lg-add']
+];
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dfmt=s=>{if(!s||!/^\d{4}-\d\d-\d\d$/.test(s))return s;const[y,m,d]=s.split('-');return `${d}.${m}.${y}`};
+const daysTo=s=>s?Math.round((new Date(s)-TODAY)/864e5):null;
+const isLate=r=>r.gbit&&!['Təhvil verilib','Təmirə yararsız'].includes(r.status)&&daysTo(r.gbit)<0;
+const val=(f,r)=>{const v=r[f.k];if(v==null||v==='')return null;
+  if(f.k==='status')return `<span class="chip ${SCLS[v]||'s-qeb'}">${esc(v)}</span>`;
+  if(f.k==='gbit'){const late=isLate(r);return `<span class="${late?'late':''}">${esc(dfmt(v))}${late?` · ${-daysTo(v)} gün gecikir`:''}</span>`}
+  if(f.t==='Tarix')return esc(dfmt(v));return esc(v)};
+let ROLE=null,cur=0,view=[],fGroup=0,nFilter='all',tileF='',editId=null;
+const scope=()=>ROLE.z?DATA.filter(r=>r.tzavod===ROLE.z):DATA;
+const nScope=()=>ROLE.z?NOTI.filter(n=>n.z===ROLE.z):NOTI;
+const gl=()=>[...new Set([...GROUPS,...FIELDS.map(f=>f.g)])].filter(g=>FIELDS.some(f=>f.g===g));
+
+function toast(msg,col='var(--ok)',ic='✓'){const t=$('toast');t.innerHTML=`<i style="background:${col}">${ic}</i><span>${esc(msg)}</span>`;t.hidden=false;clearTimeout(t._h);t._h=setTimeout(()=>t.hidden=true,3200)}
+
+/* ---------- Reyestr ---------- */
+function renderTiles(){const s=scope();
+  const T=[['','Cəmi','var(--nav)','▤',s.length],['Təmirdə','Təmirdə','var(--info)','⚒',s.filter(r=>r.status==='Təmirdə').length],
+    ['late','Gecikən','var(--bad)','⏱',s.filter(isLate).length],['Təhvil verilib','Təhvil verilib','var(--ok)','✓',s.filter(r=>r.status==='Təhvil verilib').length]];
+  $('tiles').innerHTML=T.map(t=>`<button class="tile${tileF===t[0]?' on':''}" data-tf="${t[0]}"><i style="background:${t[2]}">${t[3]}</i><div><span>${t[1]}</span><b>${t[4]}</b></div></button>`).join('')}
+function renderList(){
+  const cols=FIELDS.filter(f=>f.l).slice(0,5);const z=$('fZ').value,st=$('fS').value,q=$('q').value.trim().toLowerCase();
+  view=scope().filter(r=>(!z||r.tzavod===z)&&(!st||r.status===st)&&(!q||[r.marka,r.zno,r.nov].join(' ').toLowerCase().includes(q))
+    &&(!tileF||(tileF==='late'?isLate(r):r.status===tileF)));
+  $('lh').innerHTML=`<tr><th>№</th>${cols.map(f=>`<th>${esc(f.n)}</th>`).join('')}<th></th></tr>`;
+  $('lb').innerHTML=view.map((r,i)=>`<tr><td>${i+1}</td>${cols.map(f=>`<td>${val(f,r)??'<span style="color:#B2BDBC">—</span>'}</td>`).join('')}<td class="r"><button class="btn sm" data-i="${i}">Geniş bax →</button></td></tr>`).join('')
+    ||`<tr><td colspan="${cols.length+2}" class="empty">Filtrə uyğun texnika yoxdur.</td></tr>`;
+  $('lc').textContent=`Göstərilir: ${view.length} / ${scope().length} texnika (1-ci sətir faylınızdandır, qalanları nümunədir)`;renderTiles()}
+
+/* ---------- Detal ---------- */
+function renderDet(){const r=view[cur];if(!r)return;
+  $('dT').textContent=`${r.marka} · ${r.zno}`;$('dS').textContent=`${r.nov} · ${r.tzavod} · daxil olub ${dfmt(r.dax)||'—'}`;
+  $('dC').innerHTML=`<span class="chip ${SCLS[r.status]}">${esc(r.status)}</span>${isLate(r)?' <span class="chip s-yar">Gecikir</span>':''}`;
+  const M=OPTS.mer,ci=M.indexOf(r.mer);
+  $('step').innerHTML=M.map((m,i)=>`<div class="st ${i<ci||r.mer==='Təhvil'?'done':i===ci?'cur':''}"><i>${i<ci||r.mer==='Təhvil'?'✓':i+1}</i>${esc(m)}</div>`).join('');
+  $('dG').innerHTML=gl().map(g=>`<div class="gcard"><h5>${esc(g)}</h5>${FIELDS.filter(f=>f.g===g).map(f=>{const v=val(f,r);return `<div class="kv"><span>${esc(f.n)}</span><b class="${v==null?'e':''}">${v??'—'}</b></div>`}).join('')}</div>`).join('');
+  const H=HIST[r.id]||[];
+  $('dG').insertAdjacentHTML('afterbegin',`<div class="gcard"><h5>Dəyişiklik tarixçəsi</h5>${H.length?`<div class="tl">${H.map(h=>`<div class="tli"><div class="w">${esc(h.t)}<br>${esc(h.u)}</div><div><b>${esc(h.f)}</b><div class="ch">${h.o!=null?`<s>${esc(h.o||'boş')}</s> →`:''} <ins>${esc(h.n)}</ins></div></div></div>`).join('')}</div>`:'<div class="lbl">Hələ dəyişiklik yoxdur.</div>'}</div>`);
+  $('dP').disabled=cur===0;$('dN').disabled=cur===view.length-1;$('dE').hidden=!ROLE.w}
+
+/* ---------- Dəyişiklik tarixçəsi ---------- */
+const HIST={1:[
+ {t:'09.10.2026 10:42',u:'Əli Məmmədov',f:'Təmirin icra mərhələsi',o:'Hissə təminatı',n:'Təmir'},
+ {t:'09.10.2026 10:42',u:'Əli Məmmədov',f:'Statusu',o:'Hissə gözləyir',n:'Təmirdə'},
+ {t:'01.10.2026 15:10',u:'Nigar Həsənova',f:'Gecikmə səbəbi',o:'',n:'Yanacaq nasosu gecikir'},
+ {t:'12.08.2026 09:30',u:'Əli Məmmədov',f:'Statusu',o:'Qəbul edilib',n:'Hissə gözləyir'},
+ {t:'05.08.2026 11:00',u:'Əli Məmmədov',f:'Qeyd yaradıldı',o:null,n:'Texnika reyestrə daxil edildi'}]};
+const nowStr=()=>'09.10.2026 '+new Date().toTimeString().slice(0,5);
+
+/* ---------- Modal ---------- */
+function modal(html){$('mbox').innerHTML=html;$('modal').hidden=false}
+function closeModal(){$('modal').hidden=true}
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal'||e.target.closest('[data-close]'))closeModal()});
+
+/* ---------- Excel idxal / ixrac, PDF ---------- */
+const XCOLS=[['Texnikanın növü','Texnikanın növü',1],['Texnikanın markası','Texnikanın markası',1],['Zavod nömrəsi','Zavod nömrəsi',1],['İstehsal ili','İstehsal ili',1],['Statusu','Statusu',1],['Təmirin başlama tarixi','Təmirin başlama tarixi',1],['Sütun 49 (adsız)','—',0]];
+$('xlsImp').onclick=()=>modal(`<h4>Excel-dən idxal</h4><p class="lbl">Mövcud reyestrinizi (.xlsx) bir dəfəyə bazaya yükləyin. Sütunlar başlıq adına görə avtomatik uyğunlaşdırılır.</p>
+  <div class="drop2" id="xlsPick">📄 Faylı bura sürükləyin və ya klikləyib seçin<br><small>Nümunə üçün klikləyin: Reyestr_elavelerle.xlsx</small></div><div id="xlsRes"></div>
+  <div class="ma"><button class="btn sec" data-close>Bağla</button><button class="btn" id="xlsGo" disabled>İdxal et</button></div>`);
+$('mbox').addEventListener('click',async e=>{
+  if(e.target.closest('#xlsPick')){$('xlsPick').innerHTML='📄 <b>Reyestr_elavelerle.xlsx</b> · vərəq "nümunə" · 13 sətir';
+    $('xlsRes').innerHTML=`<div class="grid" style="max-height:220px"><table><thead><tr><th>Excel sütunu</th><th>Proqram sahəsi</th><th></th></tr></thead><tbody>${XCOLS.map(c=>`<tr><td>${c[0]}</td><td>${c[1]}</td><td class="${c[2]?'ok2':'no2'}">${c[2]?'✓ uyğun':'✕ ötürülür'}</td></tr>`).join('')}<tr><td colspan="3" class="lbl">… cəmi 46 sütun uyğun gəldi, 1 sütun ötürüləcək</td></tr></tbody></table></div>
+      <div class="warnbar">Yoxlama: 13 sətirdən 1-i doludur, 12-si boşdur və ötürüləcək. Dublikat tapılmadı.</div>`;$('xlsGo').disabled=false}
+  if(e.target.closest('#xlsGo')){closeModal();await load('Excel faylı oxunur və yoxlanılır...',13,900);
+    const ex=DATA.some(r=>r.zno==='B12BT3716');addLog('Əlavə',`Excel idxalı: Reyestr_elavelerle.xlsx — ${ex?'0 yeni, 1 dublikat ötürüldü':'1 yeni'}`,'lg-add');
+    toast(ex?'İdxal bitdi: B12BT3716 artıq bazada var, dublikat əlavə edilmədi':'İdxal bitdi: 1 yeni texnika',ex?'var(--warn)':'var(--ok)',ex?'!':'✓')}
+  if(e.target.closest('#pdfGo')){closeModal();await load('PDF hazırlanır...',0,600);toast('Pasport PDF kimi saxlanıldı: Pasport_'+view[cur].zno+'.pdf')}
+});
+async function xlsExport(n,name){await load('Excel faylı hazırlanır...',n,700);addLog('İxrac',`${name}.xlsx yaradıldı (${n} sətir)`,'lg-add');toast(`${name}.xlsx saxlanıldı (${n} sətir)`)}
+$('xlsExp').onclick=()=>xlsExport(view.length,'Reyestr_'+(ROLE.z||'hamisi').replace(' ','')+'_09-10-2026');
+function pdfPreview(){const r=view[cur];modal(`<h4>Texnika pasportu (PDF)</h4><div class="paper"><h2>Texnikanın təmir pasportu</h2><div class="c">${esc(r.tzavod)} · Çap tarixi: 09.10.2026</div>
+  <table>${gl().map(g=>{const fs=FIELDS.filter(f=>f.g===g&&r[f.k]!=null&&r[f.k]!=='');return fs.length?`<tr><td colspan="2" class="g">${esc(g)}</td></tr>`+fs.map(f=>`<tr><td>${esc(f.n)}</td><td>${esc(f.t==='Tarix'?dfmt(r[f.k]):r[f.k])}</td></tr>`).join(''):''}).join('')}</table>
+  <div class="sg"><span>Məsul icraçı: ____________</span><span>İmza: ____________</span></div></div>
+  <div class="ma"><button class="btn sec" data-close>Bağla</button><button class="btn" id="pdfGo">⇩ PDF kimi saxla</button></div>`)}
+
+/* ---------- İcmal (üst qurum) ---------- */
+const ZST={'Zavod 1':[96,31,8,3,74,'07.10.2026',2],'Zavod 2':[142,40,12,9,88,'01.10.2026',8],'Zavod 4':[71,22,4,1,61,'29.09.2026',10],'Zavod 6':[118,35,6,4,69,'08.10.2026',1],'Zavod 7':[54,15,3,0,57,'06.10.2026',3]};
+function zstat(z){if(ZST[z]){const a=ZST[z];return{c:a[0],t:a[1],h:a[2],g:a[3],o:a[4],s:a[5],d:a[6]}}
+  const s=DATA.filter(r=>r.tzavod===z);return{c:s.length,t:s.filter(r=>r.status==='Təmirdə').length,h:s.filter(r=>r.status==='Hissə gözləyir').length,g:s.filter(isLate).length,o:z==='Zavod 3'?66:72,s:z==='Zavod 3'?SYNC.lastExp.slice(0,10):'08.10.2026',d:z==='Zavod 3'?5:1}}
+function renderSum(){const Z=OPTS.tzavod.map(z=>[z,zstat(z)]);const T=Z.reduce((a,[,s])=>({c:a.c+s.c,t:a.t+s.t,g:a.g+s.g,st:a.st+(s.d>=7?1:0)}),{c:0,t:0,g:0,st:0});
+  $('sumTiles').innerHTML=[['Cəmi texnika','var(--nav)','▤',T.c],['Təmirdə','var(--info)','⚒',T.t],['Gecikən','var(--bad)','⏱',T.g],['7+ gün paket yoxdur','var(--warn)','⇅',T.st+' zavod']].map(t=>`<div class="tile" style="cursor:default"><i style="background:${t[1]}">${t[2]}</i><div><span>${t[0]}</span><b>${t[3]}</b></div></div>`).join('');
+  $('sumB').innerHTML=Z.map(([z,s])=>{const p=s.t+s.h?Math.round(s.g/(s.t+s.h)*100):0;return `<tr data-z="${z}" style="cursor:pointer"><td><b>${z}</b></td><td>${s.c}</td><td>${s.t}</td><td>${s.h}</td><td class="${s.g?'late':''}">${s.g}</td>
+    <td><div style="display:flex;align-items:center;gap:8px"><div class="pbar" style="flex:1"><i style="width:${p}%;background:${p>=20?'var(--bad)':p>=10?'var(--warn)':'var(--ok)'}"></i></div><span style="width:34px">${p}%</span></div></td>
+    <td>${s.o}</td><td class="${s.d>=7?'stale':''}">${s.s}${s.d>=7?` · ${s.d} gün`:''}</td></tr>`}).join('')}
+$('sumB')?.addEventListener('click',e=>{const tr=e.target.closest('[data-z]');if(!tr)return;$('fZ').value=tr.dataset.z;$('fS').value='';$('q').value='';tileF='';renderList();show('list')});
+$('sumExp').onclick=()=>xlsExport(7,'Icmal_zavodlar_09-10-2026');
+
+/* ---------- Ehtiyat nüsxə ---------- */
+let BAK=[];for(let i=0;i<8;i++){const d=new Date('2026-10-09');d.setDate(d.getDate()-i);BAK.push([`${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.2026 08:0${i%6}`,(48.6-i*0.3).toFixed(1)+' MB','Avtomatik'])}
+function renderBak(){$('bakB').innerHTML=BAK.map((b,i)=>`<tr><td>${b[0]}</td><td>${b[1]}</td><td>${b[2]}</td><td class="r">${ROLE.w||1?`<button class="btn sm sec" data-rs="${i}">Bərpa et</button>`:''}</td></tr>`).join('');$('bakLast').textContent=BAK[0][0]}
+$('bakNow').onclick=async()=>{await load('Ehtiyat nüsxə alınır...',0,800);BAK.unshift([nowStr(),'48.7 MB','Əl ilə']);if(BAK.length>30)BAK.pop();renderBak();addLog('Nüsxə','Ehtiyat nüsxə alındı (əl ilə)','lg-add');toast('Ehtiyat nüsxə alındı')};
+$('bakB').addEventListener('click',e=>{const b=e.target.closest('[data-rs]');if(!b)return;const x=BAK[+b.dataset.rs];
+  modal(`<h4>Bazanı bərpa etmək</h4><p>Baza <b>${x[0]}</b> tarixli nüsxəyə qaytarılacaq. Həmin tarixdən sonra edilən dəyişikliklər itəcək.</p><div class="warnbar">Bərpadan əvvəl indiki baza avtomatik ayrıca nüsxə kimi saxlanılır, yəni bu addımı geri qaytarmaq mümkündür.</div>
+  <div class="ma"><button class="btn sec" data-close>Ləğv et</button><button class="btn" style="background:var(--bad)" id="rsGo">Bərpa et</button></div>`);
+  $('rsGo').onclick=async()=>{closeModal();await load('Baza bərpa olunur...',0,1000);addLog('Nüsxə',`Baza ${x[0]} nüsxəsindən bərpa edildi`,'lg-cfg');toast('Baza bərpa edildi, proqram yenidən yükləndi')}});
+
+/* ---------- Daxil et ---------- */
+function renderForm(){const G=gl();fGroup=Math.min(fGroup,G.length-1);const g=G[fGroup];const r=editId?DATA.find(x=>x.id===editId):{};
+  $('addT').textContent=editId?`Redaktə: ${r.marka} · ${r.zno}`:'Texnika daxil et';
+  $('ftabs').innerHTML=G.map((x,i)=>`<button class="${i===fGroup?'on':''}" data-g="${i}">${i+1}. ${esc(x)}<span class="n">${FIELDS.filter(f=>f.g===x).length}</span></button>`).join('');
+  $('fbox').innerHTML=FIELDS.filter(f=>f.g===g).map(f=>{const id='in_'+f.k,v=r[f.k]??'';const lab=`${esc(f.n)}${f.m?' <span class="req">*</span>':''}`;
+    if(f.t==='Uzun mətn')return `<label class="wide" for="${id}">${lab}<textarea class="inp" id="${id}">${esc(v)}</textarea></label>`;
+    if(f.t==='Seçim')return `<label for="${id}">${lab}<select class="inp" id="${id}"><option value="">— seçin —</option>${(OPTS[f.k]||[]).map(o=>`<option${o==v?' selected':''}>${esc(o)}</option>`).join('')}</select></label>`;
+    return `<label for="${id}">${lab}<input class="inp" id="${id}" ${f.t==='Tarix'?'type="date"':f.t==='Rəqəm'?'inputmode="decimal"':''} value="${esc(v)}"></label>`}).join('');
+  if(!editId&&ROLE.z){const s=$('in_tzavod');if(s)s.value=ROLE.z}
+  $('fPrev').disabled=fGroup===0;$('fNext').disabled=fGroup===G.length-1}
+let DRAFT={};
+function keepDraft(){document.querySelectorAll('#fbox [id^=in_]').forEach(e=>DRAFT[e.id.slice(3)]=e.value)}
+
+/* ---------- Bildirişlər ---------- */
+const nRow=n=>`<div class="nitem${n.r?'':' unread'}" data-n="${n.id}"><i style="background:${NT[n.t][0]}">${NT[n.t][1]}</i><div><div class="nt">${esc(n.ti)}</div><div class="nd">${esc(n.d)}</div></div><span class="tm">${esc(n.tm)}</span></div>`;
+function renderNoti(){const s=nScope();const u=s.filter(n=>!n.r).length;
+  [$('nDot'),$('nDot2')].forEach(d=>{d.textContent=u;d.hidden=!u});
+  $('dropList').innerHTML=s.slice(0,6).map(nRow).join('')||'<div class="empty">Bildiriş yoxdur</div>';
+  $('nf').innerHTML=NF.map(f=>`<button class="btn sm ${nFilter===f[0]?'':'sec'}" data-nf="${f[0]}">${f[1]}</button>`).join('');
+  const l=s.filter(n=>nFilter==='all'||(nFilter==='unread'?!n.r:n.t===nFilter));
+  $('nList').innerHTML=l.map(nRow).join('')||'<div class="empty">Bu filtrə uyğun bildiriş yoxdur.</div>'}
+function openNoti(id){const n=NOTI.find(x=>x.id===id);if(!n)return;n.r=1;$('drop').hidden=true;renderNoti();
+  if(n.rec){tileF='';$('fZ').value='';$('fS').value='';$('q').value='';renderList();const i=view.findIndex(r=>r.id===n.rec);if(i>=0){cur=i;renderDet();show('det')}}}
+
+function addLog(type,msg,cls){const d=new Date();LOGS.unshift([`09.10.2026 ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`,ROLE.user,ROLE.z||ROLE.q,type,msg,cls]);renderLog()}
+function renderLog(){$('logB').innerHTML=LOGS.filter(l=>!ROLE.z||l[2]===ROLE.z||l[2]==='-').map(l=>`<tr class="${l[5]}"><td>${l[0]}</td><td>${esc(l[1])}</td><td>${esc(l[2])}</td><td>${esc(l[3])}</td><td>${esc(l[4])}</td></tr>`).join('')}
+
+function all(){renderList();renderNoti();renderLog();if(!$('add').hidden)renderForm();if(!$('det').hidden)renderDet()}
+const PAGES=['home','list','det','add','noti','log','sync','sum','bak'];
+// Yüklənmə: real proqramda arxa planda baza sorğusu gedir, UI donmur
+function load(text,total,ms){return new Promise(res=>{const L=$('loading');$('ldT').textContent=text;L.hidden=false;const t0=performance.now();
+  (function tick(){const k=Math.min(1,(performance.now()-t0)/ms);$('ldB').style.width=(k*100)+'%';$('ldS').textContent=total?`${Math.round(k*total).toLocaleString('az').replace(/,/g,' ')} / ${total.toLocaleString('az').replace(/,/g,' ')} qeyd`:'';
+    if(k<1)requestAnimationFrame(tick);else{L.hidden=true;res()}})()})}
+let navTok=0;
+async function show(p){const tok=++navTok;const nv=p==='det'?'list':p;document.querySelectorAll('.ic[data-p]').forEach(b=>b.classList.toggle('on',b.dataset.p===nv));$('drop').hidden=true;
+  if(p==='list'&&$('list').hidden)await load('Reyestr yüklənir...',100000,550);
+  if(p==='det')await load('Texnika məlumatları açılır...',0,300);
+  if(tok!==navTok)return; // bu arada başqa səhifə seçilib
+  PAGES.forEach(x=>{$(x).hidden=x!==p;$(x).classList.remove('anim')});void $(p).offsetWidth;$(p).classList.add('anim');
+  if(p==='add')renderForm();if(p==='sync')renderSync();if(p==='sum')renderSum();if(p==='home')renderHome();if(p==='bak')renderBak()}
+
+/* ---------- İxrac / İdxal ---------- */
+let SYNC={lastExp:'04.10.2026 17:30',seq:41,usb:true,hist:[['04.10.2026 17:30','İxrac','TQX-Z3-000041','14 dəyişiklik','OK'],['27.09.2026 16:05','İxrac','TQX-Z3-000040','9 dəyişiklik','OK']],
+  pk:[{f:'TQX-Z3-000042.tqx',z:'Zavod 3',seq:42,d:'09.10.2026',n:'3 yeni, 2 dəyişiklik',ok:1},{f:'TQX-Z5-000017.tqx',z:'Zavod 5',seq:17,d:'08.10.2026',n:'1 yeni, 1 dəyişiklik',ok:1},
+      {f:'TQX-Z2-000009.tqx',z:'Zavod 2',seq:9,d:'01.10.2026',n:'imza yanlışdır',ok:0},{f:'TQX-Z3-000041.tqx',z:'Zavod 3',seq:41,d:'04.10.2026',n:'artıq idxal olunub',ok:-1}],sel:null,busy:0};
+const STEPS_E=['Dəyişikliklər toplanır','Paket sıxılır','AES-256-GCM ilə şifrələnir','Zavod imzası (ECDSA) əlavə olunur','USB-yə yazılır və yoxlanılır'];
+const STEPS_I=['Paket oxunur','İmza yoxlanılır','Şifrə açılır','Ardıcıllıq nömrəsi yoxlanılır','Dəyişikliklər bazaya tətbiq olunur'];
+const stepsHtml=(S,i,fail)=>`<div class="steps2">${S.map((s,k)=>`<div class="s2 ${k<i?'done':k===i?(fail?'fail':'run'):''}"><i>${k<i?'✓':k===i&&fail?'✕':k+1}</i>${s}</div>`).join('')}</div>`;
+function usbBox(){return `<div class="usb ${SYNC.usb?'ok':''}"><span style="font-size:24px">🖫</span><div><b>${SYNC.usb?'USB qoşulub: E:\\ (TEXNIKA_USB)':'USB qoşulmayıb'}</b><small>${SYNC.usb?'Boş yer: 14.2 GB':'USB yaddaşı taxın'}</small></div><button class="btn sm sec" id="usbT" style="margin-left:auto">${SYNC.usb?'Çıxar':'Qoş'}</button></div>`}
+function histBox(){return `<div class="box" style="grid-column:1/-1;max-height:190px"><h4>Sinxronizasiya tarixçəsi</h4><div class="grid"><table><thead><tr><th>Tarix</th><th>Əməliyyat</th><th>Paket</th><th>Məzmun</th><th>Nəticə</th></tr></thead><tbody>${SYNC.hist.map(h=>`<tr><td>${h[0]}</td><td>${h[1]}</td><td>${h[2]}</td><td>${esc(h[3])}</td><td><span class="chip ${h[4]==='OK'?'s-teh':'s-yar'}">${h[4]==='OK'?'Uğurlu':'Rədd edildi'}</span></td></tr>`).join('')}</tbody></table></div></div>`}
+function renderSync(){
+  if(ROLE.w){ // zavod: ixrac
+    $('syT').textContent='İxrac (USB-yə)';
+    $('syWarn').innerHTML=`<div class="warnbar">⚠ Son ixrac 5 gün əvvəl olub (${SYNC.lastExp}). Üst qurum son 5 günün dəyişikliklərini görmür.</div>`;
+    $('syBody').innerHTML=`<div class="box"><h4>Yeni paket</h4><p>Son ixracdan bəri dəyişənlər paketə düşür. Paketi yalnız üst qurum aça bilər.</p>
+      <div class="kv2"><span>Paket nömrəsi</span><b>TQX-Z3-${String(SYNC.seq+1).padStart(6,'0')}</b><span>Yeni texnika</span><b>3</b><span>Dəyişiklik</span><b>2</b><span>Silinmə</span><b>0</b><span>Alıcı</span><b>Üst qurum</b></div>
+      ${usbBox()}<button class="btn" id="doExp" ${!SYNC.usb||SYNC.busy?'disabled':''}>⇩ USB-yə ixrac et</button></div>
+      <div class="box"><h4>Proses</h4><div id="expSt">${stepsHtml(STEPS_E,-1)}</div><p id="expRes"></p></div>${histBox()}`;
+  } else { // üst qurum: idxal
+    $('syT').textContent='İdxal (USB-dən)';$('syWarn').innerHTML='';
+    $('syBody').innerHTML=`<div class="box"><h4>USB-dəki paketlər</h4>${usbBox()}
+      <div style="display:flex;flex-direction:column;gap:6px;overflow:auto">${SYNC.usb?SYNC.pk.map((p,i)=>`<div class="pk ${SYNC.sel===i?'on':''}" data-pk="${i}"><span>📦</span><div><b>${p.f}</b><div class="lbl">${p.z} · ${p.d} · ${p.ok===1?p.n:`<span class="bad2">${p.n}</span>`}</div></div></div>`).join(''):'<div class="empty">USB qoşulmayıb</div>'}</div>
+      <button class="btn" id="doImp" ${SYNC.sel==null||SYNC.busy?'disabled':''}>⇧ Seçilmiş paketi idxal et</button></div>
+      <div class="box"><h4>Proses</h4><div id="impSt">${stepsHtml(STEPS_I,-1)}</div><div id="impRes"></div></div>${histBox()}`;
+  }}
+async function runSteps(el,S,failAt){for(let i=0;i<S.length;i++){$(el).innerHTML=stepsHtml(S,i,false);await new Promise(r=>setTimeout(r,450));
+  if(i===failAt){$(el).innerHTML=stepsHtml(S,i,true);return false}}$(el).innerHTML=stepsHtml(S,S.length);return true}
+$('syBody').addEventListener('click',async e=>{
+  if(e.target.closest('#usbT')){SYNC.usb=!SYNC.usb;SYNC.sel=null;renderSync();return}
+  const pk=e.target.closest('[data-pk]');if(pk&&!SYNC.busy){SYNC.sel=+pk.dataset.pk;renderSync();return}
+  if(e.target.closest('#doExp')){SYNC.busy=1;e.target.disabled=true;await runSteps('expSt',STEPS_E,-1);SYNC.seq++;SYNC.lastExp='09.10.2026 '+new Date().toTimeString().slice(0,5);
+    const name=`TQX-Z3-${String(SYNC.seq).padStart(6,'0')}`;SYNC.hist.unshift([SYNC.lastExp,'İxrac',name,'3 yeni, 2 dəyişiklik','OK']);SYNC.busy=0;
+    addLog('İxrac',`Paket ${name}.tqx USB-yə yazıldı`,'lg-add');renderSync();$('syWarn').innerHTML='';$('expRes').textContent=`✓ ${name}.tqx hazırdır. USB-ni üst quruma çatdırın.`;toast('İxrac tamamlandı');return}
+  if(e.target.closest('#doImp')){const p=SYNC.pk[SYNC.sel];SYNC.busy=1;e.target.disabled=true;
+    const ok=await runSteps('impSt',STEPS_I,p.ok===0?1:p.ok===-1?3:-1);SYNC.busy=0;
+    if(!ok){const why=p.ok===0?'İmza yanlışdır: paket dəyişdirilib və ya saxtadır. Heç bir məlumat tətbiq olunmadı.':'Bu paket artıq idxal olunub (təkrar idxal qadağandır).';
+      SYNC.hist.unshift(['09.10.2026 '+new Date().toTimeString().slice(0,5),'İdxal',p.f.replace('.tqx',''),why,'X']);addLog('Xəta',`${p.f} rədd edildi`,'lg-err');
+      renderSync();$('impSt').innerHTML=stepsHtml(STEPS_I,p.ok===0?1:3,true);$('impRes').innerHTML=`<div class="warnbar" style="background:#FBE9E8;border-color:#F0C2BF;color:#8B2A25">✕ ${why}</div>`;toast('Paket rədd edildi','var(--bad)','✕');return}
+    if(p.z==='Zavod 5'&&!DATA.some(r=>r.zno==='NÜMUNƏ-6610'))DATA.unshift({id:99,nov:'Zirehli transportyor',marka:'BTR-82A',zno:'NÜMUNƏ-6610',status:'Qəbul edilib',tzavod:'Zavod 5',dax:'2026-10-07',gbit:'2026-12-01',mer:'Qəbul'});
+    const b=DATA.find(r=>r.zno==='NÜMUNƏ-0912');if(p.z==='Zavod 5'&&b){b.status='Təmirdə';b.mer='Təmir';b.gec='Reduktor 06.10.2026 daxil oldu'}
+    NOTI.unshift({id:Date.now(),t:'new',ti:'İdxal tamamlandı',d:`${p.z}: ${p.n}`,tm:'İndicə',r:0,z:p.z});
+    SYNC.hist.unshift(['09.10.2026 '+new Date().toTimeString().slice(0,5),'İdxal',p.f.replace('.tqx',''),p.n,'OK']);p.ok=-1;p.n='artıq idxal olunub';
+    addLog('İdxal',`${p.f} idxal edildi`,'lg-add');renderSync();$('impSt').innerHTML=stepsHtml(STEPS_I,5);
+    const [a,c]=SYNC.hist[0][3].match(/\d+/g)||[0,0];
+    $('impRes').innerHTML=`<div class="res"><div><b>${a}</b><span>yeni</span></div><div><b>${c}</b><span>dəyişiklik</span></div><div><b>0</b><span>silinmə</span></div></div>`;renderNoti();renderList();toast('İdxal tamamlandı, reyestr yeniləndi')}
+});
+
+/* ---------- Ana səhifə (statistika) ---------- */
+// Nümunə statistikalar: real proqramda SQLite-dən GROUP BY sorğuları ilə hesablanır
+const MON=['Noy','Dek','Yan','Fev','Mar','Apr','May','İyn','İyl','Avq','Sen','Okt'];
+const HS={
+ z:{cemi:124,tem:46,goz:17,gec:6,orta:66,ortaPrev:71,
+    st:[['Qəbul edilib',9],['Təmirdə',46],['Hissə gözləyir',17],['Təhvil verilib',46],['Təmirə yararsız',6]],
+    q:[6,8,7,9,11,10,12,9,13,11,12,4],t:[5,6,8,7,8,9,10,11,9,12,10,3],
+    nov:[['Əsas döyüş tankı',41],['Piyadaların döyüş maşını',33],['Zirehli transportyor',27],['Təkərli texnika',15],['Özüyeriyən artilleriya',8]],
+    zt:'Təmir növü üzrə orta müddət (gün)',z:[['Cari',24],['Orta',63],['Əsaslı',142]]},
+ u:{cemi:812,tem:301,goz:87,gec:35,orta:71,ortaPrev:74,
+    st:[['Qəbul edilib',48],['Təmirdə',301],['Hissə gözləyir',87],['Təhvil verilib',341],['Təmirə yararsız',35]],
+    q:[44,52,47,58,61,63,70,59,74,68,72,21],t:[39,45,50,49,55,57,62,66,60,71,65,17],
+    nov:[['Əsas döyüş tankı',268],['Piyadaların döyüş maşını',214],['Zirehli transportyor',171],['Təkərli texnika',103],['Özüyeriyən artilleriya',56]],
+    zt:'Zavodlar üzrə orta təmir müddəti (gün)',z:[['Zavod 2',88],['Zavod 1',74],['Zavod 5',72],['Zavod 6',69],['Zavod 3',66],['Zavod 4',61],['Zavod 7',57]]}};
+const SCOL={'Qəbul edilib':'#9AA9A8','Təmirdə':'var(--info)','Hissə gözləyir':'var(--warn)','Təhvil verilib':'var(--ok)','Təmirə yararsız':'var(--bad)'};
+let hPer=180;const fmtN=n=>n.toLocaleString('az').replace(/,/g,' ');
+function hbars(rows,col,max,go){return rows.map(r=>`<div class="hb" data-tip="${esc(r[0])}: ${fmtN(r[1])}" ${go?`data-go="${go}" data-v="${esc(r[0])}"`:''}><span>${esc(r[0])}</span><div class="tr"><i style="width:${r[1]/max*100}%;background:${col}"></i></div><b>${fmtN(r[1])}</b></div>`).join('')}
+function monthChart(q,t,n){const Q=q.slice(-n),T=t.slice(-n),L=MON.slice(-n);const W=620,H=190,pl=30,pb=22,pt=8,max=Math.ceil(Math.max(...Q,...T)/10)*10||10;
+  const cw=(W-pl)/n,bw=Math.min(18,cw/3),y=v=>pt+(H-pt-pb)*(1-v/max);let g='';
+  for(let k=0;k<=4;k++){const v=max*k/4,yy=y(v);g+=`<line x1="${pl}" x2="${W}" y1="${yy}" y2="${yy}" stroke="#E3ECEA" stroke-width="1"/><text x="${pl-6}" y="${yy+4}" text-anchor="end" font-size="10" fill="#5D7472">${Math.round(v)}</text>`}
+  const bar=(x,v,c,lab)=>{const h=H-pb-y(v);return `<path d="M${x},${H-pb} v${-Math.max(0,h-4)} q0,-4 4,-4 h${bw-8} q4,0 4,4 v${Math.max(0,h-4)} z" fill="${c}" data-tip="${lab}"/>`};
+  L.forEach((m,i)=>{const cx=pl+cw*i+cw/2;g+=bar(cx-bw-1,Q[i],'#0F4C4A',`${m}: ${Q[i]} qəbul`)+bar(cx+1,T[i],'#6FB1A9',`${m}: ${T[i]} təhvil`)+`<text x="${cx}" y="${H-6}" text-anchor="middle" font-size="10" fill="#5D7472">${m}</text>`});
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Aylar üzrə qəbul və təhvil">${g}</svg>`}
+function renderHome(){const S=ROLE.w?HS.z:HS.u;$('hT').textContent=ROLE.w?`Ana səhifə · ${ROLE.z}`:`Ana səhifə · bütün zavodlar`;
+  document.querySelectorAll('#hPer button').forEach(b=>b.classList.toggle('on',+b.dataset.per===hPer));
+  const d=S.orta-S.ortaPrev;
+  $('hTiles').innerHTML=[['','Cəmi texnika','var(--nav)','▤',fmtN(S.cemi),''],['Təmirdə','Təmirdə','var(--info)','⚒',fmtN(S.tem),`+ ${S.goz} hissə gözləyir`],
+    ['late','Gecikən','var(--bad)','⏱',S.gec,`${Math.round(S.gec/(S.tem+S.goz)*100)}% aktiv təmirlərin`],['','Orta təmir müddəti','var(--ok)','◷',S.orta+' gün',`${d<0?'▼':'▲'} ${Math.abs(d)} gün əvvəlki dövrə görə`]]
+    .map(t=>`<button class="tile" data-go="tile" data-v="${t[0]}"><i style="background:${t[2]}">${t[3]}</i><div><span>${t[1]}</span><b>${t[4]}</b>${t[5]?`<div class="lbl" style="font-size:11px;margin-top:3px;color:${t[1]==='Orta təmir müddəti'?(d<0?'var(--ok)':'var(--bad)'):'var(--muted)'}">${t[5]}</div>`:''}</div></button>`).join('');
+  const n={30:2,90:3,180:6,365:12}[hPer];$('chM').innerHTML=monthChart(S.q,S.t,n);
+  const tot=S.st.reduce((a,r)=>a+r[1],0);
+  $('chS').innerHTML=`<div class="stk">${S.st.map(r=>`<i style="width:${r[1]/tot*100}%;background:${SCOL[r[0]]}" data-tip="${r[0]}: ${r[1]}" data-go="st" data-v="${r[0]}"></i>`).join('')}</div>
+    <div class="sl">${S.st.map(r=>`<i style="background:${SCOL[r[0]]}"></i><span>${r[0]}</span><b>${fmtN(r[1])}</b><span class="p">${Math.round(r[1]/tot*100)}%</span>`).join('')}</div>`;
+  $('chN').innerHTML=hbars(S.nov,'#0F4C4A',Math.max(...S.nov.map(r=>r[1])));
+  $('chZt').textContent=S.zt;$('chZ').innerHTML=hbars(S.z,'#6FB1A9',Math.max(...S.z.map(r=>r[1])),ROLE.w?'':'zav');
+  const L=[...scope().filter(isLate).map(r=>[r.marka+' · '+r.zno,-daysTo(r.gbit),r.tzavod,r.id]),['BMP-2 · NÜMUNƏ-1180',9,'Zavod 3'],['BTR-80 · NÜMUNƏ-0455',6,'Zavod 3'],['T-72 B · NÜMUNƏ-2207',14,'Zavod 2'],['2S1 · NÜMUNƏ-0611',21,'Zavod 4']]
+    .filter(r=>!ROLE.z||r[2]===ROLE.z).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  $('hLate').innerHTML=L.map(r=>`<div class="lt" ${r[3]?`data-go="rec" data-v="${r[3]}"`:''}><span>${esc(r[0])}${ROLE.z?'':` <span class="lbl">· ${r[2]}</span>`}</span><b class="late">${r[1]} gün</b></div>`).join('')||'<div class="lbl">Gecikən təmir yoxdur.</div>';
+  $('hEv').innerHTML=LOGS.filter(l=>!ROLE.z||l[2]===ROLE.z||l[2]==='-').slice(0,5).map(l=>`<div class="ev"><span class="t">${l[0]}</span><span class="chip ${l[5]==='lg-err'?'s-yar':l[5]==='lg-add'?'s-teh':l[5]==='lg-in'?'s-tem':'s-goz'}">${esc(l[3])}</span><span>${esc(l[4])}</span></div>`).join('')}
+$('hPer').addEventListener('click',e=>{const b=e.target.closest('[data-per]');if(!b)return;hPer=+b.dataset.per;renderHome()});
+$('home').addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(!g)return;const k=g.dataset.go,v=g.dataset.v;
+  $('fZ').value='';$('fS').value='';$('q').value='';tileF='';
+  if(k==='log')return show('log');
+  if(k==='tile'||k==='late'){tileF=k==='late'?'late':v}
+  if(k==='st')$('fS').value=v;if(k==='zav')$('fZ').value=v;
+  if(k==='rec'){renderList();const i=view.findIndex(r=>r.id===+v);if(i>=0){cur=i;renderDet();return show('det')}}
+  renderList();show('list')});
+// Ümumi tooltip: data-tip olan istənilən elementin üstündə
+const tipEl=document.createElement('div');tipEl.className='tipbox';tipEl.hidden=true;document.body.appendChild(tipEl);
+document.addEventListener('mousemove',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');if(!t){tipEl.hidden=true;return}
+  tipEl.textContent=t.getAttribute('data-tip');tipEl.hidden=false;tipEl.style.left=(e.clientX+12)+'px';tipEl.style.top=(e.clientY-30)+'px'});
+
+/* ---------- Giriş ---------- */
+const USERS={zavod3:{user:'Əli Məmmədov',q:'Zavod 3',z:'Zavod 3',w:1,role:'zavod istifadəçisi'},ustqurum:{user:'Rəşad Quliyev',q:'Üst qurum',z:null,w:0,role:'yalnız baxış'},enustqurum:{user:'Elçin Babayev',q:'Ən üst qurum',z:null,w:0,role:'yalnız baxış'}};
+function login(u){const R=USERS[u.trim().toLowerCase()];if(!R){$('lerr').textContent='Belə istifadəçi yoxdur. Aşağıdakı sınaq girişlərindən birini seçin.';return}
+  ROLE=R;$('login').hidden=true;$('tq').textContent=R.q;$('tu').textContent=`${R.user} · ${R.role}`;$('iAdd').hidden=!R.w;$('iSum').hidden=!!R.w;$('xlsImp').hidden=!R.w;
+  const Z=OPTS.tzavod;$('fZ').innerHTML='<option value="">Zavod: Hamısı</option>'+Z.map(z=>`<option>${z}</option>`).join('');$('fZ').hidden=!!R.z;
+  $('fS').innerHTML='<option value="">Status: Hamısı</option>'+OPTS.status.map(s=>`<option>${s}</option>`).join('');
+  tileF='';PAGES.forEach(x=>$(x).hidden=true);show('home');all();const u2=nScope().filter(n=>!n.r).length;if(u2)setTimeout(()=>toast(`${u2} oxunmamış bildirişiniz var`,'var(--warn)','🔔︎'),400)}
+$('lf').addEventListener('submit',e=>{e.preventDefault();login($('lu').value)});
+document.querySelectorAll('.hint [data-u]').forEach(b=>b.onclick=()=>{$('lu').value=b.dataset.u;$('lp').value='••••';login(b.dataset.u)});
+$('logout').onclick=()=>{$('login').hidden=false;$('lu').value='';$('lp').value='';$('lerr').textContent=''};
+
+/* ---------- Hadisələr ---------- */
+document.querySelectorAll('.ic[data-p]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.p==='add'){editId=null;DRAFT={};fGroup=0}show(b.dataset.p)}));
+$('tiles').addEventListener('click',e=>{const t=e.target.closest('[data-tf]');if(!t)return;tileF=tileF===t.dataset.tf?'':t.dataset.tf;renderList()});
+['fZ','fS'].forEach(id=>$(id).addEventListener('change',renderList));$('q').addEventListener('input',renderList);
+$('lb').addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(!b)return;cur=+b.dataset.i;renderDet();show('det')});
+$('back').onclick=()=>show('list');$('dP').onclick=()=>{cur--;renderDet()};$('dN').onclick=()=>{cur++;renderDet()};
+$('dPdf').onclick=pdfPreview;
+$('dE').onclick=()=>{editId=view[cur].id;DRAFT={};fGroup=0;show('add')};
+$('ftabs').addEventListener('click',e=>{const b=e.target.closest('[data-g]');if(!b)return;keepDraft();fGroup=+b.dataset.g;renderForm();restoreDraft()});
+$('fPrev').onclick=()=>{keepDraft();fGroup--;renderForm();restoreDraft()};$('fNext').onclick=()=>{keepDraft();fGroup++;renderForm();restoreDraft()};
+function restoreDraft(){document.querySelectorAll('#fbox [id^=in_]').forEach(e=>{const k=e.id.slice(3);if(k in DRAFT)e.value=DRAFT[k]})}
+$('save').onclick=()=>{keepDraft();const base=editId?DATA.find(x=>x.id===editId):{};const rec={...base,...Object.fromEntries(Object.entries(DRAFT).filter(([,v])=>v!==''))};
+  const miss=FIELDS.filter(f=>f.m&&!rec[f.k]);
+  if(miss.length){const G=gl();fGroup=G.indexOf(miss[0].g);renderForm();restoreDraft();toast(`Məcburi sahə boşdur: ${miss.map(f=>f.n).join(', ')}`,'var(--bad)','!');return}
+  if(editId){const ch=FIELDS.filter(f=>String(base[f.k]??'')!==String(rec[f.k]??''));
+    HIST[base.id]=[...ch.map(f=>({t:nowStr(),u:ROLE.user,f:f.n,o:String(base[f.k]??''),n:String(rec[f.k]??'')})),...(HIST[base.id]||[])];Object.assign(base,rec);addLog('Redaktə',`${rec.marka} (${rec.zno}) yeniləndi`,'lg-cfg');toast('Dəyişikliklər yadda saxlanıldı')}
+  else{rec.id=Math.max(...DATA.map(r=>r.id))+1;DATA.unshift(rec);addLog('Əlavə',`Yeni texnika: ${rec.marka} (${rec.zno})`,'lg-add');
+    NOTI.unshift({id:Date.now(),t:'new',ti:'Yeni texnika qəbul edildi',d:`${rec.marka} (${rec.zno}) ${rec.tzavod}-ə daxil oldu`,tm:'İndicə',r:0,rec:rec.id,z:rec.tzavod});toast('Texnika reyestrə əlavə edildi')}
+  editId=null;DRAFT={};fGroup=0;show('list');all()};
+$('bell').onclick=e=>{e.stopPropagation();$('drop').hidden=!$('drop').hidden};
+document.addEventListener('click',e=>{if(!e.target.closest('#drop')&&!e.target.closest('#bell'))$('drop').hidden=true});
+[$('dropList'),$('nList')].forEach(l=>l.addEventListener('click',e=>{const n=e.target.closest('[data-n]');if(n)openNoti(+n.dataset.n)}));
+[$('readAll'),$('readAll2')].forEach(b=>b.onclick=()=>{nScope().forEach(n=>n.r=1);renderNoti()});
+$('seeAll').onclick=()=>show('noti');
+$('nf').addEventListener('click',e=>{const b=e.target.closest('[data-nf]');if(!b)return;nFilter=b.dataset.nf;renderNoti()});
+</script>
