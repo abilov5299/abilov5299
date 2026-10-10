@@ -67,6 +67,7 @@ namespace TexnikaReyestri.Core
         {
             if (root == null) return;
             ApplyOne(root);
+            Solid(root);
             foreach (Control c in root.Controls) Apply(c);
         }
 
@@ -92,6 +93,18 @@ namespace TexnikaReyestri.Core
                     if (c is Panel or TableLayoutPanel or FlowLayoutPanel or UserControl or SplitContainer)
                         c.BackColor = role switch { "card" => Card, "alt" => Alt, "nav" => Nav, "page" => Page, "transparent" => Color.Transparent, _ => c is UserControl ? Bg : Color.Transparent };
                     break;
+            }
+        }
+
+        // Şəffaf yazı/panel kartın içindədirsə, kartın rəngini alır: şəffaflıq hər çəkilişdə valideyni təkrar çəkdirir və UI-ni ləngidir
+        private static void Solid(Control c)
+        {
+            if (c.BackColor != Color.Transparent || c is IThemed || c is UserControl || !(c is Label or Panel or TableLayoutPanel or FlowLayoutPanel or CheckBox or RadioButton)) return;
+            for (var p = c.Parent; p != null; p = p.Parent)
+            {
+                if (p is Controls.RoundPanel rp) { if (rp.Fill != Controls.PanelFill.Transparent) c.BackColor = rp.FillColor; return; }
+                if (p is UserControl || p is Form) return;
+                if (p.BackColor != Color.Transparent) { c.BackColor = p.BackColor; return; }
             }
         }
 

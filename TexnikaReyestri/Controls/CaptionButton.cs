@@ -31,7 +31,7 @@ namespace TexnikaReyestri.Controls
             if (_kind == CaptionKind.Minimize) f.WindowState = FormWindowState.Minimized;
             else if (_kind == CaptionKind.Close) f.Close();
             else
-                f.WindowState = f.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+                using (Ui.Dondur(f)) f.WindowState = f.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
         }
 
         protected override void OnParentChanged(EventArgs e)

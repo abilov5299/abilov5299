@@ -23,10 +23,16 @@ namespace TexnikaReyestri.Core
         }
 
         /// <summary>Uzun əməliyyat: yüklənmə pərdəsi göstərilir, UI donmur, xəta olsa toast çıxır.</summary>
+        /// <summary>İş 250 ms-dən uzun çəkərsə yüklənmə pərdəsi göstərilir (qısa işlərdə ekran qırpılmasın).</summary>
         public static async Task<bool> Is(Control host, string mesaj, Func<LoadingOverlay, Task> isi)
         {
             using var ov = LoadingOverlay.Show(host, mesaj);
-            try { await isi(ov); return true; }
+            try
+            {
+                var t = isi(ov);
+                if (await Task.WhenAny(t, Task.Delay(250)) != t) ov.Goster();
+                await t; return true;
+            }
             catch (OperationCanceledException) { return false; }
             catch (Exception ex) { await SistemRepo.LogAsync("Xəta", ex.Message); Toast.Show(host, ex.Message, ToastKind.Error); return false; }
         }
@@ -45,6 +51,28 @@ namespace TexnikaReyestri.Core
         public static string TemaGlyph => Theme.Mode == ThemeMode.Dark ? Icons.Sun : Icons.Moon;
 
         /// <summary>Çərçivəsiz formanın kənarına nazik xətt çəkir.</summary>
+        [System.Runtime.InteropServices.DllImport("user32.dll")] private static extern IntPtr SendMessage(IntPtr h, int m, IntPtr w, IntPtr l);
+        [System.Runtime.InteropServices.DllImport("user32.dll")] private static extern bool RedrawWindow(IntPtr h, IntPtr r, IntPtr rgn, int f);
+
+        /// <summary>using (Ui.Dondur(c)) { ... } — blok bitənə qədər c və uşaqları çəkilmir, sonra hamısı bir dəfəyə çəkilir.</summary>
+        public static IDisposable Dondur(Control c)
+        {
+            if (c == null || !c.IsHandleCreated) return new Bos();
+            SendMessage(c.Handle, 0x000B, IntPtr.Zero, IntPtr.Zero);   // WM_SETREDRAW = false
+            return new Ac(c);
+        }
+        private sealed class Bos : IDisposable { public void Dispose() { } }
+        private sealed class Ac : IDisposable
+        {
+            private readonly Control _c; public Ac(Control c) => _c = c;
+            public void Dispose()
+            {
+                if (!_c.IsHandleCreated) return;
+                SendMessage(_c.Handle, 0x000B, (IntPtr)1, IntPtr.Zero);
+                RedrawWindow(_c.Handle, IntPtr.Zero, IntPtr.Zero, 0x0001 | 0x0004 | 0x0080 | 0x0100 | 0x0400);   // INVALIDATE|ERASE|ALLCHILDREN|UPDATENOW|FRAME
+            }
+        }
+
         public static void Kenar(Form f, PaintEventArgs e) { using var p = new Pen(Theme.Line); e.Graphics.DrawRectangle(p, 0, 0, f.ClientSize.Width - 1, f.ClientSize.Height - 1); }
     }
 }

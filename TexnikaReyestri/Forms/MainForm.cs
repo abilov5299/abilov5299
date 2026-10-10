@@ -116,7 +116,7 @@ namespace TexnikaReyestri.Forms
         private void btnMax_Click(object sender, EventArgs e)
         {
             MaximizedBounds = Screen.FromControl(this).WorkingArea;
-            WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+            using (Ui.Dondur(this)) WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
         }
 
         private async void btnTheme_Click(object sender, EventArgs e) { Theme.Toggle(); btnTheme.Glyph = Ui.TemaGlyph; await Ui.TemaSaxla(); }

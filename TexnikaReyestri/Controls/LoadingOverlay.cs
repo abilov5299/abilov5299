@@ -17,10 +17,17 @@ namespace TexnikaReyestri.Controls
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
             _msg = msg; Bounds = new Rectangle(Point.Empty, host.ClientSize); Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            if (host.Width > 0 && host.Height > 0) { _snap = new Bitmap(host.Width, host.Height); host.DrawToBitmap(_snap, new Rectangle(Point.Empty, host.Size)); }
+            _host = host;
             _t.Tick += (_, _) => { _angle = (_angle + 9) % 360; Invalidate(); };
-            _t.Start();
-            host.Controls.Add(this); BringToFront(); Cursor = Cursors.WaitCursor;
+        }
+        private readonly Control _host;
+
+        /// <summary>Pərdəni ekrana çıxarır (Ui.Is bunu iş uzun çəkəndə çağırır).</summary>
+        public void Goster()
+        {
+            if (Parent != null || _host.IsDisposed) return;
+            Bounds = new Rectangle(Point.Empty, _host.ClientSize);
+            _host.Controls.Add(this); BringToFront(); Cursor = Cursors.WaitCursor; _t.Start();
         }
 
         public static LoadingOverlay Show(Control host, string message) => new(host, message);
@@ -31,7 +38,7 @@ namespace TexnikaReyestri.Controls
         {
             var g = e.Graphics;
             if (_snap != null) g.DrawImageUnscaled(_snap, 0, 0);
-            using (var dim = new SolidBrush(Color.FromArgb(205, Theme.Bg))) g.FillRectangle(dim, ClientRectangle);
+            g.Clear(Theme.Bg);
             Gfx.Smooth(g);
             int cx = Width / 2, cy = Height / 2 - 30; var r = new Rectangle(cx - 21, cy - 21, 42, 42);
             using (var p = new Pen(Theme.Line, 4)) g.DrawEllipse(p, r);

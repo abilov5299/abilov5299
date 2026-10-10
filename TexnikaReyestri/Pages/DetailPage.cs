@@ -23,7 +23,7 @@ namespace TexnikaReyestri.Pages
         public DetailPage()
         {
             InitializeComponent();
-            scroll.Resize += (_, _) => Duzle();
+            scroll.Resize += (_, _) => { if (scroll.ClientSize.Width != _enSon) Duzle(); };
         }
 
         public async Task YukleAsync(long id, IReadOnlyList<long> siyahi)
@@ -77,9 +77,12 @@ namespace TexnikaReyestri.Pages
         private int IndexOf() { for (int i = 0; i < _siyahi.Count; i++) if (_siyahi[i] == _id) return i; return -1; }
 
         /// <summary>Kartları 3 sütunda yerləşdirir və hündürlüklərini məzmuna görə təyin edir.</summary>
+        private int _enSon;
         private void Duzle()
         {
             if (scroll.Width < 100) return;
+            _enSon = scroll.ClientSize.Width;
+            using var _ = Ui.Dondur(scroll);
             int gap = 12, w = (scroll.ClientSize.Width - gap * 2) / 3;
             scroll.SuspendLayout();
             var cols = Sutunlar;
