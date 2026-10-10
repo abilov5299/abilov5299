@@ -241,6 +241,12 @@ td.r{text-align:right;width:1%}
 .org{display:flex;flex-direction:column;gap:6px;font-size:13px}
 .org div{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--ln);border-radius:8px;background:var(--card)}
 .org .l1{margin-left:28px}.org .l2{margin-left:56px}
+.lclose{all:unset;cursor:pointer;position:absolute;top:10px;right:12px;width:36px;height:32px;display:grid;place-items:center;border-radius:6px;color:var(--muted);font-size:15px;z-index:2}
+.lclose:hover,.wx:hover{background:var(--bad)!important;color:var(--white)!important}
+.wb{all:unset;cursor:pointer;width:46px;height:48px;display:grid;place-items:center;color:var(--muted)}.wb:hover{background:var(--alt)}
+.bye{position:absolute;inset:0;z-index:20;background:#16202B;color:#A9C9C6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-size:14px}
+.bye b{color:#fff;font-family:var(--f-d);font-size:26px}
+.lgo{display:flex;gap:6px;align-items:center}
 .warnbar{background:#FFF4E5;border:1px solid #F5D3A6;color:#8A4B06;border-radius:8px;padding:8px 12px;font-size:12px}
 </style>
 
@@ -255,6 +261,7 @@ td.r{text-align:right;width:1%}
       <p>Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu</p>
       <p style="margin-top:auto;font-size:12px">v1.0 · Lokal baza · 7 zavod</p>
     </div>
+    <button type="button" class="lclose" id="appClose1" title="Proqramı bağla" aria-label="Proqramı bağla">✕</button>
     <form class="r" id="lf">
       <h2>Sistemə giriş</h2>
       <label class="lbl" for="lu">İstifadəçi adı</label><input class="inp" id="lu" autocomplete="username">
@@ -305,7 +312,7 @@ td.r{text-align:right;width:1%}
   <div class="body">
     <div class="tbar"><b id="tq"></b><span class="u" id="tu"></span>
       <button class="bell" id="bell" aria-label="Bildirişlər">🔔︎<span class="dot" id="nDot"></span></button>
-      <div class="ctl"><span>—</span><span>☐</span><span>✕</span></div>
+      <div class="ctl"><button class="wb" id="appMin" title="Kiçilt" aria-label="Kiçilt">—</button><button class="wb" title="Böyüt" aria-label="Böyüt">☐</button><button class="wb wx" id="appClose2" title="Proqramı bağla" aria-label="Proqramı bağla">✕</button></div>
       <div class="drop" id="drop" hidden>
         <header><b>Bildirişlər</b><button class="all" id="readAll">Hamısını oxunmuş et</button></header>
         <div class="list" id="dropList"></div>
@@ -805,7 +812,17 @@ function login(u,pw,demo){const U=ULIST.find(x=>x.login===u.trim().toLowerCase()
   tileF='';PAGES.forEach(x=>$(x).hidden=true);show('home');all();const u2=nScope().filter(n=>!n.r).length;if(u2)setTimeout(()=>toast(`${u2} oxunmamış bildirişiniz var`,'var(--warn)','🔔︎'),400)}
 $('lf').addEventListener('submit',e=>{e.preventDefault();login($('lu').value,$('lp').value)});
 document.querySelectorAll('.hint [data-u]').forEach(b=>b.onclick=()=>{$('lu').value=b.dataset.u;$('lp').value='••••';login(b.dataset.u,'',1)});
-$('logout').onclick=()=>{$('login').hidden=false;$('lu').value='';$('lp').value='';$('lerr').textContent=''};
+function doLogout(){addLog('Çıxış',`${ROLE.user} çıxış etdi`,'lg-in');$('login').hidden=false;$('lu').value='';$('lp').value='';$('lerr').textContent='';closeModal()}
+$('logout').onclick=()=>modal(`<h4>Hesabdan çıxış</h4><p>${esc(ROLE.user)} hesabından çıxmaq istəyirsiniz? Proqram açıq qalır, giriş ekranına qayıdırsınız.</p>
+  <div class="ma"><button class="btn sec" data-close>Ləğv et</button><button class="btn" id="loGo">⏻ Çıxış</button></div>`)||($('loGo').onclick=doLogout);
+function closeApp(){const inApp=$('login').hidden;modal(`<h4>Proqramı bağlamaq</h4><p>${inApp?'Hesabdan çıxılacaq və proqram bağlanacaq.':'Proqram bağlanacaq.'}</p>
+  ${inApp&&SYNC.lastExp<'09.10'?'':'' }${inApp&&ROLE.w?'<div class="warnbar">Son ixrac 5 gün əvvəl olub. Bağlamazdan əvvəl USB-yə ixrac etmək tövsiyə olunur.</div>':''}
+  <div class="ma"><button class="btn sec" data-close>Ləğv et</button><button class="btn" style="background:var(--bad)" id="clGo">✕ Bağla</button></div>`);
+  $('clGo').onclick=()=>{if(inApp)addLog('Çıxış',`${ROLE.user} proqramı bağladı`,'lg-in');closeModal();const d=document.createElement('div');d.className='bye';
+   d.innerHTML='<b>Proqram bağlandı</b><span>Real proqramda pəncərə burada bağlanır.</span><button class="btn">Yenidən aç</button>';$('app').appendChild(d);
+   d.querySelector('button').onclick=()=>{d.remove();$('login').hidden=false;$('admin').hidden=true;$('lu').value='';$('lp').value='';$('lerr').textContent=''}}}
+$('appClose1').onclick=closeApp;$('appClose2').onclick=closeApp;$('appMin').onclick=()=>toast('Real proqramda pəncərə tapşırıq panelinə kiçildilir','var(--info)','—');
+document.addEventListener('keydown',e=>{if(e.altKey&&e.key==='F4'){e.preventDefault();closeApp()}});
 
 /* ---------- Hadisələr ---------- */
 document.querySelectorAll('.ic[data-p]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.p==='add'){editId=null;DRAFT={};fGroup=0}show(b.dataset.p)}));
