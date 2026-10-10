@@ -25,7 +25,7 @@ namespace TexnikaReyestri.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var bc = Parent is RoundPanel rp ? rp.FillColor : (Parent?.BackColor is { A: 255 } c ? c : Theme.Card);
+            var bc = Gfx.BackOf(this);
             using (var bb = new SolidBrush(bc)) e.Graphics.FillRectangle(bb, ClientRectangle);
             Draw(e.Graphics, new Rectangle(0, 0, Width - 1, Height - 1), Text, Font);
         }

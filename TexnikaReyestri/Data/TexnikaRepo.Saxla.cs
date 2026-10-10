@@ -135,7 +135,14 @@ SELECT q.Ad AS Zavod,
   (SELECT MAX(Tarix) FROM SyncJurnal s WHERE s.Qurum=q.Kod AND s.Emeliyyat='İdxal' AND s.Netice='Uğurlu') AS SonPaket
 FROM Qurumlar q WHERE q.Tip=1 ORDER BY q.Kod;";
             cmd.Parameters.AddWithValue("$b", Vaxt.Iso(DateTime.Today));
-            await using var r = await cmd.ExecuteReaderAsync(); var dt = new DataTable(); dt.Load(r); return dt;
+            // Hesablanan sütunların tipi SQLite-da elan olunmur, ona görə cədvəl əl ilə qurulur
+            var dt = new DataTable();
+            dt.Columns.Add("Zavod", typeof(string)); foreach (var c in new[] { "Cemi", "Temirde", "HisseGozleyir", "Geciken" }) dt.Columns.Add(c, typeof(long));
+            dt.Columns.Add("OrtaGun", typeof(double)); dt.Columns.Add("SonPaket", typeof(long));
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync())
+                dt.Rows.Add(r.GetString(0), r.GetInt64(1), r.GetInt64(2), r.GetInt64(3), r.GetInt64(4), r.IsDBNull(5) ? DBNull.Value : r.GetDouble(5), r.IsDBNull(6) ? DBNull.Value : r.GetInt64(6));
+            return dt;
         }
 
         private static async Task Tarixce(SqliteConnection con, SqliteTransaction tr, long id, string sahe, string kohne, string yeni)

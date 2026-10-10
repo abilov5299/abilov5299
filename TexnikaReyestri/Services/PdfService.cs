@@ -16,7 +16,12 @@ namespace TexnikaReyestri.Services
             private static readonly string Dir = Environment.GetFolderPath(Environment.SpecialFolder.Fonts);
             public FontResolverInfo ResolveTypeface(string familyName, bool bold, bool italic) =>
                 new((bold, italic) switch { (true, true) => "timesbi", (true, false) => "timesbd", (false, true) => "timesi", _ => "times" });
-            public byte[] GetFont(string faceName) => File.ReadAllBytes(Path.Combine(Dir, faceName + ".ttf"));
+            public byte[] GetFont(string faceName)
+            {
+                string f = Path.Combine(Dir, faceName + ".ttf");
+                if (!File.Exists(f)) f = Path.Combine(Dir, faceName.Contains("bd") ? "arialbd.ttf" : "arial.ttf");   // Times yoxdursa Arial
+                return File.ReadAllBytes(f);
+            }
         }
 
         public static void Pasport(string yol, Dictionary<string, object> t)

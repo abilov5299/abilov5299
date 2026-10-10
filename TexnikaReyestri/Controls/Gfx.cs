@@ -17,6 +17,18 @@ namespace TexnikaReyestri.Controls
             return p;
         }
 
+        /// <summary>Kontrolun arxasındakı görünən fon rəngi (şəffaf panelləri keçərək).</summary>
+        public static Color BackOf(Control c)
+        {
+            for (var p = c.Parent; p != null; p = p.Parent)
+            {
+                if (p is RoundPanel rp) return rp.FillColor;
+                if (p is PageBase) return Core.Theme.Bg;
+                if (p.BackColor.A == 255) return p.BackColor;
+            }
+            return Core.Theme.Bg;
+        }
+
         public static void Smooth(Graphics g)
         {
             g.SmoothingMode = SmoothingMode.AntiAlias;

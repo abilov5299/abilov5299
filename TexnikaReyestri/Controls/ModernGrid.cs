@@ -69,14 +69,19 @@ namespace TexnikaReyestri.Controls
         protected override void OnCellMouseEnter(DataGridViewCellEventArgs e)
         { Cursor = e.ColumnIndex >= 0 && e.RowIndex >= 0 && Columns[e.ColumnIndex] is DataGridViewButtonColumn ? Cursors.Hand : Cursors.Default; base.OnCellMouseEnter(e); }
 
-        /// <summary>Gizli skrol zolağı ilə təkər: 3 sətir.</summary>
-        protected override void OnMouseWheel(MouseEventArgs e)
+        /// <summary>Təkərlə sürüşdürüləndə (məs. növbəti səhifəni yükləmək üçün).</summary>
+        public event EventHandler WheelScrolled;
+
+        /// <summary>Gizli skrol zolağı ilə təkər: hər addım 3 sətir.</summary>
+        public void ScrollRows(int wheelDelta)
         {
             if (RowCount == 0) return;
-            int rows = -Math.Sign(e.Delta) * 3, first = FirstDisplayedScrollingRowIndex;
-            int maxFirst = Math.Max(0, RowCount - DisplayedRowCount(false));
-            int n = Math.Clamp(first + rows, 0, maxFirst);
-            if (n != first && n >= 0) FirstDisplayedScrollingRowIndex = n;
+            int first = Math.Max(0, FirstDisplayedScrollingRowIndex), maxFirst = Math.Max(0, RowCount - DisplayedRowCount(false));
+            int n = Math.Clamp(first - Math.Sign(wheelDelta) * 3, 0, maxFirst);
+            if (n != first) FirstDisplayedScrollingRowIndex = n;
+            WheelScrolled?.Invoke(this, EventArgs.Empty);
         }
+
+        protected override void OnMouseWheel(MouseEventArgs e) => ScrollRows(e.Delta);
     }
 }

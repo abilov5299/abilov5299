@@ -36,7 +36,7 @@ namespace TexnikaReyestri.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             var g = e.Graphics;
-            using (var pb = new SolidBrush(Parent?.BackColor is { A: 255 } c ? c : Theme.Bg)) g.FillRectangle(pb, ClientRectangle);
+            using (var pb = new SolidBrush(Gfx.BackOf(this))) g.FillRectangle(pb, ClientRectangle);
             Gfx.Smooth(g);
             var r = new RectangleF(3, 2, Width - 7, Height - 7);
             Gfx.Shadow(g, r, 10, Theme.Shadow, 5);

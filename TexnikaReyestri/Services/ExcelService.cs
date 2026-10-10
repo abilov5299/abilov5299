@@ -33,7 +33,9 @@ namespace TexnikaReyestri.Services
             ["icra müddəti (say)"] = "IcraMuddeti", ["istismarda olduğu h/h"] = "HerbiHisse", ["təmirə yararlı deyilsə, səbəbi"] = "YararsizSebeb",
         };
 
-        private static string Norm(string s) => Regex.Replace((s ?? "").ToLowerInvariant().Replace('\n', ' ').Replace('\r', ' '), @"\s+", " ").Trim();
+        // Azərbaycan hərfləri: "İ" → "i", "I" → "ı" (ToLowerInvariant "İ"-ni "i̇" edir və müqayisə pozulur)
+        private static string Norm(string s) => Regex.Replace((s ?? "").Replace('İ', 'i').Replace('I', 'ı').ToLowerInvariant().Replace('\n', ' ').Replace('\r', ' '), @"\s+", " ").Trim();
+        private static readonly Dictionary<string, string> AliasN = Alias.ToDictionary(a => Norm(a.Key), a => a.Value);
 
         public sealed class Fayl
         {
@@ -56,7 +58,7 @@ namespace TexnikaReyestri.Services
             }
             f.BaslikSetri = best;
             // Alt başlıq sətri (məs. "o/t", "ə/t") varsa, məlumat ondan sonra başlayır
-            bool alt = Enumerable.Range(1, lastCol).Any(c => ws.Cell(best + 1, c).GetString().Trim() is { Length: > 0 } t && Alias.ContainsKey(Norm(t)));
+            bool alt = Enumerable.Range(1, lastCol).Any(c => ws.Cell(best + 1, c).GetString().Trim() is { Length: > 0 } t && AliasN.ContainsKey(Norm(t)));
             f.MelumatBaslayir = best + (alt ? 2 : 1);
             var istifade = new HashSet<string>();
             for (int c = 1; c <= lastCol; c++)
@@ -72,7 +74,7 @@ namespace TexnikaReyestri.Services
             return f;
         }
 
-        private static string Tap(string n, Dictionary<string, string> adlar) => n.Length == 0 ? null : adlar.TryGetValue(n, out var k) ? k : Alias.TryGetValue(n, out var a) ? a : null;
+        private static string Tap(string n, Dictionary<string, string> adlar) => n.Length == 0 ? null : adlar.TryGetValue(n, out var k) ? k : AliasN.TryGetValue(n, out var a) ? a : null;
 
         // Söz üst-üstə düşməsinə görə ən oxşar sahə (yoxlamaq lazımdır)
         private static string Oxsar(string n, Dictionary<string, string> adlar)
@@ -225,7 +227,7 @@ namespace TexnikaReyestri.Services
                 info.Cell(3, 1).Value = "Tarix"; info.Cell(3, 2).Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
                 info.Cell(4, 1).Value = "Filtr"; info.Cell(4, 2).Value = $"Zavod: {s.Filtr.Zavod ?? "Hamısı"}, Status: {s.Filtr.Status ?? "Hamısı"}{(s.Filtr.Gecikenler ? ", yalnız gecikənlər" : "")}{(string.IsNullOrEmpty(s.Filtr.Axtar) ? "" : ", axtarış: " + s.Filtr.Axtar)}";
                 info.Cell(5, 1).Value = "Sətir sayı"; info.Cell(5, 2).Value = n2;
-                info.Cell(6, 1).Value = "Proqram versiyası"; info.Cell(6, 2).Value = Application.ProductVersion;
+                info.Cell(6, 1).Value = "Proqram versiyası"; info.Cell(6, 2).Value = typeof(ExcelService).Assembly.GetName().Version?.ToString(3);
                 info.Columns().AdjustToContents();
                 p?.Report(95); wb.SaveAs(yol); p?.Report(100);
                 return n2;

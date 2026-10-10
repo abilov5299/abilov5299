@@ -96,7 +96,7 @@ namespace TexnikaReyestri.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             var g = e.Graphics;
-            using (var pb = new SolidBrush(Theme.Bg)) g.FillRectangle(pb, ClientRectangle);
+            using (var pb = new SolidBrush(Gfx.BackOf(this))) g.FillRectangle(pb, ClientRectangle);
             Gfx.Smooth(g);
             var r = new RectangleF(0.5f, 0.5f, Width - 1.5f, Height - 1.5f);
             using var path = Gfx.Round(r, 7);
@@ -127,6 +127,7 @@ namespace TexnikaReyestri.Controls
         private int _offset;
         public ScrollPanel() { DoubleBuffered = true; AutoScroll = false; BackColor = Color.Transparent; }
 
+        public int Offset => _offset;
         public int ContentHeight => Controls.Count == 0 ? 0 : Controls.Cast<Control>().Max(c => c.Bottom + _offset) + Padding.Bottom;
 
         public void ScrollBy(int dy)

@@ -31,8 +31,7 @@ namespace TexnikaReyestri.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             var g = e.Graphics;
-            using (var pb = new SolidBrush(Parent?.BackColor is { A: 255 } pc ? pc : Theme.Card)) g.FillRectangle(pb, ClientRectangle);
-            if (Parent is RoundPanel rp) using (var b2 = new SolidBrush(rp.FillColor)) g.FillRectangle(b2, ClientRectangle);
+            using (var pb = new SolidBrush(Gfx.BackOf(this))) g.FillRectangle(pb, ClientRectangle);
             Gfx.Smooth(g);
             (Color back, Color fore) = _kind switch
             {
