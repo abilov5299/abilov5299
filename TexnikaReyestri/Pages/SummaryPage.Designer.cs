@@ -46,7 +46,7 @@
             this.pnlHead.Controls.Add(this.lblAsOf);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(1172, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -93,7 +93,7 @@
             this.tlpTiles.Controls.Add(this.cardLate, 2, 0);
             this.tlpTiles.Controls.Add(this.cardStale, 3, 0);
             this.tlpTiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tlpTiles.Height = 96;
+            this.tlpTiles.Size = new System.Drawing.Size(1172, 96);
             this.tlpTiles.Padding = new System.Windows.Forms.Padding(0, 4, 0, 8);
             this.tlpTiles.Name = "tlpTiles";
             // 
@@ -150,6 +150,7 @@
             this.rpGrid.Controls.Add(this.grid);
             this.rpGrid.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.rpGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpGrid.Size = new System.Drawing.Size(1172, 520);
             this.rpGrid.Name = "rpGrid";
             // 
             // grid
@@ -164,6 +165,7 @@
             this.colO,
             this.colS});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(1160, 508);
             this.grid.Name = "grid";
             this.grid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.grid_CellPainting);
             this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
@@ -226,7 +228,7 @@
             this.lblFoot.Text = "Zavod sətrinə klikləyəndə həmin zavodun reyestri açılır. Rəqəmlər zavodlardan son idxal olunan paketlərə görədir.";
             this.lblFoot.Tag = "muted";
             this.lblFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFoot.Height = 22;
+            this.lblFoot.Size = new System.Drawing.Size(1172, 22);
             this.lblFoot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblFoot.Name = "lblFoot";
             // 

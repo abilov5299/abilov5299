@@ -69,7 +69,7 @@
             this.pnlHead.Controls.Add(this.segPeriod);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(1172, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -109,7 +109,7 @@
             this.tlpTiles.Controls.Add(this.cardLate, 2, 0);
             this.tlpTiles.Controls.Add(this.cardAvg, 3, 0);
             this.tlpTiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tlpTiles.Height = 96;
+            this.tlpTiles.Size = new System.Drawing.Size(1172, 96);
             this.tlpTiles.Padding = new System.Windows.Forms.Padding(0, 4, 0, 8);
             this.tlpTiles.Name = "tlpTiles";
             // 
@@ -180,6 +180,7 @@
             this.tlpBody.SetColumnSpan(this.rpMonthly, 2);
             this.tlpBody.SetColumnSpan(this.rpEvents, 2);
             this.tlpBody.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpBody.Size = new System.Drawing.Size(1172, 520);
             this.tlpBody.Name = "tlpBody";
             // 
             // rpMonthly
@@ -431,7 +432,7 @@
             this.lblFoot.Text = "Kartlara, status zolağına və zavodlara klikləyəndə reyestr həmin filtrlə açılır.";
             this.lblFoot.Tag = "muted";
             this.lblFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFoot.Height = 22;
+            this.lblFoot.Size = new System.Drawing.Size(1172, 22);
             this.lblFoot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblFoot.Name = "lblFoot";
             // 

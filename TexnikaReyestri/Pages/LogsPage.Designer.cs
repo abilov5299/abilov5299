@@ -43,7 +43,7 @@
             this.pnlHead.Controls.Add(this.dtFrom);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(1172, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -119,6 +119,7 @@
             this.rpGrid.Controls.Add(this.grid);
             this.rpGrid.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.rpGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpGrid.Size = new System.Drawing.Size(1172, 616);
             this.rpGrid.Name = "rpGrid";
             // 
             // grid
@@ -130,6 +131,7 @@
             this.colType,
             this.colText});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(1160, 604);
             this.grid.Name = "grid";
             // 
             // colTime
@@ -171,7 +173,7 @@
             this.lblFoot.Text = "Son 1000 qeyd göstərilir. Zavod istifadəçisi yalnız öz zavodunun loglarını görür.";
             this.lblFoot.Tag = "muted";
             this.lblFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFoot.Height = 22;
+            this.lblFoot.Size = new System.Drawing.Size(1172, 22);
             this.lblFoot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblFoot.Name = "lblFoot";
             // 

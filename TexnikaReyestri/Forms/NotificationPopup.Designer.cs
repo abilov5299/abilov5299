@@ -34,6 +34,7 @@
             this.pnlBody.Controls.Add(this.pnlFoot);
             this.pnlBody.Controls.Add(this.pnlHead);
             this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBody.Size = new System.Drawing.Size(388, 398);
             this.pnlBody.Tag = "card";
             this.pnlBody.Name = "pnlBody";
             // 
@@ -42,7 +43,7 @@
             this.pnlHead.Controls.Add(this.lnkReadAll);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 42;
+            this.pnlHead.Size = new System.Drawing.Size(388, 42);
             this.pnlHead.Padding = new System.Windows.Forms.Padding(14, 0, 10, 0);
             this.pnlHead.Name = "pnlHead";
             // 
@@ -68,7 +69,7 @@
             // 
             this.pnlFoot.Controls.Add(this.lnkAll);
             this.pnlFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFoot.Height = 36;
+            this.pnlFoot.Size = new System.Drawing.Size(388, 36);
             this.pnlFoot.Name = "pnlFoot";
             // 
             // lnkAll
@@ -85,6 +86,7 @@
             this.grid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colTitle});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(388, 320);
             this.grid.ColumnHeadersVisible = false;
             this.grid.Name = "grid";
             this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);

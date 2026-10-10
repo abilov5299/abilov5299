@@ -54,7 +54,7 @@
             this.pnlHead.Controls.Add(this.btnExport);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(1172, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // tlpTiles
@@ -71,7 +71,7 @@
             this.tlpTiles.Controls.Add(this.cardLate, 2, 0);
             this.tlpTiles.Controls.Add(this.cardDone, 3, 0);
             this.tlpTiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tlpTiles.Height = 96;
+            this.tlpTiles.Size = new System.Drawing.Size(1172, 96);
             this.tlpTiles.Padding = new System.Windows.Forms.Padding(0, 4, 0, 8);
             this.tlpTiles.Name = "tlpTiles";
             // 
@@ -80,7 +80,7 @@
             this.pnlFoot.Controls.Add(this.lblHint);
             this.pnlFoot.Controls.Add(this.lblCount);
             this.pnlFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFoot.Height = 26;
+            this.pnlFoot.Size = new System.Drawing.Size(1172, 26);
             this.pnlFoot.Name = "pnlFoot";
             // 
             // rpGrid
@@ -88,6 +88,7 @@
             this.rpGrid.Controls.Add(this.grid);
             this.rpGrid.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.rpGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpGrid.Size = new System.Drawing.Size(1172, 516);
             this.rpGrid.Name = "rpGrid";
             // 
             // lblTitle
@@ -209,6 +210,7 @@
             this.colBitme,
             this.colDetail});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(1160, 504);
             this.grid.VirtualMode = true;
             this.grid.Name = "grid";
             this.grid.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.grid_CellValueNeeded);

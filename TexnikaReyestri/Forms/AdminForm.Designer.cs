@@ -41,7 +41,7 @@
             this.pnlAside.Controls.Add(this.radUsers);
             this.pnlAside.Controls.Add(this.lblAside);
             this.pnlAside.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlAside.Width = 220;
+            this.pnlAside.Size = new System.Drawing.Size(220, 698);
             this.pnlAside.BackColor = System.Drawing.Color.FromArgb(27, 43, 42);
             this.pnlAside.Padding = new System.Windows.Forms.Padding(0, 12, 0, 12);
             this.pnlAside.Name = "pnlAside";
@@ -181,6 +181,7 @@
             // pnlContent
             // 
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Size = new System.Drawing.Size(958, 698);
             this.pnlContent.Name = "pnlContent";
             // 
             // AdminForm

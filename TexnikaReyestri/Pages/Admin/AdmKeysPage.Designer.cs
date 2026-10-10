@@ -48,7 +48,7 @@
             // 
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(914, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -68,7 +68,7 @@
             this.lblDesc.Text = "USB paketlərini şifrələmək və imzalamaq üçün açarlar. Gizli açar bu kompüterdən çıxmır, açıq açar isə digər qurumlara verilir.";
             this.lblDesc.Tag = "muted";
             this.lblDesc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblDesc.Height = 28;
+            this.lblDesc.Size = new System.Drawing.Size(914, 28);
             this.lblDesc.Name = "lblDesc";
             // 
             // tlp
@@ -81,6 +81,7 @@
             this.tlp.Controls.Add(this.rpMine, 0, 0);
             this.tlp.Controls.Add(this.rpTrusted, 1, 0);
             this.tlp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp.Size = new System.Drawing.Size(914, 596);
             this.tlp.Name = "tlp";
             // 
             // rpMine

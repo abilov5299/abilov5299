@@ -70,7 +70,7 @@
             // 
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(1172, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -89,7 +89,7 @@
             this.lblWarn.Location = new System.Drawing.Point(0, 0);
             this.lblWarn.Text = "⚠ Son ixrac 5 gün əvvəl olub.";
             this.lblWarn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblWarn.Height = 34;
+            this.lblWarn.Size = new System.Drawing.Size(1172, 34);
             this.lblWarn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblWarn.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.lblWarn.BackColor = System.Drawing.Color.FromArgb(255, 244, 229);
@@ -99,7 +99,7 @@
             // pnlGap
             // 
             this.pnlGap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlGap.Height = 8;
+            this.pnlGap.Size = new System.Drawing.Size(1172, 8);
             this.pnlGap.Name = "pnlGap";
             // 
             // tlp
@@ -115,6 +115,7 @@
             this.tlp.Controls.Add(this.rpHist, 0, 1);
             this.tlp.SetColumnSpan(this.rpHist, 2);
             this.tlp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp.Size = new System.Drawing.Size(1172, 596);
             this.tlp.Name = "tlp";
             // 
             // pnlLeft

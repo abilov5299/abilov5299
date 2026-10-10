@@ -29,6 +29,7 @@
             this.pnlBody.Controls.Add(this.lblMessage);
             this.pnlBody.Controls.Add(this.lblTitle);
             this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBody.Size = new System.Drawing.Size(440, 198);
             this.pnlBody.Tag = "card";
             this.pnlBody.Padding = new System.Windows.Forms.Padding(24, 20, 24, 16);
             this.pnlBody.Name = "pnlBody";

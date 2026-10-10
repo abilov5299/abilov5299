@@ -41,7 +41,7 @@
             this.pnlBrand.Controls.Add(this.lblBrand);
             this.pnlBrand.Controls.Add(this.logo);
             this.pnlBrand.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlBrand.Width = 420;
+            this.pnlBrand.Size = new System.Drawing.Size(420, 540);
             this.pnlBrand.Padding = new System.Windows.Forms.Padding(40);
             this.pnlBrand.Name = "pnlBrand";
             // 
@@ -95,6 +95,7 @@
             this.pnlForm.Controls.Add(this.btnTheme);
             this.pnlForm.Controls.Add(this.btnClose);
             this.pnlForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlForm.Size = new System.Drawing.Size(540, 540);
             this.pnlForm.Tag = "card";
             this.pnlForm.Name = "pnlForm";
             // 

@@ -93,7 +93,7 @@
             this.pnlTop.Controls.Add(this.btnX);
             this.pnlTop.Controls.Add(this.lblTop);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Height = 42;
+            this.pnlTop.Size = new System.Drawing.Size(924, 42);
             this.pnlTop.BackColor = System.Drawing.Color.FromArgb(15, 76, 74);
             this.pnlTop.Name = "pnlTop";
             // 
@@ -120,7 +120,7 @@
             // stepper
             // 
             this.stepper.Dock = System.Windows.Forms.DockStyle.Top;
-            this.stepper.Height = 64;
+            this.stepper.Size = new System.Drawing.Size(924, 64);
             this.stepper.Steps = new string[] {
         "Fayl seç",
         "Sütunları uyğunlaşdır",
@@ -135,7 +135,7 @@
             this.pnlFoot.Controls.Add(this.btnBack);
             this.pnlFoot.Controls.Add(this.btnNext);
             this.pnlFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFoot.Height = 58;
+            this.pnlFoot.Size = new System.Drawing.Size(924, 58);
             this.pnlFoot.Tag = "alt";
             this.pnlFoot.Padding = new System.Windows.Forms.Padding(16, 10, 16, 10);
             this.pnlFoot.Name = "pnlFoot";
@@ -176,6 +176,7 @@
             this.pnlHost.Controls.Add(this.step2);
             this.pnlHost.Controls.Add(this.step1);
             this.pnlHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlHost.Size = new System.Drawing.Size(924, 434);
             this.pnlHost.Tag = "card";
             this.pnlHost.Padding = new System.Windows.Forms.Padding(20, 12, 20, 12);
             this.pnlHost.Name = "pnlHost";
@@ -192,6 +193,7 @@
             this.step1.Controls.Add(this.lblFile);
             this.step1.Controls.Add(this.pnlDrop);
             this.step1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.step1.Size = new System.Drawing.Size(884, 410);
             this.step1.Name = "step1";
             // 
             // pnlDrop
@@ -216,6 +218,7 @@
             this.lblDrop.Text = "Excel faylını bura sürükləyin və ya klikləyib seçin\r\n.xlsx · ən çoxu 1 000 000 sətir";
             this.lblDrop.Tag = "muted";
             this.lblDrop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDrop.Size = new System.Drawing.Size(884, 120);
             this.lblDrop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblDrop.Name = "lblDrop";
             // 
@@ -294,6 +297,7 @@
             this.step2.Controls.Add(this.lblMapHint);
             this.step2.Controls.Add(this.lblMapSum);
             this.step2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.step2.Size = new System.Drawing.Size(884, 410);
             this.step2.Visible = false;
             this.step2.Name = "step2";
             // 
@@ -304,7 +308,7 @@
             this.lblMapSum.Location = new System.Drawing.Point(0, 0);
             this.lblMapSum.Text = "";
             this.lblMapSum.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblMapSum.Height = 28;
+            this.lblMapSum.Size = new System.Drawing.Size(884, 28);
             this.lblMapSum.Name = "lblMapSum";
             // 
             // gridMap
@@ -315,6 +319,7 @@
             this.colField,
             this.colMapState});
             this.gridMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridMap.Size = new System.Drawing.Size(884, 358);
             this.gridMap.ReadOnly = false;
             this.gridMap.Name = "gridMap";
             this.gridMap.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMap_CellValueChanged);
@@ -354,7 +359,7 @@
             this.lblMapHint.Text = "Uyğunlaşdırma yadda saxlanılır: növbəti dəfə eyni formatlı fayl üçün avtomatik tətbiq olunur.";
             this.lblMapHint.Tag = "muted";
             this.lblMapHint.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblMapHint.Height = 24;
+            this.lblMapHint.Size = new System.Drawing.Size(884, 24);
             this.lblMapHint.Name = "lblMapHint";
             // 
             // step3
@@ -363,6 +368,7 @@
             this.step3.Controls.Add(this.pnlOpts);
             this.step3.Controls.Add(this.tlpSum);
             this.step3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.step3.Size = new System.Drawing.Size(884, 410);
             this.step3.Visible = false;
             this.step3.Name = "step3";
             // 
@@ -380,7 +386,7 @@
             this.tlpSum.Controls.Add(this.cErr, 2, 0);
             this.tlpSum.Controls.Add(this.cEmpty, 3, 0);
             this.tlpSum.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tlpSum.Height = 84;
+            this.tlpSum.Size = new System.Drawing.Size(884, 84);
             this.tlpSum.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
             this.tlpSum.Name = "tlpSum";
             // 
@@ -429,6 +435,7 @@
             this.colCNo,
             this.colCRes});
             this.gridCheck.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridCheck.Size = new System.Drawing.Size(884, 256);
             this.gridCheck.Name = "gridCheck";
             this.gridCheck.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.gridCheck_CellFormatting);
             // 
@@ -470,7 +477,7 @@
             this.pnlOpts.Controls.Add(this.radDupUpdate);
             this.pnlOpts.Controls.Add(this.lDup);
             this.pnlOpts.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlOpts.Height = 70;
+            this.pnlOpts.Size = new System.Drawing.Size(884, 70);
             this.pnlOpts.Name = "pnlOpts";
             // 
             // lDup
@@ -538,6 +545,7 @@
             this.step4.Controls.Add(this.lblDoneInfo);
             this.step4.Controls.Add(this.lblDone);
             this.step4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.step4.Size = new System.Drawing.Size(884, 410);
             this.step4.Visible = false;
             this.step4.Name = "step4";
             // 

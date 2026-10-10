@@ -253,7 +253,7 @@
             this.pnlHead.Controls.Add(this.btnSave);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(1172, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -300,22 +300,24 @@
             // 
             // tabs
             // 
-            this.tabs.Controls.Add(this.tabTehvil);
-            this.tabs.Controls.Add(this.tabEhtiyathissele);
-            this.tabs.Controls.Add(this.tabQebulveicra);
-            this.tabs.Controls.Add(this.tabCaritemir);
-            this.tabs.Controls.Add(this.tabTexnikiveziyye);
-            this.tabs.Controls.Add(this.tabSilahsistemi);
-            this.tabs.Controls.Add(this.tabIstismargoster);
-            this.tabs.Controls.Add(this.tabTemirtarixcesi);
             this.tabs.Controls.Add(this.tabPasport);
+            this.tabs.Controls.Add(this.tabTemirtarixcesi);
+            this.tabs.Controls.Add(this.tabIstismargoster);
+            this.tabs.Controls.Add(this.tabSilahsistemi);
+            this.tabs.Controls.Add(this.tabTexnikiveziyye);
+            this.tabs.Controls.Add(this.tabCaritemir);
+            this.tabs.Controls.Add(this.tabQebulveicra);
+            this.tabs.Controls.Add(this.tabEhtiyathissele);
+            this.tabs.Controls.Add(this.tabTehvil);
             this.tabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabs.Size = new System.Drawing.Size(1172, 516);
             this.tabs.Font = new System.Drawing.Font("Segoe UI Semibold", 9.0F);
             this.tabs.Name = "tabs";
             // 
             // chipTabs
             // 
             this.chipTabs.Dock = System.Windows.Forms.DockStyle.Top;
+            this.chipTabs.Size = new System.Drawing.Size(1172, 100);
             this.chipTabs.Target = this.tabs;
             this.chipTabs.Name = "chipTabs";
             this.tabs.SelectedIndexChanged += new System.EventHandler(this.tabs_SelectedIndexChanged);
@@ -328,7 +330,7 @@
             this.lblFoot.Text = "* məcburi sahələr. Tarix xanasında işarəni götürsəniz, tarix boş qalır.";
             this.lblFoot.Tag = "muted";
             this.lblFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFoot.Height = 22;
+            this.lblFoot.Size = new System.Drawing.Size(1172, 22);
             this.lblFoot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblFoot.Name = "lblFoot";
             // 

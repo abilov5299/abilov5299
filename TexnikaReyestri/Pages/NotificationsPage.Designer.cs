@@ -37,7 +37,7 @@
             this.pnlHead.Controls.Add(this.btnReadAll);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(1172, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -82,6 +82,7 @@
             this.rpList.Controls.Add(this.grid);
             this.rpList.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.rpList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpList.Size = new System.Drawing.Size(1172, 616);
             this.rpList.Name = "rpList";
             // 
             // grid
@@ -93,6 +94,7 @@
             this.colZavod,
             this.colTime});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(1160, 604);
             this.grid.Name = "grid";
             this.grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellClick);
             this.grid.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.grid_CellFormatting);
@@ -136,7 +138,7 @@
             this.lblFoot.Text = "Gecikmə, son tarix, hissə və paket bildirişləri proqram açılanda və hər saat avtomatik yoxlanılır. Qaydalar: Admin → Sistem.";
             this.lblFoot.Tag = "muted";
             this.lblFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFoot.Height = 22;
+            this.lblFoot.Size = new System.Drawing.Size(1172, 22);
             this.lblFoot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblFoot.Name = "lblFoot";
             // 

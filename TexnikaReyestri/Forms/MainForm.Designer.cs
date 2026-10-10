@@ -54,7 +54,7 @@
             this.pnlNav.Controls.Add(this.navHome);
             this.pnlNav.Controls.Add(this.logo);
             this.pnlNav.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlNav.Width = 64;
+            this.pnlNav.Size = new System.Drawing.Size(64, 758);
             this.pnlNav.Tag = "nav";
             this.pnlNav.Name = "pnlNav";
             // 
@@ -167,7 +167,7 @@
             this.pnlTop.Controls.Add(this.lblUser);
             this.pnlTop.Controls.Add(this.lblQurum);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Height = 48;
+            this.pnlTop.Size = new System.Drawing.Size(1214, 48);
             this.pnlTop.Tag = "card";
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTop_MouseDown);
@@ -267,6 +267,7 @@
             // pnlContent
             // 
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlContent.Size = new System.Drawing.Size(1214, 710);
             this.pnlContent.Name = "pnlContent";
             // 
             // MainForm

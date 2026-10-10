@@ -189,7 +189,7 @@
             this.rpHead.Controls.Add(this.btnBack);
             this.rpHead.Padding = new System.Windows.Forms.Padding(14, 12, 14, 12);
             this.rpHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rpHead.Size = new System.Drawing.Size(1216, 78);
+            this.rpHead.Size = new System.Drawing.Size(1172, 78);
             this.rpHead.Name = "rpHead";
             // 
             // btnBack
@@ -281,18 +281,19 @@
             this.rpStep.Controls.Add(this.stepper);
             this.rpStep.Padding = new System.Windows.Forms.Padding(14, 10, 14, 6);
             this.rpStep.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rpStep.Size = new System.Drawing.Size(1216, 78);
+            this.rpStep.Size = new System.Drawing.Size(1172, 78);
             this.rpStep.Name = "rpStep";
             // 
             // stepper
             // 
             this.stepper.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stepper.Size = new System.Drawing.Size(1144, 62);
             this.stepper.Name = "stepper";
             // 
             // pnlGap
             // 
             this.pnlGap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlGap.Height = 6;
+            this.pnlGap.Size = new System.Drawing.Size(1172, 6);
             this.pnlGap.Name = "pnlGap";
             // 
             // scroll
@@ -308,6 +309,7 @@
             this.scroll.Controls.Add(this.rpPasport);
             this.scroll.Controls.Add(this.rpHist);
             this.scroll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scroll.Size = new System.Drawing.Size(1172, 520);
             this.scroll.Name = "scroll";
             // 
             // rpHist

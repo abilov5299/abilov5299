@@ -43,7 +43,7 @@
             this.pnlHead.Controls.Add(this.btnAdd);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(914, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -90,6 +90,7 @@
             this.rpGrid.Controls.Add(this.grid);
             this.rpGrid.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.rpGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpGrid.Size = new System.Drawing.Size(914, 602);
             this.rpGrid.Name = "rpGrid";
             // 
             // grid
@@ -105,6 +106,7 @@
             this.colReset,
             this.colBlock});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(902, 590);
             this.grid.Name = "grid";
             this.grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellContentClick);
             // 
@@ -177,7 +179,7 @@
             this.lblFoot.Text = "Silmək əvəzinə bloklayın: istifadəçinin etdiyi dəyişikliklər tarixçədə onun adı ilə qalır.";
             this.lblFoot.Tag = "muted";
             this.lblFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFoot.Height = 22;
+            this.lblFoot.Size = new System.Drawing.Size(914, 22);
             this.lblFoot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblFoot.Name = "lblFoot";
             // 

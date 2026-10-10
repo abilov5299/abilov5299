@@ -23,11 +23,12 @@ namespace TexnikaReyestri.Controls
         [Category("Görünüş"), DefaultValue(150)] public int LabelWidth { get; set; } = 150;
         [Category("Görünüş"), DefaultValue(22)] public int RowHeight { get; set; } = 22;
 
+        private int RH => _items.Length == 0 ? RowHeight : Math.Max(14, Math.Min(RowHeight, Height / _items.Length));
         public void SetItems(IEnumerable<(string, double)> items) { _items = items.ToArray(); Invalidate(); }
 
-        protected override void OnMouseMove(MouseEventArgs e) { int h = e.Y / RowHeight; if (h >= _items.Length) h = -1; if (h != _hover) { _hover = h; Cursor = h >= 0 && ItemClicked != null ? Cursors.Hand : Cursors.Default; Invalidate(); } base.OnMouseMove(e); }
+        protected override void OnMouseMove(MouseEventArgs e) { int h = e.Y / RH; if (h >= _items.Length) h = -1; if (h != _hover) { _hover = h; Cursor = h >= 0 && ItemClicked != null ? Cursors.Hand : Cursors.Default; Invalidate(); } base.OnMouseMove(e); }
         protected override void OnMouseLeave(EventArgs e) { _hover = -1; Invalidate(); base.OnMouseLeave(e); }
-        protected override void OnMouseClick(MouseEventArgs e) { int h = e.Y / RowHeight; if (h >= 0 && h < _items.Length) ItemClicked?.Invoke(this, _items[h].label); base.OnMouseClick(e); }
+        protected override void OnMouseClick(MouseEventArgs e) { int h = e.Y / RH; if (h >= 0 && h < _items.Length) ItemClicked?.Invoke(this, _items[h].label); base.OnMouseClick(e); }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -38,15 +39,16 @@ namespace TexnikaReyestri.Controls
             var col = BarColor == ChartColor.Chart1 ? Theme.Chart1 : Theme.Chart2;
             int vw = 48, tw = Width - LabelWidth - vw - 10;
             using var bf = new Font(Font, FontStyle.Bold);
+            int rh = RH; float bh = Math.Min(12, rh - 6);
             for (int i = 0; i < _items.Length; i++)
             {
-                int y = i * RowHeight; var (l, v) = _items[i];
-                TextRenderer.DrawText(g, Lang.T(l), Font, new Rectangle(0, y, LabelWidth - 6, RowHeight), Theme.Ink, TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix);
-                var track = new RectangleF(LabelWidth, y + RowHeight / 2f - 6, tw, 12);
+                int y = i * rh; var (l, v) = _items[i];
+                TextRenderer.DrawText(g, Lang.T(l), Font, new Rectangle(0, y, LabelWidth - 6, rh), Theme.Ink, TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix);
+                var track = new RectangleF(LabelWidth, y + rh / 2f - bh / 2f, tw, bh);
                 using (var tb = new SolidBrush(Theme.Alt)) g.FillRectangle(tb, track);
-                var bar = new RectangleF(track.X, track.Y, (float)(tw * v / max), 12);
+                var bar = new RectangleF(track.X, track.Y, (float)(tw * v / max), bh);
                 using (var b = new SolidBrush(i == _hover ? Theme.Mix(col, Color.White, 0.2f) : col)) { using var p = Gfx.Round(bar, 3); g.FillPath(b, p); }
-                TextRenderer.DrawText(g, v.ToString("#,0").Replace(",", " "), bf, new Rectangle(Width - vw, y, vw, RowHeight), Theme.Ink, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
+                TextRenderer.DrawText(g, v.ToString("#,0").Replace(",", " "), bf, new Rectangle(Width - vw, y, vw, rh), Theme.Ink, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
             }
         }
 
@@ -92,7 +94,9 @@ namespace TexnikaReyestri.Controls
             Gfx.Smooth(g);
             int n = _labels.Length; if (n == 0) return;
             double mx = Math.Max(1, Math.Max(_a.DefaultIfEmpty(0).Max(), _b.DefaultIfEmpty(0).Max()));
-            double step = Math.Pow(10, Math.Floor(Math.Log10(mx))); double max = Math.Ceiling(mx / step) * step; if (max / step < 4) max = Math.Ceiling(mx / (step / 2)) * (step / 2);
+            // 4 bərabər, tam ədədli addım (1, 2, 5 × 10ⁿ) — oxda təkrarlanan rəqəm olmasın
+            double raw = Math.Max(1, mx / 4), p10 = Math.Pow(10, Math.Floor(Math.Log10(raw))), st = new[] { 1, 2, 5, 10 }.Select(m => m * p10).First(x => x >= raw - 1e-9);
+            double max = Math.Max(1, Math.Round(st)) * 4;
             float H = Height - PB - PT; float Y(double v) => PT + H * (float)(1 - v / max);
             using var gp = new Pen(Theme.Line);
             for (int k = 0; k <= 4; k++)

@@ -31,7 +31,7 @@
             // 
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(914, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -51,7 +51,7 @@
             this.lblDesc.Text = "Admin panelində edilən hər əməliyyat burada qeyd olunur. Jurnal silinə bilməz.";
             this.lblDesc.Tag = "muted";
             this.lblDesc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblDesc.Height = 28;
+            this.lblDesc.Size = new System.Drawing.Size(914, 28);
             this.lblDesc.Name = "lblDesc";
             // 
             // rpGrid
@@ -59,6 +59,7 @@
             this.rpGrid.Controls.Add(this.grid);
             this.rpGrid.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.rpGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpGrid.Size = new System.Drawing.Size(914, 596);
             this.rpGrid.Name = "rpGrid";
             // 
             // grid
@@ -68,6 +69,7 @@
             this.colWho,
             this.colOp});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(902, 584);
             this.grid.Name = "grid";
             // 
             // colTime

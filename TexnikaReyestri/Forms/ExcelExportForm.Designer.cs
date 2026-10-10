@@ -44,7 +44,7 @@
             // 
             this.pnlTop.Controls.Add(this.lblTop);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Height = 42;
+            this.pnlTop.Size = new System.Drawing.Size(724, 42);
             this.pnlTop.BackColor = System.Drawing.Color.FromArgb(15, 76, 74);
             this.pnlTop.Name = "pnlTop";
             // 
@@ -63,7 +63,7 @@
             this.pnlFoot.Controls.Add(this.btnOk);
             this.pnlFoot.Controls.Add(this.lblSize);
             this.pnlFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFoot.Height = 58;
+            this.pnlFoot.Size = new System.Drawing.Size(724, 58);
             this.pnlFoot.Tag = "alt";
             this.pnlFoot.Padding = new System.Windows.Forms.Padding(16, 10, 16, 10);
             this.pnlFoot.Name = "pnlFoot";
@@ -115,6 +115,7 @@
             this.pnlBody.Controls.Add(this.radFiltered);
             this.pnlBody.Controls.Add(this.lWhat);
             this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBody.Size = new System.Drawing.Size(724, 218);
             this.pnlBody.Tag = "card";
             this.pnlBody.Padding = new System.Windows.Forms.Padding(20, 14, 20, 10);
             this.pnlBody.Name = "pnlBody";

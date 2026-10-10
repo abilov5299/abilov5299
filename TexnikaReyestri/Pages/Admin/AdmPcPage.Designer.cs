@@ -50,7 +50,7 @@
             // 
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Height = 44;
+            this.pnlHead.Size = new System.Drawing.Size(914, 44);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -72,6 +72,7 @@
             this.tlp.Controls.Add(this.rpInfo, 0, 0);
             this.tlp.Controls.Add(this.rpMaint, 1, 0);
             this.tlp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp.Size = new System.Drawing.Size(914, 624);
             this.tlp.Name = "tlp";
             // 
             // rpInfo
