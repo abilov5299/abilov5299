@@ -244,7 +244,7 @@
             // 
             this.btnMin.Kind = TexnikaReyestri.Controls.CaptionKind.Minimize;
             this.btnMin.Location = new System.Drawing.Point(1044, 0);
-            this.btnMin.Size = new System.Drawing.Size(46, 48);
+            this.btnMin.Size = new System.Drawing.Size(46, 47);
             this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMin.Name = "btnMin";
             // 
@@ -252,7 +252,7 @@
             // 
             this.btnMax.Kind = TexnikaReyestri.Controls.CaptionKind.Maximize;
             this.btnMax.Location = new System.Drawing.Point(1090, 0);
-            this.btnMax.Size = new System.Drawing.Size(46, 48);
+            this.btnMax.Size = new System.Drawing.Size(46, 47);
             this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnMax.Name = "btnMax";
             // 
@@ -260,7 +260,7 @@
             // 
             this.btnClose.Kind = TexnikaReyestri.Controls.CaptionKind.Close;
             this.btnClose.Location = new System.Drawing.Point(1136, 0);
-            this.btnClose.Size = new System.Drawing.Size(46, 48);
+            this.btnClose.Size = new System.Drawing.Size(46, 47);
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Name = "btnClose";
             // 

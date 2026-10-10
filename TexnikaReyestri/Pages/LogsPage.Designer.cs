@@ -57,7 +57,8 @@
             // 
             // dtFrom
             // 
-            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtFrom.CustomFormat = "dd.MM.yyyy";
             this.dtFrom.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.dtFrom.Location = new System.Drawing.Point(590, 8);
             this.dtFrom.Size = new System.Drawing.Size(120, 25);
@@ -76,7 +77,8 @@
             // 
             // dtTo
             // 
-            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtTo.CustomFormat = "dd.MM.yyyy";
             this.dtTo.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.dtTo.Location = new System.Drawing.Point(738, 8);
             this.dtTo.Size = new System.Drawing.Size(120, 25);

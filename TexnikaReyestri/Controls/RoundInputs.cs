@@ -93,7 +93,16 @@ namespace TexnikaReyestri.Controls
     [ToolboxItem(true), Description("Yumru künclü ComboBox")]
     public class RoundComboBox : ComboBox, IThemed
     {
-        public RoundComboBox() { FlatStyle = FlatStyle.Flat; Font = new Font("Segoe UI", 9.75f); IntegralHeight = false; }
+        public RoundComboBox() { FlatStyle = FlatStyle.Flat; Font = new Font("Segoe UI", 9.75f); IntegralHeight = false; DrawMode = DrawMode.OwnerDrawFixed; ItemHeight = 22; }
+
+        // Seçilmiş mətn mavi fonla yox, adi yazı kimi; açılan siyahıda seçilən sətir firuzəyi
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            if (e.Index < 0) { using var bb = new SolidBrush(BackColor); e.Graphics.FillRectangle(bb, e.Bounds); return; }
+            bool edit = (e.State & DrawItemState.ComboBoxEdit) != 0, sel = !edit && (e.State & DrawItemState.Selected) != 0;
+            using (var b = new SolidBrush(sel ? Theme.Alt : BackColor)) e.Graphics.FillRectangle(b, e.Bounds);
+            TextRenderer.DrawText(e.Graphics, GetItemText(Items[e.Index]), Font, Rectangle.Inflate(e.Bounds, -4, 0), ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix);
+        }
 
         protected override void OnGotFocus(EventArgs e) { base.OnGotFocus(e); Invalidate(); }
         protected override void OnLostFocus(EventArgs e) { base.OnLostFocus(e); Invalidate(); }
