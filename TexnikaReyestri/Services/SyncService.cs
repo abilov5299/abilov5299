@@ -132,6 +132,7 @@ namespace TexnikaReyestri.Services
             var gq = (await SistemRepo.QurumlarAsync()).FirstOrDefault(q => q.Kod == b.From);
             string yalniz = gq?.Tip == QurumTip.Zavod ? gq.Ad : null;
             var (yeni, dey, sil, red) = await TetbiqAsync(qeydler, yalniz, ct);
+            if (yeni + dey >= 1000) await LocalDb.AnalizAsync();
             await Jurnal("İdxal", b.From, b.Seq, Path.GetFileName(fayl), yeni, dey, sil, "Uğurlu",
                 red > 0 ? $"{red} qeyd rədd edildi: {gq?.Ad} başqa zavodun texnikasını göndərə bilməz" : null);
             if (red > 0) await SistemRepo.LogAsync("Xəta", $"{Path.GetFileName(fayl)}: {red} qeyd başqa zavoda aid olduğu üçün qəbul edilmədi");
@@ -238,7 +239,7 @@ namespace TexnikaReyestri.Services
         {
             await using var con = await LocalDb.AcAsync();
             using var cmd = con.CreateCommand(); cmd.CommandText = "SELECT Tarix, Emeliyyat, Fayl, Yeni, Deyisen, Silinen, Netice, Qeyd FROM SyncJurnal ORDER BY Id DESC LIMIT 200;";
-            await using var r = await cmd.ExecuteReaderAsync(); var dt = new System.Data.DataTable(); dt.Load(r); return dt;
+            await using var r = await cmd.ExecuteReaderAsync(); var dt = await LocalDb.CedvelAsync(r); return dt;
         }
 
         private static Task Jurnal(string em, string qurum, long seq, string fayl, int yeni, int dey, int sil, string netice, string qeyd) => LocalDb.YazAsync(async (con, tr) =>

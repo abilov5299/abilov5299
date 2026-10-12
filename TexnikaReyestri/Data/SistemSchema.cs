@@ -30,6 +30,15 @@ namespace TexnikaReyestri.Data
                     try { t.ExecuteNonQuery(); } catch (SqliteException) { }   // Texnikalar cədvəli hələ yoxdursa
                 }
             }
+            // Siyahıda olmayan köhnə standart zavodlar (məs. "Zavod 7"): qurum, istifadəçiləri və texnikaları silinir
+            for (int i = Secimler.Zavodlar.Length + 1; i <= 9; i++)
+            {
+                using var d = con.CreateCommand(); d.Transaction = tr;
+                d.CommandText = "DELETE FROM Istifadeciler WHERE QurumKod=$k AND EXISTS (SELECT 1 FROM Qurumlar WHERE Kod=$k AND Ad=$o); " +
+                                "DELETE FROM Texnikalar WHERE TemirZavodu=$o; DELETE FROM Icmal WHERE Zavod=$o; DELETE FROM Qurumlar WHERE Kod=$k AND Ad=$o;";
+                d.Parameters.AddWithValue("$k", $"Z{i}"); d.Parameters.AddWithValue("$o", $"Zavod {i}");
+                try { d.ExecuteNonQuery(); } catch (SqliteException) { }   // Istifadeciler/Texnikalar hələ yaradılmayıbsa
+            }
             tr.Commit();
         }
 

@@ -94,7 +94,7 @@ namespace TexnikaReyestri.Data
             cmd.Parameters.AddWithValue("$n", (object)nov ?? DBNull.Value); cmd.Parameters.AddWithValue("$z", (object)Session.ZavodFiltri ?? DBNull.Value);
             cmd.Parameters.AddWithValue("$l", limit);
             await using var r = await cmd.ExecuteReaderAsync();
-            var dt = new DataTable(); dt.Load(r); return dt;
+            var dt = await LocalDb.CedvelAsync(r); return dt;
         }
 
         public static Task AdminLogAsync(string emeliyyat) => LocalDb.YazAsync(async (con, tr) =>
@@ -109,7 +109,7 @@ namespace TexnikaReyestri.Data
         {
             await using var con = await LocalDb.AcAsync();
             using var cmd = con.CreateCommand(); cmd.CommandText = "SELECT Tarix, Kim, Emeliyyat FROM AdminJurnal ORDER BY Id DESC LIMIT 1000;";
-            await using var r = await cmd.ExecuteReaderAsync(); var dt = new DataTable(); dt.Load(r); return dt;
+            await using var r = await cmd.ExecuteReaderAsync(); var dt = await LocalDb.CedvelAsync(r); return dt;
         }
 
         // ---------- Bildirişlər ----------

@@ -36,8 +36,7 @@ namespace TexnikaReyestri.Data
             }
             cmd.CommandText = $"SELECT {ReyestrSql} FROM Texnikalar WHERE {w} ORDER BY IFNULL(GozlenilenBitme,''), Id LIMIT {SehifeOlcusu};";
             await using var r = await cmd.ExecuteReaderAsync(ct);
-            var dt = new DataTable();
-            dt.Load(r);
+            var dt = await LocalDb.CedvelAsync(r);
             return dt;
         }
 
@@ -79,7 +78,14 @@ namespace TexnikaReyestri.Data
 
         // Toplu yazı (Excel / USB idxalı): bir tranzaksiya + bir dəfə hazırlanmış sorğu.
         // 1 mln sətir ~23 s (ölçülüb). Hər 1000 sətirdən bir progress, ləğv etmək mümkündür.
-        public static Task<int> TopluYazAsync(IEnumerable<Dictionary<string, object>> qeydler, IProgress<int> progress, CancellationToken ct)
+        public static async Task<int> TopluYazAsync(IEnumerable<Dictionary<string, object>> qeydler, IProgress<int> progress, CancellationToken ct)
+        {
+            int n = await TopluYazIcAsync(qeydler, progress, ct);
+            if (n >= 1000) await LocalDb.AnalizAsync();   // çox sətir əlavə olundu: planlayıcı statistikasını yenilə
+            return n;
+        }
+
+        private static Task<int> TopluYazIcAsync(IEnumerable<Dictionary<string, object>> qeydler, IProgress<int> progress, CancellationToken ct)
             => LocalDb.YazAsync(async (con, tr) =>
             {
                 var kodlar = Saheler.Hamisi.Select(s => s.Kod).ToArray();
@@ -145,8 +151,7 @@ namespace TexnikaReyestri.Data
             cmd.CommandText = "SELECT * FROM Texnikalar WHERE Deyisdi > $t ORDER BY Deyisdi;";
             cmd.Parameters.AddWithValue("$t", sonIxrac);
             await using var r = await cmd.ExecuteReaderAsync(ct);
-            var dt = new DataTable();
-            dt.Load(r);
+            var dt = await LocalDb.CedvelAsync(r);
             return dt;
         }
 

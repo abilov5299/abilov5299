@@ -29,6 +29,38 @@ namespace TexnikaReyestri.Data
             Exec(con, "PRAGMA journal_mode=WAL;");
             Exec(con, "PRAGMA synchronous=NORMAL;");   // WAL ilə təhlükəsiz və FULL-dan xeyli sürətli
             Schema.Yarat(con);
+            // Sorğu planlayıcısının statistikası: olmasa SQLite səhv indeksi seçir (100 000 sətirdə 150 ms → 3 ms fərq)
+            using (var c = con.CreateCommand())
+            {
+                c.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE name='sqlite_stat1';";
+                bool lazim = Convert.ToInt64(c.ExecuteScalar()) == 0;   // yeni baza: cədvəl hələ yoxdur
+                if (!lazim) { c.CommandText = "SELECT COUNT(*) FROM sqlite_stat1 WHERE idx='IX_T_Gec';"; lazim = Convert.ToInt64(c.ExecuteScalar()) == 0; }
+                if (lazim) Exec(con, "ANALYZE;");
+            }
+            Exec(con, "PRAGMA optimize=0x10002;");   // dəyişən cədvəllər üçün statistikanı yenilə
+        }
+
+        /// <summary>
+        /// Oxuyucunu DataTable-a sürətli köçürür. DataTable.Load(r) hər dəfə sütun sxemini (GetSchemaTable) soruşur:
+        /// Microsoft.Data.Sqlite-də bu, əlavə PRAGMA sorğuları deməkdir — 200 sətirlik reyestr səhifəsi 1 ms əvəzinə ~280 ms çəkirdi.
+        /// </summary>
+        public static async Task<System.Data.DataTable> CedvelAsync(SqliteDataReader r, CancellationToken ct = default)
+        {
+            var dt = new System.Data.DataTable();
+            for (int i = 0; i < r.FieldCount; i++) dt.Columns.Add(r.GetName(i), typeof(object));
+            dt.BeginLoadData();
+            var a = new object[r.FieldCount];
+            while (await r.ReadAsync(ct)) { r.GetValues(a); dt.Rows.Add(a); }
+            dt.EndLoadData();
+            return dt;
+        }
+
+        /// <summary>Toplu yazmadan sonra (Excel, USB idxalı, nümunə məlumat) statistikanı yenilə.</summary>
+        public static async Task AnalizAsync()
+        {
+            await _yaz.WaitAsync();
+            try { await using var con = await AcAsync(); Exec(con, "ANALYZE;"); }
+            finally { _yaz.Release(); }
         }
 
         public static async Task<SqliteConnection> AcAsync(CancellationToken ct = default)

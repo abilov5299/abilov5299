@@ -110,7 +110,7 @@ namespace TexnikaReyestri.Data
             double o0 = Avg(await Q($"SELECT {orta} FROM Texnikalar WHERE Silinib=0{zw} AND FaktikiBitme>=$evvel AND FaktikiBitme<$bas AND BaslamaTarixi IS NOT NULL;"));
             var uzre = zavod != null
                 ? (await Q($"SELECT TemirNovu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0{zw} AND TemirNovu IS NOT NULL AND FaktikiBitme IS NOT NULL AND BaslamaTarixi IS NOT NULL GROUP BY TemirNovu ORDER BY 2;"))
-                : (await Q($"SELECT TemirZavodu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0 AND FaktikiBitme IS NOT NULL AND BaslamaTarixi IS NOT NULL GROUP BY TemirZavodu ORDER BY 2 DESC;"));
+                : (await Q($"SELECT TemirZavodu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0 AND FaktikiBitme > '' AND BaslamaTarixi IS NOT NULL GROUP BY TemirZavodu ORDER BY 2 DESC;"));
             var gecList = (await Q($"SELECT Marka||' · '||IFNULL(ZavodNo,''), CAST(julianday($bugun)-julianday(GozlenilenBitme) AS INTEGER), TemirZavodu, Id FROM Texnikalar " +
                                    $"WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir') ORDER BY GozlenilenBitme LIMIT 5;"))
                           .Select(x => ((string)x[0], Convert.ToInt32(x[1]), x[2] as string, Convert.ToInt64(x[3]))).ToArray();

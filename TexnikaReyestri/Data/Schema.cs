@@ -37,6 +37,11 @@ CREATE INDEX IF NOT EXISTS IX_T_ZavodNo ON Texnikalar(ZavodNo);
 CREATE INDEX IF NOT EXISTS IX_T_Deyisdi ON Texnikalar(Deyisdi);
 CREATE INDEX IF NOT EXISTS IX_T_Daxil   ON Texnikalar(TemirZavodu, DaxilolmaTarixi);
 CREATE INDEX IF NOT EXISTS IX_T_Fakt    ON Texnikalar(TemirZavodu, FaktikiBitme);
+-- Ana səhifə statistikası bütün zavodlar üzrə (üst qurumlar): cədvəli tam oxumamaq üçün örtən indekslər
+CREATE INDEX IF NOT EXISTS IX_T_DaxilG  ON Texnikalar(DaxilolmaTarixi) WHERE Silinib=0;
+CREATE INDEX IF NOT EXISTS IX_T_FaktG   ON Texnikalar(FaktikiBitme, BaslamaTarixi, TemirZavodu, TemirNovu) WHERE Silinib=0;
+CREATE INDEX IF NOT EXISTS IX_T_Nov     ON Texnikalar(Nov) WHERE Silinib=0;
+CREATE INDEX IF NOT EXISTS IX_T_Gec     ON Texnikalar(GozlenilenBitme, TemirZavodu) WHERE Silinib=0 AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir');
 
 -- Mətn axtarışı: LIKE '%..%' əvəzinə (1 mln sətirdə ~6 ms)
 CREATE VIRTUAL TABLE IF NOT EXISTS TexnikaAxtar USING fts5(

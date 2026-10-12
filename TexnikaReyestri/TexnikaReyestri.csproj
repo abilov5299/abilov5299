@@ -15,6 +15,9 @@
     <Description>Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu</Description>
     <!-- Linux/CI-da yalnız kompilyasiya yoxlaması üçün; Windows-da təsiri yoxdur -->
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <!-- Publish zamanı kod əvvəlcədən maşın koduna çevrilir: ilk açılış və hər səhifənin ilk açılışı sürətlənir (JIT gözləməsi olmur) -->
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <TieredPGO>true</TieredPGO>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.10" />

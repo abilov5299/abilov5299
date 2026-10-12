@@ -32,6 +32,7 @@ namespace TexnikaReyestri.Core
             ["Ana səhifə (statistika)"] = ("Home (statistics)", "Главная (статистика)"),
             ["İcmal (zavodlar üzrə)"] = ("Overview (by plant)", "Сводка (по заводам)"),
             ["Reyestr"] = ("Registry", "Реестр"),
+            ["bütün zavodlar"] = ("all plants", "все заводы"),
             ["Texnika daxil et"] = ("Add equipment", "Добавить технику"),
             ["Bildirişlər"] = ("Notifications", "Уведомления"),
             ["İxrac / İdxal (USB)"] = ("Export / Import (USB)", "Экспорт / Импорт (USB)"),

@@ -24,6 +24,8 @@ namespace TexnikaReyestri.Forms
         public MainForm()
         {
             InitializeComponent();
+            // Proqram həmişə tam ekran açılır (tapşırıq panelini örtmədən)
+            StartPosition = FormStartPosition.Manual; MaximizedBounds = Screen.PrimaryScreen.WorkingArea; WindowState = FormWindowState.Maximized;
             Current = this;
             _badge.Tick += async (_, _) => await BadgeYenileAsync();
             _idle.Tick += Idle_Tick;
@@ -47,13 +49,16 @@ namespace TexnikaReyestri.Forms
             if (await SistemRepo.ParamStrAsync("Numune10") == null && await TexnikaRepo.SayAsync(new ReyestrFiltr()) == 0)
             { await DemoData.On10Async(Session.ZavodFiltri); await SistemRepo.ParamYazAsync("Numune10", "1"); }
             await AcAsync("home");
+            _ = OnHazirlaAsync();
             _badge.Start(); _idle.Start();
             Application.AddMessageFilter(new FealiyyetFiltri(() => _sonFealiyyet = DateTime.Now));
             // Arxa planda: gündəlik ehtiyat nüsxə və bildiriş qaydaları
             _ = Task.Run(async () =>
             {
+                await Task.Delay(15000);   // açılışda disk və CPU UI ilə yarışmasın
                 try { await BackupService.GundelikAsync(); } catch (Exception ex) { await SistemRepo.LogAsync("Xəta", "Ehtiyat nüsxə: " + ex.Message); }
                 try { await NotificationService.YoxlaAsync(); } catch (Exception ex) { await SistemRepo.LogAsync("Xəta", "Bildirişlər: " + ex.Message); }
+                if (IsDisposed || !IsHandleCreated) return;
                 BeginInvoke(new Action(async () =>
                 {
                     int n = await BadgeYenileAsync();
@@ -73,18 +78,41 @@ namespace TexnikaReyestri.Forms
             else await AcAsync(b.PageKey);
         }
 
+        private PageBase Sehife(string key)
+        {
+            if (_pages.TryGetValue(key, out var page)) return page;
+            page = key switch
+            {
+                "home" => new HomePage(), "sum" => new SummaryPage(), "list" => new RegistryPage(), "add" => new EditPage(),
+                "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "log" => new LogsPage(), "bak" => new BackupPage(),
+                _ => throw new ArgumentException(key)
+            };
+            page.Dock = DockStyle.Fill; page.Visible = false; pnlContent.Controls.Add(page); Ui.Hazirla(page); _pages[key] = page;
+            return page;
+        }
+
+        /// <summary>
+        /// Açılışdan sonra, istifadəçi ana səhifəyə baxarkən qalan səhifələr bir-bir arxa planda hazırlanır
+        /// (kontrolların yaradılması və Windows pəncərələri). Menyuya ilk klikdə gözləmə olmur.
+        /// </summary>
+        private async Task OnHazirlaAsync()
+        {
+            var keys = new List<string> { "list", "det", "noti", "sync", "log", "bak" };
+            if (Session.YazaBiler) keys.Insert(2, "add");
+            if (Session.Tip != QurumTip.Zavod) keys.Insert(0, "sum");
+            foreach (var k in keys)
+            {
+                await Task.Delay(120);                       // UI-yə nəfəs: istifadəçinin klikləri arada işlənir
+                if (IsDisposed || _pages.ContainsKey(k)) continue;
+                var p = Sehife(k);
+                // Görünməz səhifənin pəncərələri yaradılmır; aktiv səhifənin ARXASINDA qısa müddət görünən edib yaradırıq
+                p.SendToBack(); p.Visible = true; p.CreateControl(); p.PerformLayout(); p.Visible = false;
+            }
+        }
+
         public async Task AcAsync(string key, Func<PageBase, Task> hazirliq = null)
         {
-            if (!_pages.TryGetValue(key, out var page))
-            {
-                page = key switch
-                {
-                    "home" => new HomePage(), "sum" => new SummaryPage(), "list" => new RegistryPage(), "add" => new EditPage(),
-                    "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "log" => new LogsPage(), "bak" => new BackupPage(),
-                    _ => throw new ArgumentException(key)
-                };
-                page.Dock = DockStyle.Fill; page.Visible = false; pnlContent.Controls.Add(page); Ui.Hazirla(page); _pages[key] = page;
-            }
+            var page = Sehife(key);
             string navKey = key == "det" ? "list" : key;
             foreach (Control c in pnlNav.Controls) if (c is NavButton nb && nb.PageKey.Length > 0) nb.Active = nb.PageKey == navKey;
             if (hazirliq != null) await hazirliq(page);
