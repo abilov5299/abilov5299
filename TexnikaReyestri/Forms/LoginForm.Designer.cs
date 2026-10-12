@@ -14,209 +14,242 @@
 
         private void InitializeComponent()
         {
-            this.pnlBrand = new TexnikaReyestri.Controls.BrandPanel();
-            this.logo = new TexnikaReyestri.Controls.LogoMark();
-            this.lblBrand = new System.Windows.Forms.Label();
-            this.lblBrandSub = new System.Windows.Forms.Label();
-            this.lblVersion = new System.Windows.Forms.Label();
-            this.pnlForm = new System.Windows.Forms.Panel();
-            this.btnClose = new TexnikaReyestri.Controls.FlatButton();
-            this.btnTheme = new TexnikaReyestri.Controls.FlatButton();
-            this.cmbLang = new TexnikaReyestri.Controls.RoundComboBox();
-            this.lblHeader = new System.Windows.Forms.Label();
-            this.lblUser = new System.Windows.Forms.Label();
-            this.txtUser = new TexnikaReyestri.Controls.RoundTextBox();
-            this.lblPass = new System.Windows.Forms.Label();
-            this.txtPass = new TexnikaReyestri.Controls.RoundTextBox();
-            this.btnLogin = new TexnikaReyestri.Controls.FlatButton();
-            this.lblError = new System.Windows.Forms.Label();
-            this.pnlBrand.SuspendLayout();
-            this.pnlForm.SuspendLayout();
-            this.SuspendLayout();
+            pnlBrand = new TexnikaReyestri.Controls.BrandPanel();
+            lblVersion = new Label();
+            lblBrandSub = new Label();
+            lblBrand = new Label();
+            logo = new TexnikaReyestri.Controls.LogoMark();
+            pnlForm = new Panel();
+            lblError = new Label();
+            btnLogin = new TexnikaReyestri.Controls.FlatButton();
+            txtPass = new TexnikaReyestri.Controls.RoundTextBox();
+            lblPass = new Label();
+            txtUser = new TexnikaReyestri.Controls.RoundTextBox();
+            lblUser = new Label();
+            lblHeader = new Label();
+            cmbLang = new TexnikaReyestri.Controls.RoundComboBox();
+            btnTheme = new TexnikaReyestri.Controls.FlatButton();
+            btnClose = new TexnikaReyestri.Controls.FlatButton();
+            pnlBrand.SuspendLayout();
+            pnlForm.SuspendLayout();
+            SuspendLayout();
             // 
             // pnlBrand
             // 
-            this.pnlBrand.Controls.Add(this.lblVersion);
-            this.pnlBrand.Controls.Add(this.lblBrandSub);
-            this.pnlBrand.Controls.Add(this.lblBrand);
-            this.pnlBrand.Controls.Add(this.logo);
-            this.pnlBrand.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlBrand.Size = new System.Drawing.Size(420, 540);
-            this.pnlBrand.Padding = new System.Windows.Forms.Padding(40);
-            this.pnlBrand.Name = "pnlBrand";
-            // 
-            // logo
-            // 
-            this.logo.Location = new System.Drawing.Point(40, 40);
-            this.logo.Size = new System.Drawing.Size(132, 132);
-            this.logo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.logo.Name = "logo";
-            this.logo.Click += new System.EventHandler(this.logo_Click);
-            // 
-            // lblBrand
-            // 
-            this.lblBrand.AutoSize = true;
-            this.lblBrand.Font = new System.Drawing.Font("Bahnschrift SemiBold", 30.0F);
-            this.lblBrand.Location = new System.Drawing.Point(36, 196);
-            this.lblBrand.Text = "TEXNİKA\r\nREYESTRİ";
-            this.lblBrand.Tag = "white";
-            this.lblBrand.Name = "lblBrand";
-            // 
-            // lblBrandSub
-            // 
-            this.lblBrandSub.AutoSize = true;
-            this.lblBrandSub.Font = new System.Drawing.Font("Segoe UI", 10.0F);
-            this.lblBrandSub.Location = new System.Drawing.Point(40, 306);
-            this.lblBrandSub.Text = "Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu";
-            this.lblBrandSub.Tag = "navtext";
-            this.lblBrandSub.MaximumSize = new System.Drawing.Size(330, 0);
-            this.lblBrandSub.Name = "lblBrandSub";
+            pnlBrand.BackColor = Color.FromArgb(15, 76, 74);
+            pnlBrand.Controls.Add(lblVersion);
+            pnlBrand.Controls.Add(lblBrandSub);
+            pnlBrand.Controls.Add(lblBrand);
+            pnlBrand.Controls.Add(logo);
+            pnlBrand.Dock = DockStyle.Left;
+            pnlBrand.Location = new Point(0, 0);
+            pnlBrand.Name = "pnlBrand";
+            pnlBrand.Padding = new Padding(40);
+            pnlBrand.Size = new Size(420, 540);
+            pnlBrand.TabIndex = 1;
             // 
             // lblVersion
             // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.Font = new System.Drawing.Font("Segoe UI", 8.0F);
-            this.lblVersion.Location = new System.Drawing.Point(40, 500);
-            this.lblVersion.Text = "v1.0 · Lokal baza · 7 zavod";
-            this.lblVersion.Tag = "navtext";
-            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblVersion.Name = "lblVersion";
+            lblVersion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblVersion.AutoSize = true;
+            lblVersion.Font = new Font("Segoe UI", 8F);
+            lblVersion.Location = new Point(40, 500);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(138, 13);
+            lblVersion.TabIndex = 0;
+            lblVersion.Tag = "navtext";
+            lblVersion.Text = "v1.0 · Lokal baza · 6 zavod";
+            // 
+            // lblBrandSub
+            // 
+            lblBrandSub.AutoSize = true;
+            lblBrandSub.Font = new Font("Segoe UI", 10F);
+            lblBrandSub.Location = new Point(40, 306);
+            lblBrandSub.MaximumSize = new Size(330, 0);
+            lblBrandSub.Name = "lblBrandSub";
+            lblBrandSub.Size = new Size(307, 38);
+            lblBrandSub.TabIndex = 1;
+            lblBrandSub.Tag = "navtext";
+            lblBrandSub.Text = "Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu";
+            // 
+            // lblBrand
+            // 
+            lblBrand.AutoSize = true;
+            lblBrand.Font = new Font("Bahnschrift SemiBold", 30F);
+            lblBrand.Location = new Point(36, 196);
+            lblBrand.Name = "lblBrand";
+            lblBrand.Size = new Size(196, 96);
+            lblBrand.TabIndex = 2;
+            lblBrand.Tag = "white";
+            lblBrand.Text = "TEXNİKA\r\nREYESTRİ";
+            // 
+            // logo
+            // 
+            logo.BackColor = Color.Transparent;
+            logo.Cursor = Cursors.Hand;
+            logo.Location = new Point(40, 40);
+            logo.Name = "logo";
+            logo.Size = new Size(132, 132);
+            logo.TabIndex = 3;
+            logo.Click += logo_Click;
             // 
             // pnlForm
             // 
-            this.pnlForm.Controls.Add(this.lblError);
-            this.pnlForm.Controls.Add(this.btnLogin);
-            this.pnlForm.Controls.Add(this.txtPass);
-            this.pnlForm.Controls.Add(this.lblPass);
-            this.pnlForm.Controls.Add(this.txtUser);
-            this.pnlForm.Controls.Add(this.lblUser);
-            this.pnlForm.Controls.Add(this.lblHeader);
-            this.pnlForm.Controls.Add(this.cmbLang);
-            this.pnlForm.Controls.Add(this.btnTheme);
-            this.pnlForm.Controls.Add(this.btnClose);
-            this.pnlForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlForm.Size = new System.Drawing.Size(540, 540);
-            this.pnlForm.Tag = "card";
-            this.pnlForm.Name = "pnlForm";
-            // 
-            // btnClose
-            // 
-            this.btnClose.Kind = TexnikaReyestri.Controls.ButtonKind.Ghost;
-            this.btnClose.Location = new System.Drawing.Point(492, 8);
-            this.btnClose.Size = new System.Drawing.Size(40, 34);
-            this.btnClose.Text = "";
-            this.btnClose.Glyph = "\uE8BB";
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnTheme
-            // 
-            this.btnTheme.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnTheme.Location = new System.Drawing.Point(384, 8);
-            this.btnTheme.Size = new System.Drawing.Size(40, 34);
-            this.btnTheme.Text = "";
-            this.btnTheme.Glyph = "\uE708";
-            this.btnTheme.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTheme.Name = "btnTheme";
-            this.btnTheme.Click += new System.EventHandler(this.btnTheme_Click);
-            // 
-            // cmbLang
-            // 
-            this.cmbLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbLang.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F);
-            this.cmbLang.Location = new System.Drawing.Point(430, 11);
-            this.cmbLang.Size = new System.Drawing.Size(56, 25);
-            this.cmbLang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbLang.Name = "cmbLang";
-            this.cmbLang.Items.AddRange(new object[] {
-            "AZ",
-            "EN",
-            "RU"});
-            this.cmbLang.SelectedIndexChanged += new System.EventHandler(this.cmbLang_SelectedIndexChanged);
-            // 
-            // lblHeader
-            // 
-            this.lblHeader.AutoSize = true;
-            this.lblHeader.Font = new System.Drawing.Font("Bahnschrift SemiBold", 20.0F);
-            this.lblHeader.Location = new System.Drawing.Point(118, 148);
-            this.lblHeader.Text = "Sistemə giriş";
-            this.lblHeader.Tag = "title";
-            this.lblHeader.Name = "lblHeader";
-            // 
-            // lblUser
-            // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.lblUser.Location = new System.Drawing.Point(120, 204);
-            this.lblUser.Text = "İstifadəçi adı";
-            this.lblUser.Tag = "muted";
-            this.lblUser.Name = "lblUser";
-            // 
-            // txtUser
-            // 
-            this.txtUser.Font = new System.Drawing.Font("Segoe UI", 11.0F);
-            this.txtUser.Location = new System.Drawing.Point(120, 224);
-            this.txtUser.Size = new System.Drawing.Size(300, 27);
-            this.txtUser.Name = "txtUser";
-            // 
-            // lblPass
-            // 
-            this.lblPass.AutoSize = true;
-            this.lblPass.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.lblPass.Location = new System.Drawing.Point(120, 266);
-            this.lblPass.Text = "Parol";
-            this.lblPass.Tag = "muted";
-            this.lblPass.Name = "lblPass";
-            // 
-            // txtPass
-            // 
-            this.txtPass.Font = new System.Drawing.Font("Segoe UI", 11.0F);
-            this.txtPass.Location = new System.Drawing.Point(120, 286);
-            this.txtPass.Size = new System.Drawing.Size(300, 27);
-            this.txtPass.UseSystemPasswordChar = true;
-            this.txtPass.Name = "txtPass";
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnLogin.Location = new System.Drawing.Point(120, 340);
-            this.btnLogin.Size = new System.Drawing.Size(300, 42);
-            this.btnLogin.Text = "DAXİL OL";
-            this.btnLogin.Font = new System.Drawing.Font("Segoe UI Semibold", 10.0F);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            pnlForm.Controls.Add(lblError);
+            pnlForm.Controls.Add(btnLogin);
+            pnlForm.Controls.Add(txtPass);
+            pnlForm.Controls.Add(lblPass);
+            pnlForm.Controls.Add(txtUser);
+            pnlForm.Controls.Add(lblUser);
+            pnlForm.Controls.Add(lblHeader);
+            pnlForm.Controls.Add(cmbLang);
+            pnlForm.Controls.Add(btnTheme);
+            pnlForm.Controls.Add(btnClose);
+            pnlForm.Dock = DockStyle.Fill;
+            pnlForm.Location = new Point(420, 0);
+            pnlForm.Name = "pnlForm";
+            pnlForm.Size = new Size(540, 540);
+            pnlForm.TabIndex = 0;
+            pnlForm.Tag = "card";
             // 
             // lblError
             // 
-            this.lblError.AutoSize = false;
-            this.lblError.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.lblError.Location = new System.Drawing.Point(120, 394);
-            this.lblError.Text = "";
-            this.lblError.Tag = "danger";
-            this.lblError.Size = new System.Drawing.Size(300, 44);
-            this.lblError.Name = "lblError";
+            lblError.Font = new Font("Segoe UI", 9F);
+            lblError.Location = new Point(120, 394);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(300, 44);
+            lblError.TabIndex = 0;
+            lblError.Tag = "danger";
+            // 
+            // btnLogin
+            // 
+            btnLogin.BackColor = Color.Transparent;
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.Font = new Font("Segoe UI Semibold", 10F);
+            btnLogin.Location = new Point(120, 340);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(300, 42);
+            btnLogin.TabIndex = 1;
+            btnLogin.Text = "DAXİL OL";
+            btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogin_Click;
+            // 
+            // txtPass
+            // 
+            txtPass.Font = new Font("Segoe UI", 11F);
+            txtPass.Location = new Point(120, 286);
+            txtPass.Name = "txtPass";
+            txtPass.Size = new Size(300, 27);
+            txtPass.TabIndex = 2;
+            txtPass.UseSystemPasswordChar = true;
+            // 
+            // lblPass
+            // 
+            lblPass.AutoSize = true;
+            lblPass.Font = new Font("Segoe UI", 9F);
+            lblPass.Location = new Point(120, 266);
+            lblPass.Name = "lblPass";
+            lblPass.Size = new Size(34, 15);
+            lblPass.TabIndex = 3;
+            lblPass.Tag = "muted";
+            lblPass.Text = "Parol";
+            // 
+            // txtUser
+            // 
+            txtUser.Font = new Font("Segoe UI", 11F);
+            txtUser.Location = new Point(120, 224);
+            txtUser.Name = "txtUser";
+            txtUser.Size = new Size(300, 27);
+            txtUser.TabIndex = 4;
+            // 
+            // lblUser
+            // 
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("Segoe UI", 9F);
+            lblUser.Location = new Point(120, 204);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(73, 15);
+            lblUser.TabIndex = 5;
+            lblUser.Tag = "muted";
+            lblUser.Text = "İstifadəçi adı";
+            // 
+            // lblHeader
+            // 
+            lblHeader.AutoSize = true;
+            lblHeader.Font = new Font("Bahnschrift SemiBold", 20F);
+            lblHeader.Location = new Point(118, 148);
+            lblHeader.Name = "lblHeader";
+            lblHeader.Size = new Size(175, 33);
+            lblHeader.TabIndex = 6;
+            lblHeader.Tag = "title";
+            lblHeader.Text = "Sistemə giriş";
+            // 
+            // cmbLang
+            // 
+            cmbLang.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbLang.DrawMode = DrawMode.OwnerDrawFixed;
+            cmbLang.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbLang.FlatStyle = FlatStyle.Flat;
+            cmbLang.Font = new Font("Segoe UI Semibold", 9.5F);
+            cmbLang.IntegralHeight = false;
+            cmbLang.ItemHeight = 22;
+            cmbLang.Items.AddRange(new object[] { "AZ", "EN", "RU" });
+            cmbLang.Location = new Point(430, 11);
+            cmbLang.Name = "cmbLang";
+            cmbLang.Size = new Size(56, 28);
+            cmbLang.TabIndex = 7;
+            cmbLang.SelectedIndexChanged += cmbLang_SelectedIndexChanged;
+            // 
+            // btnTheme
+            // 
+            btnTheme.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnTheme.BackColor = Color.Transparent;
+            btnTheme.FlatStyle = FlatStyle.Flat;
+            btnTheme.Font = new Font("Segoe UI Semibold", 9F);
+            btnTheme.Glyph = "";
+            btnTheme.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
+            btnTheme.Location = new Point(384, 8);
+            btnTheme.Name = "btnTheme";
+            btnTheme.Size = new Size(40, 34);
+            btnTheme.TabIndex = 8;
+            btnTheme.UseVisualStyleBackColor = false;
+            btnTheme.Click += btnTheme_Click;
+            // 
+            // btnClose
+            // 
+            btnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnClose.BackColor = Color.Transparent;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Font = new Font("Segoe UI Semibold", 9F);
+            btnClose.Glyph = "";
+            btnClose.Kind = TexnikaReyestri.Controls.ButtonKind.Ghost;
+            btnClose.Location = new Point(492, 8);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(40, 34);
+            btnClose.TabIndex = 9;
+            btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click;
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(960, 540);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Texnika Reyestri";
-            this.AcceptButton = this.btnLogin;
-            this.KeyPreview = true;
-            this.Controls.Add(this.pnlForm);
-            this.Controls.Add(this.pnlBrand);
-            this.Name = "LoginForm";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LoginForm_KeyDown);
-            this.Load += new System.EventHandler(this.LoginForm_Load);
-            this.pnlForm.ResumeLayout(false);
-            this.pnlForm.PerformLayout();
-            this.pnlBrand.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AcceptButton = btnLogin;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            ClientSize = new Size(960, 540);
+            Controls.Add(pnlForm);
+            Controls.Add(pnlBrand);
+            FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
+            Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Texnika Reyestri";
+            Load += LoginForm_Load;
+            KeyDown += LoginForm_KeyDown;
+            pnlBrand.ResumeLayout(false);
+            pnlBrand.PerformLayout();
+            pnlForm.ResumeLayout(false);
+            pnlForm.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
