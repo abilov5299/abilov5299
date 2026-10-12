@@ -65,7 +65,13 @@ namespace TexnikaReyestri.Forms
         private void YerlesdirBaslig() { lblUser.Left = lblQurum.Right + 10; }
 
         // ---------------- Naviqasiya ----------------
-        private async void nav_Click(object sender, EventArgs e) { if (sender is NavButton b) await AcAsync(b.PageKey); }
+        private async void nav_Click(object sender, EventArgs e)
+        {
+            if (sender is not NavButton b) return;
+            // "Texnika daxil et": əvvəlki redaktə açıq qalmışdısa, boş yeni forma aç
+            if (b.PageKey == "add") await AcAsync("add", p => ((EditPage)p).YeniRejim ? Task.CompletedTask : ((EditPage)p).YukleAsync(null));
+            else await AcAsync(b.PageKey);
+        }
 
         public async Task AcAsync(string key, Func<PageBase, Task> hazirliq = null)
         {

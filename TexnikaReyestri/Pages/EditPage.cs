@@ -29,9 +29,12 @@ namespace TexnikaReyestri.Pages
 
         private Control In(string kod) => Controls.Find("in_" + kod, true).FirstOrDefault();
 
+        /// <summary>Forma hazırda boş "yeni texnika" rejimindədir (menyudan təkrar açanda yazılanlar silinməsin).</summary>
+        public bool YeniRejim { get; private set; }
+
         public async Task YukleAsync(long? id)
         {
-            _id = id; tabs.SelectedIndex = 0;
+            _id = id; YeniRejim = id == null; tabs.SelectedIndex = 0;
             lblTitle.Text = id == null ? Lang.T("Texnika daxil et") : Lang.T("Redaktə") + "…";
             Dictionary<string, object> r = id == null ? new() : await TexnikaRepo.TapAsync(id.Value) ?? new();
             if (id != null) lblTitle.Text = $"{Lang.T("Redaktə")}: {r.GetValueOrDefault("Marka")} · {r.GetValueOrDefault("ZavodNo")}";
@@ -92,6 +95,7 @@ namespace TexnikaReyestri.Pages
             {
                 bool yeni = _id == null;
                 long id = await TexnikaRepo.SaxlaAsync(_id, d);
+                _id = id; YeniRejim = false;   // yadda saxlandı: menyudan "daxil et" basanda forma təmiz açılsın, təkrar basanda dublikat yaranmasın
                 await SistemRepo.LogAsync(yeni ? "Əlavə" : "Redaktə", $"{(yeni ? "Yeni texnika" : "Dəyişdirildi")}: {d["Marka"]} ({d["ZavodNo"]})");
                 if (yeni) await SistemRepo.BildirisAsync($"new:{id}", "new", "Yeni texnika qəbul edildi", $"{d["Marka"]} ({d["ZavodNo"]}) {d["TemirZavodu"]}-ə daxil oldu", d["TemirZavodu"] as string, id);
                 Toast.Show(this, yeni ? "Texnika reyestrə əlavə edildi" : "Dəyişikliklər yadda saxlanıldı");
