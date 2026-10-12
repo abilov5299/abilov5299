@@ -102,20 +102,22 @@ namespace TexnikaReyestri.Pages
         {
             string q = SecilmisQovluq(); if (q == null) return;
             steps.Items = SyncService.IxracAddimlari; btnExport.Enabled = false; lblResult.Text = "";
-            var p = new Progress<int>(i => steps.Current = i);
+            // Yüklənmə pərdəsi: hansı addımda olduğunu və faizi göstərir
+            using var ov = LoadingOverlay.Show(this, "Paket hazırlanır və USB-yə yazılır..."); ov.Goster();
+            var p = new Progress<int>(i => { steps.Current = i; ov.Report(i * 100 / steps.Items.Length, Lang.T(steps.Items[Math.Min(i, steps.Items.Length - 1)])); });
             try
             {
                 var n = await Task.Run(() => SyncService.IxracAsync(q, p));
                 steps.Current = steps.Items.Length;
                 lblResult.ForeColor = Theme.Ok; lblResult.Text = $"✓ {Path.GetFileName(n.Fayl)} {Lang.T("hazırdır")}: {n.Yeni} {Lang.T("qeyd")}. {Lang.T("USB-ni üst quruma çatdırın.")}";
                 await SistemRepo.LogAsync("İxrac", $"Paket {Path.GetFileName(n.Fayl)} yazıldı ({n.Yeni} qeyd)");
-                Toast.Show(this, "İxrac tamamlandı");
+                ov.Dispose(); Toast.Show(this, "İxrac tamamlandı");
                 await OnShownAsync(); lblResult.Text = $"✓ {Path.GetFileName(n.Fayl)}: {n.Yeni} {Lang.T("qeyd")}";
             }
             catch (Exception ex)
             {
                 steps.Fail(); lblResult.ForeColor = Theme.Bad; lblResult.Text = "✕ " + ex.Message; await SistemRepo.LogAsync("Xəta", "İxrac: " + ex.Message);
-                Ui.Melumat(this, "İxrac alınmadı", ex.Message);   // səbəb dərhal görünsün, loga baxmağa ehtiyac qalmasın
+                ov.Dispose(); Ui.Melumat(this, "İxrac alınmadı", ex.Message);   // səbəb dərhal görünsün, loga baxmağa ehtiyac qalmasın
             }
             finally { btnExport.Enabled = true; }
         }
@@ -124,7 +126,8 @@ namespace TexnikaReyestri.Pages
         {
             if (lstPackages.SelectedItem is not string f) return;
             steps.Items = SyncService.IdxalAddimlari; btnImport.Enabled = false; lblResult.Text = "";
-            var p = new Progress<int>(i => steps.Current = i);
+            using var ov = LoadingOverlay.Show(this, "Paket yoxlanılır və bazaya yazılır..."); ov.Goster();
+            var p = new Progress<int>(i => { steps.Current = i; ov.Report(i * 100 / steps.Items.Length, Lang.T(steps.Items[Math.Min(i, steps.Items.Length - 1)])); });
             try
             {
                 await BackupService.AlAsync(false);   // idxaldan əvvəl ehtiyat nüsxə
@@ -132,13 +135,13 @@ namespace TexnikaReyestri.Pages
                 steps.Current = steps.Items.Length;
                 lblResult.ForeColor = Theme.Ok; lblResult.Text = $"✓ {n.Yeni} {Lang.T("yeni")}, {n.Deyisen} {Lang.T("dəyişiklik")}, {n.Silinen} {Lang.T("silinmə")}";
                 await SistemRepo.LogAsync("İdxal", $"{Path.GetFileName(f)}: {n.Yeni} yeni, {n.Deyisen} dəyişiklik, {n.Silinen} silinmə");
-                Toast.Show(this, "İdxal tamamlandı"); await MainForm.Current.BadgeYenileAsync(); await TarixceAsync();
+                ov.Dispose(); Toast.Show(this, "İdxal tamamlandı"); await MainForm.Current.BadgeYenileAsync(); await TarixceAsync();
             }
             catch (Exception ex)
             {
                 steps.Fail(); lblResult.ForeColor = Theme.Bad; lblResult.Text = "✕ " + ex.Message;
                 await SyncService.RedJurnalAsync(f, ex.Message); await SistemRepo.LogAsync("Xəta", $"{Path.GetFileName(f)} rədd edildi: {ex.Message}"); await TarixceAsync();
-                Ui.Melumat(this, "İdxal alınmadı", ex.Message);
+                ov.Dispose(); Ui.Melumat(this, "İdxal alınmadı", ex.Message);
             }
             finally { btnImport.Enabled = true; }
         }

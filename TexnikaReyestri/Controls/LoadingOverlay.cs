@@ -18,21 +18,22 @@ namespace TexnikaReyestri.Controls
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true);
             _msg = msg; Bounds = new Rectangle(Point.Empty, host.ClientSize); Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             _host = host;
-            _t.Tick += (_, _) => { _angle = (_angle + 9) % 360; Invalidate(); };
+            _t.Tick += (_, _) => { if (IsDisposed) return; _angle = (_angle + 9) % 360; Invalidate(); };
         }
         private readonly Control _host;
 
         /// <summary>Pərdəni ekrana çıxarır (Ui.Is bunu iş uzun çəkəndə çağırır).</summary>
         public void Goster()
         {
-            if (Parent != null || _host.IsDisposed) return;
+            if (IsDisposed || Parent != null || _host.IsDisposed) return;
             Bounds = new Rectangle(Point.Empty, _host.ClientSize);
             _host.Controls.Add(this); BringToFront(); Cursor = Cursors.WaitCursor; _t.Start();
         }
 
         public static LoadingOverlay Show(Control host, string message) => new(host, message);
 
-        public void Report(int percent, string sub = null) { _progress = percent; if (sub != null) _sub = sub; Invalidate(); }
+        // Progress<T> xəbərləri gecikərək gələ bilər: pərdə artıq bağlanıbsa, sakitcə keç (ObjectDisposedException olmasın)
+        public void Report(int percent, string sub = null) { if (IsDisposed || Disposing) return; _progress = percent; if (sub != null) _sub = sub; Invalidate(); }
 
         protected override void OnPaint(PaintEventArgs e)
         {
