@@ -42,7 +42,7 @@ namespace TexnikaReyestri.Pages
             if (Ixrac && Idxal) IkiliDuzulus();
             Diskler();
             var (t, seq) = await SyncService.SonIxracAsync();
-            int say = (await TexnikaRepo.DeltaAsync(t)).Rows.Count;
+            long say = Ixrac ? await Task.Run(() => TexnikaRepo.DeltaSayAsync(t)) : 0;   // əvvəl bütün dəyişənlər yüklənirdi (100 000 qeyddə donma)
             vPkg.Text = $"TQX-{Session.QurumKod}-{seq + 1:000000}"; vCnt.Text = say.ToString("#,0").Replace(",", " ");
             var q = (await SistemRepo.QurumlarAsync()).FirstOrDefault(x => x.Kod == Session.QurumKod);
             vRec.Text = q?.UstKod == null ? "—" : Lang.T((await SistemRepo.QurumlarAsync()).First(x => x.Kod == q.UstKod).Ad);

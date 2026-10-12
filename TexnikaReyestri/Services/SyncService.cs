@@ -27,8 +27,7 @@ namespace TexnikaReyestri.Services
         public static async Task<(long sonTarix, long seq, int say)> IxracHazirlikAsync()
         {
             var (t, s) = await SonIxracAsync();
-            var dt = await TexnikaRepo.DeltaAsync(t);
-            return (t, s, dt.Rows.Count);
+            return (t, s, (int)await TexnikaRepo.DeltaSayAsync(t));
         }
 
         public static async Task<SyncNetice> IxracAsync(string qovluq, IProgress<int> addim, CancellationToken ct = default)

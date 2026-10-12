@@ -111,6 +111,14 @@ namespace TexnikaReyestri.Data
             }, ct);
 
         // USB ixracı: son ixracdan sonra dəyişənlər (indeks IX_T_Deyisdi, 1 mln sətirdə ~6 ms)
+        /// <summary>İxraca düşəcək qeydlərin sayı — yalnız indeksdən sayılır, cədvəl yüklənmir.</summary>
+        public static async Task<long> DeltaSayAsync(long sonIxrac)
+        {
+            await using var con = await LocalDb.AcAsync();
+            using var cmd = con.CreateCommand(); cmd.CommandText = "SELECT COUNT(*) FROM Texnikalar WHERE Deyisdi > $t;"; cmd.Parameters.AddWithValue("$t", sonIxrac);
+            return (long)await cmd.ExecuteScalarAsync();
+        }
+
         public static async Task<DataTable> DeltaAsync(long sonIxrac, CancellationToken ct = default)
         {
             await using var con = await LocalDb.AcAsync(ct);
