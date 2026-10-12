@@ -120,6 +120,24 @@ namespace TexnikaReyestri.Data
             return (long)await cmd.ExecuteScalarAsync();
         }
 
+        /// <summary>İxrac olunan qeydlərin dəyişiklik tarixçəsi (Guid üzrə). USB paketinə qoşulur ki, üst qurum da "köhnə → yeni" tarixçəni görsün.</summary>
+        public static async Task<Dictionary<string, List<object[]>>> TarixceDeltaAsync(long sonIxrac, CancellationToken ct = default)
+        {
+            var d = new Dictionary<string, List<object[]>>();
+            await using var con = await LocalDb.AcAsync(ct);
+            using var cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT t.Guid, h.Tarix, h.Istifadeci, h.Sahe, h.Kohne, h.Yeni FROM Tarixce h JOIN Texnikalar t ON t.Id = h.TexnikaId WHERE t.Deyisdi > $t ORDER BY h.Tarix;";
+            cmd.Parameters.AddWithValue("$t", sonIxrac);
+            await using var r = await cmd.ExecuteReaderAsync(ct);
+            while (await r.ReadAsync(ct))
+            {
+                string g = r.GetString(0);
+                if (!d.TryGetValue(g, out var l)) d[g] = l = new();
+                l.Add(new object[] { r.GetInt64(1), r.GetString(2), r.GetString(3), r.IsDBNull(4) ? null : r.GetString(4), r.IsDBNull(5) ? null : r.GetString(5) });
+            }
+            return d;
+        }
+
         public static async Task<DataTable> DeltaAsync(long sonIxrac, CancellationToken ct = default)
         {
             await using var con = await LocalDb.AcAsync(ct);

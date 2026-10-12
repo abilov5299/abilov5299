@@ -46,6 +46,9 @@ namespace TexnikaReyestri.Services
             var qeydler = dt.Rows.Cast<System.Data.DataRow>().Where(r => menim.Tip != QurumTip.Zavod || Convert.ToString(r["TemirZavodu"]) == menim.Ad).Select(r => dt.Columns.Cast<System.Data.DataColumn>()
                 .Where(c => c.ColumnName != "Id" && c.ColumnName != "Deyisdi" && r[c] != DBNull.Value).ToDictionary(c => c.ColumnName, c => r[c])).ToList();
             int sil = qeydler.Count(q => Convert.ToInt64(q.GetValueOrDefault("Silinib", 0L)) == 1);
+            // Dəyişiklik tarixçəsi də paketə düşür (hər qeydin "_Tarixce" sahəsi: [vaxt, istifadəçi, sahə, köhnə, yeni])
+            var tarixce = await TexnikaRepo.TarixceDeltaAsync(sonTarix, ct);
+            foreach (var q in qeydler) if (q["Guid"] is string g && tarixce.TryGetValue(g, out var tl)) q["_Tarixce"] = tl;
 
             addim?.Report(1);
             byte[] json = JsonSerializer.SerializeToUtf8Bytes(qeydler);
@@ -175,6 +178,12 @@ namespace TexnikaReyestri.Services
                 var p = new Dictionary<string, Microsoft.Data.Sqlite.SqliteParameter>();
                 foreach (var n in new[] { "$g", "$v", "$d", "$s" }.Concat(kodlar.Select(k => "$" + k))) p[n] = up.Parameters.Add(n, Microsoft.Data.Sqlite.SqliteType.Text);
                 up.Prepare();
+                using var idc = con.CreateCommand(); idc.Transaction = tr; idc.CommandText = "SELECT Id FROM Texnikalar WHERE Guid=$g;";
+                var ig = idc.Parameters.Add("$g", Microsoft.Data.Sqlite.SqliteType.Text); idc.Prepare();
+                using var hc = con.CreateCommand(); hc.Transaction = tr;
+                hc.CommandText = "INSERT INTO Tarixce (TexnikaId, Tarix, Istifadeci, Sahe, Kohne, Yeni) SELECT $i,$t,$u,$s,$k,$y " +
+                                 "WHERE NOT EXISTS (SELECT 1 FROM Tarixce WHERE TexnikaId=$i AND Tarix=$t AND Sahe=$s);";   // təkrar yazılmasın
+                var hp = new[] { "$i", "$t", "$u", "$s", "$k", "$y" }.ToDictionary(n => n, n => hc.Parameters.Add(n, Microsoft.Data.Sqlite.SqliteType.Text)); hc.Prepare();
                 foreach (var q in qeydler)
                 {
                     ct.ThrowIfCancellationRequested();
@@ -192,6 +201,17 @@ namespace TexnikaReyestri.Services
                         p["$" + k].Value = q.TryGetValue(k, out var v) ? v.ValueKind switch
                         { JsonValueKind.Number => v.GetDouble(), JsonValueKind.String => v.GetString(), _ => DBNull.Value } : DBNull.Value;
                     await up.ExecuteNonQueryAsync(ct);
+                    if (q.TryGetValue("_Tarixce", out var th) && th.ValueKind == JsonValueKind.Array)
+                    {
+                        ig.Value = guid; long tid = (long)await idc.ExecuteScalarAsync(ct);
+                        foreach (var h in th.EnumerateArray())
+                        {
+                            hp["$i"].Value = tid; hp["$t"].Value = h[0].GetInt64(); hp["$u"].Value = h[1].GetString(); hp["$s"].Value = h[2].GetString();
+                            hp["$k"].Value = h[3].ValueKind == JsonValueKind.Null ? DBNull.Value : h[3].GetString();
+                            hp["$y"].Value = h[4].ValueKind == JsonValueKind.Null ? DBNull.Value : h[4].GetString();
+                            await hc.ExecuteNonQueryAsync(ct);
+                        }
+                    }
                     if (silinib) sil++; else if (movcud is null) yeni++; else dey++;
                 }
                 return (yeni, dey, sil, red);

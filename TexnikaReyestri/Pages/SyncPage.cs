@@ -39,7 +39,7 @@ namespace TexnikaReyestri.Pages
         public override async Task OnShownAsync()
         {
             lblTitle.Text = Lang.T(Ixrac && Idxal ? "İxrac / İdxal" : Ixrac ? "İxrac (USB-yə)" : "İdxal (USB-dən)");
-            rpExport.Visible = Ixrac; rpImport.Visible = Idxal && !Ixrac;
+            rpExport.Visible = Ixrac; rpImport.Visible = Idxal;   // Üst qurumda hər ikisi (əvvəl ikinci açılışda İdxal gizlənirdi)
             if (Ixrac && Idxal) IkiliDuzulus();
             Diskler();
             var (t, seq) = await SyncService.SonIxracAsync();
