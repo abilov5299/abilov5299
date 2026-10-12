@@ -76,7 +76,7 @@ namespace TexnikaReyestri.Controls
 
         public void SetData(string[] labels, double[] a, double[] b) { _labels = labels; _a = a; _b = b; Invalidate(); }
 
-        private const int PL = 30, PB = 20, PT = 8;
+        private int PL = 30; private const int PB = 20, PT = 8;   // PL: sol boşluq, ən uzun ox rəqəminə görə
         protected override void OnMouseMove(MouseEventArgs e)
         {
             int n = _labels.Length; if (n == 0) return;
@@ -97,6 +97,7 @@ namespace TexnikaReyestri.Controls
             // 4 bərabər, tam ədədli addım (1, 2, 5 × 10ⁿ) — oxda təkrarlanan rəqəm olmasın
             double raw = Math.Max(1, mx / 4), p10 = Math.Pow(10, Math.Floor(Math.Log10(raw))), st = new[] { 1, 2, 5, 10 }.Select(m => m * p10).First(x => x >= raw - 1e-9);
             double max = Math.Max(1, Math.Round(st)) * 4;
+            PL = Math.Max(30, TextRenderer.MeasureText(max.ToString("0"), Font).Width + 8);
             float H = Height - PB - PT; float Y(double v) => PT + H * (float)(1 - v / max);
             using var gp = new Pen(Theme.Line);
             for (int k = 0; k <= 4; k++)

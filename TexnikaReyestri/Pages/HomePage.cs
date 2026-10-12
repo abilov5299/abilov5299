@@ -38,7 +38,9 @@ namespace TexnikaReyestri.Pages
             cardTotal.Value = s.Cemi.ToString("#,0").Replace(",", " ");
             cardRepair.Value = s.Temirde.ToString("#,0").Replace(",", " "); cardRepair.SubText = $"+ {s.HisseGozleyir} hissə gözləyir";
             cardLate.Value = s.Geciken.ToString("#,0").Replace(",", " ");
-            cardLate.SubText = s.Temirde + s.HisseGozleyir > 0 ? $"{Math.Round(s.Geciken * 100.0 / (s.Temirde + s.HisseGozleyir))}% aktiv təmirlərin" : "";
+            // Gecikən = aktiv statuslardan (Qəbul edilib + Təmirdə + Hissə gözləyir); faiz də eyni əsasdan
+            long aktiv = s.Statuslar.Where(x => Secimler.AktivStatus.Contains(x.Item1)).Sum(x => x.Item2);
+            cardLate.SubText = aktiv > 0 ? $"{Math.Round(s.Geciken * 100.0 / aktiv)}% aktiv təmirlərin" : "";
             cardAvg.Value = $"{s.OrtaGun} gün";
             double d = s.OrtaGunEvvel > 0 ? s.OrtaGun - s.OrtaGunEvvel : 0;
             cardAvg.SubText = d == 0 ? "" : $"{(d < 0 ? "▼" : "▲")} {Math.Abs(d)} {Lang.T("gün əvvəlki dövrə görə")}";

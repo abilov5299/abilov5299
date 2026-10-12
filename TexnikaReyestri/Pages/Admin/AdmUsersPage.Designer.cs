@@ -114,7 +114,7 @@
             // 
             this.colLogin.HeaderText = "Login";
             this.colLogin.Name = "colLogin";
-            this.colLogin.Width = 90;
+            this.colLogin.Width = 80;
             // 
             // colName
             // 
@@ -133,25 +133,25 @@
             // 
             this.colRole.HeaderText = "Rol";
             this.colRole.Name = "colRole";
-            this.colRole.Width = 130;
+            this.colRole.Width = 110;
             // 
             // colLast
             // 
             this.colLast.HeaderText = "Son giriş";
             this.colLast.Name = "colLast";
-            this.colLast.Width = 120;
+            this.colLast.Width = 110;
             // 
             // colState
             // 
             this.colState.HeaderText = "Vəziyyət";
             this.colState.Name = "Status";
-            this.colState.Width = 80;
+            this.colState.Width = 70;
             // 
             // colEdit
             // 
             this.colEdit.HeaderText = "";
             this.colEdit.Name = "colEdit";
-            this.colEdit.Width = 84;
+            this.colEdit.Width = 76;
             this.colEdit.Text = "Redaktə";
             this.colEdit.UseColumnTextForButtonValue = true;
             // 
@@ -159,7 +159,7 @@
             // 
             this.colReset.HeaderText = "";
             this.colReset.Name = "colReset";
-            this.colReset.Width = 116;
+            this.colReset.Width = 106;
             this.colReset.Text = "Parolu sıfırla";
             this.colReset.UseColumnTextForButtonValue = true;
             // 
@@ -167,7 +167,7 @@
             // 
             this.colBlock.HeaderText = "";
             this.colBlock.Name = "colBlock";
-            this.colBlock.Width = 100;
+            this.colBlock.Width = 84;
             this.colBlock.Text = "Blokla";
             this.colBlock.UseColumnTextForButtonValue = true;
             // 

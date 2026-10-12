@@ -28,7 +28,7 @@ namespace TexnikaReyestri.Forms
                 p.Dock = DockStyle.Fill; pnlContent.Controls.Add(p); Ui.Hazirla(p); _p[r] = p;
             }
             foreach (var x in _p.Values) x.Visible = x == p;
-            foreach (var b in _p.Keys) b.ForeColor = b.Checked ? Color.White : Theme.C("#CFE0DE");
+            foreach (var b in new[] { radUsers, radOrgs, radPc, radSec, radKeys, radSys, radLog }) b.ForeColor = b.Checked ? Color.White : Theme.C("#CFE0DE");
             p.BringToFront(); await p.OnShownAsync();
         }
 
