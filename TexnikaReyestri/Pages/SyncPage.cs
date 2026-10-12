@@ -24,6 +24,7 @@ namespace TexnikaReyestri.Pages
             tlp.Controls.Remove(rpProc); pnlLeft.Controls.Remove(rpImport);
             var sag = new Panel { Dock = DockStyle.Fill, Margin = rpProc.Margin, BackColor = Color.Transparent };
             rpProc.Margin = Padding.Empty; rpProc.Dock = DockStyle.Fill;
+            lblResult.AutoSize = false; lblResult.Dock = DockStyle.Bottom; lblResult.Height = 40; lblResult.MaximumSize = Size.Empty;
             rpImport.Visible = true; rpImport.Dock = DockStyle.Top; rpImport.Height = 214;
             lstPackages.Height = 110; btnPick.Top = btnImport.Top = lstPackages.Bottom + 10;
             var ara = new Panel { Dock = DockStyle.Top, Height = 10, BackColor = Color.Transparent };
@@ -111,7 +112,11 @@ namespace TexnikaReyestri.Pages
                 Toast.Show(this, "İxrac tamamlandı");
                 await OnShownAsync(); lblResult.Text = $"✓ {Path.GetFileName(n.Fayl)}: {n.Yeni} {Lang.T("qeyd")}";
             }
-            catch (Exception ex) { steps.Fail(); lblResult.ForeColor = Theme.Bad; lblResult.Text = "✕ " + ex.Message; await SistemRepo.LogAsync("Xəta", "İxrac: " + ex.Message); }
+            catch (Exception ex)
+            {
+                steps.Fail(); lblResult.ForeColor = Theme.Bad; lblResult.Text = "✕ " + ex.Message; await SistemRepo.LogAsync("Xəta", "İxrac: " + ex.Message);
+                Ui.Melumat(this, "İxrac alınmadı", ex.Message);   // səbəb dərhal görünsün, loga baxmağa ehtiyac qalmasın
+            }
             finally { btnExport.Enabled = true; }
         }
 
@@ -133,6 +138,7 @@ namespace TexnikaReyestri.Pages
             {
                 steps.Fail(); lblResult.ForeColor = Theme.Bad; lblResult.Text = "✕ " + ex.Message;
                 await SyncService.RedJurnalAsync(f, ex.Message); await SistemRepo.LogAsync("Xəta", $"{Path.GetFileName(f)} rədd edildi: {ex.Message}"); await TarixceAsync();
+                Ui.Melumat(this, "İdxal alınmadı", ex.Message);
             }
             finally { btnImport.Enabled = true; }
         }

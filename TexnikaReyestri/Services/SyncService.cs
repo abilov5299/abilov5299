@@ -35,7 +35,9 @@ namespace TexnikaReyestri.Services
         {
             var qurumlar = await SistemRepo.QurumlarAsync();
             string alan = qurumlar.First(q => q.Kod == Session.QurumKod).UstKod ?? throw new InvalidOperationException("Bu qurumun üst qurumu yoxdur.");
-            var alanAcar = await KeyStore.EtibarliAsync(alan) ?? throw new InvalidOperationException("Üst qurumun açıq açarı idxal edilməyib (Admin → USB açarları).");
+            var alanAcar = await KeyStore.EtibarliAsync(alan) ?? throw new InvalidOperationException(
+                $"Paketi alacaq qurumun ({qurumlar.First(q => q.Kod == alan).Ad}) açıq açarı bu kompüterə idxal edilməyib.\n\n" +
+                "Həll: həmin qurumun .trkey faylını alın → Admin paneli → USB açarları → Açar idxal et → barmaq izini telefonla yoxlayıb Etibar et.");
 
             addim?.Report(0);
             var (sonTarix, sonSeq) = await SonIxracAsync();
