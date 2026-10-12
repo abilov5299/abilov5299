@@ -6,14 +6,13 @@ namespace TexnikaReyestri.Pages
 {
     public partial class LogsPage : PageBase
     {
-        private bool _ilk = true;
         public LogsPage()
         {
             InitializeComponent(); grid.RowTemplate.Height = 32;
             dtFrom.Value = DateTime.Today.AddDays(-7); dtTo.Value = DateTime.Today; cmbType.SelectedIndex = 0;
         }
 
-        public override async Task OnShownAsync() { _ilk = false; await AxtarAsync(); }   // hər açılışda təzə loglar
+        public override async Task OnShownAsync() { await AxtarAsync(); }   // hər açılışda təzə loglar
 
         private async Task AxtarAsync()
         {
