@@ -69,7 +69,7 @@ namespace TexnikaReyestri.Pages
 
         private async void barAvg_ItemClicked(object sender, string ad)
         {
-            if (Session.ZavodFiltri == null && ad.StartsWith("Zavod")) await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = ad });
+            if (Session.ZavodFiltri == null && Secimler.Zavodlar.Contains(ad)) await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = ad });
         }
 
         private async void lnkLate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = Session.ZavodFiltri, Gecikenler = true });

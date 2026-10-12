@@ -5,15 +5,44 @@ namespace TexnikaReyestri.Data
     /// <summary>İstifadəçilər, qurumlar, bildirişlər, sinxronizasiya və parametrlər.</summary>
     internal static class SistemSchema
     {
+        /// <summary>
+        /// Qurumların adları Secimler.cs-dən gəlir. Köhnə bazada standart adlar ("Zavod 1", "Üst qurum"…) qalıbsa, yeni adlara keçirilir;
+        /// texnikaların "Təmiri aparan zavod" sahəsi də yenilənir (İcmal trigger ilə özü yenilənir). Admin əl ilə dəyişdiyi adlara toxunulmur.
+        /// </summary>
+        private static void Qurumlar(SqliteConnection con)
+        {
+            var list = new List<(string kod, string ad, int tip, string ust, string kohne)>
+            { ("ENUST", Secimler.EnUstAd, 3, null, "Ən üst qurum"), ("UST", Secimler.UstAd, 2, "ENUST", "Üst qurum") };
+            for (int i = 0; i < Secimler.Zavodlar.Length; i++) list.Add(($"Z{i + 1}", Secimler.Zavodlar[i], 1, "UST", $"Zavod {i + 1}"));
+            using var tr = con.BeginTransaction();
+            foreach (var (kod, ad, tip, ust, kohne) in list)
+            {
+                using var c = con.CreateCommand(); c.Transaction = tr;
+                c.CommandText = "INSERT OR IGNORE INTO Qurumlar VALUES ($k,$a,$t,$u); UPDATE Qurumlar SET Ad=$a WHERE Kod=$k AND Ad=$o;";
+                c.Parameters.AddWithValue("$k", kod); c.Parameters.AddWithValue("$a", ad); c.Parameters.AddWithValue("$t", tip);
+                c.Parameters.AddWithValue("$u", (object)ust ?? DBNull.Value); c.Parameters.AddWithValue("$o", kohne);
+                c.ExecuteNonQuery();
+                if (tip == 1)
+                {
+                    using var t = con.CreateCommand(); t.Transaction = tr;
+                    t.CommandText = "UPDATE Texnikalar SET TemirZavodu=$a WHERE TemirZavodu=$o;";
+                    t.Parameters.AddWithValue("$a", ad); t.Parameters.AddWithValue("$o", kohne);
+                    try { t.ExecuteNonQuery(); } catch (SqliteException) { }   // Texnikalar cədvəli hələ yoxdursa
+                }
+            }
+            tr.Commit();
+        }
+
         public static void Yarat(SqliteConnection con)
         {
+            LocalDb.Exec(con, @"
+CREATE TABLE IF NOT EXISTS Qurumlar (
+  Kod TEXT PRIMARY KEY, Ad TEXT NOT NULL, Tip INTEGER NOT NULL, UstKod TEXT);");
+            Qurumlar(con);
             LocalDb.Exec(con, @"
 -- Tip: 1 = Zavod, 2 = Üst qurum, 3 = Ən üst qurum
 CREATE TABLE IF NOT EXISTS Qurumlar (
   Kod TEXT PRIMARY KEY, Ad TEXT NOT NULL, Tip INTEGER NOT NULL, UstKod TEXT);
-INSERT OR IGNORE INTO Qurumlar VALUES ('ENUST','Ən üst qurum',3,NULL),('UST','Üst qurum',2,'ENUST'),
- ('Z1','Zavod 1',1,'UST'),('Z2','Zavod 2',1,'UST'),('Z3','Zavod 3',1,'UST'),('Z4','Zavod 4',1,'UST'),
- ('Z5','Zavod 5',1,'UST'),('Z6','Zavod 6',1,'UST'),('Z7','Zavod 7',1,'UST');
 
 -- Rol: 'Zavod istifadəçisi' | 'Zavod rəhbəri' | 'Yalnız baxış'
 CREATE TABLE IF NOT EXISTS Istifadeciler (

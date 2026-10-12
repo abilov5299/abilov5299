@@ -25,7 +25,7 @@ namespace TexnikaReyestri.Services
                         ["IstehsalIli"] = (double)rnd.Next(1975, 2005), ["Derece"] = new[] { "I", "II", "III", "IV" }[rnd.Next(4)],
                         ["Km"] = (double)rnd.Next(100, 90000), ["Motosaat"] = (double)rnd.Next(50, 5000), ["Status"] = s,
                         ["TemirNovu"] = new[] { "Cari", "Orta", "Əsaslı" }[rnd.Next(3)], ["Merhele"] = s == "Təhvil verilib" ? "Təhvil" : Mer[rnd.Next(5)],
-                        ["TemirZavodu"] = zavod ?? $"Zavod {rnd.Next(1, 8)}", ["DaxilolmaTarixi"] = Vaxt.Iso(dax), ["BaslamaTarixi"] = Vaxt.Iso(bas),
+                        ["TemirZavodu"] = zavod ?? Secimler.Zavodlar[rnd.Next(Secimler.Zavodlar.Length)], ["DaxilolmaTarixi"] = Vaxt.Iso(dax), ["BaslamaTarixi"] = Vaxt.Iso(bas),
                         ["GozlenilenBitme"] = Vaxt.Iso(bas.AddDays(rnd.Next(20, 160))),
                         ["FaktikiBitme"] = s == "Təhvil verilib" ? Vaxt.Iso(bas.AddDays(rnd.Next(20, 150))) : null,
                         ["Qeyd"] = "Nümunə məlumat (sürət sınağı)"
@@ -74,7 +74,7 @@ namespace TexnikaReyestri.Services
                         ["BaslamaTarixi"] = Gun(15) is int b ? D(b) : null, ["GozlenilenBitme"] = Gun(16) is int g ? D(g) : null,
                         ["GecikmeSebebi"] = Gun(16) is int g2 && g2 < 0 && Gun(17) == null ? "Ehtiyat hissələrin gecikməsi" : null,
                         ["Merhele"] = x[13], ["YararsizSebeb"] = st == "Təmirə yararsız" ? "Gövdədə bərpaedilməz deformasiya" : null, ["TemirQeyd"] = null,
-                        ["TemirZavodu"] = zavod ?? $"Zavod {i % 7 + 1}", ["DaxilolmaTarixi"] = D(Gun(14).Value), ["GonderenQurum"] = $"{(i + 1) * 111:000} saylı h/h",
+                        ["TemirZavodu"] = zavod ?? Secimler.Zavodlar[i % Secimler.Zavodlar.Length], ["DaxilolmaTarixi"] = D(Gun(14).Value), ["GonderenQurum"] = $"{(i + 1) * 111:000} saylı h/h",
                         ["QebulSenedi"] = $"QS-{2026}/{100 + i} ({Vaxt.Iso(t.AddDays(Gun(14).Value))})", ["IcraMuddeti"] = Gun(16) is int g3 && Gun(14) is int d0 ? (double)(g3 - d0) : null,
                         ["PlanDeyisikliyi"] = null, ["MesulIcraci"] = new[] { "kapitan Məmmədov R.", "baş leytenant Əliyev T.", "mayor Hüseynov E." }[i % 3],
                         ["TelebHisseler"] = st == "Hissə gözləyir" ? "Yanacaq nasosu 1 əd.; Sürtünmə diski 6 əd." : null, ["Mektublar"] = st == "Hissə gözləyir" ? $"M-{410 + i}" : null,

@@ -145,3 +145,13 @@ docs/
 - **RoundTextBox / RoundComboBox / RoundDatePicker** (Toolbox): bütün Designer fayllarında adi TextBox/ComboBox/DateTimePicker əvəzinə.
 - **10 nümunə texnika:** baza boşdursa ilk girişdə avtomatik (`Parametrler.Numune10`), həmçinin Admin → PC → say = 10.
 - Qeyd: `.Designer.cs` faylları artıq əl ilə/VS Designer-də düzəldilir; köhnə Python generatoru bu dəyişiklikləri bilmir — yenidən işə salmayın.
+
+## Qurum adları
+- Zavodların və üst qurumların adları `Data/Secimler.cs` → `Zavodlar`, `UstAd`, `EnUstAd`. Kodlar: Z1…Z6, UST, ENUST.
+- Proqram açılanda `SistemSchema.Qurumlar` standart köhnə adları ("Zavod N", "Üst qurum", "Ən üst qurum") yeni adlara keçirir və texnikaların `TemirZavodu` sahəsini yeniləyir. Admin əl ilə verdiyi adlara toxunulmur.
+- Texnikada zavodun **adı** saxlanılır: adı sonradan dəyişmək üçün 9 kompüterin hamısında eyni versiya olmalıdır.
+
+## Qurum adları
+- Zavodların və üst qurumların adları `Data/Secimler.cs` → `Zavodlar`, `UstAd`, `EnUstAd`. Kodlar: Z1…Z6, UST, ENUST.
+- Proqram açılanda `SistemSchema.Qurumlar` standart köhnə adları ("Zavod N", "Üst qurum", "Ən üst qurum") yeni adlara keçirir və texnikaların `TemirZavodu` sahəsini yeniləyir. Admin əl ilə verdiyi adlara toxunulmur.
+- Texnikada zavodun **adı** saxlanılır: adı sonradan dəyişmək üçün 9 kompüterin hamısında eyni versiya olmalıdır.
