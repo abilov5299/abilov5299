@@ -41,6 +41,14 @@ namespace TexnikaReyestri.Data
             return dt;
         }
 
+        /// <summary>Son dəyişiklik vaxtı (indeksdən, ~0 ms). Səhifələr bununla siyahının köhnəldiyini bilir: əlavə, redaktə, silmə, Excel/USB idxalı.</summary>
+        public static async Task<string> SonDeyisikAsync()
+        {
+            await using var con = await LocalDb.AcAsync();
+            using var cmd = con.CreateCommand(); cmd.CommandText = "SELECT IFNULL(MAX(Deyisdi),0) || ':' || (SELECT COUNT(*) FROM Icmal WHERE Say > 0) FROM Texnikalar;";
+            return await cmd.ExecuteScalarAsync() as string ?? "0";
+        }
+
         public static async Task<long> SayAsync(ReyestrFiltr f, CancellationToken ct = default)
         {
             await using var con = await LocalDb.AcAsync(ct);

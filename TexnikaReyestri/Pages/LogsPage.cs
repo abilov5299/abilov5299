@@ -13,7 +13,7 @@ namespace TexnikaReyestri.Pages
             dtFrom.Value = DateTime.Today.AddDays(-7); dtTo.Value = DateTime.Today; cmbType.SelectedIndex = 0;
         }
 
-        public override async Task OnShownAsync() { if (_ilk) { _ilk = false; await AxtarAsync(); } }
+        public override async Task OnShownAsync() { _ilk = false; await AxtarAsync(); }   // hər açılışda təzə loglar
 
         private async Task AxtarAsync()
         {

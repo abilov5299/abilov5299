@@ -14,6 +14,7 @@ namespace TexnikaReyestri.Pages
     {
         private ReyestrFiltr _f = new();
         private readonly List<object[]> _rows = new();
+        private string _bazaVersiya;
         private long _total; private bool _loading, _bitdi; private int _versiya;
         private readonly System.Windows.Forms.Timer _axtar = new() { Interval = 300 };   // yazarkən hər hərfdə sorğu getməsin
         private bool _hazir;
@@ -35,7 +36,8 @@ namespace TexnikaReyestri.Pages
         {
             cmbZavod.Visible = Session.ZavodFiltri == null;
             btnImport.Visible = Session.YazaBiler;
-            if (_rows.Count == 0) await YenidenAsync(); else await KartlarAsync();
+            // Bazada dəyişiklik olubsa (yeni texnika, redaktə, idxal) siyahını yenidən yüklə, yoxsa yalnız kartları yenilə
+            if (_rows.Count == 0 || await TexnikaRepo.SonDeyisikAsync() != _bazaVersiya) await YenidenAsync(); else await KartlarAsync();
         }
 
         /// <summary>Başqa səhifədən filtrlə açmaq (ana səhifə kartları, bildirişlər).</summary>
@@ -64,6 +66,7 @@ namespace TexnikaReyestri.Pages
         private async Task YenidenAsync()
         {
             int v = ++_versiya; _f = Filtr();
+            _bazaVersiya = await TexnikaRepo.SonDeyisikAsync();
             _rows.Clear(); _bitdi = false; grid.RowCount = 0;
             await Ui.Is(rpGrid, "Reyestr yüklənir...", async _ =>
             {
