@@ -72,6 +72,7 @@ namespace TexnikaReyestri.Pages
             int i = IndexOf(); btnPrev.Enabled = i > 0; btnNext.Enabled = i >= 0 && i < _siyahi.Count - 1;
             btnEdit.Visible = Session.YazaBiler;
             scroll.ScrollToTop(); Duzle();
+            if (IsHandleCreated) BeginInvoke(Duzle);   // yazılar yerləşəndən sonra hündürlükləri bir daha dəqiqləşdir
         }
 
         private int IndexOf() { for (int i = 0; i < _siyahi.Count; i++) if (_siyahi[i] == _id) return i; return -1; }
@@ -80,15 +81,20 @@ namespace TexnikaReyestri.Pages
         // Cədvəlin hündürlüyü: hər sətirdə ən hündür yazının (verilən endə) ölçüsü — köhnə yerləşmədən asılı deyil
         private static int TlpH(TableLayoutPanel t, int w)
         {
-            var cw = new int[t.ColumnCount]; float tot = t.ColumnStyles.Cast<ColumnStyle>().Sum(c => c.Width);
-            for (int i = 0; i < cw.Length; i++) cw[i] = (int)(w * (i < t.ColumnStyles.Count && tot > 0 ? t.ColumnStyles[i].Width / tot : 1f / cw.Length));
+            // Sütun enləri: Absolute olanlar sabit, Percent olanlar qalan yeri bölüşür
+            var cw = new int[Math.Max(1, t.ColumnCount)];
+            var st = Enumerable.Range(0, cw.Length).Select(i => i < t.ColumnStyles.Count ? t.ColumnStyles[i] : new ColumnStyle(SizeType.Percent, 100f / cw.Length)).ToArray();
+            int abs = (int)st.Where(c => c.SizeType == SizeType.Absolute).Sum(c => c.Width); float pct = st.Where(c => c.SizeType != SizeType.Absolute).Sum(c => c.Width);
+            for (int i = 0; i < cw.Length; i++) cw[i] = st[i].SizeType == SizeType.Absolute ? (int)st[i].Width : (int)((w - abs) * (pct > 0 ? st[i].Width / pct : 1f));
             var rows = new Dictionary<int, int>();
             foreach (Control c in t.Controls)
             {
                 if (!c.Visible) continue;
-                var pos = t.GetPositionFromControl(c); int col = Math.Clamp(pos.Column, 0, cw.Length - 1);
-                int ph = c.GetPreferredSize(new Size(Math.Max(10, cw[col] - c.Margin.Horizontal), 0)).Height + c.Margin.Vertical;
-                rows[pos.Row] = Math.Max(rows.GetValueOrDefault(pos.Row), ph);
+                // Designer-də verilən hüceyrə (GetCellPosition); yerləşmə hələ olmayıbsa GetPositionFromControl -1 qaytarır
+                var pos = t.GetCellPosition(c); if (pos.Row < 0 || pos.Column < 0) pos = t.GetPositionFromControl(c);
+                int col = Math.Clamp(pos.Column, 0, cw.Length - 1), row = pos.Row < 0 ? rows.Count : pos.Row;
+                int ph = (c is TableLayoutPanel inner ? TlpH(inner, cw[col] - c.Margin.Horizontal) : c.GetPreferredSize(new Size(Math.Max(10, cw[col] - c.Margin.Horizontal), 0)).Height) + c.Margin.Vertical;
+                rows[row] = Math.Max(rows.GetValueOrDefault(row), ph);
             }
             return rows.Values.Sum() + t.Padding.Vertical;
         }
@@ -118,7 +124,7 @@ namespace TexnikaReyestri.Pages
                     foreach (Control ch in card.Controls)
                     {
                         if (!ch.Visible) continue;
-                        h += ch switch { TableLayoutPanel t => TlpH(t, iw), FlowLayoutPanel f => f.Controls.Cast<Control>().Sum(x => x.Height + x.Margin.Vertical) + f.Padding.Vertical, _ => ch.Height };
+                        h += ch switch { TableLayoutPanel t => TlpH(t, iw), FlowLayoutPanel f => f.Controls.Cast<Control>().Sum(x => (x is TableLayoutPanel tt ? TlpH(tt, iw) : x.GetPreferredSize(new Size(iw, 0)).Height) + x.Margin.Vertical) + f.Padding.Vertical, _ => ch.Height };
                     }
                     h += card.Padding.Bottom + 6;
                     card.Height = Math.Max(60, h);
