@@ -37,7 +37,13 @@ namespace TexnikaReyestri.Pages
             });
         }
 
-        public override Task OnShownAsync() => _id > 0 && _r == null ? YukleAsync(_id, null) : Task.CompletedTask;
+        // Səhifə ekrana çıxandan sonra çağırılır: "Geniş bax" ilə gələndə məlumat gizli səhifəyə doldurulur,
+        // o vaxt yazılar hələ yerləşməyib — ona görə kartların hündürlüyü burada yenidən hesablanır
+        public override async Task OnShownAsync()
+        {
+            if (_id > 0 && _r == null) await YukleAsync(_id, null);
+            _enSon = 0; PerformLayout(); Duzle();
+        }
 
         private void Doldur(List<TarixceQeyd> tc)
         {
