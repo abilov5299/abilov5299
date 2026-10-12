@@ -35,9 +35,13 @@ namespace TexnikaReyestri.Pages.Admin
         private async void btnDemo_Click(object sender, EventArgs e)
         {
             int n = (int)numDemo.Value;
+            // Admin panelində istifadəçi sessiyası yoxdur: nümunələr bu kompüterin zavoduna yazılır (üst qurumda Zavod 1…7 arasında paylanır)
+            string pk = await SistemRepo.ParamStrAsync("KomputerQurumu");
+            var pq = (await SistemRepo.QurumlarAsync()).FirstOrDefault(q => q.Kod == pk);
+            string zavod = pq?.Tip == QurumTip.Zavod ? pq.Ad : null;
             if (!Ui.Tesdiq(this, "Nümunə məlumat yarat", $"{n:#,0} {Lang.T("nümunə qeyd bazaya yazılacaq. Bu, yalnız sınaq üçündür.")}", "Yarat")) return;
             var sw = System.Diagnostics.Stopwatch.StartNew();
-            if (await Ui.Is(this, "Nümunə məlumat yazılır...", ov => n == 10 ? DemoData.On10Async(Session.ZavodFiltri) : DemoData.YaratAsync(n, Session.ZavodFiltri, new Progress<int>(i => ov.Report(i * 100 / n, $"{i:#,0} / {n:#,0}")), default)))
+            if (await Ui.Is(this, "Nümunə məlumat yazılır...", ov => n == 10 ? DemoData.On10Async(zavod) : DemoData.YaratAsync(n, zavod, new Progress<int>(i => ov.Report(i * 100 / n, $"{i:#,0} / {n:#,0}")), default)))
             { await SistemRepo.AdminLogAsync($"Nümunə məlumat: {n} qeyd"); Toast.Show(this, $"{n:#,0} qeyd {sw.Elapsed.TotalSeconds:0.0} saniyəyə yazıldı"); await OnShownAsync(); }
         }
     }

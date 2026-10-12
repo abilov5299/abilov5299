@@ -27,7 +27,7 @@ namespace TexnikaReyestri.Services
         public static async Task<(long sonTarix, long seq, int say)> IxracHazirlikAsync()
         {
             var (t, s) = await SonIxracAsync();
-            return (t, s, (int)await TexnikaRepo.DeltaSayAsync(t));
+            return (t, s, (int)await TexnikaRepo.DeltaSayAsync(t, Session.ZavodFiltri));
         }
 
         public static async Task<SyncNetice> IxracAsync(string qovluq, IProgress<int> addim, CancellationToken ct = default)
@@ -42,7 +42,8 @@ namespace TexnikaReyestri.Services
             var (sonTarix, sonSeq) = await SonIxracAsync();
             long indi = Vaxt.Indi;
             var dt = await TexnikaRepo.DeltaAsync(sonTarix, ct);
-            var qeydler = dt.Rows.Cast<System.Data.DataRow>().Select(r => dt.Columns.Cast<System.Data.DataColumn>()
+            var menim = qurumlar.First(q => q.Kod == Session.QurumKod);
+            var qeydler = dt.Rows.Cast<System.Data.DataRow>().Where(r => menim.Tip != QurumTip.Zavod || Convert.ToString(r["TemirZavodu"]) == menim.Ad).Select(r => dt.Columns.Cast<System.Data.DataColumn>()
                 .Where(c => c.ColumnName != "Id" && c.ColumnName != "Deyisdi" && r[c] != DBNull.Value).ToDictionary(c => c.ColumnName, c => r[c])).ToList();
             int sil = qeydler.Count(q => Convert.ToInt64(q.GetValueOrDefault("Silinib", 0L)) == 1);
 
@@ -124,8 +125,13 @@ namespace TexnikaReyestri.Services
             List<Dictionary<string, JsonElement>> qeydler;
             using (var gz = new GZipStream(new MemoryStream(acilmis), CompressionMode.Decompress))
                 qeydler = await JsonSerializer.DeserializeAsync<List<Dictionary<string, JsonElement>>>(gz, cancellationToken: ct);
-            var (yeni, dey, sil) = await TetbiqAsync(qeydler, ct);
-            await Jurnal("İdxal", b.From, b.Seq, Path.GetFileName(fayl), yeni, dey, sil, "Uğurlu", null);
+            // Zavod yalnız öz texnikasını göndərə bilər: başqa zavoda aid qeydlər (yeni və ya mövcud) qəbul edilmir
+            var gq = (await SistemRepo.QurumlarAsync()).FirstOrDefault(q => q.Kod == b.From);
+            string yalniz = gq?.Tip == QurumTip.Zavod ? gq.Ad : null;
+            var (yeni, dey, sil, red) = await TetbiqAsync(qeydler, yalniz, ct);
+            await Jurnal("İdxal", b.From, b.Seq, Path.GetFileName(fayl), yeni, dey, sil, "Uğurlu",
+                red > 0 ? $"{red} qeyd rədd edildi: {gq?.Ad} başqa zavodun texnikasını göndərə bilməz" : null);
+            if (red > 0) await SistemRepo.LogAsync("Xəta", $"{Path.GetFileName(fayl)}: {red} qeyd başqa zavoda aid olduğu üçün qəbul edilmədi");
             await SistemRepo.BildirisAsync($"sync:{b.From}:{b.Seq}", "new", "İdxal tamamlandı", $"{b.From}: {yeni} yeni, {dey} dəyişiklik, {sil} silinmə", null, null);
             addim?.Report(5);
             return new SyncNetice(yeni, dey, sil, fayl);
@@ -155,13 +161,13 @@ namespace TexnikaReyestri.Services
         // İmza sonda: [uzunluq 2 bayt][imza]. ECDSA P-384 imzası .NET-də sabit 96 baytdır (IEEE P1363).
         private static int FindSig(byte[] d) => 96;
 
-        private static async Task<(int, int, int)> TetbiqAsync(List<Dictionary<string, JsonElement>> qeydler, CancellationToken ct)
+        private static async Task<(int, int, int, int)> TetbiqAsync(List<Dictionary<string, JsonElement>> qeydler, string yalnizZavod, CancellationToken ct)
         {
             var kodlar = Saheler.Hamisi.Select(s => s.Kod).ToArray();
             return await LocalDb.YazAsync(async (con, tr) =>
             {
-                int yeni = 0, dey = 0, sil = 0; long indi = Vaxt.Indi;
-                using var sel = con.CreateCommand(); sel.Transaction = tr; sel.CommandText = "SELECT Versiya FROM Texnikalar WHERE Guid=$g;";
+                int yeni = 0, dey = 0, sil = 0, red = 0; long indi = Vaxt.Indi;
+                using var sel = con.CreateCommand(); sel.Transaction = tr; sel.CommandText = "SELECT Versiya, IFNULL(TemirZavodu,'') FROM Texnikalar WHERE Guid=$g;";
                 var pg = sel.Parameters.Add("$g", Microsoft.Data.Sqlite.SqliteType.Text); sel.Prepare();
                 using var up = con.CreateCommand(); up.Transaction = tr;
                 up.CommandText = $"INSERT INTO Texnikalar (Guid, Versiya, Deyisdi, Silinib, {string.Join(",", kodlar)}) VALUES ($g,$v,$d,$s,{string.Join(",", kodlar.Select(k => "$" + k))}) " +
@@ -173,7 +179,13 @@ namespace TexnikaReyestri.Services
                 {
                     ct.ThrowIfCancellationRequested();
                     string guid = q["Guid"].GetString(); long ver = q["Versiya"].GetInt64(); bool silinib = q.TryGetValue("Silinib", out var sv) && sv.GetInt64() == 1;
-                    pg.Value = guid; var movcud = await sel.ExecuteScalarAsync();
+                    pg.Value = guid; object movcud = null; string movcudZavod = null;
+                    await using (var rd = await sel.ExecuteReaderAsync(ct)) if (await rd.ReadAsync(ct)) { movcud = rd.GetInt64(0); movcudZavod = rd.GetString(1); }
+                    if (yalnizZavod != null)
+                    {
+                        string gelen = q.TryGetValue("TemirZavodu", out var tz) && tz.ValueKind == JsonValueKind.String ? tz.GetString() : null;
+                        if (gelen != yalnizZavod || (movcudZavod != null && movcudZavod != yalnizZavod)) { red++; continue; }
+                    }
                     if (movcud is long mv && mv >= ver) continue;   // bizdəki versiya eyni və ya daha yenidir
                     p["$g"].Value = guid; p["$v"].Value = ver; p["$d"].Value = indi; p["$s"].Value = silinib ? 1 : 0;
                     foreach (var k in kodlar)
@@ -182,7 +194,7 @@ namespace TexnikaReyestri.Services
                     await up.ExecuteNonQueryAsync(ct);
                     if (silinib) sil++; else if (movcud is null) yeni++; else dey++;
                 }
-                return (yeni, dey, sil);
+                return (yeni, dey, sil, red);
             }, ct);
         }
 
