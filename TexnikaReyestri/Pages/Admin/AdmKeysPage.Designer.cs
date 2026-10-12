@@ -96,6 +96,7 @@
             this.rpMine.Controls.Add(this.lblMineTitle);
             this.rpMine.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpMine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpMine.Size = new System.Drawing.Size(401, 586);
             this.rpMine.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpMine.Name = "rpMine";
             // 
@@ -107,7 +108,7 @@
             this.lblMineTitle.Text = "Bu kompüterin açarı";
             this.lblMineTitle.Tag = "muted";
             this.lblMineTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblMineTitle.Height = 26;
+            this.lblMineTitle.Size = new System.Drawing.Size(373, 26);
             this.lblMineTitle.Name = "lblMineTitle";
             // 
             // kType
@@ -181,6 +182,7 @@
             this.rpTrusted.Controls.Add(this.lblTrustedTitle);
             this.rpTrusted.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpTrusted.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpTrusted.Size = new System.Drawing.Size(492, 586);
             this.rpTrusted.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpTrusted.Name = "rpTrusted";
             // 
@@ -192,7 +194,7 @@
             this.lblTrustedTitle.Text = "Etibar edilən açarlar";
             this.lblTrustedTitle.Tag = "muted";
             this.lblTrustedTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTrustedTitle.Height = 26;
+            this.lblTrustedTitle.Size = new System.Drawing.Size(464, 26);
             this.lblTrustedTitle.Name = "lblTrustedTitle";
             // 
             // grid
@@ -202,6 +204,7 @@
             this.colFp,
             this.colDate});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(464, 454);
             this.grid.Name = "grid";
             // 
             // colOrg
@@ -228,7 +231,7 @@
             this.pnlTFoot.Controls.Add(this.lblTrustHint);
             this.pnlTFoot.Controls.Add(this.btnImportKey);
             this.pnlTFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlTFoot.Height = 86;
+            this.pnlTFoot.Size = new System.Drawing.Size(464, 86);
             this.pnlTFoot.Name = "pnlTFoot";
             // 
             // btnImportKey

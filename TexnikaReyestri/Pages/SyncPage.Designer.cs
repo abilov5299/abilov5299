@@ -123,6 +123,7 @@
             this.pnlLeft.Controls.Add(this.rpImport);
             this.pnlLeft.Controls.Add(this.rpExport);
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLeft.Size = new System.Drawing.Size(576, 323);
             this.pnlLeft.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.pnlLeft.Name = "pnlLeft";
             // 
@@ -144,6 +145,7 @@
             this.rpExport.Controls.Add(this.lblExportTitle);
             this.rpExport.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpExport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpExport.Size = new System.Drawing.Size(576, 323);
             this.rpExport.Name = "rpExport";
             // 
             // lblExportTitle
@@ -154,7 +156,7 @@
             this.lblExportTitle.Text = "Yeni paket";
             this.lblExportTitle.Tag = "muted";
             this.lblExportTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblExportTitle.Height = 26;
+            this.lblExportTitle.Size = new System.Drawing.Size(548, 26);
             this.lblExportTitle.Name = "lblExportTitle";
             // 
             // lblExpDesc
@@ -280,6 +282,7 @@
             this.rpImport.Controls.Add(this.lblImportTitle);
             this.rpImport.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpImport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpImport.Size = new System.Drawing.Size(576, 323);
             this.rpImport.Name = "rpImport";
             // 
             // lblImportTitle
@@ -290,7 +293,7 @@
             this.lblImportTitle.Text = "USB-dəki paketlər";
             this.lblImportTitle.Tag = "muted";
             this.lblImportTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblImportTitle.Height = 26;
+            this.lblImportTitle.Size = new System.Drawing.Size(548, 26);
             this.lblImportTitle.Name = "lblImportTitle";
             // 
             // lstPackages
@@ -331,6 +334,7 @@
             this.rpProc.Controls.Add(this.lblProcTitle);
             this.rpProc.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpProc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpProc.Size = new System.Drawing.Size(576, 323);
             this.rpProc.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpProc.Name = "rpProc";
             // 
@@ -342,7 +346,7 @@
             this.lblProcTitle.Text = "Proses";
             this.lblProcTitle.Tag = "muted";
             this.lblProcTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblProcTitle.Height = 26;
+            this.lblProcTitle.Size = new System.Drawing.Size(548, 26);
             this.lblProcTitle.Name = "lblProcTitle";
             // 
             // steps
@@ -367,6 +371,7 @@
             this.rpHist.Controls.Add(this.lblHistTitle);
             this.rpHist.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpHist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpHist.Size = new System.Drawing.Size(576, 252);
             this.rpHist.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpHist.Name = "rpHist";
             // 
@@ -378,7 +383,7 @@
             this.lblHistTitle.Text = "Sinxronizasiya tarixçəsi";
             this.lblHistTitle.Tag = "muted";
             this.lblHistTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblHistTitle.Height = 26;
+            this.lblHistTitle.Size = new System.Drawing.Size(548, 26);
             this.lblHistTitle.Name = "lblHistTitle";
             // 
             // gridHist
@@ -393,6 +398,7 @@
             this.colHRes,
             this.colHNote});
             this.gridHist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridHist.Size = new System.Drawing.Size(548, 206);
             this.gridHist.Name = "gridHist";
             // 
             // colHTime

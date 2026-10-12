@@ -401,6 +401,7 @@
             this.cReady.Glyph = "\uE73E";
             this.cReady.Accent = TexnikaReyestri.Controls.AccentKind.Ok;
             this.cReady.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cReady.Size = new System.Drawing.Size(211, 84);
             this.cReady.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cReady.Name = "cReady";
             // 
@@ -410,6 +411,7 @@
             this.cWarn.Glyph = "\uE7BA";
             this.cWarn.Accent = TexnikaReyestri.Controls.AccentKind.Warn;
             this.cWarn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cWarn.Size = new System.Drawing.Size(211, 84);
             this.cWarn.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cWarn.Name = "cWarn";
             // 
@@ -419,6 +421,7 @@
             this.cErr.Glyph = "\uE711";
             this.cErr.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
             this.cErr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cErr.Size = new System.Drawing.Size(211, 84);
             this.cErr.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cErr.Name = "cErr";
             // 
@@ -428,6 +431,7 @@
             this.cEmpty.Glyph = "\uE8FD";
             this.cEmpty.Accent = TexnikaReyestri.Controls.AccentKind.Nav;
             this.cEmpty.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cEmpty.Size = new System.Drawing.Size(211, 84);
             this.cEmpty.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cEmpty.Name = "cEmpty";
             // 
@@ -596,6 +600,7 @@
             this.dNew.Glyph = "\uE710";
             this.dNew.Accent = TexnikaReyestri.Controls.AccentKind.Ok;
             this.dNew.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dNew.Size = new System.Drawing.Size(211, 84);
             this.dNew.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.dNew.Name = "dNew";
             // 
@@ -605,6 +610,7 @@
             this.dUpd.Glyph = "\uE72C";
             this.dUpd.Accent = TexnikaReyestri.Controls.AccentKind.Info;
             this.dUpd.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dUpd.Size = new System.Drawing.Size(211, 84);
             this.dUpd.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.dUpd.Name = "dUpd";
             // 
@@ -614,6 +620,7 @@
             this.dSkip.Glyph = "\uE711";
             this.dSkip.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
             this.dSkip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dSkip.Size = new System.Drawing.Size(211, 84);
             this.dSkip.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.dSkip.Name = "dSkip";
             // 
@@ -623,6 +630,7 @@
             this.dEmpty.Glyph = "\uE8FD";
             this.dEmpty.Accent = TexnikaReyestri.Controls.AccentKind.Nav;
             this.dEmpty.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dEmpty.Size = new System.Drawing.Size(211, 84);
             this.dEmpty.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.dEmpty.Name = "dEmpty";
             // 

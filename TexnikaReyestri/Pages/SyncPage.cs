@@ -14,11 +14,31 @@ namespace TexnikaReyestri.Pages
         private bool Ixrac => Session.Tip != QurumTip.EnUstQurum;   // ən üst qurumun göndərəcəyi yer yoxdur
         private bool Idxal => Session.Tip != QurumTip.Zavod;
 
+        // Üst qurum həm idxal, həm ixrac edir: solda İxrac, sağda yuxarıda İdxal, altında Proses; aşağıda tarixçə
+        private bool _ikili;
+        private void IkiliDuzulus()
+        {
+            if (_ikili) return; _ikili = true;
+            using var _ = Ui.Dondur(this);
+            tlp.SuspendLayout();
+            tlp.Controls.Remove(rpProc); pnlLeft.Controls.Remove(rpImport);
+            var sag = new Panel { Dock = DockStyle.Fill, Margin = rpProc.Margin, BackColor = Color.Transparent };
+            rpProc.Margin = Padding.Empty; rpProc.Dock = DockStyle.Fill;
+            rpImport.Visible = true; rpImport.Dock = DockStyle.Top; rpImport.Height = 214;
+            lstPackages.Height = 110; btnPick.Top = btnImport.Top = lstPackages.Bottom + 10;
+            var ara = new Panel { Dock = DockStyle.Top, Height = 10, BackColor = Color.Transparent };
+            sag.Controls.Add(rpProc); sag.Controls.Add(ara); sag.Controls.Add(rpImport);   // sonuncu əlavə olunan ən yuxarıda
+            tlp.Controls.Add(sag, 1, 0);
+            rpExport.Dock = DockStyle.Fill;
+            tlp.RowStyles[0] = new RowStyle(SizeType.Absolute, 420); tlp.RowStyles[1] = new RowStyle(SizeType.Percent, 100);
+            tlp.ResumeLayout(true);
+        }
+
         public override async Task OnShownAsync()
         {
             lblTitle.Text = Lang.T(Ixrac && Idxal ? "İxrac / İdxal" : Ixrac ? "İxrac (USB-yə)" : "İdxal (USB-dən)");
             rpExport.Visible = Ixrac; rpImport.Visible = Idxal && !Ixrac;
-            if (Ixrac && Idxal) { rpImport.Visible = true; rpExport.Dock = DockStyle.Top; rpExport.Height = pnlLeft.Height / 2 - 6; }
+            if (Ixrac && Idxal) IkiliDuzulus();
             Diskler();
             var (t, seq) = await SyncService.SonIxracAsync();
             int say = (await TexnikaRepo.DeltaAsync(t)).Rows.Count;

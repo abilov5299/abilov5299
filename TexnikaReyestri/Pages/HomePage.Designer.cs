@@ -120,6 +120,7 @@
             this.cardTotal.Glyph = "\uE8FD";
             this.cardTotal.Accent = TexnikaReyestri.Controls.AccentKind.Nav;
             this.cardTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardTotal.Size = new System.Drawing.Size(283, 96);
             this.cardTotal.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cardTotal.FilterKey = "";
             this.cardTotal.Name = "cardTotal";
@@ -132,6 +133,7 @@
             this.cardRepair.Glyph = "\uE90F";
             this.cardRepair.Accent = TexnikaReyestri.Controls.AccentKind.Info;
             this.cardRepair.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardRepair.Size = new System.Drawing.Size(283, 96);
             this.cardRepair.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cardRepair.FilterKey = "Təmirdə";
             this.cardRepair.Name = "cardRepair";
@@ -144,6 +146,7 @@
             this.cardLate.Glyph = "\uE823";
             this.cardLate.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
             this.cardLate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardLate.Size = new System.Drawing.Size(283, 96);
             this.cardLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cardLate.FilterKey = "late";
             this.cardLate.Name = "cardLate";
@@ -156,6 +159,7 @@
             this.cardAvg.Glyph = "\uE916";
             this.cardAvg.Accent = TexnikaReyestri.Controls.AccentKind.Ok;
             this.cardAvg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardAvg.Size = new System.Drawing.Size(283, 96);
             this.cardAvg.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cardAvg.FilterKey = "";
             this.cardAvg.Name = "cardAvg";
@@ -191,6 +195,7 @@
             this.rpMonthly.Controls.Add(this.lblMonthlyTitle);
             this.rpMonthly.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpMonthly.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpMonthly.Size = new System.Drawing.Size(380, 208);
             this.rpMonthly.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpMonthly.Name = "rpMonthly";
             // 
@@ -202,14 +207,14 @@
             this.lblMonthlyTitle.Text = "Qəbul və təhvil, aylar üzrə";
             this.lblMonthlyTitle.Tag = "muted";
             this.lblMonthlyTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblMonthlyTitle.Height = 26;
+            this.lblMonthlyTitle.Size = new System.Drawing.Size(352, 26);
             this.lblMonthlyTitle.Name = "lblMonthlyTitle";
             // 
             // lblLegA
             // 
             this.lblLegA.AutoSize = true;
             this.lblLegA.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.lblLegA.Location = new System.Drawing.Point(560, 12);
+            this.lblLegA.Location = new System.Drawing.Point(66, 12);
             this.lblLegA.Text = "■ Qəbul edilib";
             this.lblLegA.Tag = "muted";
             this.lblLegA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -219,7 +224,7 @@
             // 
             this.lblLegB.AutoSize = true;
             this.lblLegB.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.lblLegB.Location = new System.Drawing.Point(660, 12);
+            this.lblLegB.Location = new System.Drawing.Point(166, 12);
             this.lblLegB.Text = "■ Təhvil verilib";
             this.lblLegB.Tag = "muted";
             this.lblLegB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -228,6 +233,7 @@
             // chartMonthly
             // 
             this.chartMonthly.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartMonthly.Size = new System.Drawing.Size(352, 162);
             this.chartMonthly.Name = "chartMonthly";
             // 
             // rpStatus
@@ -236,6 +242,7 @@
             this.rpStatus.Controls.Add(this.lblStatusTitle);
             this.rpStatus.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpStatus.Size = new System.Drawing.Size(380, 208);
             this.rpStatus.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpStatus.Name = "rpStatus";
             // 
@@ -247,12 +254,13 @@
             this.lblStatusTitle.Text = "Status bölgüsü";
             this.lblStatusTitle.Tag = "muted";
             this.lblStatusTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblStatusTitle.Height = 26;
+            this.lblStatusTitle.Size = new System.Drawing.Size(352, 26);
             this.lblStatusTitle.Name = "lblStatusTitle";
             // 
             // brkStatus
             // 
             this.brkStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.brkStatus.Size = new System.Drawing.Size(352, 162);
             this.brkStatus.Name = "brkStatus";
             this.brkStatus.StatusClicked += new System.EventHandler<string>(this.brkStatus_StatusClicked);
             // 
@@ -262,6 +270,7 @@
             this.rpTypes.Controls.Add(this.lblTypesTitle);
             this.rpTypes.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpTypes.Size = new System.Drawing.Size(380, 146);
             this.rpTypes.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpTypes.Name = "rpTypes";
             // 
@@ -273,12 +282,13 @@
             this.lblTypesTitle.Text = "Texnika növü üzrə";
             this.lblTypesTitle.Tag = "muted";
             this.lblTypesTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTypesTitle.Height = 26;
+            this.lblTypesTitle.Size = new System.Drawing.Size(352, 26);
             this.lblTypesTitle.Name = "lblTypesTitle";
             // 
             // barTypes
             // 
             this.barTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.barTypes.Size = new System.Drawing.Size(352, 100);
             this.barTypes.LabelWidth = 170;
             this.barTypes.Name = "barTypes";
             // 
@@ -288,6 +298,7 @@
             this.rpAvg.Controls.Add(this.lblAvgTitle);
             this.rpAvg.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpAvg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpAvg.Size = new System.Drawing.Size(380, 146);
             this.rpAvg.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpAvg.Name = "rpAvg";
             // 
@@ -299,12 +310,13 @@
             this.lblAvgTitle.Text = "Təmir növü üzrə orta müddət (gün)";
             this.lblAvgTitle.Tag = "muted";
             this.lblAvgTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblAvgTitle.Height = 26;
+            this.lblAvgTitle.Size = new System.Drawing.Size(352, 26);
             this.lblAvgTitle.Name = "lblAvgTitle";
             // 
             // barAvg
             // 
             this.barAvg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.barAvg.Size = new System.Drawing.Size(352, 100);
             this.barAvg.BarColor = TexnikaReyestri.Controls.ChartColor.Chart2;
             this.barAvg.LabelWidth = 110;
             this.barAvg.Name = "barAvg";
@@ -317,6 +329,7 @@
             this.rpLate.Controls.Add(this.lblLateTitle);
             this.rpLate.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpLate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpLate.Size = new System.Drawing.Size(380, 146);
             this.rpLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpLate.Name = "rpLate";
             // 
@@ -328,14 +341,14 @@
             this.lblLateTitle.Text = "Ən çox gecikənlər";
             this.lblLateTitle.Tag = "muted";
             this.lblLateTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblLateTitle.Height = 26;
+            this.lblLateTitle.Size = new System.Drawing.Size(352, 26);
             this.lblLateTitle.Name = "lblLateTitle";
             // 
             // lnkLate
             // 
             this.lnkLate.AutoSize = true;
             this.lnkLate.Text = "Hamısı →";
-            this.lnkLate.Location = new System.Drawing.Point(300, 12);
+            this.lnkLate.Location = new System.Drawing.Point(166, 12);
             this.lnkLate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkLate.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkLate.Name = "lnkLate";
@@ -347,6 +360,7 @@
             this.colLateName,
             this.colLateDays});
             this.gridLate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridLate.Size = new System.Drawing.Size(352, 100);
             this.gridLate.ColumnHeadersVisible = false;
             this.gridLate.Name = "gridLate";
             this.gridLate.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridLate_CellClick);
@@ -371,6 +385,7 @@
             this.rpEvents.Controls.Add(this.lblEventsTitle);
             this.rpEvents.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpEvents.Size = new System.Drawing.Size(380, 135);
             this.rpEvents.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpEvents.Name = "rpEvents";
             // 
@@ -382,14 +397,14 @@
             this.lblEventsTitle.Text = "Son hadisələr";
             this.lblEventsTitle.Tag = "muted";
             this.lblEventsTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblEventsTitle.Height = 26;
+            this.lblEventsTitle.Size = new System.Drawing.Size(352, 26);
             this.lblEventsTitle.Name = "lblEventsTitle";
             // 
             // lnkLogs
             // 
             this.lnkLogs.AutoSize = true;
             this.lnkLogs.Text = "Loglar →";
-            this.lnkLogs.Location = new System.Drawing.Point(700, 12);
+            this.lnkLogs.Location = new System.Drawing.Point(166, 12);
             this.lnkLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkLogs.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.lnkLogs.Name = "lnkLogs";
@@ -402,6 +417,7 @@
             this.colEvType,
             this.colEvText});
             this.gridEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridEvents.Size = new System.Drawing.Size(352, 89);
             this.gridEvents.ColumnHeadersVisible = false;
             this.gridEvents.Name = "gridEvents";
             // 

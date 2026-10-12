@@ -108,6 +108,7 @@
             this.rpPw.Controls.Add(this.lblPwTitle);
             this.rpPw.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpPw.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpPw.Size = new System.Drawing.Size(447, 614);
             this.rpPw.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpPw.Name = "rpPw";
             // 
@@ -119,7 +120,7 @@
             this.lblPwTitle.Text = "Parol qaydaları";
             this.lblPwTitle.Tag = "muted";
             this.lblPwTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblPwTitle.Height = 26;
+            this.lblPwTitle.Size = new System.Drawing.Size(419, 26);
             this.lblPwTitle.Name = "lblPwTitle";
             // 
             // knumMin
@@ -141,7 +142,7 @@
             // 
             // numMin
             // 
-            this.numMin.Location = new System.Drawing.Point(330, 48);
+            this.numMin.Location = new System.Drawing.Point(157, 48);
             this.numMin.Size = new System.Drawing.Size(70, 25);
             this.numMin.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numMin.Maximum = new decimal(new int[] { 64, 0, 0, 0 });
@@ -152,7 +153,7 @@
             // 
             this.unumMin.AutoSize = true;
             this.unumMin.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumMin.Location = new System.Drawing.Point(406, 52);
+            this.unumMin.Location = new System.Drawing.Point(233, 52);
             this.unumMin.Text = "simvol";
             this.unumMin.Tag = "muted";
             this.unumMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -177,7 +178,7 @@
             // 
             // numExp
             // 
-            this.numExp.Location = new System.Drawing.Point(330, 104);
+            this.numExp.Location = new System.Drawing.Point(157, 104);
             this.numExp.Size = new System.Drawing.Size(70, 25);
             this.numExp.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numExp.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
@@ -188,7 +189,7 @@
             // 
             this.unumExp.AutoSize = true;
             this.unumExp.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumExp.Location = new System.Drawing.Point(406, 108);
+            this.unumExp.Location = new System.Drawing.Point(233, 108);
             this.unumExp.Text = "gün";
             this.unumExp.Tag = "muted";
             this.unumExp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -213,6 +214,7 @@
             this.rpLogin.Controls.Add(this.lblLoginTitle);
             this.rpLogin.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpLogin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpLogin.Size = new System.Drawing.Size(447, 614);
             this.rpLogin.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpLogin.Name = "rpLogin";
             // 
@@ -224,7 +226,7 @@
             this.lblLoginTitle.Text = "Giriş qaydaları";
             this.lblLoginTitle.Tag = "muted";
             this.lblLoginTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblLoginTitle.Height = 26;
+            this.lblLoginTitle.Size = new System.Drawing.Size(419, 26);
             this.lblLoginTitle.Name = "lblLoginTitle";
             // 
             // knumLock
@@ -246,7 +248,7 @@
             // 
             // numLock
             // 
-            this.numLock.Location = new System.Drawing.Point(330, 48);
+            this.numLock.Location = new System.Drawing.Point(157, 48);
             this.numLock.Size = new System.Drawing.Size(70, 25);
             this.numLock.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numLock.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
@@ -257,7 +259,7 @@
             // 
             this.unumLock.AutoSize = true;
             this.unumLock.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumLock.Location = new System.Drawing.Point(406, 52);
+            this.unumLock.Location = new System.Drawing.Point(233, 52);
             this.unumLock.Text = "cəhd";
             this.unumLock.Tag = "muted";
             this.unumLock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -282,7 +284,7 @@
             // 
             // numIdle
             // 
-            this.numIdle.Location = new System.Drawing.Point(330, 104);
+            this.numIdle.Location = new System.Drawing.Point(157, 104);
             this.numIdle.Size = new System.Drawing.Size(70, 25);
             this.numIdle.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numIdle.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
@@ -293,7 +295,7 @@
             // 
             this.unumIdle.AutoSize = true;
             this.unumIdle.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumIdle.Location = new System.Drawing.Point(406, 108);
+            this.unumIdle.Location = new System.Drawing.Point(233, 108);
             this.unumIdle.Text = "dəq";
             this.unumIdle.Tag = "muted";
             this.unumIdle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
