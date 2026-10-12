@@ -25,13 +25,14 @@ namespace TexnikaReyestri.Pages
             var sag = new Panel { Dock = DockStyle.Fill, Margin = rpProc.Margin, BackColor = Color.Transparent };
             rpProc.Margin = Padding.Empty; rpProc.Dock = DockStyle.Fill;
             lblResult.AutoSize = false; lblResult.Dock = DockStyle.Bottom; lblResult.Height = 40; lblResult.MaximumSize = Size.Empty;
+            steps.Dock = DockStyle.Fill; steps.BringToFront();   // addımlar başlıqla nəticə yazısı arasındakı yeri tutur, üst-üstə düşmür
             rpImport.Visible = true; rpImport.Dock = DockStyle.Top; rpImport.Height = 214;
             lstPackages.Height = 110; btnPick.Top = btnImport.Top = lstPackages.Bottom + 10;
             var ara = new Panel { Dock = DockStyle.Top, Height = 10, BackColor = Color.Transparent };
             sag.Controls.Add(rpProc); sag.Controls.Add(ara); sag.Controls.Add(rpImport);   // sonuncu əlavə olunan ən yuxarıda
             tlp.Controls.Add(sag, 1, 0);
             rpExport.Dock = DockStyle.Fill;
-            tlp.RowStyles[0] = new RowStyle(SizeType.Absolute, 420); tlp.RowStyles[1] = new RowStyle(SizeType.Percent, 100);
+            tlp.RowStyles[0] = new RowStyle(SizeType.Absolute, 470); tlp.RowStyles[1] = new RowStyle(SizeType.Percent, 100);
             tlp.ResumeLayout(true);
         }
 
