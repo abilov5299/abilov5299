@@ -104,6 +104,7 @@
             this.cardTotal.Glyph = "\uE8FD";
             this.cardTotal.Accent = TexnikaReyestri.Controls.AccentKind.Nav;
             this.cardTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardTotal.Size = new System.Drawing.Size(283, 96);
             this.cardTotal.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cardTotal.FilterKey = "";
             this.cardTotal.Name = "cardTotal";
@@ -116,6 +117,7 @@
             this.cardRepair.Glyph = "\uE90F";
             this.cardRepair.Accent = TexnikaReyestri.Controls.AccentKind.Info;
             this.cardRepair.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardRepair.Size = new System.Drawing.Size(283, 96);
             this.cardRepair.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cardRepair.FilterKey = "Təmirdə";
             this.cardRepair.Name = "cardRepair";
@@ -128,6 +130,7 @@
             this.cardLate.Glyph = "\uE823";
             this.cardLate.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
             this.cardLate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardLate.Size = new System.Drawing.Size(283, 96);
             this.cardLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cardLate.FilterKey = "late";
             this.cardLate.Name = "cardLate";
@@ -140,6 +143,7 @@
             this.cardStale.Glyph = "\uE895";
             this.cardStale.Accent = TexnikaReyestri.Controls.AccentKind.Warn;
             this.cardStale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardStale.Size = new System.Drawing.Size(283, 96);
             this.cardStale.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.cardStale.FilterKey = "";
             this.cardStale.Name = "cardStale";

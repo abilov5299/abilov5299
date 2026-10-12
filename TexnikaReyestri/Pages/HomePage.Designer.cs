@@ -130,70 +130,52 @@
             // 
             // cardTotal
             // 
-            cardTotal.BackColor = Color.Transparent;
-            cardTotal.Dock = DockStyle.Fill;
-            cardTotal.FilterKey = "";
-            cardTotal.Glyph = "";
-            cardTotal.Location = new Point(0, 4);
-            cardTotal.Margin = new Padding(0, 0, 10, 0);
-            cardTotal.Name = "cardTotal";
-            cardTotal.Size = new Size(283, 84);
-            cardTotal.SubText = "";
-            cardTotal.TabIndex = 0;
-            cardTotal.Title = "Cəmi texnika";
-            cardTotal.Value = "0";
-            cardTotal.Click += card_Click;
+            this.cardTotal.Title = "Cəmi texnika";
+            this.cardTotal.Value = "0";
+            this.cardTotal.Glyph = "\uE8FD";
+            this.cardTotal.Accent = TexnikaReyestri.Controls.AccentKind.Nav;
+            this.cardTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardTotal.Size = new System.Drawing.Size(283, 96);
+            this.cardTotal.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.cardTotal.FilterKey = "";
+            this.cardTotal.Name = "cardTotal";
+            this.cardTotal.Click += new System.EventHandler(this.card_Click);
             // 
             // cardRepair
             // 
-            cardRepair.Accent = TexnikaReyestri.Controls.AccentKind.Info;
-            cardRepair.BackColor = Color.Transparent;
-            cardRepair.Dock = DockStyle.Fill;
-            cardRepair.FilterKey = "Təmirdə";
-            cardRepair.Glyph = "";
-            cardRepair.Location = new Point(293, 4);
-            cardRepair.Margin = new Padding(0, 0, 10, 0);
-            cardRepair.Name = "cardRepair";
-            cardRepair.Size = new Size(283, 84);
-            cardRepair.SubText = "";
-            cardRepair.TabIndex = 1;
-            cardRepair.Title = "Təmirdə";
-            cardRepair.Value = "0";
-            cardRepair.Click += card_Click;
+            this.cardRepair.Title = "Təmirdə";
+            this.cardRepair.Value = "0";
+            this.cardRepair.Glyph = "\uE90F";
+            this.cardRepair.Accent = TexnikaReyestri.Controls.AccentKind.Info;
+            this.cardRepair.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardRepair.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.cardRepair.FilterKey = "Təmirdə";
+            this.cardRepair.Name = "cardRepair";
+            this.cardRepair.Click += new System.EventHandler(this.card_Click);
             // 
             // cardLate
             // 
-            cardLate.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
-            cardLate.BackColor = Color.Transparent;
-            cardLate.Dock = DockStyle.Fill;
-            cardLate.FilterKey = "late";
-            cardLate.Glyph = "";
-            cardLate.Location = new Point(586, 4);
-            cardLate.Margin = new Padding(0, 0, 10, 0);
-            cardLate.Name = "cardLate";
-            cardLate.Size = new Size(283, 84);
-            cardLate.SubText = "";
-            cardLate.TabIndex = 2;
-            cardLate.Title = "Gecikən";
-            cardLate.Value = "0";
-            cardLate.Click += card_Click;
+            this.cardLate.Title = "Gecikən";
+            this.cardLate.Value = "0";
+            this.cardLate.Glyph = "\uE823";
+            this.cardLate.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
+            this.cardLate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.cardLate.FilterKey = "late";
+            this.cardLate.Name = "cardLate";
+            this.cardLate.Click += new System.EventHandler(this.card_Click);
             // 
             // cardAvg
             // 
-            cardAvg.Accent = TexnikaReyestri.Controls.AccentKind.Ok;
-            cardAvg.BackColor = Color.Transparent;
-            cardAvg.Dock = DockStyle.Fill;
-            cardAvg.FilterKey = "";
-            cardAvg.Glyph = "";
-            cardAvg.Location = new Point(879, 4);
-            cardAvg.Margin = new Padding(0, 0, 10, 0);
-            cardAvg.Name = "cardAvg";
-            cardAvg.Size = new Size(283, 84);
-            cardAvg.SubText = "";
-            cardAvg.TabIndex = 3;
-            cardAvg.Title = "Orta təmir müddəti";
-            cardAvg.Value = "0";
-            cardAvg.Click += card_Click;
+            this.cardAvg.Title = "Orta təmir müddəti";
+            this.cardAvg.Value = "0";
+            this.cardAvg.Glyph = "\uE916";
+            this.cardAvg.Accent = TexnikaReyestri.Controls.AccentKind.Ok;
+            this.cardAvg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cardAvg.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.cardAvg.FilterKey = "";
+            this.cardAvg.Name = "cardAvg";
+            this.cardAvg.Click += new System.EventHandler(this.card_Click);
             // 
             // tlpBody
             // 
@@ -219,231 +201,171 @@
             // 
             // rpMonthly
             // 
-            rpMonthly.BackColor = Color.Transparent;
-            tlpBody.SetColumnSpan(rpMonthly, 2);
-            rpMonthly.Controls.Add(chartMonthly);
-            rpMonthly.Controls.Add(lblLegB);
-            rpMonthly.Controls.Add(lblLegA);
-            rpMonthly.Controls.Add(lblMonthlyTitle);
-            rpMonthly.Dock = DockStyle.Fill;
-            rpMonthly.Location = new Point(0, 0);
-            rpMonthly.Margin = new Padding(0, 0, 10, 10);
-            rpMonthly.Name = "rpMonthly";
-            rpMonthly.Padding = new Padding(14, 10, 14, 10);
-            rpMonthly.Size = new Size(770, 208);
-            rpMonthly.TabIndex = 0;
+            this.rpMonthly.Controls.Add(this.chartMonthly);
+            this.rpMonthly.Controls.Add(this.lblLegB);
+            this.rpMonthly.Controls.Add(this.lblLegA);
+            this.rpMonthly.Controls.Add(this.lblMonthlyTitle);
+            this.rpMonthly.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
+            this.rpMonthly.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpMonthly.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
+            this.rpMonthly.Name = "rpMonthly";
             // 
             // chartMonthly
             // 
-            chartMonthly.Dock = DockStyle.Fill;
-            chartMonthly.Font = new Font("Segoe UI", 8F);
-            chartMonthly.Location = new Point(14, 36);
-            chartMonthly.Name = "chartMonthly";
-            chartMonthly.SeriesAName = "qəbul";
-            chartMonthly.SeriesBName = "təhvil";
-            chartMonthly.Size = new Size(742, 162);
-            chartMonthly.TabIndex = 0;
+            this.lblMonthlyTitle.AutoSize = false;
+            this.lblMonthlyTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
+            this.lblMonthlyTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblMonthlyTitle.Text = "Qəbul və təhvil, aylar üzrə";
+            this.lblMonthlyTitle.Tag = "muted";
+            this.lblMonthlyTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblMonthlyTitle.Height = 26;
+            this.lblMonthlyTitle.Name = "lblMonthlyTitle";
             // 
             // lblLegB
             // 
-            lblLegB.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblLegB.AutoSize = true;
-            lblLegB.Font = new Font("Segoe UI", 8.5F);
-            lblLegB.Location = new Point(1230, 12);
-            lblLegB.Name = "lblLegB";
-            lblLegB.Size = new Size(87, 15);
-            lblLegB.TabIndex = 1;
-            lblLegB.Tag = "muted";
-            lblLegB.Text = "■ Təhvil verilib";
+            this.lblLegA.AutoSize = true;
+            this.lblLegA.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            this.lblLegA.Location = new System.Drawing.Point(560, 12);
+            this.lblLegA.Text = "■ Qəbul edilib";
+            this.lblLegA.Tag = "muted";
+            this.lblLegA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLegA.Name = "lblLegA";
             // 
             // lblLegA
             // 
-            lblLegA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblLegA.AutoSize = true;
-            lblLegA.Font = new Font("Segoe UI", 8.5F);
-            lblLegA.Location = new Point(1130, 12);
-            lblLegA.Name = "lblLegA";
-            lblLegA.Size = new Size(84, 15);
-            lblLegA.TabIndex = 2;
-            lblLegA.Tag = "muted";
-            lblLegA.Text = "■ Qəbul edilib";
+            this.lblLegB.AutoSize = true;
+            this.lblLegB.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            this.lblLegB.Location = new System.Drawing.Point(660, 12);
+            this.lblLegB.Text = "■ Təhvil verilib";
+            this.lblLegB.Tag = "muted";
+            this.lblLegB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLegB.Name = "lblLegB";
             // 
             // lblMonthlyTitle
             // 
-            lblMonthlyTitle.Dock = DockStyle.Top;
-            lblMonthlyTitle.Font = new Font("Bahnschrift SemiBold", 10.5F);
-            lblMonthlyTitle.Location = new Point(14, 10);
-            lblMonthlyTitle.Name = "lblMonthlyTitle";
-            lblMonthlyTitle.Size = new Size(742, 26);
-            lblMonthlyTitle.TabIndex = 3;
-            lblMonthlyTitle.Tag = "muted";
-            lblMonthlyTitle.Text = "Qəbul və təhvil, aylar üzrə";
+            this.chartMonthly.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartMonthly.Name = "chartMonthly";
             // 
             // rpStatus
             // 
-            rpStatus.BackColor = Color.Transparent;
-            rpStatus.Controls.Add(brkStatus);
-            rpStatus.Controls.Add(lblStatusTitle);
-            rpStatus.Dock = DockStyle.Fill;
-            rpStatus.Location = new Point(780, 0);
-            rpStatus.Margin = new Padding(0, 0, 10, 10);
-            rpStatus.Name = "rpStatus";
-            rpStatus.Padding = new Padding(14, 10, 14, 10);
-            rpStatus.Size = new Size(382, 208);
-            rpStatus.TabIndex = 1;
+            this.rpStatus.Controls.Add(this.brkStatus);
+            this.rpStatus.Controls.Add(this.lblStatusTitle);
+            this.rpStatus.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
+            this.rpStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpStatus.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
+            this.rpStatus.Name = "rpStatus";
             // 
             // brkStatus
             // 
-            brkStatus.Dock = DockStyle.Fill;
-            brkStatus.Font = new Font("Segoe UI", 8.5F);
-            brkStatus.Location = new Point(14, 36);
-            brkStatus.Name = "brkStatus";
-            brkStatus.Size = new Size(354, 162);
-            brkStatus.TabIndex = 0;
-            brkStatus.StatusClicked += brkStatus_StatusClicked;
+            this.lblStatusTitle.AutoSize = false;
+            this.lblStatusTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
+            this.lblStatusTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblStatusTitle.Text = "Status bölgüsü";
+            this.lblStatusTitle.Tag = "muted";
+            this.lblStatusTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblStatusTitle.Height = 26;
+            this.lblStatusTitle.Name = "lblStatusTitle";
             // 
             // lblStatusTitle
             // 
-            lblStatusTitle.Dock = DockStyle.Top;
-            lblStatusTitle.Font = new Font("Bahnschrift SemiBold", 10.5F);
-            lblStatusTitle.Location = new Point(14, 10);
-            lblStatusTitle.Name = "lblStatusTitle";
-            lblStatusTitle.Size = new Size(354, 26);
-            lblStatusTitle.TabIndex = 1;
-            lblStatusTitle.Tag = "muted";
-            lblStatusTitle.Text = "Status bölgüsü";
+            this.brkStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.brkStatus.Name = "brkStatus";
+            this.brkStatus.StatusClicked += new System.EventHandler<string>(this.brkStatus_StatusClicked);
             // 
             // rpTypes
             // 
-            rpTypes.BackColor = Color.Transparent;
-            rpTypes.Controls.Add(barTypes);
-            rpTypes.Controls.Add(lblTypesTitle);
-            rpTypes.Dock = DockStyle.Fill;
-            rpTypes.Location = new Point(0, 218);
-            rpTypes.Margin = new Padding(0, 0, 10, 10);
-            rpTypes.Name = "rpTypes";
-            rpTypes.Padding = new Padding(14, 10, 14, 10);
-            rpTypes.Size = new Size(380, 146);
-            rpTypes.TabIndex = 2;
-            // 
-            // barTypes
-            // 
-            barTypes.Dock = DockStyle.Fill;
-            barTypes.Font = new Font("Segoe UI", 8.5F);
-            barTypes.LabelWidth = 170;
-            barTypes.Location = new Point(14, 36);
-            barTypes.Name = "barTypes";
-            barTypes.Size = new Size(352, 100);
-            barTypes.TabIndex = 0;
+            this.rpTypes.Controls.Add(this.barTypes);
+            this.rpTypes.Controls.Add(this.lblTypesTitle);
+            this.rpTypes.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
+            this.rpTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpTypes.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
+            this.rpTypes.Name = "rpTypes";
             // 
             // lblTypesTitle
             // 
-            lblTypesTitle.Dock = DockStyle.Top;
-            lblTypesTitle.Font = new Font("Bahnschrift SemiBold", 10.5F);
-            lblTypesTitle.Location = new Point(14, 10);
-            lblTypesTitle.Name = "lblTypesTitle";
-            lblTypesTitle.Size = new Size(352, 26);
-            lblTypesTitle.TabIndex = 1;
-            lblTypesTitle.Tag = "muted";
-            lblTypesTitle.Text = "Texnika növü üzrə";
+            this.lblTypesTitle.AutoSize = false;
+            this.lblTypesTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
+            this.lblTypesTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblTypesTitle.Text = "Texnika növü üzrə";
+            this.lblTypesTitle.Tag = "muted";
+            this.lblTypesTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTypesTitle.Height = 26;
+            this.lblTypesTitle.Name = "lblTypesTitle";
+            // 
+            // barTypes
+            // 
+            this.barTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.barTypes.LabelWidth = 170;
+            this.barTypes.Name = "barTypes";
+            // 
+            // lblTypesTitle
+            // 
+            this.rpAvg.Controls.Add(this.barAvg);
+            this.rpAvg.Controls.Add(this.lblAvgTitle);
+            this.rpAvg.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
+            this.rpAvg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpAvg.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
+            this.rpAvg.Name = "rpAvg";
             // 
             // rpAvg
             // 
-            rpAvg.BackColor = Color.Transparent;
-            rpAvg.Controls.Add(barAvg);
-            rpAvg.Controls.Add(lblAvgTitle);
-            rpAvg.Dock = DockStyle.Fill;
-            rpAvg.Location = new Point(390, 218);
-            rpAvg.Margin = new Padding(0, 0, 10, 10);
-            rpAvg.Name = "rpAvg";
-            rpAvg.Padding = new Padding(14, 10, 14, 10);
-            rpAvg.Size = new Size(380, 146);
-            rpAvg.TabIndex = 3;
+            this.lblAvgTitle.AutoSize = false;
+            this.lblAvgTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
+            this.lblAvgTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblAvgTitle.Text = "Təmir növü üzrə orta müddət (gün)";
+            this.lblAvgTitle.Tag = "muted";
+            this.lblAvgTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblAvgTitle.Height = 26;
+            this.lblAvgTitle.Name = "lblAvgTitle";
             // 
             // barAvg
             // 
-            barAvg.BarColor = TexnikaReyestri.Controls.ChartColor.Chart2;
-            barAvg.Dock = DockStyle.Fill;
-            barAvg.Font = new Font("Segoe UI", 8.5F);
-            barAvg.LabelWidth = 110;
-            barAvg.Location = new Point(14, 36);
-            barAvg.Name = "barAvg";
-            barAvg.Size = new Size(352, 100);
-            barAvg.TabIndex = 0;
-            barAvg.ItemClicked += barAvg_ItemClicked;
-            // 
-            // lblAvgTitle
-            // 
-            lblAvgTitle.Dock = DockStyle.Top;
-            lblAvgTitle.Font = new Font("Bahnschrift SemiBold", 10.5F);
-            lblAvgTitle.Location = new Point(14, 10);
-            lblAvgTitle.Name = "lblAvgTitle";
-            lblAvgTitle.Size = new Size(352, 26);
-            lblAvgTitle.TabIndex = 1;
-            lblAvgTitle.Tag = "muted";
-            lblAvgTitle.Text = "Təmir növü üzrə orta müddət (gün)";
+            this.barAvg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.barAvg.BarColor = TexnikaReyestri.Controls.ChartColor.Chart2;
+            this.barAvg.LabelWidth = 110;
+            this.barAvg.Name = "barAvg";
+            this.barAvg.ItemClicked += new System.EventHandler<string>(this.barAvg_ItemClicked);
             // 
             // rpLate
             // 
-            rpLate.BackColor = Color.Transparent;
-            rpLate.Controls.Add(gridLate);
-            rpLate.Controls.Add(lnkLate);
-            rpLate.Controls.Add(lblLateTitle);
-            rpLate.Dock = DockStyle.Fill;
-            rpLate.Location = new Point(780, 218);
-            rpLate.Margin = new Padding(0, 0, 10, 10);
-            rpLate.Name = "rpLate";
-            rpLate.Padding = new Padding(14, 10, 14, 10);
-            rpLate.Size = new Size(382, 146);
-            rpLate.TabIndex = 4;
+            this.rpLate.Controls.Add(this.gridLate);
+            this.rpLate.Controls.Add(this.lnkLate);
+            this.rpLate.Controls.Add(this.lblLateTitle);
+            this.rpLate.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
+            this.rpLate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
+            this.rpLate.Name = "rpLate";
+            // 
+            // lblAvgTitle
+            // 
+            this.lblLateTitle.AutoSize = false;
+            this.lblLateTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
+            this.lblLateTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblLateTitle.Text = "Ən çox gecikənlər";
+            this.lblLateTitle.Tag = "muted";
+            this.lblLateTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblLateTitle.Height = 26;
+            this.lblLateTitle.Name = "lblLateTitle";
+            // 
+            // rpLate
+            // 
+            this.lnkLate.AutoSize = true;
+            this.lnkLate.Text = "Hamısı →";
+            this.lnkLate.Location = new System.Drawing.Point(300, 12);
+            this.lnkLate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lnkLate.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkLate.Name = "lnkLate";
+            this.lnkLate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLate_LinkClicked);
             // 
             // gridLate
             // 
-            gridLate.AllowUserToAddRows = false;
-            gridLate.AllowUserToDeleteRows = false;
-            gridLate.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(246, 249, 249);
-            gridLate.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            gridLate.BackgroundColor = Color.White;
-            gridLate.BorderStyle = BorderStyle.None;
-            gridLate.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            gridLate.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.White;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 8.5F);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(93, 116, 114);
-            dataGridViewCellStyle2.Padding = new Padding(8, 0, 0, 0);
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            gridLate.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            gridLate.ColumnHeadersHeight = 38;
-            gridLate.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            gridLate.ColumnHeadersVisible = false;
-            gridLate.Columns.AddRange(new DataGridViewColumn[] { colLateName, colLateDays });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(27, 43, 42);
-            dataGridViewCellStyle3.Padding = new Padding(8, 0, 0, 0);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(220, 239, 236);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(27, 43, 42);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            gridLate.DefaultCellStyle = dataGridViewCellStyle3;
-            gridLate.Dock = DockStyle.Fill;
-            gridLate.EnableHeadersVisualStyles = false;
-            gridLate.Font = new Font("Segoe UI", 9F);
-            gridLate.GridColor = Color.FromArgb(246, 249, 249);
-            gridLate.Location = new Point(14, 36);
-            gridLate.MultiSelect = false;
-            gridLate.Name = "gridLate";
-            gridLate.ReadOnly = true;
-            gridLate.RowHeadersVisible = false;
-            gridLate.ScrollBars = ScrollBars.None;
-            gridLate.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridLate.Size = new Size(354, 100);
-            gridLate.TabIndex = 0;
-            gridLate.CellClick += gridLate_CellClick;
+            this.gridLate.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colLateName,
+            this.colLateDays});
+            this.gridLate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridLate.ColumnHeadersVisible = false;
+            this.gridLate.Name = "gridLate";
+            this.gridLate.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridLate_CellClick);
             // 
             // colLateName
             // 
@@ -462,89 +384,44 @@
             // 
             // lnkLate
             // 
-            lnkLate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lnkLate.AutoSize = true;
-            lnkLate.LinkBehavior = LinkBehavior.HoverUnderline;
-            lnkLate.Location = new Point(482, 12);
-            lnkLate.Name = "lnkLate";
-            lnkLate.Size = new Size(57, 15);
-            lnkLate.TabIndex = 1;
-            lnkLate.TabStop = true;
-            lnkLate.Text = "Hamısı →";
-            lnkLate.LinkClicked += lnkLate_LinkClicked;
+            this.rpEvents.Controls.Add(this.gridEvents);
+            this.rpEvents.Controls.Add(this.lnkLogs);
+            this.rpEvents.Controls.Add(this.lblEventsTitle);
+            this.rpEvents.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
+            this.rpEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpEvents.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
+            this.rpEvents.Name = "rpEvents";
             // 
             // lblLateTitle
             // 
-            lblLateTitle.Dock = DockStyle.Top;
-            lblLateTitle.Font = new Font("Bahnschrift SemiBold", 10.5F);
-            lblLateTitle.Location = new Point(14, 10);
-            lblLateTitle.Name = "lblLateTitle";
-            lblLateTitle.Size = new Size(354, 26);
-            lblLateTitle.TabIndex = 2;
-            lblLateTitle.Tag = "muted";
-            lblLateTitle.Text = "Ən çox gecikənlər";
+            this.lblEventsTitle.AutoSize = false;
+            this.lblEventsTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
+            this.lblEventsTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblEventsTitle.Text = "Son hadisələr";
+            this.lblEventsTitle.Tag = "muted";
+            this.lblEventsTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblEventsTitle.Height = 26;
+            this.lblEventsTitle.Name = "lblEventsTitle";
             // 
             // rpEvents
             // 
-            rpEvents.BackColor = Color.Transparent;
-            tlpBody.SetColumnSpan(rpEvents, 2);
-            rpEvents.Controls.Add(gridEvents);
-            rpEvents.Controls.Add(lnkLogs);
-            rpEvents.Controls.Add(lblEventsTitle);
-            rpEvents.Dock = DockStyle.Fill;
-            rpEvents.Location = new Point(0, 374);
-            rpEvents.Margin = new Padding(0, 0, 10, 10);
-            rpEvents.Name = "rpEvents";
-            rpEvents.Padding = new Padding(14, 10, 14, 10);
-            rpEvents.Size = new Size(770, 136);
-            rpEvents.TabIndex = 5;
+            this.lnkLogs.AutoSize = true;
+            this.lnkLogs.Text = "Loglar →";
+            this.lnkLogs.Location = new System.Drawing.Point(700, 12);
+            this.lnkLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lnkLogs.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.lnkLogs.Name = "lnkLogs";
+            this.lnkLogs.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLogs_LinkClicked);
             // 
             // gridEvents
             // 
-            gridEvents.AllowUserToAddRows = false;
-            gridEvents.AllowUserToDeleteRows = false;
-            gridEvents.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(246, 249, 249);
-            gridEvents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            gridEvents.BackgroundColor = Color.White;
-            gridEvents.BorderStyle = BorderStyle.None;
-            gridEvents.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            gridEvents.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.White;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 8.5F);
-            dataGridViewCellStyle5.ForeColor = Color.FromArgb(93, 116, 114);
-            dataGridViewCellStyle5.Padding = new Padding(8, 0, 0, 0);
-            dataGridViewCellStyle5.SelectionBackColor = Color.White;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            gridEvents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            gridEvents.ColumnHeadersHeight = 38;
-            gridEvents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            gridEvents.ColumnHeadersVisible = false;
-            gridEvents.Columns.AddRange(new DataGridViewColumn[] { colEvTime, colEvType, colEvText });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.White;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = Color.FromArgb(27, 43, 42);
-            dataGridViewCellStyle6.Padding = new Padding(8, 0, 0, 0);
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(220, 239, 236);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(27, 43, 42);
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            gridEvents.DefaultCellStyle = dataGridViewCellStyle6;
-            gridEvents.Dock = DockStyle.Fill;
-            gridEvents.EnableHeadersVisualStyles = false;
-            gridEvents.Font = new Font("Segoe UI", 9F);
-            gridEvents.GridColor = Color.FromArgb(246, 249, 249);
-            gridEvents.Location = new Point(14, 36);
-            gridEvents.MultiSelect = false;
-            gridEvents.Name = "gridEvents";
-            gridEvents.ReadOnly = true;
-            gridEvents.RowHeadersVisible = false;
-            gridEvents.ScrollBars = ScrollBars.None;
-            gridEvents.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gridEvents.Size = new Size(742, 90);
-            gridEvents.TabIndex = 0;
+            this.gridEvents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colEvTime,
+            this.colEvType,
+            this.colEvText});
+            this.gridEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridEvents.ColumnHeadersVisible = false;
+            this.gridEvents.Name = "gridEvents";
             // 
             // colEvTime
             // 

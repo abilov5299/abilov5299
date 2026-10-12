@@ -107,6 +107,7 @@
             this.rpAuto.Controls.Add(this.lblAutoTitle);
             this.rpAuto.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpAuto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpAuto.Size = new System.Drawing.Size(482, 628);
             this.rpAuto.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpAuto.Name = "rpAuto";
             // 
@@ -118,7 +119,7 @@
             this.lblAutoTitle.Text = "Avtomatik nüsxə";
             this.lblAutoTitle.Tag = "muted";
             this.lblAutoTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblAutoTitle.Height = 26;
+            this.lblAutoTitle.Size = new System.Drawing.Size(454, 26);
             this.lblAutoTitle.Name = "lblAutoTitle";
             // 
             // lblAutoDesc
@@ -245,6 +246,7 @@
             this.rpList.Controls.Add(this.lblListTitle);
             this.rpList.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpList.Size = new System.Drawing.Size(669, 628);
             this.rpList.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpList.Name = "rpList";
             // 
@@ -256,7 +258,7 @@
             this.lblListTitle.Text = "Nüsxələr";
             this.lblListTitle.Tag = "muted";
             this.lblListTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblListTitle.Height = 26;
+            this.lblListTitle.Size = new System.Drawing.Size(641, 26);
             this.lblListTitle.Name = "lblListTitle";
             // 
             // grid
@@ -268,6 +270,7 @@
             this.colFile,
             this.colRestore});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(641, 582);
             this.grid.Name = "grid";
             this.grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grid_CellContentClick);
             // 

@@ -86,6 +86,7 @@
             this.rpTree.Controls.Add(this.lblTreeTitle);
             this.rpTree.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpTree.Size = new System.Drawing.Size(355, 614);
             this.rpTree.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpTree.Name = "rpTree";
             // 
@@ -97,12 +98,13 @@
             this.lblTreeTitle.Text = "Struktur";
             this.lblTreeTitle.Tag = "muted";
             this.lblTreeTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTreeTitle.Height = 26;
+            this.lblTreeTitle.Size = new System.Drawing.Size(327, 26);
             this.lblTreeTitle.Name = "lblTreeTitle";
             // 
             // tree
             // 
             this.tree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tree.Size = new System.Drawing.Size(327, 568);
             this.tree.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tree.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.tree.ShowLines = true;
@@ -116,6 +118,7 @@
             this.rpList.Controls.Add(this.lblListTitle);
             this.rpList.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpList.Size = new System.Drawing.Size(538, 614);
             this.rpList.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpList.Name = "rpList";
             // 
@@ -127,7 +130,7 @@
             this.lblListTitle.Text = "Zavodlar";
             this.lblListTitle.Tag = "muted";
             this.lblListTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblListTitle.Height = 26;
+            this.lblListTitle.Size = new System.Drawing.Size(510, 26);
             this.lblListTitle.Name = "lblListTitle";
             // 
             // grid
@@ -138,6 +141,7 @@
             this.colParent,
             this.colUsers});
             this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grid.Size = new System.Drawing.Size(510, 516);
             this.grid.ReadOnly = false;
             this.grid.Name = "grid";
             // 
@@ -171,7 +175,7 @@
             this.pnlListFoot.Controls.Add(this.btnSave);
             this.pnlListFoot.Controls.Add(this.lblHint);
             this.pnlListFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlListFoot.Height = 52;
+            this.pnlListFoot.Size = new System.Drawing.Size(510, 52);
             this.pnlListFoot.Name = "pnlListFoot";
             // 
             // lblHint
@@ -186,7 +190,7 @@
             // btnSave
             // 
             this.btnSave.Kind = TexnikaReyestri.Controls.ButtonKind.Primary;
-            this.btnSave.Location = new System.Drawing.Point(380, 10);
+            this.btnSave.Location = new System.Drawing.Point(334, 10);
             this.btnSave.Size = new System.Drawing.Size(170, 34);
             this.btnSave.Text = "Adları yadda saxla";
             this.btnSave.Glyph = "\uE74E";

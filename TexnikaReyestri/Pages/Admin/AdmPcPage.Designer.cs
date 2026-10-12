@@ -91,6 +91,7 @@
             this.rpInfo.Controls.Add(this.lblInfoTitle);
             this.rpInfo.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpInfo.Size = new System.Drawing.Size(447, 614);
             this.rpInfo.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpInfo.Name = "rpInfo";
             // 
@@ -102,7 +103,7 @@
             this.lblInfoTitle.Text = "Quraşdırma";
             this.lblInfoTitle.Tag = "muted";
             this.lblInfoTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblInfoTitle.Height = 26;
+            this.lblInfoTitle.Size = new System.Drawing.Size(419, 26);
             this.lblInfoTitle.Name = "lblInfoTitle";
             // 
             // kQurum
@@ -219,6 +220,7 @@
             this.rpMaint.Controls.Add(this.lblMaintTitle);
             this.rpMaint.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpMaint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rpMaint.Size = new System.Drawing.Size(447, 614);
             this.rpMaint.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
             this.rpMaint.Name = "rpMaint";
             // 
@@ -230,7 +232,7 @@
             this.lblMaintTitle.Text = "Baza xidməti";
             this.lblMaintTitle.Tag = "muted";
             this.lblMaintTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblMaintTitle.Height = 26;
+            this.lblMaintTitle.Size = new System.Drawing.Size(419, 26);
             this.lblMaintTitle.Name = "lblMaintTitle";
             // 
             // btnCheck
