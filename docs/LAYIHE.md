@@ -150,8 +150,3 @@ docs/
 - Zavodların və üst qurumların adları `Data/Secimler.cs` → `Zavodlar`, `UstAd`, `EnUstAd`. Kodlar: Z1…Z6, UST, ENUST.
 - Proqram açılanda `SistemSchema.Qurumlar` standart köhnə adları ("Zavod N", "Üst qurum", "Ən üst qurum") yeni adlara keçirir və texnikaların `TemirZavodu` sahəsini yeniləyir. Admin əl ilə verdiyi adlara toxunulmur.
 - Texnikada zavodun **adı** saxlanılır: adı sonradan dəyişmək üçün 9 kompüterin hamısında eyni versiya olmalıdır.
-
-## Qurum adları
-- Zavodların və üst qurumların adları `Data/Secimler.cs` → `Zavodlar`, `UstAd`, `EnUstAd`. Kodlar: Z1…Z6, UST, ENUST.
-- Proqram açılanda `SistemSchema.Qurumlar` standart köhnə adları ("Zavod N", "Üst qurum", "Ən üst qurum") yeni adlara keçirir və texnikaların `TemirZavodu` sahəsini yeniləyir. Admin əl ilə verdiyi adlara toxunulmur.
-- Texnikada zavodun **adı** saxlanılır: adı sonradan dəyişmək üçün 9 kompüterin hamısında eyni versiya olmalıdır.
