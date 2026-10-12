@@ -14,288 +14,319 @@
 
         private void InitializeComponent()
         {
-            this.pnlNav = new System.Windows.Forms.Panel();
-            this.logo = new TexnikaReyestri.Controls.LogoMark();
-            this.navHome = new TexnikaReyestri.Controls.NavButton();
-            this.navSummary = new TexnikaReyestri.Controls.NavButton();
-            this.navRegistry = new TexnikaReyestri.Controls.NavButton();
-            this.navAdd = new TexnikaReyestri.Controls.NavButton();
-            this.navNoti = new TexnikaReyestri.Controls.NavButton();
-            this.navSync = new TexnikaReyestri.Controls.NavButton();
-            this.navLogs = new TexnikaReyestri.Controls.NavButton();
-            this.navBackup = new TexnikaReyestri.Controls.NavButton();
-            this.navOut = new TexnikaReyestri.Controls.NavButton();
-            this.pnlTop = new System.Windows.Forms.Panel();
-            this.lblQurum = new System.Windows.Forms.Label();
-            this.lblUser = new System.Windows.Forms.Label();
-            this.btnTheme = new TexnikaReyestri.Controls.FlatButton();
-            this.cmbLang = new TexnikaReyestri.Controls.RoundComboBox();
-            this.btnBell = new TexnikaReyestri.Controls.FlatButton();
-            this.lblBadge = new System.Windows.Forms.Label();
-            this.btnMin = new TexnikaReyestri.Controls.CaptionButton();
-            this.btnMax = new TexnikaReyestri.Controls.CaptionButton();
-            this.btnClose = new TexnikaReyestri.Controls.CaptionButton();
-            this.pnlContent = new System.Windows.Forms.Panel();
-            this.pnlNav.SuspendLayout();
-            this.pnlTop.SuspendLayout();
-            this.pnlContent.SuspendLayout();
-            this.SuspendLayout();
+            pnlNav = new Panel();
+            navOut = new TexnikaReyestri.Controls.NavButton();
+            navBackup = new TexnikaReyestri.Controls.NavButton();
+            navLogs = new TexnikaReyestri.Controls.NavButton();
+            navSync = new TexnikaReyestri.Controls.NavButton();
+            navNoti = new TexnikaReyestri.Controls.NavButton();
+            navAdd = new TexnikaReyestri.Controls.NavButton();
+            navRegistry = new TexnikaReyestri.Controls.NavButton();
+            navSummary = new TexnikaReyestri.Controls.NavButton();
+            navHome = new TexnikaReyestri.Controls.NavButton();
+            logo = new TexnikaReyestri.Controls.LogoMark();
+            pnlTop = new Panel();
+            btnClose = new TexnikaReyestri.Controls.CaptionButton();
+            btnMax = new TexnikaReyestri.Controls.CaptionButton();
+            btnMin = new TexnikaReyestri.Controls.CaptionButton();
+            lblBadge = new Label();
+            btnBell = new TexnikaReyestri.Controls.FlatButton();
+            cmbLang = new TexnikaReyestri.Controls.RoundComboBox();
+            btnTheme = new TexnikaReyestri.Controls.FlatButton();
+            lblUser = new Label();
+            lblQurum = new Label();
+            pnlContent = new Panel();
+            pnlNav.SuspendLayout();
+            pnlTop.SuspendLayout();
+            SuspendLayout();
             // 
             // pnlNav
             // 
-            this.pnlNav.Controls.Add(this.navOut);
-            this.pnlNav.Controls.Add(this.navBackup);
-            this.pnlNav.Controls.Add(this.navLogs);
-            this.pnlNav.Controls.Add(this.navSync);
-            this.pnlNav.Controls.Add(this.navNoti);
-            this.pnlNav.Controls.Add(this.navAdd);
-            this.pnlNav.Controls.Add(this.navRegistry);
-            this.pnlNav.Controls.Add(this.navSummary);
-            this.pnlNav.Controls.Add(this.navHome);
-            this.pnlNav.Controls.Add(this.logo);
-            this.pnlNav.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlNav.Size = new System.Drawing.Size(64, 758);
-            this.pnlNav.Tag = "nav";
-            this.pnlNav.Name = "pnlNav";
-            // 
-            // logo
-            // 
-            this.logo.Location = new System.Drawing.Point(12, 12);
-            this.logo.Size = new System.Drawing.Size(40, 40);
-            this.logo.Name = "logo";
-            // 
-            // navHome
-            // 
-            this.navHome.Glyph = "\uE80F";
-            this.navHome.Location = new System.Drawing.Point(0, 70);
-            this.navHome.Size = new System.Drawing.Size(64, 52);
-            this.navHome.ToolTipText = "Ana səhifə (statistika)";
-            this.navHome.PageKey = "home";
-            this.navHome.Name = "navHome";
-            this.navHome.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navSummary
-            // 
-            this.navSummary.Glyph = "\uE8A9";
-            this.navSummary.Location = new System.Drawing.Point(0, 122);
-            this.navSummary.Size = new System.Drawing.Size(64, 52);
-            this.navSummary.ToolTipText = "İcmal (zavodlar üzrə)";
-            this.navSummary.PageKey = "sum";
-            this.navSummary.Name = "navSummary";
-            this.navSummary.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navRegistry
-            // 
-            this.navRegistry.Glyph = "\uE8FD";
-            this.navRegistry.Location = new System.Drawing.Point(0, 174);
-            this.navRegistry.Size = new System.Drawing.Size(64, 52);
-            this.navRegistry.ToolTipText = "Reyestr";
-            this.navRegistry.PageKey = "list";
-            this.navRegistry.Name = "navRegistry";
-            this.navRegistry.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navAdd
-            // 
-            this.navAdd.Glyph = "\uE710";
-            this.navAdd.Location = new System.Drawing.Point(0, 226);
-            this.navAdd.Size = new System.Drawing.Size(64, 52);
-            this.navAdd.ToolTipText = "Texnika daxil et";
-            this.navAdd.PageKey = "add";
-            this.navAdd.Name = "navAdd";
-            this.navAdd.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navNoti
-            // 
-            this.navNoti.Glyph = "\uEA8F";
-            this.navNoti.Location = new System.Drawing.Point(0, 278);
-            this.navNoti.Size = new System.Drawing.Size(64, 52);
-            this.navNoti.ToolTipText = "Bildirişlər";
-            this.navNoti.PageKey = "noti";
-            this.navNoti.Name = "navNoti";
-            this.navNoti.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navSync
-            // 
-            this.navSync.Glyph = "\uE895";
-            this.navSync.Location = new System.Drawing.Point(0, 330);
-            this.navSync.Size = new System.Drawing.Size(64, 52);
-            this.navSync.ToolTipText = "İxrac / İdxal (USB)";
-            this.navSync.PageKey = "sync";
-            this.navSync.Name = "navSync";
-            this.navSync.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navLogs
-            // 
-            this.navLogs.Glyph = "\uE81C";
-            this.navLogs.Location = new System.Drawing.Point(0, 382);
-            this.navLogs.Size = new System.Drawing.Size(64, 52);
-            this.navLogs.ToolTipText = "Loglar";
-            this.navLogs.PageKey = "log";
-            this.navLogs.Name = "navLogs";
-            this.navLogs.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navBackup
-            // 
-            this.navBackup.Glyph = "\uE7B8";
-            this.navBackup.Location = new System.Drawing.Point(0, 434);
-            this.navBackup.Size = new System.Drawing.Size(64, 52);
-            this.navBackup.ToolTipText = "Ehtiyat nüsxə";
-            this.navBackup.PageKey = "bak";
-            this.navBackup.Name = "navBackup";
-            this.navBackup.Click += new System.EventHandler(this.nav_Click);
+            pnlNav.Controls.Add(navOut);
+            pnlNav.Controls.Add(navBackup);
+            pnlNav.Controls.Add(navLogs);
+            pnlNav.Controls.Add(navSync);
+            pnlNav.Controls.Add(navNoti);
+            pnlNav.Controls.Add(navAdd);
+            pnlNav.Controls.Add(navRegistry);
+            pnlNav.Controls.Add(navSummary);
+            pnlNav.Controls.Add(navHome);
+            pnlNav.Controls.Add(logo);
+            pnlNav.Dock = DockStyle.Left;
+            pnlNav.Location = new Point(1, 1);
+            pnlNav.Name = "pnlNav";
+            pnlNav.Size = new Size(64, 758);
+            pnlNav.TabIndex = 2;
+            pnlNav.Tag = "nav";
             // 
             // navOut
             // 
-            this.navOut.Glyph = "\uF3B1";
-            this.navOut.Location = new System.Drawing.Point(0, 700);
-            this.navOut.Size = new System.Drawing.Size(64, 52);
-            this.navOut.ToolTipText = "Hesabdan çıxış";
-            this.navOut.DangerStyle = true;
-            this.navOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.navOut.Name = "navOut";
-            this.navOut.Click += new System.EventHandler(this.navOut_Click);
+            navOut.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            navOut.DangerStyle = true;
+            navOut.Glyph = "";
+            navOut.Location = new Point(0, 700);
+            navOut.Name = "navOut";
+            navOut.PageKey = "";
+            navOut.Size = new Size(64, 52);
+            navOut.TabIndex = 0;
+            navOut.ToolTipText = "Hesabdan çıxış";
+            navOut.Click += navOut_Click;
+            // 
+            // navBackup
+            // 
+            navBackup.Glyph = "";
+            navBackup.Location = new Point(0, 434);
+            navBackup.Name = "navBackup";
+            navBackup.PageKey = "bak";
+            navBackup.Size = new Size(64, 52);
+            navBackup.TabIndex = 1;
+            navBackup.ToolTipText = "Ehtiyat nüsxə";
+            navBackup.Click += nav_Click;
+            // 
+            // navLogs
+            // 
+            navLogs.Glyph = "";
+            navLogs.Location = new Point(0, 382);
+            navLogs.Name = "navLogs";
+            navLogs.PageKey = "log";
+            navLogs.Size = new Size(64, 52);
+            navLogs.TabIndex = 2;
+            navLogs.ToolTipText = "Loglar";
+            navLogs.Click += nav_Click;
+            // 
+            // navSync
+            // 
+            navSync.Glyph = "";
+            navSync.Location = new Point(0, 330);
+            navSync.Name = "navSync";
+            navSync.PageKey = "sync";
+            navSync.Size = new Size(64, 52);
+            navSync.TabIndex = 3;
+            navSync.ToolTipText = "İxrac / İdxal (USB)";
+            navSync.Click += nav_Click;
+            // 
+            // navNoti
+            // 
+            navNoti.Glyph = "";
+            navNoti.Location = new Point(0, 278);
+            navNoti.Name = "navNoti";
+            navNoti.PageKey = "noti";
+            navNoti.Size = new Size(64, 52);
+            navNoti.TabIndex = 4;
+            navNoti.ToolTipText = "Bildirişlər";
+            navNoti.Click += nav_Click;
+            // 
+            // navAdd
+            // 
+            navAdd.Glyph = "";
+            navAdd.Location = new Point(0, 226);
+            navAdd.Name = "navAdd";
+            navAdd.PageKey = "add";
+            navAdd.Size = new Size(64, 52);
+            navAdd.TabIndex = 5;
+            navAdd.ToolTipText = "Texnika daxil et";
+            navAdd.Click += nav_Click;
+            // 
+            // navRegistry
+            // 
+            navRegistry.Glyph = "";
+            navRegistry.Location = new Point(0, 174);
+            navRegistry.Name = "navRegistry";
+            navRegistry.PageKey = "list";
+            navRegistry.Size = new Size(64, 52);
+            navRegistry.TabIndex = 6;
+            navRegistry.ToolTipText = "Reyestr";
+            navRegistry.Click += nav_Click;
+            // 
+            // navSummary
+            // 
+            navSummary.Glyph = "";
+            navSummary.Location = new Point(0, 122);
+            navSummary.Name = "navSummary";
+            navSummary.PageKey = "sum";
+            navSummary.Size = new Size(64, 52);
+            navSummary.TabIndex = 7;
+            navSummary.ToolTipText = "İcmal (zavodlar üzrə)";
+            navSummary.Click += nav_Click;
+            // 
+            // navHome
+            // 
+            navHome.Glyph = "";
+            navHome.Location = new Point(0, 70);
+            navHome.Name = "navHome";
+            navHome.PageKey = "home";
+            navHome.Size = new Size(64, 52);
+            navHome.TabIndex = 8;
+            navHome.ToolTipText = "Ana səhifə (statistika)";
+            navHome.Click += nav_Click;
+            // 
+            // logo
+            // 
+            logo.BackColor = Color.Transparent;
+            logo.Location = new Point(12, 12);
+            logo.Name = "logo";
+            logo.Size = new Size(40, 40);
+            logo.TabIndex = 9;
             // 
             // pnlTop
             // 
-            this.pnlTop.Controls.Add(this.btnClose);
-            this.pnlTop.Controls.Add(this.btnMax);
-            this.pnlTop.Controls.Add(this.btnMin);
-            this.pnlTop.Controls.Add(this.lblBadge);
-            this.pnlTop.Controls.Add(this.btnBell);
-            this.pnlTop.Controls.Add(this.cmbLang);
-            this.pnlTop.Controls.Add(this.btnTheme);
-            this.pnlTop.Controls.Add(this.lblUser);
-            this.pnlTop.Controls.Add(this.lblQurum);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Size = new System.Drawing.Size(1214, 48);
-            this.pnlTop.Tag = "card";
-            this.pnlTop.Name = "pnlTop";
-            this.pnlTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTop_MouseDown);
-            this.pnlTop.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlTop_Paint);
-            this.pnlTop.DoubleClick += new System.EventHandler(this.btnMax_Click);
-            // 
-            // lblQurum
-            // 
-            this.lblQurum.AutoSize = true;
-            this.lblQurum.Font = new System.Drawing.Font("Bahnschrift SemiBold", 12.0F);
-            this.lblQurum.Location = new System.Drawing.Point(20, 13);
-            this.lblQurum.Text = "Zavod 3";
-            this.lblQurum.Tag = "title";
-            this.lblQurum.Name = "lblQurum";
-            // 
-            // lblUser
-            // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.lblUser.Location = new System.Drawing.Point(100, 17);
-            this.lblUser.Text = "Əli Məmmədov · zavod istifadəçisi";
-            this.lblUser.Tag = "muted";
-            this.lblUser.Name = "lblUser";
-            // 
-            // btnTheme
-            // 
-            this.btnTheme.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
-            this.btnTheme.Location = new System.Drawing.Point(878, 8);
-            this.btnTheme.Size = new System.Drawing.Size(36, 32);
-            this.btnTheme.Text = "";
-            this.btnTheme.Glyph = "\uE708";
-            this.btnTheme.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTheme.Name = "btnTheme";
-            this.btnTheme.Click += new System.EventHandler(this.btnTheme_Click);
-            // 
-            // cmbLang
-            // 
-            this.cmbLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbLang.Font = new System.Drawing.Font("Segoe UI Semibold", 9.5F);
-            this.cmbLang.Location = new System.Drawing.Point(920, 11);
-            this.cmbLang.Size = new System.Drawing.Size(56, 25);
-            this.cmbLang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbLang.Name = "cmbLang";
-            this.cmbLang.Items.AddRange(new object[] {
-            "AZ",
-            "EN",
-            "RU"});
-            this.cmbLang.SelectedIndexChanged += new System.EventHandler(this.cmbLang_SelectedIndexChanged);
-            // 
-            // btnBell
-            // 
-            this.btnBell.Kind = TexnikaReyestri.Controls.ButtonKind.Ghost;
-            this.btnBell.Location = new System.Drawing.Point(984, 8);
-            this.btnBell.Size = new System.Drawing.Size(40, 32);
-            this.btnBell.Text = "";
-            this.btnBell.Glyph = "\uEA8F";
-            this.btnBell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBell.Name = "btnBell";
-            this.btnBell.Click += new System.EventHandler(this.btnBell_Click);
-            // 
-            // lblBadge
-            // 
-            this.lblBadge.AutoSize = true;
-            this.lblBadge.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
-            this.lblBadge.Location = new System.Drawing.Point(1008, 4);
-            this.lblBadge.Text = "0";
-            this.lblBadge.Tag = "white";
-            this.lblBadge.BackColor = System.Drawing.Color.FromArgb(201, 74, 68);
-            this.lblBadge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBadge.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.lblBadge.Name = "lblBadge";
-            // 
-            // btnMin
-            // 
-            this.btnMin.Kind = TexnikaReyestri.Controls.CaptionKind.Minimize;
-            this.btnMin.Location = new System.Drawing.Point(1044, 0);
-            this.btnMin.Size = new System.Drawing.Size(46, 47);
-            this.btnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMin.Name = "btnMin";
-            // 
-            // btnMax
-            // 
-            this.btnMax.Kind = TexnikaReyestri.Controls.CaptionKind.Maximize;
-            this.btnMax.Location = new System.Drawing.Point(1090, 0);
-            this.btnMax.Size = new System.Drawing.Size(46, 47);
-            this.btnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMax.Name = "btnMax";
+            pnlTop.Controls.Add(btnClose);
+            pnlTop.Controls.Add(btnMax);
+            pnlTop.Controls.Add(btnMin);
+            pnlTop.Controls.Add(lblBadge);
+            pnlTop.Controls.Add(btnBell);
+            pnlTop.Controls.Add(cmbLang);
+            pnlTop.Controls.Add(btnTheme);
+            pnlTop.Controls.Add(lblUser);
+            pnlTop.Controls.Add(lblQurum);
+            pnlTop.Dock = DockStyle.Top;
+            pnlTop.Location = new Point(65, 1);
+            pnlTop.Name = "pnlTop";
+            pnlTop.Size = new Size(1214, 48);
+            pnlTop.TabIndex = 1;
+            pnlTop.Tag = "card";
+            pnlTop.Paint += pnlTop_Paint;
+            pnlTop.DoubleClick += btnMax_Click;
+            pnlTop.MouseDown += pnlTop_MouseDown;
             // 
             // btnClose
             // 
-            this.btnClose.Kind = TexnikaReyestri.Controls.CaptionKind.Close;
-            this.btnClose.Location = new System.Drawing.Point(1136, 0);
-            this.btnClose.Size = new System.Drawing.Size(46, 47);
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Name = "btnClose";
+            btnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnClose.Kind = TexnikaReyestri.Controls.CaptionKind.Close;
+            btnClose.Location = new Point(1142, -1);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(46, 47);
+            btnClose.TabIndex = 0;
+            // 
+            // btnMax
+            // 
+            btnMax.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnMax.Kind = TexnikaReyestri.Controls.CaptionKind.Maximize;
+            btnMax.Location = new Point(1090, 0);
+            btnMax.Name = "btnMax";
+            btnMax.Size = new Size(46, 47);
+            btnMax.TabIndex = 1;
+            // 
+            // btnMin
+            // 
+            btnMin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnMin.Location = new Point(1044, 0);
+            btnMin.Name = "btnMin";
+            btnMin.Size = new Size(46, 47);
+            btnMin.TabIndex = 2;
+            // 
+            // lblBadge
+            // 
+            lblBadge.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblBadge.AutoSize = true;
+            lblBadge.BackColor = Color.FromArgb(201, 74, 68);
+            lblBadge.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblBadge.Location = new Point(1008, 4);
+            lblBadge.Name = "lblBadge";
+            lblBadge.Padding = new Padding(3, 0, 3, 0);
+            lblBadge.Size = new Size(17, 12);
+            lblBadge.TabIndex = 3;
+            lblBadge.Tag = "white";
+            lblBadge.Text = "0";
+            // 
+            // btnBell
+            // 
+            btnBell.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnBell.BackColor = Color.Transparent;
+            btnBell.FlatStyle = FlatStyle.Flat;
+            btnBell.Font = new Font("Segoe UI Semibold", 9F);
+            btnBell.Glyph = "";
+            btnBell.Kind = TexnikaReyestri.Controls.ButtonKind.Ghost;
+            btnBell.Location = new Point(984, 8);
+            btnBell.Name = "btnBell";
+            btnBell.Size = new Size(40, 32);
+            btnBell.TabIndex = 4;
+            btnBell.UseVisualStyleBackColor = false;
+            btnBell.Click += btnBell_Click;
+            // 
+            // cmbLang
+            // 
+            cmbLang.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cmbLang.DrawMode = DrawMode.OwnerDrawFixed;
+            cmbLang.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbLang.FlatStyle = FlatStyle.Flat;
+            cmbLang.Font = new Font("Segoe UI Semibold", 9.5F);
+            cmbLang.IntegralHeight = false;
+            cmbLang.ItemHeight = 22;
+            cmbLang.Items.AddRange(new object[] { "AZ", "EN", "RU" });
+            cmbLang.Location = new Point(920, 11);
+            cmbLang.Name = "cmbLang";
+            cmbLang.Size = new Size(56, 28);
+            cmbLang.TabIndex = 5;
+            cmbLang.SelectedIndexChanged += cmbLang_SelectedIndexChanged;
+            // 
+            // btnTheme
+            // 
+            btnTheme.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnTheme.BackColor = Color.Transparent;
+            btnTheme.FlatStyle = FlatStyle.Flat;
+            btnTheme.Font = new Font("Segoe UI Semibold", 9F);
+            btnTheme.Glyph = "";
+            btnTheme.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
+            btnTheme.Location = new Point(878, 8);
+            btnTheme.Name = "btnTheme";
+            btnTheme.Size = new Size(36, 32);
+            btnTheme.TabIndex = 6;
+            btnTheme.UseVisualStyleBackColor = false;
+            btnTheme.Click += btnTheme_Click;
+            // 
+            // lblUser
+            // 
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("Segoe UI", 9F);
+            lblUser.Location = new Point(100, 17);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(188, 15);
+            lblUser.TabIndex = 7;
+            lblUser.Tag = "muted";
+            lblUser.Text = "Əli Məmmədov · zavod istifadəçisi";
+            // 
+            // lblQurum
+            // 
+            lblQurum.AutoSize = true;
+            lblQurum.Font = new Font("Bahnschrift SemiBold", 12F);
+            lblQurum.Location = new Point(20, 13);
+            lblQurum.Name = "lblQurum";
+            lblQurum.Size = new Size(65, 19);
+            lblQurum.TabIndex = 8;
+            lblQurum.Tag = "title";
+            lblQurum.Text = "Zavod 3";
             // 
             // pnlContent
             // 
-            this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContent.Size = new System.Drawing.Size(1214, 710);
-            this.pnlContent.Name = "pnlContent";
+            pnlContent.Dock = DockStyle.Fill;
+            pnlContent.Location = new Point(65, 49);
+            pnlContent.Name = "pnlContent";
+            pnlContent.Size = new Size(1214, 710);
+            pnlContent.TabIndex = 0;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1280, 760);
-            this.MinimumSize = new System.Drawing.Size(1100, 680);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Texnika Reyestri";
-            this.KeyPreview = true;
-            this.Padding = new System.Windows.Forms.Padding(1);
-            this.Controls.Add(this.pnlContent);
-            this.Controls.Add(this.pnlTop);
-            this.Controls.Add(this.pnlNav);
-            this.Name = "MainForm";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-            this.pnlContent.ResumeLayout(false);
-            this.pnlContent.PerformLayout();
-            this.pnlTop.ResumeLayout(false);
-            this.pnlTop.PerformLayout();
-            this.pnlNav.ResumeLayout(false);
-            this.pnlNav.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            ClientSize = new Size(1280, 760);
+            Controls.Add(pnlContent);
+            Controls.Add(pnlTop);
+            Controls.Add(pnlNav);
+            FormBorderStyle = FormBorderStyle.None;
+            KeyPreview = true;
+            MinimumSize = new Size(1100, 680);
+            Name = "MainForm";
+            Padding = new Padding(1);
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Texnika Reyestri";
+            FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
+            KeyDown += MainForm_KeyDown;
+            pnlNav.ResumeLayout(false);
+            pnlTop.ResumeLayout(false);
+            pnlTop.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -320,7 +351,7 @@
         private System.Windows.Forms.Label lblBadge;
         private TexnikaReyestri.Controls.CaptionButton btnMin;
         private TexnikaReyestri.Controls.CaptionButton btnMax;
-        private TexnikaReyestri.Controls.CaptionButton btnClose;
         private System.Windows.Forms.Panel pnlContent;
+        private Controls.CaptionButton btnClose;
     }
 }
