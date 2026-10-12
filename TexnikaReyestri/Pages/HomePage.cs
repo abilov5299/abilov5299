@@ -14,6 +14,7 @@ namespace TexnikaReyestri.Pages
         public HomePage()
         {
             InitializeComponent();
+            Ui.Saga(lnkLogs); Ui.Saga(lnkLate); Ui.Saga(lblLegB); Ui.Saga(lblLegA, lblLegB);   // sağ kənara bərkidilmiş başlıq yazıları
             gridLate.RowTemplate.Height = 30; gridEvents.RowTemplate.Height = 30;
             gridLate.Columns["colLateDays"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }

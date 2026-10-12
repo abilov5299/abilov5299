@@ -84,6 +84,10 @@ namespace TexnikaReyestri.Core
                 case NumericUpDown nu: nu.BackColor = Card; nu.ForeColor = Ink; break;
                 case DateTimePicker dp: dp.CalendarMonthBackground = Card; dp.CalendarForeColor = Ink; break;
                 case CheckBox or RadioButton: c.ForeColor = role == "muted" ? Muted : Ink; break;
+                case LinkLabel ll:
+                    ll.BackColor = Color.Transparent; ll.LinkBehavior = LinkBehavior.HoverUnderline;
+                    ll.LinkColor = ll.VisitedLinkColor = Title; ll.ActiveLinkColor = Accent; ll.ForeColor = Title;
+                    break;
                 case Label l:
                     l.BackColor = Color.Transparent;
                     l.ForeColor = role switch { "title" => Title, "muted" => Muted, "navtext" => NavText, "danger" => Bad, "white" => Color.White, _ => Ink };

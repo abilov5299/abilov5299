@@ -73,6 +73,27 @@ namespace TexnikaReyestri.Core
             }
         }
 
+        /// <summary>
+        /// Yazını valideynin sağ kənarına bərkidir (Padding nəzərə alınır). sol: bu yazı həmin kontrolun SOLUNDA durur.
+        /// AutoSize yazılarda Designer-dəki Anchor=Right yeri səhv saxlayırdı (dil dəyişəndə en də dəyişir).
+        /// </summary>
+        public static void Saga(Control c, Control sol = null)
+        {
+            void Yerlesdir()
+            {
+                if (c.Parent == null) return;
+                int sag = sol != null ? sol.Left - 12 : c.Parent.ClientSize.Width - c.Parent.Padding.Right;
+                c.Left = Math.Max(c.Parent.Padding.Left, sag - c.Width);
+            }
+            c.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            c.ParentChanged += (_, _) => { if (c.Parent != null) { c.Parent.Resize -= H; c.Parent.Resize += H; } Yerlesdir(); };
+            if (c.Parent != null) c.Parent.Resize += H;
+            c.SizeChanged += H;
+            if (sol != null) { sol.SizeChanged += H; sol.LocationChanged += H; }
+            Yerlesdir();
+            void H(object s, EventArgs e) => Yerlesdir();
+        }
+
         public static void Kenar(Form f, PaintEventArgs e) { using var p = new Pen(Theme.Line); e.Graphics.DrawRectangle(p, 0, 0, f.ClientSize.Width - 1, f.ClientSize.Height - 1); }
     }
 }
