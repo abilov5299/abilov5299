@@ -151,7 +151,7 @@
             // 
             // numSoon
             // 
-            this.numSoon.Location = new System.Drawing.Point(157, 48);
+            this.numSoon.Location = new System.Drawing.Point(317, 48);
             this.numSoon.Size = new System.Drawing.Size(70, 25);
             this.numSoon.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numSoon.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
@@ -162,7 +162,7 @@
             // 
             this.unumSoon.AutoSize = true;
             this.unumSoon.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumSoon.Location = new System.Drawing.Point(233, 52);
+            this.unumSoon.Location = new System.Drawing.Point(393, 52);
             this.unumSoon.Text = "gün";
             this.unumSoon.Tag = "muted";
             this.unumSoon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -187,7 +187,7 @@
             // 
             // numLate
             // 
-            this.numLate.Location = new System.Drawing.Point(157, 104);
+            this.numLate.Location = new System.Drawing.Point(317, 104);
             this.numLate.Size = new System.Drawing.Size(70, 25);
             this.numLate.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numLate.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
@@ -198,7 +198,7 @@
             // 
             this.unumLate.AutoSize = true;
             this.unumLate.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumLate.Location = new System.Drawing.Point(233, 108);
+            this.unumLate.Location = new System.Drawing.Point(393, 108);
             this.unumLate.Text = "gün";
             this.unumLate.Tag = "muted";
             this.unumLate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -223,7 +223,7 @@
             // 
             // numReq
             // 
-            this.numReq.Location = new System.Drawing.Point(157, 160);
+            this.numReq.Location = new System.Drawing.Point(317, 160);
             this.numReq.Size = new System.Drawing.Size(70, 25);
             this.numReq.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numReq.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
@@ -234,7 +234,7 @@
             // 
             this.unumReq.AutoSize = true;
             this.unumReq.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumReq.Location = new System.Drawing.Point(233, 164);
+            this.unumReq.Location = new System.Drawing.Point(393, 164);
             this.unumReq.Text = "gün";
             this.unumReq.Tag = "muted";
             this.unumReq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -259,7 +259,7 @@
             // 
             // numPkg
             // 
-            this.numPkg.Location = new System.Drawing.Point(157, 216);
+            this.numPkg.Location = new System.Drawing.Point(317, 216);
             this.numPkg.Size = new System.Drawing.Size(70, 25);
             this.numPkg.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numPkg.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
@@ -270,7 +270,7 @@
             // 
             this.unumPkg.AutoSize = true;
             this.unumPkg.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumPkg.Location = new System.Drawing.Point(233, 220);
+            this.unumPkg.Location = new System.Drawing.Point(393, 220);
             this.unumPkg.Text = "gün";
             this.unumPkg.Tag = "muted";
             this.unumPkg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -321,7 +321,7 @@
             // 
             // numKeep
             // 
-            this.numKeep.Location = new System.Drawing.Point(157, 48);
+            this.numKeep.Location = new System.Drawing.Point(317, 48);
             this.numKeep.Size = new System.Drawing.Size(70, 25);
             this.numKeep.Font = new System.Drawing.Font("Segoe UI", 10.0F);
             this.numKeep.Maximum = new decimal(new int[] { 365, 0, 0, 0 });
@@ -332,7 +332,7 @@
             // 
             this.unumKeep.AutoSize = true;
             this.unumKeep.Font = new System.Drawing.Font("Segoe UI", 9.0F);
-            this.unumKeep.Location = new System.Drawing.Point(233, 52);
+            this.unumKeep.Location = new System.Drawing.Point(393, 52);
             this.unumKeep.Text = "nüsxə";
             this.unumKeep.Tag = "muted";
             this.unumKeep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
