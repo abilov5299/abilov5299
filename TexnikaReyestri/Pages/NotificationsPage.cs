@@ -37,7 +37,7 @@ namespace TexnikaReyestri.Pages
             var b = _l[e.RowIndex];
             if (!b.Oxunub) { await SistemRepo.OxunduAsync(b.Id); await MainForm.Current.BadgeYenileAsync(); }
             if (b.TexnikaId is long id) await MainForm.Current.DetalAcAsync(id);
-            else if (b.Nov is "late" or "soon") await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = b.Zavod, Gecikenler = b.Nov == "late" });
+            else if (b.Nov is "late" or "soon") await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = b.Zavod, Qrup = b.Nov == "late" ? "late" : "yaxin" });
             else await OnShownAsync();
         }
 

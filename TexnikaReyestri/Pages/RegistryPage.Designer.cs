@@ -15,7 +15,7 @@
         private void InitializeComponent()
         {
             this.pnlHead = new System.Windows.Forms.Panel();
-            this.tlpTiles = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpTiles = new TexnikaReyestri.Controls.KartPaneli();
             this.pnlFoot = new System.Windows.Forms.Panel();
             this.rpGrid = new TexnikaReyestri.Controls.RoundPanel();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -24,10 +24,6 @@
             this.txtSearch = new TexnikaReyestri.Controls.RoundTextBox();
             this.cmbStatus = new TexnikaReyestri.Controls.RoundComboBox();
             this.cmbZavod = new TexnikaReyestri.Controls.RoundComboBox();
-            this.cardAll = new TexnikaReyestri.Controls.StatCard();
-            this.cardRepair = new TexnikaReyestri.Controls.StatCard();
-            this.cardLate = new TexnikaReyestri.Controls.StatCard();
-            this.cardDone = new TexnikaReyestri.Controls.StatCard();
             this.grid = new TexnikaReyestri.Controls.ModernGrid();
             this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNov = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,21 +55,9 @@
             // 
             // tlpTiles
             // 
-            this.tlpTiles.ColumnCount = 4;
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.RowCount = 1;
-            this.tlpTiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0F));
-            this.tlpTiles.Controls.Add(this.cardAll, 0, 0);
-            this.tlpTiles.Controls.Add(this.cardRepair, 1, 0);
-            this.tlpTiles.Controls.Add(this.cardLate, 2, 0);
-            this.tlpTiles.Controls.Add(this.cardDone, 3, 0);
             this.tlpTiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tlpTiles.Size = new System.Drawing.Size(1172, 96);
-            this.tlpTiles.Padding = new System.Windows.Forms.Padding(0, 4, 0, 8);
             this.tlpTiles.Name = "tlpTiles";
+            this.tlpTiles.KartClicked += new System.EventHandler<string>(this.kart_Clicked);
             // 
             // pnlFoot
             // 
@@ -150,58 +134,6 @@
             this.cmbZavod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbZavod.Name = "cmbZavod";
             this.cmbZavod.SelectedIndexChanged += new System.EventHandler(this.filtr_Changed);
-            // 
-            // cardAll
-            // 
-            this.cardAll.Title = "Cəmi";
-            this.cardAll.Value = "0";
-            this.cardAll.Glyph = "\uE8FD";
-            this.cardAll.Accent = TexnikaReyestri.Controls.AccentKind.Nav;
-            this.cardAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardAll.Size = new System.Drawing.Size(283, 96);
-            this.cardAll.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardAll.FilterKey = "";
-            this.cardAll.Name = "cardAll";
-            this.cardAll.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardRepair
-            // 
-            this.cardRepair.Title = "Təmirdə";
-            this.cardRepair.Value = "0";
-            this.cardRepair.Glyph = "\uE90F";
-            this.cardRepair.Accent = TexnikaReyestri.Controls.AccentKind.Info;
-            this.cardRepair.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardRepair.Size = new System.Drawing.Size(283, 96);
-            this.cardRepair.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardRepair.FilterKey = "Təmirdə";
-            this.cardRepair.Name = "cardRepair";
-            this.cardRepair.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardLate
-            // 
-            this.cardLate.Title = "Gecikən";
-            this.cardLate.Value = "0";
-            this.cardLate.Glyph = "\uE823";
-            this.cardLate.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
-            this.cardLate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardLate.Size = new System.Drawing.Size(283, 96);
-            this.cardLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardLate.FilterKey = "late";
-            this.cardLate.Name = "cardLate";
-            this.cardLate.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardDone
-            // 
-            this.cardDone.Title = "Təhvil verilib";
-            this.cardDone.Value = "0";
-            this.cardDone.Glyph = "\uE73E";
-            this.cardDone.Accent = TexnikaReyestri.Controls.AccentKind.Ok;
-            this.cardDone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardDone.Size = new System.Drawing.Size(283, 96);
-            this.cardDone.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardDone.FilterKey = "Təhvil verilib";
-            this.cardDone.Name = "cardDone";
-            this.cardDone.Click += new System.EventHandler(this.card_Click);
             // 
             // grid
             // 
@@ -313,7 +245,7 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlHead;
-        private System.Windows.Forms.TableLayoutPanel tlpTiles;
+        private TexnikaReyestri.Controls.KartPaneli tlpTiles;
         private System.Windows.Forms.Panel pnlFoot;
         private TexnikaReyestri.Controls.RoundPanel rpGrid;
         private System.Windows.Forms.Label lblTitle;
@@ -322,10 +254,6 @@
         private TexnikaReyestri.Controls.RoundTextBox txtSearch;
         private TexnikaReyestri.Controls.RoundComboBox cmbStatus;
         private TexnikaReyestri.Controls.RoundComboBox cmbZavod;
-        private TexnikaReyestri.Controls.StatCard cardAll;
-        private TexnikaReyestri.Controls.StatCard cardRepair;
-        private TexnikaReyestri.Controls.StatCard cardLate;
-        private TexnikaReyestri.Controls.StatCard cardDone;
         private TexnikaReyestri.Controls.ModernGrid grid;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNov;

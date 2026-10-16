@@ -17,11 +17,7 @@
             this.pnlHead = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.segPeriod = new TexnikaReyestri.Controls.SegmentControl();
-            this.tlpTiles = new System.Windows.Forms.TableLayoutPanel();
-            this.cardTotal = new TexnikaReyestri.Controls.StatCard();
-            this.cardRepair = new TexnikaReyestri.Controls.StatCard();
-            this.cardLate = new TexnikaReyestri.Controls.StatCard();
-            this.cardAvg = new TexnikaReyestri.Controls.StatCard();
+            this.tlpTiles = new TexnikaReyestri.Controls.KartPaneli();
             this.tlpBody = new System.Windows.Forms.TableLayoutPanel();
             this.rpMonthly = new TexnikaReyestri.Controls.RoundPanel();
             this.lblMonthlyTitle = new System.Windows.Forms.Label();
@@ -36,7 +32,12 @@
             this.barTypes = new TexnikaReyestri.Controls.BarList();
             this.rpAvg = new TexnikaReyestri.Controls.RoundPanel();
             this.lblAvgTitle = new System.Windows.Forms.Label();
-            this.barAvg = new TexnikaReyestri.Controls.BarList();
+            this.gridZav = new TexnikaReyestri.Controls.ModernGrid();
+            this.colZavZavod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colZavDavam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colZavGozl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colZavTehvil = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colZavCemi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rpLate = new TexnikaReyestri.Controls.RoundPanel();
             this.lblLateTitle = new System.Windows.Forms.Label();
             this.lnkLate = new System.Windows.Forms.LinkLabel();
@@ -52,6 +53,7 @@
             this.colEvText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblFoot = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridLate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridZav)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridEvents)).BeginInit();
             this.pnlHead.SuspendLayout();
             this.tlpTiles.SuspendLayout();
@@ -97,73 +99,9 @@
             // 
             // tlpTiles
             // 
-            this.tlpTiles.ColumnCount = 4;
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.RowCount = 1;
-            this.tlpTiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0F));
-            this.tlpTiles.Controls.Add(this.cardTotal, 0, 0);
-            this.tlpTiles.Controls.Add(this.cardRepair, 1, 0);
-            this.tlpTiles.Controls.Add(this.cardLate, 2, 0);
-            this.tlpTiles.Controls.Add(this.cardAvg, 3, 0);
             this.tlpTiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tlpTiles.Size = new System.Drawing.Size(1172, 96);
-            this.tlpTiles.Padding = new System.Windows.Forms.Padding(0, 4, 0, 8);
             this.tlpTiles.Name = "tlpTiles";
-            // 
-            // cardTotal
-            // 
-            this.cardTotal.Title = "Cəmi texnika";
-            this.cardTotal.Value = "0";
-            this.cardTotal.Glyph = "\uE8FD";
-            this.cardTotal.Accent = TexnikaReyestri.Controls.AccentKind.Nav;
-            this.cardTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardTotal.Size = new System.Drawing.Size(283, 96);
-            this.cardTotal.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardTotal.FilterKey = "";
-            this.cardTotal.Name = "cardTotal";
-            this.cardTotal.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardRepair
-            // 
-            this.cardRepair.Title = "Təmirdə";
-            this.cardRepair.Value = "0";
-            this.cardRepair.Glyph = "\uE90F";
-            this.cardRepair.Accent = TexnikaReyestri.Controls.AccentKind.Info;
-            this.cardRepair.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardRepair.Size = new System.Drawing.Size(283, 96);
-            this.cardRepair.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardRepair.FilterKey = "Təmirdə";
-            this.cardRepair.Name = "cardRepair";
-            this.cardRepair.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardLate
-            // 
-            this.cardLate.Title = "Gecikən";
-            this.cardLate.Value = "0";
-            this.cardLate.Glyph = "\uE823";
-            this.cardLate.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
-            this.cardLate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardLate.Size = new System.Drawing.Size(283, 96);
-            this.cardLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardLate.FilterKey = "late";
-            this.cardLate.Name = "cardLate";
-            this.cardLate.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardAvg
-            // 
-            this.cardAvg.Title = "Orta təmir müddəti";
-            this.cardAvg.Value = "0";
-            this.cardAvg.Glyph = "\uE916";
-            this.cardAvg.Accent = TexnikaReyestri.Controls.AccentKind.Ok;
-            this.cardAvg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardAvg.Size = new System.Drawing.Size(283, 96);
-            this.cardAvg.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardAvg.FilterKey = "";
-            this.cardAvg.Name = "cardAvg";
-            this.cardAvg.Click += new System.EventHandler(this.card_Click);
+            this.tlpTiles.KartClicked += new System.EventHandler<string>(this.kart_Clicked);
             // 
             // tlpBody
             // 
@@ -294,7 +232,7 @@
             // 
             // rpAvg
             // 
-            this.rpAvg.Controls.Add(this.barAvg);
+            this.rpAvg.Controls.Add(this.gridZav);
             this.rpAvg.Controls.Add(this.lblAvgTitle);
             this.rpAvg.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
             this.rpAvg.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -307,20 +245,55 @@
             this.lblAvgTitle.AutoSize = false;
             this.lblAvgTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
             this.lblAvgTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblAvgTitle.Text = "Təmir növü üzrə orta müddət (gün)";
+            this.lblAvgTitle.Text = "Zavodlar üzrə icra vəziyyəti";
             this.lblAvgTitle.Tag = "muted";
             this.lblAvgTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblAvgTitle.Size = new System.Drawing.Size(352, 26);
             this.lblAvgTitle.Name = "lblAvgTitle";
             // 
-            // barAvg
+            // gridZav
             // 
-            this.barAvg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.barAvg.Size = new System.Drawing.Size(352, 100);
-            this.barAvg.BarColor = TexnikaReyestri.Controls.ChartColor.Chart2;
-            this.barAvg.LabelWidth = 110;
-            this.barAvg.Name = "barAvg";
-            this.barAvg.ItemClicked += new System.EventHandler<string>(this.barAvg_ItemClicked);
+            this.gridZav.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colZavZavod,
+            this.colZavDavam,
+            this.colZavGozl,
+            this.colZavTehvil,
+            this.colZavCemi});
+            this.gridZav.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridZav.Size = new System.Drawing.Size(352, 100);
+            this.gridZav.Name = "gridZav";
+            this.gridZav.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridZav_CellClick);
+            // 
+            // colZavZavod
+            // 
+            this.colZavZavod.HeaderText = "Zavod";
+            this.colZavZavod.Name = "colZavZavod";
+            this.colZavZavod.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colZavZavod.MinimumWidth = 100;
+            // 
+            // colZavDavam
+            // 
+            this.colZavDavam.HeaderText = "Təmiri davam edir";
+            this.colZavDavam.Name = "colZavDavam";
+            this.colZavDavam.Width = 90;
+            // 
+            // colZavGozl
+            // 
+            this.colZavGozl.HeaderText = "Təhvil gözlənilir";
+            this.colZavGozl.Name = "colZavGozl";
+            this.colZavGozl.Width = 90;
+            // 
+            // colZavTehvil
+            // 
+            this.colZavTehvil.HeaderText = "Təhvil verilib";
+            this.colZavTehvil.Name = "colZavTehvil";
+            this.colZavTehvil.Width = 80;
+            // 
+            // colZavCemi
+            // 
+            this.colZavCemi.HeaderText = "Cəmi";
+            this.colZavCemi.Name = "colZavCemi";
+            this.colZavCemi.Width = 70;
             // 
             // rpLate
             // 
@@ -463,6 +436,7 @@
             this.Controls.Add(this.pnlHead);
             this.Name = "HomePage";
             ((System.ComponentModel.ISupportInitialize)(this.gridLate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridZav)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridEvents)).EndInit();
             this.rpEvents.ResumeLayout(false);
             this.rpEvents.PerformLayout();
@@ -491,11 +465,7 @@
         private System.Windows.Forms.Panel pnlHead;
         private System.Windows.Forms.Label lblTitle;
         private TexnikaReyestri.Controls.SegmentControl segPeriod;
-        private System.Windows.Forms.TableLayoutPanel tlpTiles;
-        private TexnikaReyestri.Controls.StatCard cardTotal;
-        private TexnikaReyestri.Controls.StatCard cardRepair;
-        private TexnikaReyestri.Controls.StatCard cardLate;
-        private TexnikaReyestri.Controls.StatCard cardAvg;
+        private TexnikaReyestri.Controls.KartPaneli tlpTiles;
         private System.Windows.Forms.TableLayoutPanel tlpBody;
         private TexnikaReyestri.Controls.RoundPanel rpMonthly;
         private System.Windows.Forms.Label lblMonthlyTitle;
@@ -510,7 +480,12 @@
         private TexnikaReyestri.Controls.BarList barTypes;
         private TexnikaReyestri.Controls.RoundPanel rpAvg;
         private System.Windows.Forms.Label lblAvgTitle;
-        private TexnikaReyestri.Controls.BarList barAvg;
+        private TexnikaReyestri.Controls.ModernGrid gridZav;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colZavZavod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colZavDavam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colZavGozl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colZavTehvil;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colZavCemi;
         private TexnikaReyestri.Controls.RoundPanel rpLate;
         private System.Windows.Forms.Label lblLateTitle;
         private System.Windows.Forms.LinkLabel lnkLate;

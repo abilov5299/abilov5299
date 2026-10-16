@@ -18,11 +18,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblAsOf = new System.Windows.Forms.Label();
             this.btnExport = new TexnikaReyestri.Controls.FlatButton();
-            this.tlpTiles = new System.Windows.Forms.TableLayoutPanel();
-            this.cardTotal = new TexnikaReyestri.Controls.StatCard();
-            this.cardRepair = new TexnikaReyestri.Controls.StatCard();
-            this.cardLate = new TexnikaReyestri.Controls.StatCard();
-            this.cardStale = new TexnikaReyestri.Controls.StatCard();
+            this.tlpTiles = new TexnikaReyestri.Controls.KartPaneli();
             this.rpGrid = new TexnikaReyestri.Controls.RoundPanel();
             this.grid = new TexnikaReyestri.Controls.ModernGrid();
             this.colZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,73 +77,9 @@
             // 
             // tlpTiles
             // 
-            this.tlpTiles.ColumnCount = 4;
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.0F));
-            this.tlpTiles.RowCount = 1;
-            this.tlpTiles.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0F));
-            this.tlpTiles.Controls.Add(this.cardTotal, 0, 0);
-            this.tlpTiles.Controls.Add(this.cardRepair, 1, 0);
-            this.tlpTiles.Controls.Add(this.cardLate, 2, 0);
-            this.tlpTiles.Controls.Add(this.cardStale, 3, 0);
             this.tlpTiles.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tlpTiles.Size = new System.Drawing.Size(1172, 96);
-            this.tlpTiles.Padding = new System.Windows.Forms.Padding(0, 4, 0, 8);
             this.tlpTiles.Name = "tlpTiles";
-            // 
-            // cardTotal
-            // 
-            this.cardTotal.Title = "Cəmi texnika";
-            this.cardTotal.Value = "0";
-            this.cardTotal.Glyph = "\uE8FD";
-            this.cardTotal.Accent = TexnikaReyestri.Controls.AccentKind.Nav;
-            this.cardTotal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardTotal.Size = new System.Drawing.Size(283, 96);
-            this.cardTotal.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardTotal.FilterKey = "";
-            this.cardTotal.Name = "cardTotal";
-            this.cardTotal.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardRepair
-            // 
-            this.cardRepair.Title = "Təmirdə";
-            this.cardRepair.Value = "0";
-            this.cardRepair.Glyph = "\uE90F";
-            this.cardRepair.Accent = TexnikaReyestri.Controls.AccentKind.Info;
-            this.cardRepair.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardRepair.Size = new System.Drawing.Size(283, 96);
-            this.cardRepair.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardRepair.FilterKey = "Təmirdə";
-            this.cardRepair.Name = "cardRepair";
-            this.cardRepair.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardLate
-            // 
-            this.cardLate.Title = "Gecikən";
-            this.cardLate.Value = "0";
-            this.cardLate.Glyph = "\uE823";
-            this.cardLate.Accent = TexnikaReyestri.Controls.AccentKind.Bad;
-            this.cardLate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardLate.Size = new System.Drawing.Size(283, 96);
-            this.cardLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardLate.FilterKey = "late";
-            this.cardLate.Name = "cardLate";
-            this.cardLate.Click += new System.EventHandler(this.card_Click);
-            // 
-            // cardStale
-            // 
-            this.cardStale.Title = "7+ gün paket yoxdur";
-            this.cardStale.Value = "0";
-            this.cardStale.Glyph = "\uE895";
-            this.cardStale.Accent = TexnikaReyestri.Controls.AccentKind.Warn;
-            this.cardStale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cardStale.Size = new System.Drawing.Size(283, 96);
-            this.cardStale.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.cardStale.FilterKey = "";
-            this.cardStale.Name = "cardStale";
-            this.cardStale.Click += new System.EventHandler(this.card_Click);
+            this.tlpTiles.KartClicked += new System.EventHandler<string>(this.kart_Clicked);
             // 
             // rpGrid
             // 
@@ -263,11 +195,7 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblAsOf;
         private TexnikaReyestri.Controls.FlatButton btnExport;
-        private System.Windows.Forms.TableLayoutPanel tlpTiles;
-        private TexnikaReyestri.Controls.StatCard cardTotal;
-        private TexnikaReyestri.Controls.StatCard cardRepair;
-        private TexnikaReyestri.Controls.StatCard cardLate;
-        private TexnikaReyestri.Controls.StatCard cardStale;
+        private TexnikaReyestri.Controls.KartPaneli tlpTiles;
         private TexnikaReyestri.Controls.RoundPanel rpGrid;
         private TexnikaReyestri.Controls.ModernGrid grid;
         private System.Windows.Forms.DataGridViewTextBoxColumn colZ;

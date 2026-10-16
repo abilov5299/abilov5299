@@ -19,7 +19,7 @@ namespace TexnikaReyestri.Pages.Admin
         private async void btnSave_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < P.Length; i++) await SistemRepo.ParamYazAsync(P[i].ad, ((int)N[i].Value).ToString());
-            await SistemRepo.ParamYazAsync("Animasiya", chkAnim.Checked ? "1" : "0"); Animator.Aktiv = chkAnim.Checked;
+            await SistemRepo.ParamYazAsync("Animasiya", chkAnim.Checked ? "1" : "0"); Animator.Aktiv = chkAnim.Checked; ReyestrFiltr.Yaxin = (int)numSoon.Value;
             await SistemRepo.AdminLogAsync("Sistem parametrləri dəyişdi"); Toast.Show(this, "Yadda saxlanıldı");
         }
     }

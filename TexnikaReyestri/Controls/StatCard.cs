@@ -3,7 +3,7 @@ using TexnikaReyestri.Core;
 
 namespace TexnikaReyestri.Controls
 {
-    public enum AccentKind { Nav, Info, Ok, Warn, Bad }
+    public enum AccentKind { Nav, Info, Ok, Warn, Bad, Purple }
 
     /// <summary>Statistika kartı: ikon, başlıq, böyük rəqəm və alt yazı. Click hadisəsi ilə filtr açmaq olar.</summary>
     [ToolboxItem(true), DefaultEvent("Click"), Description("Statistika kartı")]
@@ -28,7 +28,7 @@ namespace TexnikaReyestri.Controls
         [Category("Davranış"), Description("Klikləyəndə reyestrin açılacağı filtr")] public string FilterKey { get; set; } = "";
 
         public static Color AccentColor(AccentKind k) => k switch
-        { AccentKind.Info => Theme.Info, AccentKind.Ok => Theme.Ok, AccentKind.Warn => Theme.Warn, AccentKind.Bad => Theme.Bad, _ => Theme.Nav };
+        { AccentKind.Info => Theme.Info, AccentKind.Ok => Theme.Ok, AccentKind.Warn => Theme.Warn, AccentKind.Bad => Theme.Bad, AccentKind.Purple => Color.FromArgb(123, 44, 191), _ => Theme.Nav };
 
         protected override void OnMouseEnter(EventArgs e) { _hover = true; Invalidate(); base.OnMouseEnter(e); }
         protected override void OnMouseLeave(EventArgs e) { _hover = false; Invalidate(); base.OnMouseLeave(e); }
@@ -49,8 +49,12 @@ namespace TexnikaReyestri.Controls
             using var fv = new Font("Bahnschrift SemiBold", 19f);
             using var fs = new Font("Segoe UI", 7.5f);
             var tf = TextFormatFlags.NoPrefix | TextFormatFlags.EndEllipsis | TextFormatFlags.SingleLine;
-            TextRenderer.DrawText(g, Lang.T(_title).ToUpper(), ft, new Rectangle(x, top, w, 16), Theme.Muted, tf);
-            TextRenderer.DrawText(g, Lang.T(_value), fv, new Rectangle(x - 2, top + 13, w, 32), Theme.Title, tf);
+            // Uzun başlıq dar kartda iki sətrə keçir, rəqəm aşağı sürüşür
+            string bas = Lang.T(_title).ToUpper();
+            int ust = TextRenderer.MeasureText(g, bas, ft).Width > w && _sub.Length == 0 ? 13 : 0;
+            if (ust > 0) { top = Math.Max((int)r.Y + 6, top - 6); TextRenderer.DrawText(g, bas, ft, new Rectangle(x, top, w, 29), Theme.Muted, TextFormatFlags.NoPrefix | TextFormatFlags.WordBreak | TextFormatFlags.EndEllipsis); }
+            else TextRenderer.DrawText(g, bas, ft, new Rectangle(x, top, w, 16), Theme.Muted, tf);
+            TextRenderer.DrawText(g, Lang.T(_value), fv, new Rectangle(x - 2, top + 13 + ust, w, 32), Theme.Title, tf);
             if (_sub.Length > 0) TextRenderer.DrawText(g, Lang.T(_sub), fs, new Rectangle(x, top + 45, w, 16), _subColor ?? Theme.Muted, tf);
         }
 

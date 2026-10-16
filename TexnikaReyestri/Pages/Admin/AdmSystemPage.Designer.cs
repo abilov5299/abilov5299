@@ -137,7 +137,7 @@
             this.knumSoon.AutoSize = true;
             this.knumSoon.Font = new System.Drawing.Font("Segoe UI Semibold", 9.0F);
             this.knumSoon.Location = new System.Drawing.Point(14, 44);
-            this.knumSoon.Text = "\"Son tarix yaxınlaşır\"";
+            this.knumSoon.Text = "İcra müddətinə xəbərdarlıq";
             this.knumSoon.Name = "knumSoon";
             // 
             // dnumSoon
@@ -145,7 +145,7 @@
             this.dnumSoon.AutoSize = true;
             this.dnumSoon.Font = new System.Drawing.Font("Segoe UI", 8.0F);
             this.dnumSoon.Location = new System.Drawing.Point(14, 62);
-            this.dnumSoon.Text = "Bitməyə neçə gün qalmış";
+            this.dnumSoon.Text = "Bitməyə neçə gün qalmış (kart və bildiriş)";
             this.dnumSoon.Tag = "muted";
             this.dnumSoon.Name = "dnumSoon";
             // 

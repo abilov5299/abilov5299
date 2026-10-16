@@ -47,10 +47,10 @@ namespace TexnikaReyestri.Pages
             cmbZavod.SelectedIndex = f.Zavod == null || Session.ZavodFiltri != null ? 0 : Math.Max(0, cmbZavod.Items.IndexOf(f.Zavod));
             cmbStatus.SelectedIndex = f.Status == null ? 0 : Math.Max(0, cmbStatus.Items.IndexOf(f.Status));
             txtSearch.Text = f.Axtar ?? "";
-            _gecikenler = f.Gecikenler; _hazir = true;
+            _qrup = f.Qrup; _hazir = true;
             await YenidenAsync();
         }
-        private bool _gecikenler;
+        private string _qrup;   // kartdan gələn qrup filtri (ReyestrFiltr.Qrup)
 
         public void AxtarisaFokus() { txtSearch.Focus(); txtSearch.SelectAll(); }
 
@@ -58,10 +58,10 @@ namespace TexnikaReyestri.Pages
         {
             Zavod = Session.ZavodFiltri ?? (cmbZavod.SelectedIndex > 0 ? (string)Secimler.Sahe["TemirZavodu"][cmbZavod.SelectedIndex - 1] : null),
             Status = cmbStatus.SelectedIndex > 0 ? Secimler.Status[cmbStatus.SelectedIndex - 1] : null,
-            Axtar = txtSearch.Text.Trim(), Gecikenler = _gecikenler
+            Axtar = txtSearch.Text.Trim(), Qrup = _qrup
         };
 
-        private async void filtr_Changed(object sender, EventArgs e) { if (_hazir) { _gecikenler = false; await YenidenAsync(); } }
+        private async void filtr_Changed(object sender, EventArgs e) { if (_hazir) { _qrup = null; await YenidenAsync(); } }
 
         private async Task YenidenAsync()
         {
@@ -107,16 +107,14 @@ namespace TexnikaReyestri.Pages
         private void Sayac()
         {
             lblCount.Text = $"{Lang.T("Göstərilir")}: {_rows.Count:#,0} / {_total:#,0}".Replace(",", " ")
-                + (_gecikenler ? " · " + Lang.T("yalnız gecikənlər") : "");
+                + (_qrup is null or "cemi" ? "" : " · " + Lang.T(QrupAdi(_qrup)));
         }
 
         private async Task KartlarAsync()
         {
-            var b = new ReyestrFiltr { Zavod = _f.Zavod };
-            cardAll.Value = (await TexnikaRepo.SayAsync(b)).ToString("#,0").Replace(",", " ");
-            cardRepair.Value = (await TexnikaRepo.SayAsync(new() { Zavod = b.Zavod, Status = "Təmirdə" })).ToString("#,0").Replace(",", " ");
-            cardLate.Value = (await Task.Run(() => TexnikaRepo.SayAsync(new() { Zavod = b.Zavod, Gecikenler = true }))).ToString("#,0").Replace(",", " ");
-            cardDone.Value = (await TexnikaRepo.SayAsync(new() { Zavod = b.Zavod, Status = "Təhvil verilib" })).ToString("#,0").Replace(",", " ");
+            int n = await KartPaneli.YaxinGunAsync(); string z = _f.Zavod;
+            var d = await Task.Run(() => TexnikaRepo.KartStatAsync(z, n));
+            tlpTiles.Goster(KartStat.Cem(d.Values), n);
         }
 
         private void grid_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
@@ -143,11 +141,13 @@ namespace TexnikaReyestri.Pages
 
         private Task DetalAc(int i) => MainForm.Current.DetalAcAsync((long)_rows[i][0], _rows.Select(r => (long)r[0]).ToList());
 
-        private async void card_Click(object sender, EventArgs e)
+        private async void kart_Clicked(object sender, string qrup) => await FiltrTetbiqAsync(new ReyestrFiltr { Zavod = _f.Zavod, Qrup = qrup });
+
+        private static string QrupAdi(string q) => q switch
         {
-            var c = (StatCard)sender;
-            await FiltrTetbiqAsync(new ReyestrFiltr { Zavod = _f.Zavod, Status = c.FilterKey is "" or "late" ? null : c.FilterKey, Gecikenler = c.FilterKey == "late" });
-        }
+            "davam" => "təmiri davam edənlər", "gozl" => "təhvil gözləyənlər", "tehvil" => "təhvil verilmişlər",
+            "yaxin" => $"icra müddətinə 0–{ReyestrFiltr.Yaxin} gün qalanlar", "late" => "icra müddəti keçmişlər", _ => ""
+        };
 
         private async void btnImport_Click(object sender, EventArgs e)
         {
