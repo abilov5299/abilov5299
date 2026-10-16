@@ -12,6 +12,11 @@ namespace TexnikaReyestri.Data
         public string Qrup;
         public int YaxinGun = Yaxin; // "yaxin" üçün
         public static int Yaxin = 3;  // Admin → Sistem → BildirisYaxin (KartPaneli yükləyəndə yenilənir)
+        public static int Sari = 20;  // Admin → Sistem → IcraSari: (Yaxin+1)–Sari gün qalıb
+        public string Icra;           // null, "sari", "yaxin", "late", "bos" — yalnız təmiri davam edənlərdən
+        public string Mesul;          // MesulIcraci
+        public string TarixSahe;      // GozlenilenBitme, FaktikiBitme, DaxilolmaTarixi, BaslamaTarixi
+        public string TarixDan, TarixDek;   // yyyy-MM-dd, null = sərhəd yoxdur
         public bool Gecikenler { get => Qrup == "late"; set => Qrup = value ? "late" : Qrup == "late" ? null : Qrup; }
         public string Axtar;     // FTS: marka, zavod nömrəsi, lülə nömrəsi, qeyd
     }
@@ -63,7 +68,7 @@ namespace TexnikaReyestri.Data
             await using var con = await LocalDb.AcAsync(ct);
             using var cmd = con.CreateCommand();
             // Filtr yoxdursa (və ya yalnız zavod/status), icmal cədvəlindən dərhal oxu
-            if (string.IsNullOrEmpty(f.Axtar) && f.Qrup == null)
+            if (string.IsNullOrEmpty(f.Axtar) && f.Qrup == null && f.Icra == null && f.Mesul == null && f.TarixDan == null && f.TarixDek == null)
             {
                 cmd.CommandText = "SELECT IFNULL(SUM(Say),0) FROM Icmal WHERE ($z IS NULL OR Zavod=$z) AND ($s IS NULL OR Status=$s);";
                 cmd.Parameters.AddWithValue("$z", (object)f.Zavod ?? DBNull.Value);
@@ -166,7 +171,7 @@ namespace TexnikaReyestri.Data
         }
 
         // Kartların tərifi: davam + gözləyir + təhvil = cəmi ("Təmirə yararsız" daxil deyil); müddət kartları yalnız "davam"dan
-        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə','Ehtiyat hissələrinin təminatı gözlənilir') AND IFNULL(FaktikiBitme,'')='')",
+        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir') AND IFNULL(FaktikiBitme,'')='')",
             GozlSql = "(IFNULL(FaktikiBitme,'')<>'' AND IFNULL(Status,'') NOT IN ('Təhvil verilib','Təmirə yararsız'))",
             TehvilSql = "(Status='Təhvil verilib')";
         internal static string QrupSql(string q) => q switch
@@ -176,6 +181,18 @@ namespace TexnikaReyestri.Data
             "yaxin" => $"({DavamSql} AND GozlenilenBitme >= $bugun AND GozlenilenBitme <= $yaxin)",
             _ => $"({DavamSql} OR {GozlSql} OR {TehvilSql})"
         };
+
+        /// <summary>Məsul icraçıların siyahısı (filtr üçün).</summary>
+        public static async Task<List<string>> MesullarAsync(string zavod)
+        {
+            await using var con = await LocalDb.AcAsync();
+            using var cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT DISTINCT MesulIcraci FROM Texnikalar WHERE Silinib=0 AND IFNULL(MesulIcraci,'')<>'' AND ($z IS NULL OR TemirZavodu=$z) ORDER BY 1 LIMIT 500;";
+            cmd.Parameters.AddWithValue("$z", (object)zavod ?? DBNull.Value);
+            var l = new List<string>(); await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync()) l.Add(r.GetString(0));
+            return l;
+        }
 
         /// <summary>6 kartın sayları zavodlar üzrə (açar: zavod adı). zavod = null → hamısı.</summary>
         public static async Task<Dictionary<string, KartStat>> KartStatAsync(string zavod, int yaxinGun, CancellationToken ct = default)
@@ -200,19 +217,33 @@ GROUP BY 1;";
             var w = new StringBuilder("Silinib = 0");
             if (f.Zavod != null) { w.Append(" AND TemirZavodu = $z"); cmd.Parameters.AddWithValue("$z", f.Zavod); }
             if (f.Status != null) { w.Append(" AND Status = $s"); cmd.Parameters.AddWithValue("$s", f.Status); }
-            if (f.Qrup != null)
+            if (f.Qrup != null) w.Append(" AND ").Append(QrupSql(f.Qrup));
+            if (f.Icra != null) w.Append(" AND ").Append(f.Icra switch
             {
-                w.Append(" AND ").Append(QrupSql(f.Qrup));
+                "sari" => $"({DavamSql} AND GozlenilenBitme > $yaxin AND GozlenilenBitme <= $sari)",
+                "bos" => $"({DavamSql} AND IFNULL(GozlenilenBitme,'')='')",
+                _ => QrupSql(f.Icra)
+            });
+            if (f.Qrup != null || f.Icra != null)
+            {
                 cmd.Parameters.AddWithValue("$bugun", DateTime.Today.ToString("yyyy-MM-dd"));
                 cmd.Parameters.AddWithValue("$yaxin", DateTime.Today.AddDays(f.YaxinGun).ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("$sari", DateTime.Today.AddDays(Math.Max(f.YaxinGun + 1, ReyestrFiltr.Sari)).ToString("yyyy-MM-dd"));
+            }
+            if (f.Mesul != null) { w.Append(" AND MesulIcraci = $m"); cmd.Parameters.AddWithValue("$m", f.Mesul); }
+            if ((f.TarixDan != null || f.TarixDek != null) && f.TarixSahe is "GozlenilenBitme" or "FaktikiBitme" or "DaxilolmaTarixi" or "BaslamaTarixi")
+            {
+                if (f.TarixDan != null) { w.Append($" AND {f.TarixSahe} >= $td"); cmd.Parameters.AddWithValue("$td", f.TarixDan); }
+                if (f.TarixDek != null) { w.Append($" AND {f.TarixSahe} <= $tk"); cmd.Parameters.AddWithValue("$tk", f.TarixDek); }
             }
             if (!string.IsNullOrWhiteSpace(f.Axtar))
             {
                 // Hər sözü prefiks kimi axtar: "bmp 02" -> "bmp"* "02"*
                 var ifade = string.Join(" ", f.Axtar.Split(' ', StringSplitOptions.RemoveEmptyEntries)
                                                .Select(s => "\"" + s.Replace("\"", "") + "\"*"));
-                w.Append(" AND Id IN (SELECT rowid FROM TexnikaAxtar WHERE TexnikaAxtar MATCH $q)");
-                cmd.Parameters.AddWithValue("$q", ifade);
+                // Məktub nömrələri FTS-də yoxdur: əlavə olaraq mətn içində axtarılır
+                w.Append(" AND (Id IN (SELECT rowid FROM TexnikaAxtar WHERE TexnikaAxtar MATCH $q) OR Mektublar LIKE $mk)");
+                cmd.Parameters.AddWithValue("$q", ifade); cmd.Parameters.AddWithValue("$mk", "%" + f.Axtar.Trim() + "%");
             }
             return w;
         }

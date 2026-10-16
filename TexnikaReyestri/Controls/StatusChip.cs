@@ -13,14 +13,14 @@ namespace TexnikaReyestri.Controls
             Font = new Font("Segoe UI Semibold", 8f); Size = new Size(90, 22); Text = "Təmirdə"; BackColor = Color.Transparent;
         }
 
-        protected override void OnTextChanged(EventArgs e) { Width = Math.Max(30, TextRenderer.MeasureText(Lang.T(Text), Font).Width + 14); Invalidate(); base.OnTextChanged(e); }
+        protected override void OnTextChanged(EventArgs e) { Width = Math.Max(30, TextRenderer.MeasureText(Lang.T(Data.Secimler.Ekran(Text)), Font).Width + 14); Invalidate(); base.OnTextChanged(e); }
 
         public static void Draw(Graphics g, Rectangle r, string status, Font f)
         {
             var (back, fore) = Theme.StatusColors(status);
             Gfx.Smooth(g);
             using (var p = Gfx.Round(r, r.Height / 2f)) using (var b = new SolidBrush(back)) g.FillPath(b, p);
-            TextRenderer.DrawText(g, Lang.T(status), f, r, fore, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPrefix);
+            TextRenderer.DrawText(g, Lang.T(Data.Secimler.Ekran(status)), f, r, fore, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPrefix);
         }
 
         protected override void OnPaint(PaintEventArgs e)

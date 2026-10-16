@@ -48,7 +48,7 @@ namespace TexnikaReyestri.Controls
             {
                 e.PaintBackground(e.CellBounds, true);
                 var f = new Font("Segoe UI Semibold", 8f);
-                int w = TextRenderer.MeasureText(Lang.T(s), f).Width + 14;
+                int w = TextRenderer.MeasureText(Lang.T(Data.Secimler.Ekran(s)), f).Width + 14;
                 StatusChip.Draw(e.Graphics, new Rectangle(e.CellBounds.X + 8, e.CellBounds.Y + (e.CellBounds.Height - 22) / 2, w, 22), s, f);
                 e.Handled = true;
             }

@@ -215,6 +215,7 @@ namespace TexnikaReyestri.Services
                     }
                     if (silinib) sil++; else if (movcud is null) yeni++; else dey++;
                 }
+                using (var nc = con.CreateCommand()) { nc.Transaction = tr; nc.CommandText = "UPDATE Texnikalar SET Status='Hissə gözləyir' WHERE Status='Ehtiyat hissələrinin təminatı gözlənilir';"; await nc.ExecuteNonQueryAsync(ct); }   // ekran adı ilə gəlmiş paket
                 return (yeni, dey, sil, red);
             }, ct);
         }

@@ -35,7 +35,11 @@ namespace TexnikaReyestri.Controls
         }
 
         /// <summary>Admin parametrini (BildirisYaxin) oxuyur və 5-ci kartın başlığını yeniləyir.</summary>
-        public static async Task<int> YaxinGunAsync() => ReyestrFiltr.Yaxin = await SistemRepo.ParamAsync("BildirisYaxin", 3);
+        public static async Task<int> YaxinGunAsync()
+        {
+            ReyestrFiltr.Sari = await SistemRepo.ParamAsync("IcraSari", 20);
+            return ReyestrFiltr.Yaxin = await SistemRepo.ParamAsync("BildirisYaxin", 3);
+        }
 
         public void Goster(KartStat s, int yaxinGun)
         {

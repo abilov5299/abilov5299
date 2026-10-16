@@ -29,13 +29,13 @@ CREATE TABLE IF NOT EXISTS Texnikalar (
             foreach (var s in Saheler.Hamisi.Where(s => !movcud.Contains(s.Kod)))
                 LocalDb.Exec(con, $"ALTER TABLE Texnikalar ADD COLUMN {s.Kod} {Saheler.SqlTip(s.Nov)};");
 
-            // Köçürmə: "Hissə gözləyir" → "Ehtiyat hissələrinin təminatı gözlənilir" (köhnə adlı qismən indeks yenidən qurulur; Icmal trigger ilə yenilənir)
+            // Əvvəlki versiya statusu bazada dəyişmişdisə, geri qaytar (ad yalnız ekranda dəyişir: Secimler.Ekran)
             using (var k = con.CreateCommand())
             {
-                k.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE name='IX_T_Gec' AND sql LIKE '%Hissə gözləyir%';";
+                k.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE name='IX_T_Gec' AND sql LIKE '%Ehtiyat hissələrinin təminatı gözlənilir%';";
                 if ((long)k.ExecuteScalar() > 0) LocalDb.Exec(con, "DROP INDEX IX_T_Gec;");
             }
-            LocalDb.Exec(con, "UPDATE Texnikalar SET Status='Ehtiyat hissələrinin təminatı gözlənilir' WHERE Status='Hissə gözləyir';");
+            LocalDb.Exec(con, "UPDATE Texnikalar SET Status='Hissə gözləyir' WHERE Status='Ehtiyat hissələrinin təminatı gözlənilir';");
 
             LocalDb.Exec(con, @"
 -- Reyestrin filtr + sıralama indeksləri (keyset səhifələmə üçün sonda Id var)
@@ -49,7 +49,7 @@ CREATE INDEX IF NOT EXISTS IX_T_Fakt    ON Texnikalar(TemirZavodu, FaktikiBitme)
 CREATE INDEX IF NOT EXISTS IX_T_DaxilG  ON Texnikalar(DaxilolmaTarixi) WHERE Silinib=0;
 CREATE INDEX IF NOT EXISTS IX_T_FaktG   ON Texnikalar(FaktikiBitme, BaslamaTarixi, TemirZavodu, TemirNovu) WHERE Silinib=0;
 CREATE INDEX IF NOT EXISTS IX_T_Nov     ON Texnikalar(Nov) WHERE Silinib=0;
-CREATE INDEX IF NOT EXISTS IX_T_Gec     ON Texnikalar(GozlenilenBitme, TemirZavodu) WHERE Silinib=0 AND Status IN ('Qəbul edilib','Təmirdə','Ehtiyat hissələrinin təminatı gözlənilir');
+CREATE INDEX IF NOT EXISTS IX_T_Gec     ON Texnikalar(GozlenilenBitme, TemirZavodu) WHERE Silinib=0 AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir');
 
 -- Mətn axtarışı: LIKE '%..%' əvəzinə (1 mln sətirdə ~6 ms)
 CREATE VIRTUAL TABLE IF NOT EXISTS TexnikaAxtar USING fts5(

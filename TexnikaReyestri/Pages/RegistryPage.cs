@@ -24,9 +24,10 @@ namespace TexnikaReyestri.Pages
             InitializeComponent();
             _axtar.Tick += async (_, _) => { _axtar.Stop(); await YenidenAsync(); };
             txtSearch.TextChanged += (_, _) => { if (_hazir) { _axtar.Stop(); _axtar.Start(); } };
-            cmbZavod.Items.Add("Zavod: Hamısı"); cmbZavod.Items.AddRange(Secimler.Sahe["TemirZavodu"]);
-            cmbStatus.Items.Add("Status: Hamısı"); cmbStatus.Items.AddRange(Secimler.Status);
+            cmbZavod.Items.Add("Hamısı"); cmbZavod.Items.AddRange(Secimler.Sahe["TemirZavodu"]);
+            cmbStatus.Items.Add("Hamısı"); cmbStatus.Items.AddRange(StatusSecim.Select(x => x.ad).ToArray());
             cmbZavod.SelectedIndex = 0; cmbStatus.SelectedIndex = 0;
+            FiltrPaneliQur();
             grid.WheelScrolled += (_, _) => ElaveYukle();
             grid.KeyDown += (_, e) => { if (e.KeyCode is Keys.Down or Keys.PageDown or Keys.End) ElaveYukle(); if (e.KeyCode == Keys.Enter && grid.CurrentRow != null) { e.Handled = true; _ = DetalAc(grid.CurrentRow.Index); } };
             _hazir = true;
@@ -34,7 +35,8 @@ namespace TexnikaReyestri.Pages
 
         public override async Task OnShownAsync()
         {
-            cmbZavod.Visible = Session.ZavodFiltri == null;
+            cmbZavod.Visible = lblZavod.Visible = Session.ZavodFiltri == null;
+            await IcraVeMesulYenileAsync();
             btnImport.Visible = Session.YazaBiler;
             // Bazada dəyişiklik olubsa (yeni texnika, redaktə, idxal) siyahını yenidən yüklə, yoxsa yalnız kartları yenilə
             if (_rows.Count == 0 || await TexnikaRepo.SonDeyisikAsync() != _bazaVersiya) await YenidenAsync(); else await KartlarAsync();
@@ -45,20 +47,79 @@ namespace TexnikaReyestri.Pages
         {
             _hazir = false;
             cmbZavod.SelectedIndex = f.Zavod == null || Session.ZavodFiltri != null ? 0 : Math.Max(0, cmbZavod.Items.IndexOf(f.Zavod));
-            cmbStatus.SelectedIndex = f.Status == null ? 0 : Math.Max(0, cmbStatus.Items.IndexOf(f.Status));
+            // Kart qrupu uyğun açılan siyahıya köçürülür; "davam" və "cemi" üçün siyahıda yer yoxdur — gizli qalır
+            int si = f.Status == null ? 0 : Array.FindIndex(StatusSecim, x => x.status == f.Status) + 1;
+            if (f.Qrup is "gozl" or "tehvil") si = Array.FindIndex(StatusSecim, x => x.qrup == f.Qrup || x.status == "Təhvil verilib" && f.Qrup == "tehvil") + 1;
+            cmbStatus.SelectedIndex = Math.Max(0, si);
+            cmbIcra.SelectedIndex = Math.Max(0, Array.IndexOf(IcraKod, f.Qrup is "yaxin" or "late" ? f.Qrup : f.Icra));
+            cmbMesul.SelectedIndex = f.Mesul == null ? 0 : Math.Max(0, cmbMesul.Items.IndexOf(f.Mesul));
+            dtDan.Checked = dtDek.Checked = false;
             txtSearch.Text = f.Axtar ?? "";
-            _qrup = f.Qrup; _hazir = true;
+            _qrup = f.Qrup is "davam" ? f.Qrup : null; _hazir = true;
             await YenidenAsync();
         }
-        private string _qrup;   // kartdan gələn qrup filtri (ReyestrFiltr.Qrup)
+        private string _qrup;   // kartdan gələn, siyahılarda olmayan qrup ("davam")
+
+        // Status siyahısı: bazadakı dəyər və ya kart qrupu; ad ekranda Secimler.Ekran ilə göstərilir. "Təmirə yararsız" yoxdur
+        private static readonly (string ad, string status, string qrup)[] StatusSecim =
+        {
+            ("Qəbul edilib", "Qəbul edilib", null), ("Hissə gözləyir", "Hissə gözləyir", null), ("Təmirdə", "Təmirdə", null),
+            ("Təmir tamamlanıb, təhvil gözlənilir", null, "gozl"), ("Təhvil verilib", "Təhvil verilib", null)
+        };
+        private static readonly string[] IcraKod = { null, "sari", "yaxin", "late", "bos" };
+        private static readonly string[] TarixKod = { "GozlenilenBitme", "FaktikiBitme", "DaxilolmaTarixi", "BaslamaTarixi" };
+        private RoundComboBox cmbIcra, cmbMesul, cmbTarix; private RoundDatePicker dtDan, dtDek; private Label lblZavod;
+
+        /// <summary>Filtr paneli (kartların altında): 2 sətir — Zavod, Status, İcra müddəti, Məsul icraçı / Axtarış, Tarix növü, Tarixdən, Tarixədək.</summary>
+        private void FiltrPaneliQur()
+        {
+            RoundComboBox Cmb(params string[] items) { var c = new RoundComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font("Segoe UI", 10f), Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) }; c.Items.AddRange(items); c.SelectedIndex = 0; c.SelectedIndexChanged += filtr_Changed; return c; }
+            RoundDatePicker Dt() { var d = new RoundDatePicker { ShowCheckBox = true, Checked = false, Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) }; d.ValueChanged += filtr_Changed; return d; }
+            Label L(string t) => new() { Text = t, AutoSize = false, Dock = DockStyle.Fill, Tag = "muted", Font = new Font("Segoe UI Semibold", 9f), TextAlign = ContentAlignment.BottomLeft, Margin = new Padding(0, 0, 12, 2) };
+            cmbIcra = Cmb("Hamısı", "", "", "İcra müddəti keçib", "İcra müddəti müəyyən edilməyib");
+            cmbMesul = Cmb("Hamısı");
+            cmbTarix = Cmb("Plan üzrə bitmə tarixi", "Faktiki bitmə tarixi", "Zavoda daxilolma tarixi", "Təmirin başlama tarixi");
+            dtDan = Dt(); dtDek = Dt();
+            foreach (var c in new Control[] { cmbZavod, cmbStatus, txtSearch }) { c.Anchor = AnchorStyles.Left | AnchorStyles.Top; c.Dock = DockStyle.Fill; c.Margin = new Padding(0, 0, 12, 0); }
+            txtSearch.PlaceholderText = "Texnikanın adı, inventar kodu və ya məktub nömrəsi";
+            var t = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 4, RowCount = 4, BackColor = Color.Transparent };
+            for (int i = 0; i < 4; i++) t.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25f));
+            foreach (var h in new[] { 22, 36, 26, 36 }) t.RowStyles.Add(new RowStyle(SizeType.Absolute, h));
+            t.Controls.Add(lblZavod = L("Zavod:"), 0, 0); t.Controls.Add(L("Status:"), 1, 0); t.Controls.Add(L("İcra müddəti:"), 2, 0); t.Controls.Add(L("Məsul icraçı:"), 3, 0);
+            t.Controls.Add(cmbZavod, 0, 1); t.Controls.Add(cmbStatus, 1, 1); t.Controls.Add(cmbIcra, 2, 1); t.Controls.Add(cmbMesul, 3, 1);
+            t.Controls.Add(L("Tarix növü:"), 1, 2); t.Controls.Add(L("Tarixdən:"), 2, 2); t.Controls.Add(L("Tarixədək:"), 3, 2);
+            t.Controls.Add(txtSearch, 0, 3); t.Controls.Add(cmbTarix, 1, 3); t.Controls.Add(dtDan, 2, 3); t.Controls.Add(dtDek, 3, 3);
+            var rp = new RoundPanel { Dock = DockStyle.Top, Height = 150, Padding = new Padding(14, 8, 2, 10), Margin = new Padding(0, 0, 0, 8) };
+            rp.Controls.Add(t); Controls.Add(rp);
+            // Dok sırası: başlıq → kartlar → filtr → cədvəl
+            rp.BringToFront(); rpGrid.BringToFront();
+        }
+
+        /// <summary>İcra müddəti siyahısının adları Admin hədlərindən; məsul icraçılar bazadan.</summary>
+        private async Task IcraVeMesulYenileAsync()
+        {
+            int n = await KartPaneli.YaxinGunAsync(), m = Math.Max(n + 1, ReyestrFiltr.Sari);
+            bool h = _hazir; _hazir = false;
+            cmbIcra.Items[1] = $"{n + 1}–{m} gün qalıb"; cmbIcra.Items[2] = $"0–{n} gün qalıb";
+            string sec = cmbMesul.SelectedIndex > 0 ? (string)cmbMesul.SelectedItem : null;
+            var l = await TexnikaRepo.MesullarAsync(Session.ZavodFiltri);
+            cmbMesul.BeginUpdate(); while (cmbMesul.Items.Count > 1) cmbMesul.Items.RemoveAt(1); cmbMesul.Items.AddRange(l.ToArray()); cmbMesul.EndUpdate();
+            cmbMesul.SelectedIndex = sec == null ? 0 : Math.Max(0, cmbMesul.Items.IndexOf(sec));
+            _hazir = h;
+        }
 
         public void AxtarisaFokus() { txtSearch.Focus(); txtSearch.SelectAll(); }
 
         private ReyestrFiltr Filtr() => new()
         {
             Zavod = Session.ZavodFiltri ?? (cmbZavod.SelectedIndex > 0 ? (string)Secimler.Sahe["TemirZavodu"][cmbZavod.SelectedIndex - 1] : null),
-            Status = cmbStatus.SelectedIndex > 0 ? Secimler.Status[cmbStatus.SelectedIndex - 1] : null,
-            Axtar = txtSearch.Text.Trim(), Qrup = _qrup
+            Status = cmbStatus.SelectedIndex > 0 ? StatusSecim[cmbStatus.SelectedIndex - 1].status : null,
+            Qrup = cmbStatus.SelectedIndex > 0 && StatusSecim[cmbStatus.SelectedIndex - 1].qrup is { } q ? q : _qrup,
+            Icra = IcraKod[Math.Max(0, cmbIcra.SelectedIndex)],
+            Mesul = cmbMesul.SelectedIndex > 0 ? (string)cmbMesul.SelectedItem : null,
+            TarixSahe = TarixKod[Math.Max(0, cmbTarix.SelectedIndex)],
+            TarixDan = dtDan.Checked ? Vaxt.Iso(dtDan.Value.Date) : null, TarixDek = dtDek.Checked ? Vaxt.Iso(dtDek.Value.Date) : null,
+            Axtar = txtSearch.Text.Trim()
         };
 
         private async void filtr_Changed(object sender, EventArgs e) { if (_hazir) { _qrup = null; await YenidenAsync(); } }
@@ -107,7 +168,7 @@ namespace TexnikaReyestri.Pages
         private void Sayac()
         {
             lblCount.Text = $"{Lang.T("Göstərilir")}: {_rows.Count:#,0} / {_total:#,0}".Replace(",", " ")
-                + (_qrup is null or "cemi" ? "" : " · " + Lang.T(QrupAdi(_qrup)));
+                + (_qrup == "davam" ? " · " + Lang.T("təmiri davam edənlər") : "");
         }
 
         private async Task KartlarAsync()
@@ -142,12 +203,6 @@ namespace TexnikaReyestri.Pages
         private Task DetalAc(int i) => MainForm.Current.DetalAcAsync((long)_rows[i][0], _rows.Select(r => (long)r[0]).ToList());
 
         private async void kart_Clicked(object sender, string qrup) => await FiltrTetbiqAsync(new ReyestrFiltr { Zavod = _f.Zavod, Qrup = qrup });
-
-        private static string QrupAdi(string q) => q switch
-        {
-            "davam" => "təmiri davam edənlər", "gozl" => "təhvil gözləyənlər", "tehvil" => "təhvil verilmişlər",
-            "yaxin" => $"icra müddətinə 0–{ReyestrFiltr.Yaxin} gün qalanlar", "late" => "icra müddəti keçmişlər", _ => ""
-        };
 
         private async void btnImport_Click(object sender, EventArgs e)
         {

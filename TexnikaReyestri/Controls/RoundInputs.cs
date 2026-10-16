@@ -101,7 +101,7 @@ namespace TexnikaReyestri.Controls
             if (e.Index < 0) { using var bb = new SolidBrush(BackColor); e.Graphics.FillRectangle(bb, e.Bounds); return; }
             bool edit = (e.State & DrawItemState.ComboBoxEdit) != 0, sel = !edit && (e.State & DrawItemState.Selected) != 0;
             using (var b = new SolidBrush(sel ? Theme.Alt : BackColor)) e.Graphics.FillRectangle(b, e.Bounds);
-            TextRenderer.DrawText(e.Graphics, GetItemText(Items[e.Index]), Font, Rectangle.Inflate(e.Bounds, -4, 0), ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix);
+            TextRenderer.DrawText(e.Graphics, Lang.T(Data.Secimler.Ekran(GetItemText(Items[e.Index]))), Font, Rectangle.Inflate(e.Bounds, -4, 0), ForeColor, TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis | TextFormatFlags.NoPrefix);
         }
 
         protected override void OnGotFocus(EventArgs e) { base.OnGotFocus(e); Invalidate(); }

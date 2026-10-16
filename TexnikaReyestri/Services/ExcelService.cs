@@ -110,7 +110,7 @@ namespace TexnikaReyestri.Services
                     foreach (var k in new[] { "Nov", "Marka", "ZavodNo" }) if (!s.Deyerler.ContainsKey(k)) { xeta = true; qeyd.Add($"{Saheler.Hamisi.First(x => x.Kod == k).Ad} boşdur"); }
                     if (s.Deyerler.TryGetValue("IstehsalIli", out var il) && il is double y && (y < 1940 || y > DateTime.Today.Year + 1)) { xeb = true; qeyd.Add($"İl şübhəlidir ({y})"); }
                     s.Deyerler.TryAdd("Status", "Qəbul edilib");
-                    if (s.Deyerler["Status"] is string sto) s.Deyerler["Status"] = Secimler.StatusNormal(sto);   // köhnə ad
+                    if (s.Deyerler["Status"] is string sto) s.Deyerler["Status"] = Secimler.Baza(sto);   // ekran adı yazılıbsa
                     if (Session.ZavodFiltri != null) s.Deyerler.TryAdd("TemirZavodu", Session.ZavodFiltri);
                     if (s.Deyerler.TryGetValue("ZavodNo", out var zn))
                     {
@@ -201,7 +201,7 @@ namespace TexnikaReyestri.Services
                     }
                     if (s.StatusReng && si >= 0 && !r.IsDBNull(si))
                     { var (bk, fg) = Core.Theme.StatusColors(r.GetString(si)); ws.Cell(row, si + 2).Style.Fill.BackgroundColor = XLColor.FromColor(bk); ws.Cell(row, si + 2).Style.Font.FontColor = XLColor.FromColor(fg); }
-                    if (s.GecikenQirmizi && gi >= 0 && !r.IsDBNull(gi) && string.CompareOrdinal(r.GetString(gi), bugun) < 0 && si >= 0 && !r.IsDBNull(si) && r.GetString(si) is "Qəbul edilib" or "Təmirdə" or "Ehtiyat hissələrinin təminatı gözlənilir")
+                    if (s.GecikenQirmizi && gi >= 0 && !r.IsDBNull(gi) && string.CompareOrdinal(r.GetString(gi), bugun) < 0 && si >= 0 && !r.IsDBNull(si) && r.GetString(si) is "Qəbul edilib" or "Təmirdə" or "Hissə gözləyir")
                     { ws.Cell(row, gi + 2).Style.Font.FontColor = XLColor.FromHtml("#C00000"); ws.Cell(row, gi + 2).Style.Font.Bold = true; }
                     if (n2 % 500 == 0) p?.Report((int)(n2 * 90 / Math.Max(1, cemi)));
                 }
@@ -210,7 +210,7 @@ namespace TexnikaReyestri.Services
                 if (s.IcmalVereqi)
                 {
                     var ic = wb.AddWorksheet("İcmal"); var dt = await TexnikaRepo.ZavodIcmalAsync();
-                    string[] b = { "Zavod", "Cəmi", "Təmirdə", "Ehtiyat hissələrinin təminatı gözlənilir", "Gecikən", "Orta təmir (gün)" };
+                    string[] b = { "Zavod", "Cəmi", "Təmirdə", "Hissə gözləyir", "Gecikən", "Orta təmir (gün)" };
                     for (int i = 0; i < b.Length; i++) ic.Cell(1, i + 1).Value = b[i];
                     ic.Range(1, 1, 1, b.Length).Style.Fill.BackgroundColor = light; ic.Range(1, 1, 1, b.Length).Style.Font.Bold = true;
                     int rr = 2;

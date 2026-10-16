@@ -49,7 +49,7 @@ namespace TexnikaReyestri.Core
             return status switch
             {
                 "Təmirdə" => d ? (C("#17344A"), C("#8CC3EA")) : (C("#DCEBF6"), C("#1F5F8B")),
-                "Ehtiyat hissələrinin təminatı gözlənilir" => d ? (C("#3D2C12"), C("#F2B05E")) : (C("#FCE7D2"), C("#A65A10")),
+                "Hissə gözləyir" => d ? (C("#3D2C12"), C("#F2B05E")) : (C("#FCE7D2"), C("#A65A10")),
                 "Təhvil verilib" => d ? (C("#123A2A"), C("#6FD39A")) : (C("#DDF1E3"), C("#23703E")),
                 "Təmirə yararsız" or "Gecikir" or "Bloklanıb" or "Rədd edildi" => d ? (C("#3D1A1A"), C("#F28E89")) : (C("#F8DCDB"), C("#A3302C")),
                 "Aktiv" or "Uğurlu" => d ? (C("#123A2A"), C("#6FD39A")) : (C("#DDF1E3"), C("#23703E")),
@@ -59,7 +59,7 @@ namespace TexnikaReyestri.Core
 
         public static Color StatusBar(string status) => status switch
         {
-            "Təmirdə" => Info, "Ehtiyat hissələrinin təminatı gözlənilir" => Warn, "Təhvil verilib" => Ok, "Təmirə yararsız" => Bad, _ => Gray
+            "Təmirdə" => Info, "Hissə gözləyir" => Warn, "Təhvil verilib" => Ok, "Təmirə yararsız" => Bad, _ => Gray
         };
 
         /// <summary>Standart kontrolları temaya uyğun rəngləyir. Xüsusi kontrollar (IThemed) özləri çəkilir.</summary>

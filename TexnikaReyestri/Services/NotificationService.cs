@@ -16,7 +16,7 @@ namespace TexnikaReyestri.Services
                 using var cmd = con.CreateCommand();
                 cmd.CommandText = @"
 SELECT Id, Marka, ZavodNo, TemirZavodu, GozlenilenBitme, CAST(julianday($b)-julianday(GozlenilenBitme) AS INTEGER), Status, SorguStatus, BaslamaTarixi
-FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND Status IN ('Qəbul edilib','Təmirdə','Ehtiyat hissələrinin təminatı gözlənilir')
+FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir')
   AND (GozlenilenBitme <= date($b, '+' || $y || ' days') OR SorguStatus='Cavab gözlənilir');";
                 cmd.Parameters.AddWithValue("$b", bugun); cmd.Parameters.AddWithValue("$y", yaxin); cmd.Parameters.AddWithValue("$z", (object)Session.ZavodFiltri ?? DBNull.Value);
                 await using var r = await cmd.ExecuteReaderAsync();

@@ -59,7 +59,7 @@ namespace TexnikaReyestri.Pages
             {
                 if (Controls.Find("val_" + s.Kod, true).FirstOrDefault() is not Label l) continue;
                 string v = V(s.Kod);
-                l.Text = v == null ? "—" : s.Nov == SaheNov.Tarix ? Vaxt.Tarix(v) : s.Nov == SaheNov.Secim ? Lang.T(v) : v;
+                l.Text = v == null ? "—" : s.Nov == SaheNov.Tarix ? Vaxt.Tarix(v) : s.Nov == SaheNov.Secim ? Lang.T(Secimler.Ekran(v)) : v;
                 l.ForeColor = v == null ? Theme.Muted : s.Kod == "GozlenilenBitme" && gec ? Theme.Bad : Theme.Ink;
             }
             // Tarixçə

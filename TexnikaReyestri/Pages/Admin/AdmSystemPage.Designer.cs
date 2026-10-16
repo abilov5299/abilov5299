@@ -32,9 +32,13 @@
             this.dnumReq = new System.Windows.Forms.Label();
             this.numReq = new System.Windows.Forms.NumericUpDown();
             this.unumReq = new System.Windows.Forms.Label();
+            this.knumSari = new System.Windows.Forms.Label();
             this.knumPkg = new System.Windows.Forms.Label();
+            this.dnumSari = new System.Windows.Forms.Label();
             this.dnumPkg = new System.Windows.Forms.Label();
+            this.numSari = new System.Windows.Forms.NumericUpDown();
             this.numPkg = new System.Windows.Forms.NumericUpDown();
+            this.unumSari = new System.Windows.Forms.Label();
             this.unumPkg = new System.Windows.Forms.Label();
             this.rpGen = new TexnikaReyestri.Controls.RoundPanel();
             this.lblGenTitle = new System.Windows.Forms.Label();
@@ -48,6 +52,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numReq)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPkg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSari)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numKeep)).BeginInit();
             this.pnlHead.SuspendLayout();
             this.tlp.SuspendLayout();
@@ -99,9 +104,13 @@
             // rpNoti
             // 
             this.rpNoti.Controls.Add(this.unumPkg);
+            this.rpNoti.Controls.Add(this.unumSari);
             this.rpNoti.Controls.Add(this.numPkg);
+            this.rpNoti.Controls.Add(this.numSari);
             this.rpNoti.Controls.Add(this.dnumPkg);
+            this.rpNoti.Controls.Add(this.dnumSari);
             this.rpNoti.Controls.Add(this.knumPkg);
+            this.rpNoti.Controls.Add(this.knumSari);
             this.rpNoti.Controls.Add(this.unumReq);
             this.rpNoti.Controls.Add(this.numReq);
             this.rpNoti.Controls.Add(this.dnumReq);
@@ -240,6 +249,42 @@
             this.unumReq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.unumReq.Name = "unumReq";
             // 
+            // knumSari
+            // 
+            this.knumSari.AutoSize = true;
+            this.knumSari.Font = new System.Drawing.Font("Segoe UI Semibold", 9.0F);
+            this.knumSari.Location = new System.Drawing.Point(14, 268);
+            this.knumSari.Text = "İcra müddəti: sarı hədd";
+            this.knumSari.Name = "knumSari";
+            // 
+            // dnumSari
+            // 
+            this.dnumSari.AutoSize = true;
+            this.dnumSari.Font = new System.Drawing.Font("Segoe UI", 8.0F);
+            this.dnumSari.Location = new System.Drawing.Point(14, 286);
+            this.dnumSari.Text = "Reyestr filtri: (qırmızı+1)–bu gün qalıb";
+            this.dnumSari.Tag = "muted";
+            this.dnumSari.Name = "dnumSari";
+            // 
+            // numSari
+            // 
+            this.numSari.Location = new System.Drawing.Point(317, 272);
+            this.numSari.Size = new System.Drawing.Size(70, 25);
+            this.numSari.Font = new System.Drawing.Font("Segoe UI", 10.0F);
+            this.numSari.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
+            this.numSari.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numSari.Name = "numSari";
+            // 
+            // unumSari
+            // 
+            this.unumSari.AutoSize = true;
+            this.unumSari.Font = new System.Drawing.Font("Segoe UI", 9.0F);
+            this.unumSari.Location = new System.Drawing.Point(393, 276);
+            this.unumSari.Text = "gün";
+            this.unumSari.Tag = "muted";
+            this.unumSari.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.unumSari.Name = "unumSari";
+            // 
             // knumPkg
             // 
             this.knumPkg.AutoSize = true;
@@ -367,6 +412,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numReq)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPkg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSari)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numKeep)).EndInit();
             this.rpGen.ResumeLayout(false);
             this.rpGen.PerformLayout();
@@ -401,9 +447,13 @@
         private System.Windows.Forms.NumericUpDown numReq;
         private System.Windows.Forms.Label unumReq;
         private System.Windows.Forms.Label knumPkg;
+        private System.Windows.Forms.Label knumSari;
         private System.Windows.Forms.Label dnumPkg;
+        private System.Windows.Forms.Label dnumSari;
         private System.Windows.Forms.NumericUpDown numPkg;
+        private System.Windows.Forms.NumericUpDown numSari;
         private System.Windows.Forms.Label unumPkg;
+        private System.Windows.Forms.Label unumSari;
         private TexnikaReyestri.Controls.RoundPanel rpGen;
         private System.Windows.Forms.Label lblGenTitle;
         private System.Windows.Forms.Label knumKeep;

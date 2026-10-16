@@ -133,7 +133,7 @@ namespace TexnikaReyestri.Controls
     [ToolboxItem(true), DefaultEvent("StatusClicked"), Description("Status bölgüsü zolağı")]
     public class StatusBreakdown : Control, IThemed, ILocalizable
     {
-        private (string status, long count)[] _items = { ("Qəbul edilib", 9), ("Təmirdə", 46), ("Ehtiyat hissələrinin təminatı gözlənilir", 17), ("Təhvil verilib", 46), ("Təmirə yararsız", 6) };
+        private (string status, long count)[] _items = { ("Qəbul edilib", 9), ("Təmirdə", 46), ("Hissə gözləyir", 17), ("Təhvil verilib", 46), ("Təmirə yararsız", 6) };
         public event EventHandler<string> StatusClicked;
 
         public StatusBreakdown()
@@ -167,7 +167,7 @@ namespace TexnikaReyestri.Controls
             {
                 int y = 32 + i * 20; var (s, c) = _items[i];
                 using (var b = new SolidBrush(Theme.StatusBar(s))) g.FillRectangle(b, 0, y + 5, 10, 10);
-                TextRenderer.DrawText(g, Lang.T(s), Font, new Rectangle(18, y, Width - 120, 20), Theme.Ink, TextFormatFlags.VerticalCenter | TextFormatFlags.NoPrefix);
+                TextRenderer.DrawText(g, Lang.T(Data.Secimler.Ekran(s)), Font, new Rectangle(18, y, Width - 120, 20), Theme.Ink, TextFormatFlags.VerticalCenter | TextFormatFlags.NoPrefix);
                 TextRenderer.DrawText(g, c.ToString("#,0").Replace(",", " "), bf, new Rectangle(Width - 110, y, 60, 20), Theme.Ink, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
                 TextRenderer.DrawText(g, $"{Math.Round(c * 100.0 / tot)}%", Font, new Rectangle(Width - 46, y, 46, 20), Theme.Muted, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
             }
