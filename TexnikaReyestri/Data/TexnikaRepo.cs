@@ -166,7 +166,7 @@ namespace TexnikaReyestri.Data
         }
 
         // Kartların tərifi: davam + gözləyir + təhvil = cəmi ("Təmirə yararsız" daxil deyil); müddət kartları yalnız "davam"dan
-        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir') AND IFNULL(FaktikiBitme,'')='')",
+        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə','Ehtiyat hissələrinin təminatı gözlənilir') AND IFNULL(FaktikiBitme,'')='')",
             GozlSql = "(IFNULL(FaktikiBitme,'')<>'' AND IFNULL(Status,'') NOT IN ('Təhvil verilib','Təmirə yararsız'))",
             TehvilSql = "(Status='Təhvil verilib')";
         internal static string QrupSql(string q) => q switch

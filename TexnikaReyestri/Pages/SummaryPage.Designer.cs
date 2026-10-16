@@ -128,9 +128,9 @@
             // 
             // colH
             // 
-            this.colH.HeaderText = "Hissə gözləyir";
+            this.colH.HeaderText = "Ehtiyat hissələrinin təminatı gözlənilir";
             this.colH.Name = "colH";
-            this.colH.Width = 120;
+            this.colH.Width = 170;
             // 
             // colG
             // 

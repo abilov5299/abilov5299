@@ -74,7 +74,7 @@ namespace TexnikaReyestri.Core
             ["Zavod"] = ("Plant", "Завод"),
             ["Cəmi"] = ("Total", "Всего"),
             ["Təmirdə"] = ("In repair", "В ремонте"),
-            ["Hissə gözləyir"] = ("Awaiting parts", "Ожидает запчасти"),
+            ["Ehtiyat hissələrinin təminatı gözlənilir"] = ("Awaiting parts", "Ожидает запчасти"),
             ["Gecikən"] = ("Overdue", "Просрочено"),
             ["Gecikmə faizi"] = ("Overdue rate", "Доля просрочек"),
             ["Orta təmir (gün)"] = ("Avg. repair (days)", "Ср. ремонт (дни)"),

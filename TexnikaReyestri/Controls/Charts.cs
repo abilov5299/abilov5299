@@ -133,7 +133,7 @@ namespace TexnikaReyestri.Controls
     [ToolboxItem(true), DefaultEvent("StatusClicked"), Description("Status bölgüsü zolağı")]
     public class StatusBreakdown : Control, IThemed, ILocalizable
     {
-        private (string status, long count)[] _items = { ("Qəbul edilib", 9), ("Təmirdə", 46), ("Hissə gözləyir", 17), ("Təhvil verilib", 46), ("Təmirə yararsız", 6) };
+        private (string status, long count)[] _items = { ("Qəbul edilib", 9), ("Təmirdə", 46), ("Ehtiyat hissələrinin təminatı gözlənilir", 17), ("Təhvil verilib", 46), ("Təmirə yararsız", 6) };
         public event EventHandler<string> StatusClicked;
 
         public StatusBreakdown()

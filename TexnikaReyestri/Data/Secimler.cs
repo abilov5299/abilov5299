@@ -11,8 +11,11 @@ namespace TexnikaReyestri.Data
         };
         public const string UstAd = "Təmir və Texniki Təminat xidməti", EnUstAd = "Müdafiə Sənayesi İdarəsi";
 
-        public static readonly string[] Status = { "Qəbul edilib", "Təmirdə", "Hissə gözləyir", "Təhvil verilib", "Təmirə yararsız" };
-        public static readonly string[] AktivStatus = { "Qəbul edilib", "Təmirdə", "Hissə gözləyir" };
+        public static readonly string[] Status = { "Qəbul edilib", "Təmirdə", "Ehtiyat hissələrinin təminatı gözlənilir", "Təhvil verilib", "Təmirə yararsız" };
+        /// <summary>Statusun köhnə adı (köhnə baza, USB paketi, Excel) → yeni ad.</summary>
+        public const string KohneHisse = "Hissə gözləyir";
+        public static string StatusNormal(string s) => s == KohneHisse ? Status[2] : s;
+        public static readonly string[] AktivStatus = { "Qəbul edilib", "Təmirdə", "Ehtiyat hissələrinin təminatı gözlənilir" };
         public static readonly string[] Merhele = { "Qəbul", "Defekt aşkarlama", "Hissə təminatı", "Təmir", "Sınaq", "Təhvil" };
 
         public static readonly Dictionary<string, string[]> Sahe = new()
