@@ -74,11 +74,15 @@ namespace TexnikaReyestri.Controls
         [Category("Məzmun")] public string SeriesAName { get; set; } = "qəbul";
         [Category("Məzmun")] public string SeriesBName { get; set; } = "təhvil";
         [Category("Məzmun")] public string SeriesCName { get; set; } = "təhvil verilib";
+        /// <summary>Böyük görünüş: sütunların üstündə rəqəm, aşağıda dairəli əfsanə və sağda qeyd (Note).</summary>
+        [Category("Görünüş"), DefaultValue(false)] public bool Genis { get; set; }
+        [Category("Məzmun")] public string[] LegendNames { get; set; } = { "Qəbul edilib", "Təmir tamamlanıb", "Təhvil verilib" };
+        [Category("Məzmun")] public string Note { get; set; } = "";
 
         /// <summary>c verilərsə 3 sütun çəkilir (Theme.Chart3).</summary>
         public void SetData(string[] labels, double[] a, double[] b, double[] c = null) { _labels = labels; _a = a; _b = b; _c = c; Invalidate(); }
 
-        private int PL = 30; private const int PB = 20, PT = 8;   // PL: sol boşluq, ən uzun ox rəqəminə görə
+        private int PL = 30; private int PB => Genis ? 58 : 20; private int PT => Genis ? 26 : 8;   // PL: sol boşluq, ən uzun ox rəqəminə görə
         protected override void OnMouseMove(MouseEventArgs e)
         {
             int n = _labels.Length; if (n == 0) return;
@@ -95,34 +99,55 @@ namespace TexnikaReyestri.Controls
             using (var bb = new SolidBrush(bc)) g.FillRectangle(bb, ClientRectangle);
             Gfx.Smooth(g);
             int n = _labels.Length; if (n == 0) return;
+            var font = Genis ? new Font("Segoe UI", 10f) : Font;
             double mx = Math.Max(1, Math.Max(_a.DefaultIfEmpty(0).Max(), Math.Max(_b.DefaultIfEmpty(0).Max(), (_c ?? new double[0]).DefaultIfEmpty(0).Max())));
             // 4 bərabər, tam ədədli addım (1, 2, 5 × 10ⁿ) — oxda təkrarlanan rəqəm olmasın
             double raw = Math.Max(1, mx / 4), p10 = Math.Pow(10, Math.Floor(Math.Log10(raw))), st = new[] { 1, 2, 5, 10 }.Select(m => m * p10).First(x => x >= raw - 1e-9);
             double max = Math.Max(1, Math.Round(st)) * 4;
-            PL = Math.Max(30, TextRenderer.MeasureText(max.ToString("0"), Font).Width + 8);
+            PL = Math.Max(30, TextRenderer.MeasureText(max.ToString("0"), font).Width + 8);
             float H = Height - PB - PT; float Y(double v) => PT + H * (float)(1 - v / max);
             using var gp = new Pen(Theme.Line);
             for (int k = 0; k <= 4; k++)
             {
                 double v = max * k / 4; float y = Y(v);
                 g.DrawLine(gp, PL, y, Width, y);
-                TextRenderer.DrawText(g, Math.Round(v).ToString(), Font, new Rectangle(0, (int)y - 8, PL - 6, 16), Theme.Muted, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
+                TextRenderer.DrawText(g, Math.Round(v).ToString(), font, new Rectangle(0, (int)y - 8, PL - 6, 16), Theme.Muted, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
             }
-            float cw = (Width - PL) / (float)n, bw = Math.Min(_c != null ? 28 : 18, cw / (_c != null ? 4 : 3));
+            float cw = (Width - PL) / (float)n, bw = Math.Min(Genis ? 70 : _c != null ? 28 : 18, cw / (_c != null ? 4 : 3));
             for (int i = 0; i < n; i++)
             {
                 float cx = PL + cw * i + cw / 2;
                 if (i == _hover) using (var hb = new SolidBrush(Theme.Alt)) g.FillRectangle(hb, cx - cw / 2 + 4, PT, cw - 8, H);
                 if (_c != null)
                 {
-                    Bar(g, cx - bw * 1.5f - 2, bw, Y(_a[i]), H + PT, Theme.Chart1); Bar(g, cx - bw / 2, bw, Y(_b[i]), H + PT, Theme.Chart2); Bar(g, cx + bw / 2 + 2, bw, Y(_c[i]), H + PT, Theme.Chart3);
+                    float[] xs = { cx - bw * 1.5f - 4, cx - bw / 2, cx + bw / 2 + 4 }; double[] vs = { _a[i], _b[i], _c[i] }; Color[] cs = { Theme.Chart1, Theme.Chart2, Theme.Chart3 };
+                    for (int j = 0; j < 3; j++)
+                    {
+                        Bar(g, xs[j], bw, Y(vs[j]), H + PT, cs[j]);
+                        if (Genis) using (var vf = new Font("Segoe UI", 10.5f, FontStyle.Bold))
+                            TextRenderer.DrawText(g, vs[j].ToString("#,0").Replace(",", " "), vf, new Rectangle((int)xs[j] - 20, (int)Y(vs[j]) - 22, (int)bw + 40, 20), Theme.Ink, TextFormatFlags.HorizontalCenter | TextFormatFlags.Bottom);
+                    }
                 }
                 else
                 {
                     Bar(g, cx - bw - 1, bw, Y(_a[i]), H + PT, Theme.Chart1);
                     Bar(g, cx + 1, bw, Y(_b[i]), H + PT, Theme.Chart2);
                 }
-                TextRenderer.DrawText(g, Lang.T(_labels[i]), Font, new Rectangle((int)(cx - cw / 2), Height - PB + 2, (int)cw, PB), Theme.Muted, TextFormatFlags.HorizontalCenter);
+                TextRenderer.DrawText(g, Lang.T(_labels[i]), Genis ? new Font("Segoe UI", 10.5f) : Font, new Rectangle((int)(cx - cw / 2), Height - PB + 4, (int)cw, 22), Theme.Muted, TextFormatFlags.HorizontalCenter);
+            }
+            if (Genis)
+            {
+                // Əfsanə: dairə + ad, mərkəzdə; sağda qeyd
+                using var lf = new Font("Segoe UI", 10f);
+                var adlar = LegendNames.Take(_c != null ? 3 : 2).Select(Lang.T).ToArray(); Color[] cs = { Theme.Chart1, Theme.Chart2, Theme.Chart3 };
+                int[] w = adlar.Select(a => TextRenderer.MeasureText(a, lf).Width + 34).ToArray();
+                int x = PL + (Width - PL - w.Sum()) / 2, ly = Height - 24;
+                for (int j = 0; j < adlar.Length; j++)
+                {
+                    using (var b = new SolidBrush(cs[j])) g.FillEllipse(b, x, ly + 3, 12, 12);
+                    TextRenderer.DrawText(g, adlar[j], lf, new Point(x + 18, ly), Theme.Muted); x += w[j];
+                }
+                if (!string.IsNullOrEmpty(Note)) TextRenderer.DrawText(g, Note, lf, new Rectangle(0, ly, Width, 20), Theme.Muted, TextFormatFlags.Right);
             }
         }
 

@@ -111,7 +111,7 @@ namespace TexnikaReyestri.Data
    AND NOT EXISTS (SELECT 1 FROM Tarixce h WHERE h.TexnikaId=t.Id AND h.Sahe='Statusu' AND h.Yeni='Təhvil verilib'))
  WHERE ay>=substr($bas,1,7) GROUP BY ay;")).Where(x => x[0] is string).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             var aylar = Enumerable.Range(0, ayGeri).Select(i => new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(-(ayGeri - 1) + i)).ToArray();
-            string[] adlar = { "Yan", "Fev", "Mar", "Apr", "May", "İyn", "İyl", "Avq", "Sen", "Okt", "Noy", "Dek" };
+            string[] adlar = { "Yanvar", "Fevral", "Mart", "Aprel", "May", "İyun", "İyul", "Avqust", "Sentyabr", "Oktyabr", "Noyabr", "Dekabr" };
             var nov = (await Q($"SELECT Nov, COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND Nov IS NOT NULL GROUP BY Nov ORDER BY 2 DESC LIMIT 6;")).Select(x => ((string)x[0], Convert.ToDouble(x[1]))).ToArray();
             string orta = "AVG(julianday(FaktikiBitme)-julianday(BaslamaTarixi))";
             double Avg(List<object[]> l) => l.Count == 0 || l[0][0] is DBNull ? 0 : Math.Round(Convert.ToDouble(l[0][0]));
