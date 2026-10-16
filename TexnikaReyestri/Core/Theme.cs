@@ -50,7 +50,9 @@ namespace TexnikaReyestri.Core
             {
                 "Təmirdə" => d ? (C("#17344A"), C("#8CC3EA")) : (C("#DCEBF6"), C("#1F5F8B")),
                 "Hissə gözləyir" => d ? (C("#3D2C12"), C("#F2B05E")) : (C("#FCE7D2"), C("#A65A10")),
-                "Təhvil verilib" => d ? (C("#123A2A"), C("#6FD39A")) : (C("#DDF1E3"), C("#23703E")),
+                "Qismən təmin edilib" => d ? (C("#3A3412"), C("#E8D36A")) : (C("#FFF1C2"), C("#7A5200")),
+                "Təmin edilməyib" => d ? (C("#3D1A1A"), C("#F28E89")) : (C("#F8DCDB"), C("#A3302C")),
+                "Tam təmin edilib" or "Təhvil verilib" => d ? (C("#123A2A"), C("#6FD39A")) : (C("#DDF1E3"), C("#23703E")),
                 "Təmirə yararsız" or "Gecikir" or "Bloklanıb" or "Rədd edildi" => d ? (C("#3D1A1A"), C("#F28E89")) : (C("#F8DCDB"), C("#A3302C")),
                 "Aktiv" or "Uğurlu" => d ? (C("#123A2A"), C("#6FD39A")) : (C("#DDF1E3"), C("#23703E")),
                 _ => d ? (C("#263334"), C("#B5C4C3")) : (C("#E7ECEB"), C("#4A5A59")),
@@ -59,7 +61,7 @@ namespace TexnikaReyestri.Core
 
         public static Color StatusBar(string status) => status switch
         {
-            "Təmirdə" => Info, "Hissə gözləyir" => Warn, "Təhvil verilib" => Ok, "Təmirə yararsız" => Bad, _ => Gray
+            "Təmirdə" => Info, "Hissə gözləyir" or "Qismən təmin edilib" => Warn, "Təhvil verilib" => Ok, "Təmirə yararsız" => Bad, _ => Gray
         };
 
         /// <summary>Standart kontrolları temaya uyğun rəngləyir. Xüsusi kontrollar (IThemed) özləri çəkilir.</summary>

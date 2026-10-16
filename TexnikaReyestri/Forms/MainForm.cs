@@ -40,10 +40,11 @@ namespace TexnikaReyestri.Forms
             lblQurum.Text = Session.QurumAd;
             lblUser.Text = $"{Session.AdSoyad} · {Lang.T(Session.RolMetni)}";
             // Rola görə menyu: üst qurumlar texnika daxil etmir, İcmal isə yalnız üst qurumlarda var
-            navAdd.Visible = Session.YazaBiler;
+            navAdd.Visible = navSorgu.Visible = Session.YazaBiler;
             navSummary.Visible = Session.Tip != QurumTip.Zavod;
-            int y = 70;
-            foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navNoti, navSync, navLogs, navBackup }.Where(n => n.Visible)) { n.Top = y; y += 52; }
+            int y = 64;
+            foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navTech, navSorgu, navNoti, navSync, navLogs, navBackup }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
+            MenyuAc(false);   // menyu hər dəfə bağlı açılır
             Ui.Hazirla(this); YerlesdirBaslig();
             // Sınaq üçün: baza boşdursa bir dəfə 10 nümunə texnika yazılır
             if (await SistemRepo.ParamStrAsync("Numune10") == null && await TexnikaRepo.SayAsync(new ReyestrFiltr()) == 0)
@@ -75,7 +76,19 @@ namespace TexnikaReyestri.Forms
             if (sender is not NavButton b) return;
             // "Texnika daxil et": əvvəlki redaktə açıq qalmışdısa, boş yeni forma aç
             if (b.PageKey == "add") await AcAsync("add", p => ((EditPage)p).YeniRejim ? Task.CompletedTask : ((EditPage)p).YukleAsync(null));
+            else if (b.PageKey == "sadd") await AcAsync("sadd", p => ((SorguEditPage)p).YeniRejim ? Task.CompletedTask : ((SorguEditPage)p).YukleAsync(0));
             else await AcAsync(b.PageKey);
+        }
+
+        // Loqoya klik: menyu açılır (ikon + ad) və ya bağlanır (yalnız ikon)
+        private void logo_Click(object sender, EventArgs e) => MenyuAc(pnlNav.Width < 100);
+        private void MenyuAc(bool ac)
+        {
+            using (Ui.Dondur(this))
+            {
+                pnlNav.Width = ac ? 236 : 64; lblApp.Visible = ac;
+                foreach (Control c in pnlNav.Controls) if (c is NavButton nb) nb.Width = pnlNav.Width;
+            }
         }
 
         private PageBase Sehife(string key)
@@ -83,7 +96,7 @@ namespace TexnikaReyestri.Forms
             if (_pages.TryGetValue(key, out var page)) return page;
             page = key switch
             {
-                "home" => new HomePage(), "sum" => new SummaryPage(), "list" => new RegistryPage(), "add" => new EditPage(),
+                "home" => new HomePage(), "sum" => new SummaryPage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "sadd" => new SorguEditPage(),
                 "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "log" => new LogsPage(), "bak" => new BackupPage(),
                 _ => throw new ArgumentException(key)
             };
@@ -97,7 +110,7 @@ namespace TexnikaReyestri.Forms
         /// </summary>
         private async Task OnHazirlaAsync()
         {
-            var keys = new List<string> { "list", "det", "noti", "sync", "log", "bak" };
+            var keys = new List<string> { "list", "det", "tech", "noti", "sync", "log", "bak" };
             if (Session.YazaBiler) keys.Insert(2, "add");
             if (Session.Tip != QurumTip.Zavod) keys.Insert(0, "sum");
             foreach (var k in keys)
@@ -126,6 +139,7 @@ namespace TexnikaReyestri.Forms
 
         public Task ReyestrAcAsync(ReyestrFiltr f) => AcAsync("list", p => ((RegistryPage)p).FiltrTetbiqAsync(f));
         public Task DetalAcAsync(long id, IReadOnlyList<long> siyahi = null) => AcAsync("det", p => ((DetailPage)p).YukleAsync(id, siyahi));
+        public Task SorguAcAsync(long id) => AcAsync("sadd", p => ((SorguEditPage)p).YukleAsync(id));
         public Task RedakteAcAsync(long? id) => AcAsync("add", p => ((EditPage)p).YukleAsync(id));
 
         // ---------------- Bildiriş nişanı ----------------

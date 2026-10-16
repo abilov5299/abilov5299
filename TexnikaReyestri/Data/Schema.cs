@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Texnikalar (
             // Əvvəlki versiya statusu bazada dəyişmişdisə, geri qaytar (ad yalnız ekranda dəyişir: Secimler.Ekran)
             using (var k = con.CreateCommand())
             {
-                k.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE name='IX_T_Gec' AND sql LIKE '%Ehtiyat hissələrinin təminatı gözlənilir%';";
+                k.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE name='IX_T_Gec' AND sql NOT LIKE '%Qismən təmin edilib%';";
                 if ((long)k.ExecuteScalar() > 0) LocalDb.Exec(con, "DROP INDEX IX_T_Gec;");
             }
             LocalDb.Exec(con, "UPDATE Texnikalar SET Status='Hissə gözləyir' WHERE Status='Ehtiyat hissələrinin təminatı gözlənilir';");
@@ -49,7 +49,7 @@ CREATE INDEX IF NOT EXISTS IX_T_Fakt    ON Texnikalar(TemirZavodu, FaktikiBitme)
 CREATE INDEX IF NOT EXISTS IX_T_DaxilG  ON Texnikalar(DaxilolmaTarixi) WHERE Silinib=0;
 CREATE INDEX IF NOT EXISTS IX_T_FaktG   ON Texnikalar(FaktikiBitme, BaslamaTarixi, TemirZavodu, TemirNovu) WHERE Silinib=0;
 CREATE INDEX IF NOT EXISTS IX_T_Nov     ON Texnikalar(Nov) WHERE Silinib=0;
-CREATE INDEX IF NOT EXISTS IX_T_Gec     ON Texnikalar(GozlenilenBitme, TemirZavodu) WHERE Silinib=0 AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir');
+CREATE INDEX IF NOT EXISTS IX_T_Gec     ON Texnikalar(GozlenilenBitme, TemirZavodu) WHERE Silinib=0 AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir','Qismən təmin edilib');
 
 -- Mətn axtarışı: LIKE '%..%' əvəzinə (1 mln sətirdə ~6 ms)
 CREATE VIRTUAL TABLE IF NOT EXISTS TexnikaAxtar USING fts5(
@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS Loglar (
   Id INTEGER PRIMARY KEY, Tarix INTEGER NOT NULL, Istifadeci TEXT, Zavod TEXT, Nov TEXT NOT NULL, Mesaj TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS IX_Loglar ON Loglar(Tarix DESC);
 ");
+            SorguRepo.Yarat(con);
             SistemSchema.Yarat(con);
         }
     }

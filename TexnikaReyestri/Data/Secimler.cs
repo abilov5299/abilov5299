@@ -11,13 +11,13 @@ namespace TexnikaReyestri.Data
         };
         public const string UstAd = "Təmir və Texniki Təminat xidməti", EnUstAd = "Müdafiə Sənayesi İdarəsi";
 
-        public static readonly string[] Status = { "Qəbul edilib", "Təmirdə", "Hissə gözləyir", "Təhvil verilib", "Təmirə yararsız" };
+        public static readonly string[] Status = { "Qəbul edilib", "Təmirdə", "Hissə gözləyir", "Qismən təmin edilib", "Təhvil verilib", "Təmirə yararsız" };
         /// <summary>Statusların ekranda göstərilən adı (bazada köhnə dəyər qalır: USB paketləri və Excel pozulmasın).</summary>
         private static readonly Dictionary<string, string> EkranAd = new() { ["Hissə gözləyir"] = "Ehtiyat hissələrinin təminatı gözlənilir", ["Təmirdə"] = "Təmirdədir" };
         public static string Ekran(string s) => s != null && EkranAd.TryGetValue(s, out var e) ? e : s;
         /// <summary>Ekran adı → bazadakı dəyər (Excel-də ekran adı yazılıbsa).</summary>
         public static string Baza(string s) => EkranAd.FirstOrDefault(x => x.Value == s).Key ?? s;
-        public static readonly string[] AktivStatus = { "Qəbul edilib", "Təmirdə", "Hissə gözləyir" };
+        public static readonly string[] AktivStatus = { "Qəbul edilib", "Təmirdə", "Hissə gözləyir", "Qismən təmin edilib" };
         public static readonly string[] Merhele = { "Qəbul", "Defekt aşkarlama", "Hissə təminatı", "Təmir", "Sınaq", "Təhvil" };
 
         public static readonly Dictionary<string, string[]> Sahe = new()

@@ -63,7 +63,7 @@ namespace TexnikaReyestri.Pages
         // Status siyahısı: bazadakı dəyər və ya kart qrupu; ad ekranda Secimler.Ekran ilə göstərilir. "Təmirə yararsız" yoxdur
         private static readonly (string ad, string status, string qrup)[] StatusSecim =
         {
-            ("Qəbul edilib", "Qəbul edilib", null), ("Hissə gözləyir", "Hissə gözləyir", null), ("Təmirdə", "Təmirdə", null),
+            ("Qəbul edilib", "Qəbul edilib", null), ("Hissə gözləyir", "Hissə gözləyir", null), ("Qismən təmin edilib", "Qismən təmin edilib", null), ("Təmirdə", "Təmirdə", null),
             ("Təmir tamamlanıb, təhvil gözlənilir", null, "gozl"), ("Təhvil verilib", "Təhvil verilib", null)
         };
         private static readonly string[] IcraKod = { null, "sari", "yaxin", "late", "bos" };

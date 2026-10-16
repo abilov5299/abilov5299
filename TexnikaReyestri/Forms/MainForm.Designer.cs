@@ -20,6 +20,9 @@
             this.navSummary = new TexnikaReyestri.Controls.NavButton();
             this.navRegistry = new TexnikaReyestri.Controls.NavButton();
             this.navAdd = new TexnikaReyestri.Controls.NavButton();
+            this.navTech = new TexnikaReyestri.Controls.NavButton();
+            this.navSorgu = new TexnikaReyestri.Controls.NavButton();
+            this.lblApp = new System.Windows.Forms.Label();
             this.navNoti = new TexnikaReyestri.Controls.NavButton();
             this.navSync = new TexnikaReyestri.Controls.NavButton();
             this.navLogs = new TexnikaReyestri.Controls.NavButton();
@@ -48,10 +51,13 @@
             this.pnlNav.Controls.Add(this.navLogs);
             this.pnlNav.Controls.Add(this.navSync);
             this.pnlNav.Controls.Add(this.navNoti);
+            this.pnlNav.Controls.Add(this.navSorgu);
+            this.pnlNav.Controls.Add(this.navTech);
             this.pnlNav.Controls.Add(this.navAdd);
             this.pnlNav.Controls.Add(this.navRegistry);
             this.pnlNav.Controls.Add(this.navSummary);
             this.pnlNav.Controls.Add(this.navHome);
+            this.pnlNav.Controls.Add(this.lblApp);
             this.pnlNav.Controls.Add(this.logo);
             this.pnlNav.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlNav.Size = new System.Drawing.Size(64, 758);
@@ -63,6 +69,20 @@
             this.logo.Location = new System.Drawing.Point(12, 12);
             this.logo.Size = new System.Drawing.Size(40, 40);
             this.logo.Name = "logo";
+            this.logo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.logo.Click += new System.EventHandler(this.logo_Click);
+            // 
+            // lblApp
+            // 
+            this.lblApp.AutoSize = true;
+            this.lblApp.Font = new System.Drawing.Font("Bahnschrift SemiBold", 12.0F);
+            this.lblApp.ForeColor = System.Drawing.Color.White;
+            this.lblApp.Location = new System.Drawing.Point(62, 21);
+            this.lblApp.Text = "Texnika Reyestri";
+            this.lblApp.Visible = false;
+            this.lblApp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblApp.Name = "lblApp";
+            this.lblApp.Click += new System.EventHandler(this.logo_Click);
             // 
             // navHome
             // 
@@ -103,6 +123,24 @@
             this.navAdd.PageKey = "add";
             this.navAdd.Name = "navAdd";
             this.navAdd.Click += new System.EventHandler(this.nav_Click);
+            // 
+            // navTech
+            // 
+            this.navTech.Glyph = "\uE719";
+            this.navTech.Size = new System.Drawing.Size(64, 52);
+            this.navTech.ToolTipText = "Təchizat sorğuları";
+            this.navTech.PageKey = "tech";
+            this.navTech.Name = "navTech";
+            this.navTech.Click += new System.EventHandler(this.nav_Click);
+            // 
+            // navSorgu
+            // 
+            this.navSorgu.Glyph = "\uE8A5";
+            this.navSorgu.Size = new System.Drawing.Size(64, 52);
+            this.navSorgu.ToolTipText = "Sorğu əlavə et";
+            this.navSorgu.PageKey = "sadd";
+            this.navSorgu.Name = "navSorgu";
+            this.navSorgu.Click += new System.EventHandler(this.nav_Click);
             // 
             // navNoti
             // 
@@ -306,6 +344,9 @@
         private TexnikaReyestri.Controls.NavButton navSummary;
         private TexnikaReyestri.Controls.NavButton navRegistry;
         private TexnikaReyestri.Controls.NavButton navAdd;
+        private TexnikaReyestri.Controls.NavButton navTech;
+        private TexnikaReyestri.Controls.NavButton navSorgu;
+        private System.Windows.Forms.Label lblApp;
         private TexnikaReyestri.Controls.NavButton navNoti;
         private TexnikaReyestri.Controls.NavButton navSync;
         private TexnikaReyestri.Controls.NavButton navLogs;

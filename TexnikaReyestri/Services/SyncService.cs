@@ -27,7 +27,7 @@ namespace TexnikaReyestri.Services
         public static async Task<(long sonTarix, long seq, int say)> IxracHazirlikAsync()
         {
             var (t, s) = await SonIxracAsync();
-            return (t, s, (int)await TexnikaRepo.DeltaSayAsync(t, Session.ZavodFiltri));
+            return (t, s, (int)await TexnikaRepo.DeltaSayAsync(t, Session.ZavodFiltri) + (await SorguRepo.DeltaAsync(t, Session.ZavodFiltri)).Count);
         }
 
         public static async Task<SyncNetice> IxracAsync(string qovluq, IProgress<int> addim, CancellationToken ct = default)
@@ -49,6 +49,10 @@ namespace TexnikaReyestri.Services
             // Dəyişiklik tarixçəsi də paketə düşür (hər qeydin "_Tarixce" sahəsi: [vaxt, istifadəçi, sahə, köhnə, yeni])
             var tarixce = await TexnikaRepo.TarixceDeltaAsync(sonTarix, ct);
             foreach (var q in qeydler) if (q["Guid"] is string g && tarixce.TryGetValue(g, out var tl)) q["_Tarixce"] = tl;
+            // Təchizat sorğuları eyni paketdə ("_Sorgu" nişanı ilə)
+            var sorgular = await SorguRepo.DeltaAsync(sonTarix, menim.Tip == QurumTip.Zavod ? menim.Ad : null);
+            foreach (var q in sorgular) q["_Sorgu"] = 1;
+            int sorguSay = sorgular.Count; qeydler.AddRange(sorgular);
 
             addim?.Report(1);
             byte[] json = JsonSerializer.SerializeToUtf8Bytes(qeydler);
@@ -80,9 +84,9 @@ namespace TexnikaReyestri.Services
             byte[] tam = ms2.ToArray();
             await File.WriteAllBytesAsync(fayl, tam, ct);
             if (!(await File.ReadAllBytesAsync(fayl, ct)).AsSpan().SequenceEqual(tam)) throw new IOException("USB-yə yazılan fayl yoxlamadan keçmədi.");
-            await Jurnal("İxrac", Session.QurumKod, b.Seq, Path.GetFileName(fayl), qeydler.Count - sil, 0, sil, "Uğurlu", indi.ToString());
+            await Jurnal("İxrac", Session.QurumKod, b.Seq, Path.GetFileName(fayl), qeydler.Count - sorguSay - sil, 0, sil, "Uğurlu", indi.ToString());
             addim?.Report(5);
-            return new SyncNetice(qeydler.Count - sil, 0, sil, fayl);
+            return new SyncNetice(qeydler.Count - sorguSay - sil, 0, sil, fayl);
         }
 
         public static PaketMelumat Bax(string fayl)
@@ -185,9 +189,11 @@ namespace TexnikaReyestri.Services
                 hc.CommandText = "INSERT INTO Tarixce (TexnikaId, Tarix, Istifadeci, Sahe, Kohne, Yeni) SELECT $i,$t,$u,$s,$k,$y " +
                                  "WHERE NOT EXISTS (SELECT 1 FROM Tarixce WHERE TexnikaId=$i AND Tarix=$t AND Sahe=$s);";   // təkrar yazılmasın
                 var hp = new[] { "$i", "$t", "$u", "$s", "$k", "$y" }.ToDictionary(n => n, n => hc.Parameters.Add(n, Microsoft.Data.Sqlite.SqliteType.Text)); hc.Prepare();
+                var sorgular = qeydler.Where(q => q.ContainsKey("_Sorgu")).ToList();
                 foreach (var q in qeydler)
                 {
                     ct.ThrowIfCancellationRequested();
+                    if (q.ContainsKey("_Sorgu")) continue;
                     string guid = q["Guid"].GetString(); long ver = q["Versiya"].GetInt64(); bool silinib = q.TryGetValue("Silinib", out var sv) && sv.GetInt64() == 1;
                     pg.Value = guid; object movcud = null; string movcudZavod = null;
                     await using (var rd = await sel.ExecuteReaderAsync(ct)) if (await rd.ReadAsync(ct)) { movcud = rd.GetInt64(0); movcudZavod = rd.GetString(1); }
@@ -216,7 +222,8 @@ namespace TexnikaReyestri.Services
                     if (silinib) sil++; else if (movcud is null) yeni++; else dey++;
                 }
                 using (var nc = con.CreateCommand()) { nc.Transaction = tr; nc.CommandText = "UPDATE Texnikalar SET Status='Hissə gözləyir' WHERE Status='Ehtiyat hissələrinin təminatı gözlənilir';"; await nc.ExecuteNonQueryAsync(ct); }   // ekran adı ilə gəlmiş paket
-                return (yeni, dey, sil, red);
+                var (sy, sd, sr) = await SorguRepo.TetbiqAsync(con, tr, sorgular, yalnizZavod, ct);
+                return (yeni + sy, dey + sd, sil, red + sr);
             }, ct);
         }
 

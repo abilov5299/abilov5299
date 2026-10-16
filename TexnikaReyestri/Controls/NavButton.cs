@@ -23,7 +23,7 @@ namespace TexnikaReyestri.Controls
         [Category("Davranış"), Description("Hansı səhifəni açır (MainForm-da istifadə olunur)")] public string PageKey { get; set; } = "";
 
         private static readonly ToolTip Tip = new() { InitialDelay = 250 };
-        protected override void OnMouseEnter(EventArgs e) { _hover = true; Invalidate(); Tip.SetToolTip(this, Lang.T(ToolTipText)); base.OnMouseEnter(e); }
+        protected override void OnMouseEnter(EventArgs e) { _hover = true; Invalidate(); Tip.SetToolTip(this, Width > 100 ? null : Lang.T(ToolTipText)); base.OnMouseEnter(e); }
         protected override void OnMouseLeave(EventArgs e) { _hover = false; Invalidate(); base.OnMouseLeave(e); }
         protected override void OnKeyDown(KeyEventArgs e) { if (e.KeyCode is Keys.Enter or Keys.Space) OnClick(EventArgs.Empty); base.OnKeyDown(e); }
         protected override void OnGotFocus(EventArgs e) { Invalidate(); base.OnGotFocus(e); }
@@ -33,11 +33,15 @@ namespace TexnikaReyestri.Controls
         {
             var g = e.Graphics; Gfx.Smooth(g);
             using (var bg = new SolidBrush(Theme.Nav)) g.FillRectangle(bg, ClientRectangle);
-            int s = 44; var box = new RectangleF((Width - s) / 2f, (Height - s) / 2f, s, s);
-            if (_active || _hover) using (var p = Gfx.Round(box, 10)) using (var b = new SolidBrush(Theme.NavOn)) g.FillPath(b, p);
+            int s = 44; bool genis = Width > 100;   // menyu açıqdır: ikonun yanında ad
+            var box = genis ? new RectangleF(10, (Height - s) / 2f, s, s) : new RectangleF((Width - s) / 2f, (Height - s) / 2f, s, s);
+            var fon = genis ? new RectangleF(10, box.Y, Width - 20, s) : box;
+            if (_active || _hover) using (var p = Gfx.Round(fon, 10)) using (var b = new SolidBrush(Theme.NavOn)) g.FillPath(b, p);
             if (_active) using (var b = new SolidBrush(Theme.Accent)) g.FillRectangle(b, 0, box.Y + 10, 4, s - 20);
             var fore = _danger ? Theme.C("#F0A8A3") : (_active || _hover ? Color.White : Theme.NavText);
             TextRenderer.DrawText(g, _glyph, Icons.Font(15f), Rectangle.Round(box), fore, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+            if (genis) { using var tf = new Font("Segoe UI", 10f, _active ? FontStyle.Bold : FontStyle.Regular);
+                TextRenderer.DrawText(g, Lang.T(ToolTipText), tf, new Rectangle((int)box.Right + 4, (int)box.Y, Width - (int)box.Right - 14, s), fore, TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis); }
             if (_badge > 0)
             {
                 string t = _badge > 99 ? "99+" : _badge.ToString();
