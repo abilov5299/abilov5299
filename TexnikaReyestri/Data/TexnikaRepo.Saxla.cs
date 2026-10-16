@@ -98,7 +98,7 @@ namespace TexnikaReyestri.Data
                      .ToDictionary(x => (string)x[0], x => Convert.ToInt64(x[1]));
             string[] sira = { "Qəbul edilib", "Təmirdə", "Hissə gözləyir", "Təhvil verilib", "Təmirə yararsız" };
             long G(string s) => st.GetValueOrDefault(s);
-            long gec = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir');"))[0][0]);
+            long gec = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir') AND IFNULL(FaktikiBitme,'')='';"))[0][0]);
             var ayQ = (await Q($"SELECT substr(DaxilolmaTarixi,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND DaxilolmaTarixi>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             var ayT = (await Q($"SELECT substr(FaktikiBitme,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND FaktikiBitme>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             var aylar = Enumerable.Range(0, ayGeri).Select(i => new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(-(ayGeri - 1) + i)).ToArray();
@@ -112,7 +112,7 @@ namespace TexnikaReyestri.Data
                 ? (await Q($"SELECT TemirNovu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0{zw} AND TemirNovu IS NOT NULL AND FaktikiBitme IS NOT NULL AND BaslamaTarixi IS NOT NULL GROUP BY TemirNovu ORDER BY 2;"))
                 : (await Q($"SELECT TemirZavodu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0 AND FaktikiBitme > '' AND BaslamaTarixi IS NOT NULL GROUP BY TemirZavodu ORDER BY 2 DESC;"));
             var gecList = (await Q($"SELECT Marka||' · '||IFNULL(ZavodNo,''), CAST(julianday($bugun)-julianday(GozlenilenBitme) AS INTEGER), TemirZavodu, Id FROM Texnikalar " +
-                                   $"WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir') ORDER BY GozlenilenBitme LIMIT 5;"))
+                                   $"WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir') AND IFNULL(FaktikiBitme,'')='' ORDER BY GozlenilenBitme LIMIT 5;"))
                           .Select(x => ((string)x[0], Convert.ToInt32(x[1]), x[2] as string, Convert.ToInt64(x[3]))).ToArray();
             return new EvStat(st.Values.Sum(), G("Təmirdə"), G("Hissə gözləyir"), gec, o1, o0,
                 sira.Select(s => (s, G(s))).ToArray(), aylar.Select(d => adlar[d.Month - 1]).ToArray(),

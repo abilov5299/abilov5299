@@ -8,11 +8,21 @@ namespace TexnikaReyestri.Data
     {
         public string Zavod;     // null = hamısı (üst qurum)
         public string Status;
-        public bool Gecikenler;
+        /// <summary>Kart qrupu: null, "cemi", "davam", "gozl", "tehvil", "yaxin", "late" (TexnikaRepo.QrupSql).</summary>
+        public string Qrup;
+        public int YaxinGun = Yaxin; // "yaxin" üçün
+        public static int Yaxin = 3;  // Admin → Sistem → BildirisYaxin (KartPaneli yükləyəndə yenilənir)
+        public bool Gecikenler { get => Qrup == "late"; set => Qrup = value ? "late" : Qrup == "late" ? null : Qrup; }
         public string Axtar;     // FTS: marka, zavod nömrəsi, lülə nömrəsi, qeyd
     }
 
     // Səhifənin sonuncu sətri: növbəti səhifə buradan davam edir (OFFSET yoxdur)
+    public readonly record struct KartStat(long Davam, long Gozlenilir, long Tehvil, long Yaxin, long Kecmis)
+    {
+        public long Cemi => Davam + Gozlenilir + Tehvil;
+        public static KartStat Cem(IEnumerable<KartStat> l) => l.Aggregate(new KartStat(), (a, b) => new(a.Davam + b.Davam, a.Gozlenilir + b.Gozlenilir, a.Tehvil + b.Tehvil, a.Yaxin + b.Yaxin, a.Kecmis + b.Kecmis));
+    }
+
     public readonly record struct Kursor(string Bitme, long Id);
 
     public static partial class TexnikaRepo
@@ -53,7 +63,7 @@ namespace TexnikaReyestri.Data
             await using var con = await LocalDb.AcAsync(ct);
             using var cmd = con.CreateCommand();
             // Filtr yoxdursa (və ya yalnız zavod/status), icmal cədvəlindən dərhal oxu
-            if (string.IsNullOrEmpty(f.Axtar) && !f.Gecikenler)
+            if (string.IsNullOrEmpty(f.Axtar) && f.Qrup == null)
             {
                 cmd.CommandText = "SELECT IFNULL(SUM(Say),0) FROM Icmal WHERE ($z IS NULL OR Zavod=$z) AND ($s IS NULL OR Status=$s);";
                 cmd.Parameters.AddWithValue("$z", (object)f.Zavod ?? DBNull.Value);
@@ -155,15 +165,46 @@ namespace TexnikaReyestri.Data
             return dt;
         }
 
+        // Kartların tərifi: davam + gözləyir + təhvil = cəmi ("Təmirə yararsız" daxil deyil); müddət kartları yalnız "davam"dan
+        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir') AND IFNULL(FaktikiBitme,'')='')",
+            GozlSql = "(IFNULL(FaktikiBitme,'')<>'' AND IFNULL(Status,'') NOT IN ('Təhvil verilib','Təmirə yararsız'))",
+            TehvilSql = "(Status='Təhvil verilib')";
+        internal static string QrupSql(string q) => q switch
+        {
+            "davam" => DavamSql, "gozl" => GozlSql, "tehvil" => TehvilSql,
+            "late" => $"({DavamSql} AND GozlenilenBitme < $bugun)",
+            "yaxin" => $"({DavamSql} AND GozlenilenBitme >= $bugun AND GozlenilenBitme <= $yaxin)",
+            _ => $"({DavamSql} OR {GozlSql} OR {TehvilSql})"
+        };
+
+        /// <summary>6 kartın sayları zavodlar üzrə (açar: zavod adı). zavod = null → hamısı.</summary>
+        public static async Task<Dictionary<string, KartStat>> KartStatAsync(string zavod, int yaxinGun, CancellationToken ct = default)
+        {
+            await using var con = await LocalDb.AcAsync(ct);
+            using var cmd = con.CreateCommand();
+            cmd.CommandText = $@"SELECT IFNULL(TemirZavodu,''), SUM(D), SUM(G), SUM(T), SUM(D AND b >= $bugun AND b <= $yaxin), SUM(D AND b < $bugun)
+FROM (SELECT TemirZavodu, {DavamSql} AS D, {GozlSql} AS G, {TehvilSql} AS T, GozlenilenBitme AS b FROM Texnikalar WHERE Silinib=0{(zavod == null ? "" : " AND TemirZavodu=$z")})
+GROUP BY 1;";
+            cmd.Parameters.AddWithValue("$z", (object)zavod ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("$bugun", DateTime.Today.ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("$yaxin", DateTime.Today.AddDays(yaxinGun).ToString("yyyy-MM-dd"));
+            var d = new Dictionary<string, KartStat>();
+            await using var r = await cmd.ExecuteReaderAsync(ct);
+            long L(int i) => r.IsDBNull(i) ? 0 : r.GetInt64(i);
+            while (await r.ReadAsync(ct)) d[r.GetString(0)] = new KartStat(L(1), L(2), L(3), L(4), L(5));
+            return d;
+        }
+
         internal static StringBuilder Sert(ReyestrFiltr f, SqliteCommand cmd)
         {
             var w = new StringBuilder("Silinib = 0");
             if (f.Zavod != null) { w.Append(" AND TemirZavodu = $z"); cmd.Parameters.AddWithValue("$z", f.Zavod); }
             if (f.Status != null) { w.Append(" AND Status = $s"); cmd.Parameters.AddWithValue("$s", f.Status); }
-            if (f.Gecikenler)
+            if (f.Qrup != null)
             {
-                w.Append(" AND GozlenilenBitme < $bugun AND Status NOT IN ('Təhvil verilib','Təmirə yararsız')");
+                w.Append(" AND ").Append(QrupSql(f.Qrup));
                 cmd.Parameters.AddWithValue("$bugun", DateTime.Today.ToString("yyyy-MM-dd"));
+                cmd.Parameters.AddWithValue("$yaxin", DateTime.Today.AddDays(f.YaxinGun).ToString("yyyy-MM-dd"));
             }
             if (!string.IsNullOrWhiteSpace(f.Axtar))
             {

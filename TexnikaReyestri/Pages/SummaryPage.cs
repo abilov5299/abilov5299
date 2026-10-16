@@ -14,11 +14,11 @@ namespace TexnikaReyestri.Pages
 
         public override async Task OnShownAsync()
         {
-            int paket = await SistemRepo.ParamAsync("BildirisPaket", 7);
+            int paket = await SistemRepo.ParamAsync("BildirisPaket", 7), n = await KartPaneli.YaxinGunAsync(); int kohne = 0;
             await Ui.Is(this, "Məlumatlar yüklənir...", async _ =>
             {
                 _dt = await Task.Run(TexnikaRepo.ZavodIcmalAsync);
-                grid.Rows.Clear(); long c = 0, t = 0, g = 0; int kohne = 0;
+                grid.Rows.Clear();
                 foreach (System.Data.DataRow r in _dt.Rows)
                 {
                     long ci = Convert.ToInt64(r["Cemi"]), ti = Convert.ToInt64(r["Temirde"]), hi = Convert.ToInt64(r["HisseGozleyir"]), gi = Convert.ToInt64(r["Geciken"]);
@@ -28,13 +28,11 @@ namespace TexnikaReyestri.Pages
                     if (gun >= paket) { son += $" · {gun} gün"; kohne++; }
                     int i = grid.Rows.Add(Lang.T((string)r["Zavod"]), ci, ti, hi, gi, faiz, r["OrtaGun"] is DBNull ? "—" : r["OrtaGun"], son);
                     grid.Rows[i].Tag = (string)r["Zavod"]; grid.Rows[i].Cells[7].Tag = gun >= paket;
-                    c += ci; t += ti; g += gi;
                 }
-                cardTotal.Value = c.ToString("#,0").Replace(",", " "); cardRepair.Value = t.ToString("#,0").Replace(",", " ");
-                cardLate.Value = g.ToString("#,0").Replace(",", " "); cardStale.Value = $"{kohne}";
-                cardStale.Title = $"{paket}+ gün paket yoxdur";
+                var d = await Task.Run(() => TexnikaRepo.KartStatAsync(null, n));
+                tlpTiles.Goster(KartStat.Cem(d.Values), n);
             });
-            lblAsOf.Text = $"{Lang.T("Son idxala görə")} · {DateTime.Now:dd.MM.yyyy}";
+            lblAsOf.Text = $"{Lang.T("Son idxala görə")} · {DateTime.Now:dd.MM.yyyy}" + (kohne > 0 ? $" · {kohne} {Lang.T("zavoddan")} {paket}+ {Lang.T("gün paket yoxdur")}" : "");
         }
 
         // "Gecikmə faizi" sütununda rəngli zolaq
@@ -62,11 +60,7 @@ namespace TexnikaReyestri.Pages
             if (e.RowIndex >= 0 && grid.Rows[e.RowIndex].Tag is string z) await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = z });
         }
 
-        private async void card_Click(object sender, EventArgs e)
-        {
-            var c = (StatCard)sender; if (c == cardStale) return;
-            await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Status = c.FilterKey is "" or "late" ? null : c.FilterKey, Gecikenler = c.FilterKey == "late" });
-        }
+        private async void kart_Clicked(object sender, string qrup) => await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Qrup = qrup });
 
         private void btnExport_Click(object sender, EventArgs e)
         {
