@@ -24,14 +24,15 @@ namespace TexnikaReyestri.Pages
             chartMonthly.Genis = true;
             lblMonthlyTitle.Font = lblAvgTitle.Font = new Font("Bahnschrift SemiBold", 15f); lblMonthlyTitle.Height = lblAvgTitle.Height = 40; lblMonthlyTitle.Tag = lblAvgTitle.Tag = null;
             pnlHead.Controls.Remove(segPeriod); rpMonthly.Controls.Add(segPeriod); segPeriod.BringToFront(); segPeriod.Top = 12; Ui.Saga(segPeriod);
-            gridZav.Font = new Font("Segoe UI", 10f); gridZav.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 9.5f); gridZav.ColumnHeadersHeight = 46;
+            gridZav.Font = new Font("Segoe UI", 12f); gridZav.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 11f); gridZav.ColumnHeadersHeight = 58; gridZav.RowTemplate.Height = 40;
+            foreach (DataGridViewColumn c in gridZav.Columns) if (c.Index > 0) c.Width = (int)(c.Width * 1.25);
             gridZav.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            gridZav.Columns.Add(new DataGridViewTextBoxColumn { Name = "colZavGec", HeaderText = "İcra müddəti keçib", Width = 100 });
-            gridZav.Columns.Add(new DataGridViewTextBoxColumn { Name = "colZavSon", HeaderText = "Son məlumat tarixi", Width = 120 });
+            gridZav.Columns.Add(new DataGridViewTextBoxColumn { Name = "colZavGec", HeaderText = "İcra müddəti keçib", Width = 130 });
+            gridZav.Columns.Add(new DataGridViewTextBoxColumn { Name = "colZavSon", HeaderText = "Son məlumat tarixi", Width = 150 });
             Duzum();
             gridLate.RowTemplate.Height = 30; gridEvents.RowTemplate.Height = 30;
             gridLate.Columns["colLateDays"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            gridZav.RowTemplate.Height = 30;
+            gridZav.RowTemplate.Height = 40;
             foreach (DataGridViewColumn c in gridZav.Columns) if (c.Index > 0) { c.DefaultCellStyle.Alignment = c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; }
         }
 
