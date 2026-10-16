@@ -53,7 +53,7 @@
             lblVersion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblVersion.AutoSize = true;
             lblVersion.Font = new Font("Segoe UI", 8F);
-            lblVersion.Location = new Point(40, 500);
+            lblVersion.Location = new Point(41, 500);
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(138, 13);
             lblVersion.TabIndex = 0;
