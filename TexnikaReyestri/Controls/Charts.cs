@@ -61,7 +61,7 @@ namespace TexnikaReyestri.Controls
     public class ColumnChart : Control, IThemed, ILocalizable
     {
         private string[] _labels = { "May", "İyn", "İyl", "Avq", "Sen", "Okt" };
-        private double[] _a = { 12, 9, 13, 11, 12, 4 }, _b = { 10, 11, 9, 12, 10, 3 };
+        private double[] _a = { 12, 9, 13, 11, 12, 4 }, _b = { 10, 11, 9, 12, 10, 3 }, _c;
         private readonly ToolTip _tip = new();
         private int _hover = -1;
 
@@ -73,8 +73,10 @@ namespace TexnikaReyestri.Controls
 
         [Category("Məzmun")] public string SeriesAName { get; set; } = "qəbul";
         [Category("Məzmun")] public string SeriesBName { get; set; } = "təhvil";
+        [Category("Məzmun")] public string SeriesCName { get; set; } = "təhvil verilib";
 
-        public void SetData(string[] labels, double[] a, double[] b) { _labels = labels; _a = a; _b = b; Invalidate(); }
+        /// <summary>c verilərsə 3 sütun çəkilir (Theme.Chart3).</summary>
+        public void SetData(string[] labels, double[] a, double[] b, double[] c = null) { _labels = labels; _a = a; _b = b; _c = c; Invalidate(); }
 
         private int PL = 30; private const int PB = 20, PT = 8;   // PL: sol boşluq, ən uzun ox rəqəminə görə
         protected override void OnMouseMove(MouseEventArgs e)
@@ -82,7 +84,7 @@ namespace TexnikaReyestri.Controls
             int n = _labels.Length; if (n == 0) return;
             float cw = (Width - PL) / (float)n; int i = (int)((e.X - PL) / cw);
             if (e.X < PL || i >= n) i = -1;
-            if (i != _hover) { _hover = i; Invalidate(); _tip.SetToolTip(this, i < 0 ? "" : $"{Lang.T(_labels[i])}: {_a[i]} {Lang.T(SeriesAName)} · {_b[i]} {Lang.T(SeriesBName)}"); }
+            if (i != _hover) { _hover = i; Invalidate(); _tip.SetToolTip(this, i < 0 ? "" : $"{Lang.T(_labels[i])}: {_a[i]} {Lang.T(SeriesAName)} · {_b[i]} {Lang.T(SeriesBName)}" + (_c != null ? $" · {_c[i]} {Lang.T(SeriesCName)}" : "")); }
             base.OnMouseMove(e);
         }
         protected override void OnMouseLeave(EventArgs e) { _hover = -1; Invalidate(); base.OnMouseLeave(e); }
@@ -93,7 +95,7 @@ namespace TexnikaReyestri.Controls
             using (var bb = new SolidBrush(bc)) g.FillRectangle(bb, ClientRectangle);
             Gfx.Smooth(g);
             int n = _labels.Length; if (n == 0) return;
-            double mx = Math.Max(1, Math.Max(_a.DefaultIfEmpty(0).Max(), _b.DefaultIfEmpty(0).Max()));
+            double mx = Math.Max(1, Math.Max(_a.DefaultIfEmpty(0).Max(), Math.Max(_b.DefaultIfEmpty(0).Max(), (_c ?? new double[0]).DefaultIfEmpty(0).Max())));
             // 4 bərabər, tam ədədli addım (1, 2, 5 × 10ⁿ) — oxda təkrarlanan rəqəm olmasın
             double raw = Math.Max(1, mx / 4), p10 = Math.Pow(10, Math.Floor(Math.Log10(raw))), st = new[] { 1, 2, 5, 10 }.Select(m => m * p10).First(x => x >= raw - 1e-9);
             double max = Math.Max(1, Math.Round(st)) * 4;
@@ -106,13 +108,20 @@ namespace TexnikaReyestri.Controls
                 g.DrawLine(gp, PL, y, Width, y);
                 TextRenderer.DrawText(g, Math.Round(v).ToString(), Font, new Rectangle(0, (int)y - 8, PL - 6, 16), Theme.Muted, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
             }
-            float cw = (Width - PL) / (float)n, bw = Math.Min(18, cw / 3);
+            float cw = (Width - PL) / (float)n, bw = Math.Min(_c != null ? 28 : 18, cw / (_c != null ? 4 : 3));
             for (int i = 0; i < n; i++)
             {
                 float cx = PL + cw * i + cw / 2;
                 if (i == _hover) using (var hb = new SolidBrush(Theme.Alt)) g.FillRectangle(hb, cx - cw / 2 + 4, PT, cw - 8, H);
-                Bar(g, cx - bw - 1, bw, Y(_a[i]), H + PT, Theme.Chart1);
-                Bar(g, cx + 1, bw, Y(_b[i]), H + PT, Theme.Chart2);
+                if (_c != null)
+                {
+                    Bar(g, cx - bw * 1.5f - 2, bw, Y(_a[i]), H + PT, Theme.Chart1); Bar(g, cx - bw / 2, bw, Y(_b[i]), H + PT, Theme.Chart2); Bar(g, cx + bw / 2 + 2, bw, Y(_c[i]), H + PT, Theme.Chart3);
+                }
+                else
+                {
+                    Bar(g, cx - bw - 1, bw, Y(_a[i]), H + PT, Theme.Chart1);
+                    Bar(g, cx + 1, bw, Y(_b[i]), H + PT, Theme.Chart2);
+                }
                 TextRenderer.DrawText(g, Lang.T(_labels[i]), Font, new Rectangle((int)(cx - cw / 2), Height - PB + 2, (int)cw, PB), Theme.Muted, TextFormatFlags.HorizontalCenter);
             }
         }

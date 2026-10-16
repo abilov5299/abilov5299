@@ -22,6 +22,7 @@
             this.navAdd = new TexnikaReyestri.Controls.NavButton();
             this.navTech = new TexnikaReyestri.Controls.NavButton();
             this.navSorgu = new TexnikaReyestri.Controls.NavButton();
+            this.navRep = new TexnikaReyestri.Controls.NavButton();
             this.lblApp = new System.Windows.Forms.Label();
             this.navNoti = new TexnikaReyestri.Controls.NavButton();
             this.navSync = new TexnikaReyestri.Controls.NavButton();
@@ -51,6 +52,7 @@
             this.pnlNav.Controls.Add(this.navLogs);
             this.pnlNav.Controls.Add(this.navSync);
             this.pnlNav.Controls.Add(this.navNoti);
+            this.pnlNav.Controls.Add(this.navRep);
             this.pnlNav.Controls.Add(this.navSorgu);
             this.pnlNav.Controls.Add(this.navTech);
             this.pnlNav.Controls.Add(this.navAdd);
@@ -141,6 +143,15 @@
             this.navSorgu.PageKey = "sadd";
             this.navSorgu.Name = "navSorgu";
             this.navSorgu.Click += new System.EventHandler(this.nav_Click);
+            // 
+            // navRep
+            // 
+            this.navRep.Glyph = "\uE9F9";
+            this.navRep.Size = new System.Drawing.Size(64, 52);
+            this.navRep.ToolTipText = "Hesabatlar";
+            this.navRep.PageKey = "rep";
+            this.navRep.Name = "navRep";
+            this.navRep.Click += new System.EventHandler(this.nav_Click);
             // 
             // navNoti
             // 
@@ -346,6 +357,7 @@
         private TexnikaReyestri.Controls.NavButton navAdd;
         private TexnikaReyestri.Controls.NavButton navTech;
         private TexnikaReyestri.Controls.NavButton navSorgu;
+        private TexnikaReyestri.Controls.NavButton navRep;
         private System.Windows.Forms.Label lblApp;
         private TexnikaReyestri.Controls.NavButton navNoti;
         private TexnikaReyestri.Controls.NavButton navSync;

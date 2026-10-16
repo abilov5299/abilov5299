@@ -65,6 +65,55 @@ namespace TexnikaReyestri.Services
             g.Dispose(); doc.Save(yol);
         }
 
+        /// <summary>Hesabat (A4): "TƏMİR VƏ TƏMİNAT ÜZRƏ HESABAT", altında hesabatın adı, alt başlıq, cədvəl, cəmi, qeydlər.</summary>
+        public static void Hesabat(string yol, Hesabat h, string altBasliq, IEnumerable<string> qeydler)
+        {
+            var doc = new PdfDocument(); doc.Info.Title = h.Ad;
+            var fH = new XFont("Times New Roman", 14, XFontStyleEx.Bold); var fA = new XFont("Times New Roman", 12, XFontStyleEx.Bold);
+            var fB = new XFont("Times New Roman", 9.5, XFontStyleEx.Bold); var fN = new XFont("Times New Roman", 9.5); var fS = new XFont("Times New Roman", 9);
+            bool genis = h.Sutun.Length > 5;
+            PdfPage page = null; XGraphics g = null; double y = 0, L = 40;
+            double W() => page.Width.Point - 2 * L;
+            var pen = new XPen(XColor.FromArgb(150, 150, 150), 0.6); var boz = new XSolidBrush(XColor.FromArgb(232, 236, 236));
+            double[] en = null;
+            void Yeni()
+            {
+                g?.Dispose(); page = doc.AddPage(); page.Size = PdfSharp.PageSize.A4; if (genis) page.Orientation = PdfSharp.PageOrientation.Landscape;
+                g = XGraphics.FromPdfPage(page); y = 40;
+                double w = W(); en = h.Sutun.Select((_, i) => i == 0 ? w * 0.28 : w * 0.72 / (h.Sutun.Length - 1)).ToArray();
+                g.DrawString($"Texnika Reyestri · Çap tarixi: {DateTime.Now:dd.MM.yyyy HH:mm}", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 30, w, 12), XStringFormats.TopLeft);
+            }
+            void Setir(string[] v, XFont f, XBrush fon)
+            {
+                var lines = v.Select((x, i) => Wrap(g, x ?? "", f, en[i] - 8)).ToArray();
+                double rh = Math.Max(18, lines.Max(l => l.Count) * 12 + 6);
+                if (y + rh > page.Height.Point - 50) { Yeni(); Setir(h.Sutun, fB, boz); }
+                double x = L;
+                for (int i = 0; i < v.Length; i++)
+                {
+                    if (fon != null) g.DrawRectangle(pen, fon, x, y, en[i], rh); else g.DrawRectangle(pen, x, y, en[i], rh);
+                    for (int k = 0; k < lines[i].Count; k++)
+                        g.DrawString(lines[i][k], f, XBrushes.Black, new XRect(x + 4, y + 3 + k * 12, en[i] - 8, 12), i == 0 ? XStringFormats.TopLeft : XStringFormats.TopCenter);
+                    x += en[i];
+                }
+                y += rh;
+            }
+            Yeni();
+            g.DrawString("TƏMİR VƏ TƏMİNAT ÜZRƏ HESABAT", fH, XBrushes.Black, new XRect(L, y, W(), 18), XStringFormats.TopCenter); y += 20;
+            g.DrawString(h.Ad, fA, XBrushes.Black, new XRect(L, y, W(), 16), XStringFormats.TopCenter); y += 18;
+            g.DrawString(altBasliq, fN, XBrushes.DimGray, new XRect(L, y, W(), 14), XStringFormats.TopCenter); y += 22;
+            Setir(h.Sutun, fB, boz);
+            foreach (var r in h.Setir) Setir(r, fN, null);
+            if (h.Cem != null) Setir(h.Cem, fB, boz);
+            y += 8;
+            foreach (var q in new[] { h.Qeyd }.Concat(qeydler ?? Enumerable.Empty<string>()).Where(x => !string.IsNullOrEmpty(x)))
+            { if (y + 14 > page.Height.Point - 50) Yeni(); g.DrawString(q, fS, XBrushes.DimGray, new XRect(L, y, W(), 12), XStringFormats.TopLeft); y += 14; }
+            y += 30; if (y + 20 > page.Height.Point - 50) Yeni();
+            g.DrawString("Məsul şəxs: ______________________", fN, XBrushes.Black, new XRect(L, y, W() / 2, 14), XStringFormats.TopLeft);
+            g.DrawString("İmza: ______________", fN, XBrushes.Black, new XRect(L + W() / 2 + 40, y, W() / 2, 14), XStringFormats.TopLeft);
+            g.Dispose(); doc.Save(yol);
+        }
+
         private static List<string> Wrap(XGraphics g, string s, XFont f, double w)
         {
             var l = new List<string>(); var cur = "";

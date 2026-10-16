@@ -7,7 +7,7 @@ namespace TexnikaReyestri.Data
     public sealed record TarixceQeyd(long Tarix, string Istifadeci, string Sahe, string Kohne, string Yeni);
     public sealed record EvStat(long Cemi, long Temirde, long HisseGozleyir, long Geciken, double OrtaGun, double OrtaGunEvvel,
         (string, long)[] Statuslar, string[] Aylar, double[] Qebul, double[] Tehvil, (string, double)[] Novler, (string, double)[] OrtaUzre,
-        (string ad, int gun, string zavod, long id)[] Gecikenler);
+        (string ad, int gun, string zavod, long id)[] Gecikenler, double[] Verilib = null);
 
     public static partial class TexnikaRepo
     {
@@ -101,6 +101,15 @@ namespace TexnikaReyestri.Data
             long gec = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir','Qismən təmin edilib') AND IFNULL(FaktikiBitme,'')='';"))[0][0]);
             var ayQ = (await Q($"SELECT substr(DaxilolmaTarixi,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND DaxilolmaTarixi>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             var ayT = (await Q($"SELECT substr(FaktikiBitme,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND FaktikiBitme>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
+            // Təhvil verilib: statusun "Təhvil verilib"ə dəyişdiyi ay (tarixçədən); tarixçəsi olmayanlar (Excel, ilk qeyd) — faktiki bitmə ayı
+            string tw = zavod == null ? "" : " AND t.TemirZavodu=$z";
+            var ayV = (await Q($@"SELECT ay, COUNT(*) FROM (
+  SELECT t.Id, strftime('%Y-%m', MAX(h.Tarix)/1000, 'unixepoch', 'localtime') AS ay FROM Tarixce h JOIN Texnikalar t ON t.Id=h.TexnikaId
+   WHERE t.Silinib=0{tw} AND t.Status='Təhvil verilib' AND h.Sahe='Statusu' AND h.Yeni='Təhvil verilib' GROUP BY t.Id
+  UNION ALL
+  SELECT t.Id, substr(t.FaktikiBitme,1,7) FROM Texnikalar t WHERE t.Silinib=0{tw} AND t.Status='Təhvil verilib' AND t.FaktikiBitme>=$bas
+   AND NOT EXISTS (SELECT 1 FROM Tarixce h WHERE h.TexnikaId=t.Id AND h.Sahe='Statusu' AND h.Yeni='Təhvil verilib'))
+ WHERE ay>=substr($bas,1,7) GROUP BY ay;")).Where(x => x[0] is string).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             var aylar = Enumerable.Range(0, ayGeri).Select(i => new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(-(ayGeri - 1) + i)).ToArray();
             string[] adlar = { "Yan", "Fev", "Mar", "Apr", "May", "İyn", "İyl", "Avq", "Sen", "Okt", "Noy", "Dek" };
             var nov = (await Q($"SELECT Nov, COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND Nov IS NOT NULL GROUP BY Nov ORDER BY 2 DESC LIMIT 6;")).Select(x => ((string)x[0], Convert.ToDouble(x[1]))).ToArray();
@@ -117,7 +126,20 @@ namespace TexnikaReyestri.Data
             return new EvStat(st.Values.Sum(), G("Təmirdə"), G("Hissə gözləyir"), gec, o1, o0,
                 sira.Select(s => (s, G(s))).ToArray(), aylar.Select(d => adlar[d.Month - 1]).ToArray(),
                 aylar.Select(d => ayQ.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(), aylar.Select(d => ayT.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(),
-                nov, uzre.Where(x => x[0] is string).Select(x => ((string)x[0], x[1] is DBNull ? 0 : Convert.ToDouble(x[1]))).ToArray(), gecList);
+                nov, uzre.Where(x => x[0] is string).Select(x => ((string)x[0], x[1] is DBNull ? 0 : Convert.ToDouble(x[1]))).ToArray(), gecList,
+                aylar.Select(d => ayV.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray());
+        }
+
+        /// <summary>Təmiri tamamlanıb, təhvil gözlənilən texnikalar: say və ən uzun gözləmə (gün, faktiki bitmədən bu günə).</summary>
+        public static async Task<(long say, int maxGun)> TehvilGozlAsync(string zavod)
+        {
+            await using var con = await LocalDb.AcAsync();
+            using var c = con.CreateCommand();
+            c.CommandText = "SELECT COUNT(*), IFNULL(MAX(CAST(julianday($b)-julianday(FaktikiBitme) AS INTEGER)),0) FROM Texnikalar " +
+                            "WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND IFNULL(FaktikiBitme,'')<>'' AND IFNULL(Status,'') NOT IN ('Təhvil verilib','Təmirə yararsız');";
+            c.Parameters.AddWithValue("$z", (object)zavod ?? DBNull.Value); c.Parameters.AddWithValue("$b", Vaxt.Iso(DateTime.Today));
+            await using var r = await c.ExecuteReaderAsync(); await r.ReadAsync();
+            return (r.GetInt64(0), Math.Max(0, r.GetInt32(1)));
         }
 
         /// <summary>Üst qurum üçün zavodlar üzrə icmal (son paket tarixi daxil).</summary>

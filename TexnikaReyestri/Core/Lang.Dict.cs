@@ -80,6 +80,7 @@ namespace TexnikaReyestri.Core
             ["Təmin edilməyib"] = ("Not supplied", "Не обеспечено"),
             ["Təchizat sorğuları"] = ("Supply requests", "Запросы снабжения"),
             ["Sorğu əlavə et"] = ("Add request", "Добавить запрос"),
+            ["Hesabatlar"] = ("Reports", "Отчёты"),
             ["Ehtiyat hissələrinin təminatı gözlənilir"] = ("Awaiting spare parts", "Ожидается обеспечение запчастями"),
             ["Təmirdədir"] = ("In repair", "В ремонте"),
             ["Gecikən"] = ("Overdue", "Просрочено"),

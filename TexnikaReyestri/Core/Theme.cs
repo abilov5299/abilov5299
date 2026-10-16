@@ -13,7 +13,7 @@ namespace TexnikaReyestri.Core
 
         // Bütün rənglər bir yerdədir: dəyişmək üçün yalnız bu iki metodu redaktə edin
         public static Color Page, Bg, Card, Alt, Line, Sel, Ink, Title, Muted, Nav, NavOn, NavText,
-                            Accent, Ok, Warn, Bad, Info, Gray, Chart1, Chart2, Glow1, Glow2, Shadow, Watermark;
+                            Accent, Ok, Warn, Bad, Info, Gray, Chart1, Chart2, Chart3, Glow1, Glow2, Shadow, Watermark;
 
         static Theme() => Set(ThemeMode.Light, false);
 
@@ -27,14 +27,14 @@ namespace TexnikaReyestri.Core
             {
                 Page = C("#DCE5E3"); Bg = C("#EEF3F2"); Card = Color.White; Alt = C("#F6F9F9"); Line = C("#D4E2E0"); Sel = C("#DCEFEC");
                 Ink = C("#1B2B2A"); Title = C("#0F4C4A"); Muted = C("#5D7472");
-                Chart1 = C("#0F4C4A"); Chart2 = C("#6FB1A9");
+                Chart1 = C("#0F4C4A"); Chart2 = C("#6FB1A9"); Chart3 = C("#D9A441");
                 Glow1 = Color.FromArgb(18, 15, 76, 74); Glow2 = Color.FromArgb(13, 224, 138, 0); Shadow = Color.FromArgb(30, 15, 76, 74); Watermark = Color.FromArgb(9, 15, 76, 74);
             }
             else
             {
                 Page = C("#0A1112"); Bg = C("#0F1718"); Card = C("#162122"); Alt = C("#1B2829"); Line = C("#2A3A3B"); Sel = C("#1E3836");
                 Ink = C("#DCE8E6"); Title = C("#8FD3C9"); Muted = C("#8DA3A1");
-                Chart1 = C("#5FB8AD"); Chart2 = C("#2E6E68");
+                Chart1 = C("#5FB8AD"); Chart2 = C("#2E6E68"); Chart3 = C("#E0B25A");
                 Glow1 = Color.FromArgb(26, 111, 177, 169); Glow2 = Color.FromArgb(15, 224, 138, 0); Shadow = Color.FromArgb(90, 0, 0, 0); Watermark = Color.FromArgb(15, 143, 211, 201);
             }
             if (notify) Changed?.Invoke(null, EventArgs.Empty);

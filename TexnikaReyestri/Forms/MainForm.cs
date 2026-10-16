@@ -43,7 +43,7 @@ namespace TexnikaReyestri.Forms
             navAdd.Visible = navSorgu.Visible = Session.YazaBiler;
             navSummary.Visible = Session.Tip != QurumTip.Zavod;
             int y = 64;
-            foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navTech, navSorgu, navNoti, navSync, navLogs, navBackup }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
+            foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navTech, navSorgu, navRep, navNoti, navSync, navLogs, navBackup }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
             MenyuAc(false);   // menyu hər dəfə bağlı açılır
             Ui.Hazirla(this); YerlesdirBaslig();
             // Sınaq üçün: baza boşdursa bir dəfə 10 nümunə texnika yazılır
@@ -96,7 +96,7 @@ namespace TexnikaReyestri.Forms
             if (_pages.TryGetValue(key, out var page)) return page;
             page = key switch
             {
-                "home" => new HomePage(), "sum" => new SummaryPage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "sadd" => new SorguEditPage(),
+                "home" => new HomePage(), "sum" => new SummaryPage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "sadd" => new SorguEditPage(), "rep" => new HesabatPage(),
                 "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "log" => new LogsPage(), "bak" => new BackupPage(),
                 _ => throw new ArgumentException(key)
             };
@@ -110,7 +110,7 @@ namespace TexnikaReyestri.Forms
         /// </summary>
         private async Task OnHazirlaAsync()
         {
-            var keys = new List<string> { "list", "det", "tech", "noti", "sync", "log", "bak" };
+            var keys = new List<string> { "list", "det", "tech", "rep", "noti", "sync", "log", "bak" };
             if (Session.YazaBiler) keys.Insert(2, "add");
             if (Session.Tip != QurumTip.Zavod) keys.Insert(0, "sum");
             foreach (var k in keys)
