@@ -15,7 +15,7 @@ namespace TexnikaReyestri.Pages
         public HomePage()
         {
             InitializeComponent();
-            lblLegC = new Label { AutoSize = true, Font = lblLegB.Font, Tag = "muted", Text = "■ Təhvil verilib", Top = lblLegB.Top };
+            lblLegC = new Label { Name = "lblLegC", AutoSize = true, Font = lblLegB.Font, Tag = "muted", Text = "■ Təhvil verilib", Top = lblLegB.Top };
             lblLegA.Text = "■ Qəbul edilib"; lblLegB.Text = "■ Təmir tamamlanıb"; rpMonthly.Controls.Add(lblLegC);
             Ui.Saga(lnkLogs); Ui.Saga(lnkLate); Ui.Saga(lblLegC); Ui.Saga(lblLegB, lblLegC); Ui.Saga(lblLegA, lblLegB);   // sağ kənara bərkidilmiş başlıq yazıları
             Duzum();
@@ -28,7 +28,7 @@ namespace TexnikaReyestri.Pages
         public override async Task OnShownAsync()
         {
             lblTitle.Text = Lang.T("Ana səhifə") + " · " + (Session.ZavodFiltri ?? Lang.T("bütün zavodlar"));
-            lblLegA.ForeColor = Theme.Chart1; lblLegB.ForeColor = Theme.Chart2; lblLegC.ForeColor = Theme.Chart3;
+            lblLegA.ForeColor = Theme.Chart1; lblLegB.ForeColor = Theme.Chart2; lblLegC.ForeColor = Theme.Chart3; lblLegC.Text = Lang.T("■ Təhvil verilib"); lblLegC.BringToFront();
             await Ui.Is(this, "Məlumatlar yüklənir...", async _ =>
             {
                 _st = await Task.Run(() => TexnikaRepo.EvStatAsync(Session.ZavodFiltri, Aylar[segPeriod.SelectedIndex]));
@@ -58,7 +58,7 @@ namespace TexnikaReyestri.Pages
                 lblMonthlyTitle.Text = "Aylar üzrə qəbul, təmir və təhvil";
                 tlpBody.ColumnCount = 1; tlpBody.RowCount = 3; tlpBody.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
                 tlpBody.RowStyles.Add(new RowStyle(SizeType.Percent, 100)); tlpBody.RowStyles.Add(new RowStyle(SizeType.Absolute, 70)); tlpBody.RowStyles.Add(new RowStyle(SizeType.Absolute, 80));
-                tlpBody.Controls.Add(rpMonthly, 0, 0);
+                tlpBody.Controls.Add(rpMonthly, 0, 0); tlpBody.SetColumnSpan(rpMonthly, 1);
                 tlpBody.Controls.Add(Zolaq("Təhvil gözlənilən texnikalar", "Siyahını aç →", async () => await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = Session.ZavodFiltri, Qrup = "gozl" }), out lblTehvilInfo, out _), 0, 1);
                 tlpBody.Controls.Add(Zolaq("Məlumat mübadiləsi", "Məlumatları köçürməyə →", async () => await MainForm.Current.AcAsync("sync"), out lblSyncSon, out lblSyncDey), 0, 2);
             }
@@ -70,6 +70,7 @@ namespace TexnikaReyestri.Pages
                 tlpBody.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
                 rpMonthly.Margin = new Padding(0, 0, 10, 10);
                 tlpBody.Controls.Add(rpMonthly, 0, 0); tlpBody.Controls.Add(rpAvg, 1, 0);
+                tlpBody.SetColumnSpan(rpMonthly, 1); tlpBody.SetRowSpan(rpMonthly, 1);   // Designer-dəki 2 sütunluq en qalmasın
             }
             tlpBody.ResumeLayout(true);
         }
