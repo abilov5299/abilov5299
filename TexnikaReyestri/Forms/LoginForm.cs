@@ -33,10 +33,12 @@ namespace TexnikaReyestri.Forms
             void Dev() => loqoDev.Location = new Point(pnlBrand.ClientSize.Width - 36, pnlBrand.ClientSize.Height - 36);
             pnlBrand.Resize += (_, _) => Dev(); Dev();
             // Parola baxış gözü: basılı saxlayanda yox, klik ilə göstər/gizlət
-            txtPass.Width -= 34;
-            var goz = new FlatButton { Kind = ButtonKind.Ghost, Glyph = "\uE7B3", Text = "", Size = new Size(30, txtPass.Height), Location = new Point(txtPass.Right + 4, txtPass.Top), TabStop = false };
-            goz.Click += (_, _) => { txtPass.UseSystemPasswordChar = !txtPass.UseSystemPasswordChar; goz.Glyph = txtPass.UseSystemPasswordChar ? "\uE7B3" : "\uED1A"; txtPass.Focus(); };
-            txtPass.Parent.Controls.Add(goz);
+            // Göz parol xanasının İÇİNDƏ, sağda; mətn onun altına düşməsin deyə sağ kənar boşluğu (EM_SETMARGINS)
+            var goz = new Label { Text = "\uE7B3", Font = Icons.Font(11f), Dock = DockStyle.Right, Width = 26, TextAlign = ContentAlignment.MiddleCenter, Cursor = Cursors.Hand, Tag = "muted" };
+            goz.Click += (_, _) => { txtPass.UseSystemPasswordChar = !txtPass.UseSystemPasswordChar; goz.Text = txtPass.UseSystemPasswordChar ? "\uE7B3" : "\uED1A"; txtPass.Focus(); txtPass.SelectionStart = txtPass.TextLength; };
+            txtPass.Controls.Add(goz);
+            void Kenar() { goz.BackColor = txtPass.BackColor; if (txtPass.IsHandleCreated) Win32.SendMessage(txtPass.Handle, 0xD3, (IntPtr)2, (IntPtr)(28 << 16)); }
+            txtPass.HandleCreated += (_, _) => Kenar(); txtPass.BackColorChanged += (_, _) => Kenar();
             // Versiya yazısı brend panelinin aşağısında (Designer-də panel ölçüsündən əvvəl bərkidilirdi və yuxarı düşürdü)
             void Ver() => lblVersion.Top = pnlBrand.ClientSize.Height - lblVersion.Height - 24;
             lblVersion.Anchor = AnchorStyles.Left | AnchorStyles.Top; pnlBrand.Resize += (_, _) => Ver(); Ver();
