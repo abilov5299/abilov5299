@@ -38,7 +38,7 @@
 | 8 | Təhvil tarixi ayrıca sahə deyil: statusun "Təhvil verilib"ə dəyişdiyi an (Tarixce), yoxdursa Faktiki bitmə |
 | 9 | Təchizat sorğusunun "Təminat nəticəsi" istifadəçi tərəfindən seçilir (avtomatik hesablanmır) |
 | 10 | "Məni xatırla" yalnız istifadəçi adını saxlayır, parolu yox |
-| 11 | Yan menyu həmişə bağlı açılır; loqoya klik ilə açılır (məzmunun üstündə, animasiya ilə) |
+| 11 | Yan menyu həmişə bağlı açılır; loqoya klik ilə açılır. Açıq menyu səhifəni sıxır (altında qalmır); animasiya üstdə gedir, səhifə yalnız sonda bir dəfə düzülür |
 | 12 | Admin paneli gizlidir: giriş ekranında loqoya 3 s-də 5 klik və ya Ctrl+Shift+F12 |
 | 13 | Proqramçı loqosu: giriş ekranının brend panelində sağ aşağı küncdə, solğun, yazısız (`ProqramciLoqo`) |
 
@@ -112,6 +112,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 ### Windows-da yoxlanılmalı (istifadəçi hələ təsdiqləməyib)
 
 - [x] Yan menyu: açılış və bağlanma normal (17.10, təsdiqləndi); bağlanma üçün bağlanarkən altdakı səhifənin şəkli "pərdə" kimi göstərilir (`PerdeGoster`)
+- [x] Yan menyu açılanda səhifə sıxılır (17.10, `MezmunSol`, təsdiqləndi)
 - [ ] Giriş: "Unut" linkinin yeri, parol gözü xananın içində, animasiyanın hiss olunması
 - [ ] Ana səhifə: "1 il" seçiləndə ay adları sıxlaşırmı
 - [x] Ana səhifə: zavodlar cədvəli + diaqram yan-yana (təsdiqləndi)

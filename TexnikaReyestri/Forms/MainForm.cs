@@ -106,18 +106,24 @@ namespace TexnikaReyestri.Forms
                 double e = 1 - Math.Pow(1 - t, 3);   // ease-out
                 int w = (int)Math.Round(_menyuBasla + (_menyuHedef - _menyuBasla) * e);
                 if (t >= 1) { w = _menyuHedef; _menyuT.Stop(); }
-                if (t >= 1) PerdeGizle();
-                if (w == pnlNav.Width) return;
-                MenyuEni(w);
-                pnlNav.Update();   // hər addım dərhal çəkilsin (iz qalmasın)
+                if (w != pnlNav.Width) { MenyuEni(w); pnlNav.Update(); }   // hər addım dərhal çəkilsin (iz qalmasın)
+                if (t >= 1) { PerdeGizle(); if (_menyuHedef > 64) MezmunSol(_menyuHedef); }   // açıldı: səhifə bir dəfə sıxılır
             };
+        }
+        // Səhifə menyunun altında qalmır: sol boşluq menyunun eninə bərabərdir (animasiya boyu yox, yalnız sonda dəyişir)
+        private void MezmunSol(int w)
+        {
+            if (Padding.Left == 1 + w) return;
+            Padding = new Padding(1 + w, 1, 1, 1);
+            PerformLayout(); pnlContent.Update();
         }
         private void MenyuAc(bool ac)
         {
             _menyuHedef = ac ? 236 : 64;
-            if (!IsHandleCreated) { _menyuT.Stop(); MenyuEni(_menyuHedef); return; }
+            if (!IsHandleCreated) { _menyuT.Stop(); MenyuEni(_menyuHedef); Padding = new Padding(1 + _menyuHedef, 1, 1, 1); return; }
             _menyuBasla = pnlNav.Width; _menyuSaat.Restart();
-            if (ac) PerdeGizle(); else PerdeGoster();
+            if (ac) PerdeGizle();
+            else { MezmunSol(64); PerdeGoster(); }   // bağlanır: səhifə menyunun arxasında genişlənir, sonra menyu çəkilir
             pnlNav.BringToFront(); _menyuT.Start();
         }
 
