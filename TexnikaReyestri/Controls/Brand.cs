@@ -163,4 +163,24 @@ namespace TexnikaReyestri.Controls
         private static extern int ScrollWindowEx(IntPtr h, int dx, int dy, IntPtr scroll, IntPtr clip, IntPtr rgn, IntPtr upd, int flags);
         protected override void OnMouseWheel(MouseEventArgs e) { ScrollBy(-e.Delta / 120 * 48); base.OnMouseWheel(e); }
     }
+
+    /// <summary>Proqramçının loqosu (A + nöqtə + xətt), çox solğun — yalnız diqqətlə baxanda görünür, seçilmir.</summary>
+    [ToolboxItem(false)]
+    public class ProqramciLoqo : Control
+    {
+        public ProqramciLoqo()
+        {
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.SupportsTransparentBackColor | ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.Selectable, false); BackColor = Color.Transparent; TabStop = false;
+        }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            var g = e.Graphics; Gfx.Smooth(g); float s = Math.Min(Width, Height) / 100f;
+            var c = Color.FromArgb(70, 255, 255, 255);
+            using var pen = new Pen(c, 12 * s) { StartCap = LineCap.Round, EndCap = LineCap.Round, LineJoin = LineJoin.Round };
+            g.DrawLines(pen, new[] { new PointF(44 * s, 75 * s), new PointF(8 * s, 75 * s), new PointF(37 * s, 22 * s), new PointF(80 * s, 95 * s) });
+            g.DrawLine(pen, 61 * s, 22 * s, 96 * s, 76 * s);
+            using var b = new SolidBrush(c); g.FillEllipse(b, 46 * s, 1 * s, 12 * s, 12 * s);
+        }
+    }
 }

@@ -8,6 +8,7 @@ namespace TexnikaReyestri.Forms
     public partial class LoginForm : Form
     {
         private readonly List<DateTime> _logoKlik = new();
+        private CheckBox chkXatirla; private LinkLabel lnkUnut; private Control loqoDev;
         /// <summary>Gizli admin girişi tələb olunduqda true (Program.cs admin pəncərəsini açır).</summary>
         public bool AdminIstendi { get; private set; }
 
@@ -16,6 +17,21 @@ namespace TexnikaReyestri.Forms
             InitializeComponent();
             pnlForm.MouseDown += (_, e) => { if (e.Button == MouseButtons.Left) Win32.DragWindow(this); };
             pnlBrand.MouseDown += (_, e) => { if (e.Button == MouseButtons.Left) Win32.DragWindow(this); };
+            Opacity = 0;   // OnShown-da animasiya ilə görünür
+            // Tab sırası: istifadəçi adı → parol → məni xatırla → daxil ol
+            txtUser.TabIndex = 0; txtPass.TabIndex = 1; btnLogin.TabIndex = 3;
+            chkXatirla = new CheckBox { Text = "Bu kompüterdə məni xatırla", AutoSize = true, TabIndex = 2, Font = new Font("Segoe UI", 9f), Location = new Point(txtPass.Left, txtPass.Bottom + 8) };
+            lnkUnut = new LinkLabel { Text = "Unut", AutoSize = true, Visible = false, TabStop = false, Font = new Font("Segoe UI", 9f) };
+            lnkUnut.LinkClicked += async (_, _) => { await SistemRepo.ParamYazAsync("XatirlananLogin", ""); txtUser.Text = ""; chkXatirla.Checked = false; lnkUnut.Visible = false; txtUser.Focus(); };
+            txtPass.Parent.Controls.Add(chkXatirla); txtPass.Parent.Controls.Add(lnkUnut);
+            chkXatirla.SizeChanged += (_, _) => lnkUnut.Location = new Point(chkXatirla.Right + 8, chkXatirla.Top + 1);
+            if (btnLogin.Top < chkXatirla.Bottom + 8) { int d = chkXatirla.Bottom + 10 - btnLogin.Top; btnLogin.Top += d; lblError.Top += d; }
+            txtUser.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) { e.SuppressKeyPress = true; txtPass.Focus(); } };
+            // Proqramçı loqosu: brend panelinin sağ aşağı küncündə, solğun, yazısız
+            loqoDev = new ProqramciLoqo { Size = new Size(22, 22) };
+            pnlBrand.Controls.Add(loqoDev);
+            void Dev() => loqoDev.Location = new Point(pnlBrand.ClientSize.Width - 36, pnlBrand.ClientSize.Height - 36);
+            pnlBrand.Resize += (_, _) => Dev(); Dev();
             // Parola baxış gözü: basılı saxlayanda yox, klik ilə göstər/gizlət
             txtPass.Width -= 34;
             var goz = new FlatButton { Kind = ButtonKind.Ghost, Glyph = "\uE7B3", Text = "", Size = new Size(30, txtPass.Height), Location = new Point(txtPass.Right + 4, txtPass.Top), TabStop = false };
@@ -26,12 +42,37 @@ namespace TexnikaReyestri.Forms
             lblVersion.Anchor = AnchorStyles.Left | AnchorStyles.Top; pnlBrand.Resize += (_, _) => Ver(); Ver();
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        private bool _xatirlaIcaze = true;
+
+        private async void LoginForm_Load(object sender, EventArgs e)
         {
             cmbLang.SelectedIndex = Ui.DilIndex;
             btnTheme.Glyph = Ui.TemaGlyph;
             Ui.Hazirla(this);
             ActiveControl = txtUser;
+            // "Məni xatırla": yalnız istifadəçi adı bu kompüterdə saxlanılır (parol yox)
+            _xatirlaIcaze = await SistemRepo.ParamAsync("GirisXatirla", 1) == 1;
+            chkXatirla.Visible = _xatirlaIcaze;
+            string son = _xatirlaIcaze ? await SistemRepo.ParamStrAsync("XatirlananLogin") : null;
+            if (!string.IsNullOrEmpty(son)) { txtUser.Text = son; chkXatirla.Checked = true; lnkUnut.Visible = true; ActiveControl = txtPass; }
+            loqoDev.Visible = await SistemRepo.ParamAsync("ProqramciLoqo", 1) == 1;
+        }
+
+        // Kölgədən çıxırmış kimi: şəffaflıq 0→1 və 28 px aşağıdan yuxarı, yumşaq yavaşlama (ease-out). Parametrlər Admin → Sistem
+        protected override async void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            if (await SistemRepo.ParamAsync("GirisSes", 1) == 1) System.Media.SystemSounds.Asterisk.Play();
+            int ms = await SistemRepo.ParamAsync("GirisAnimasiya", 900);
+            if (ms <= 0) { Opacity = 1; return; }
+            int y0 = Top; var sw = System.Diagnostics.Stopwatch.StartNew();
+            while (sw.ElapsedMilliseconds < ms && !IsDisposed)
+            {
+                double t = sw.ElapsedMilliseconds / (double)ms, k = 1 - Math.Pow(1 - t, 3);
+                Opacity = k; Top = y0 + (int)(28 * (1 - k));
+                await Task.Delay(10);
+            }
+            if (!IsDisposed) { Opacity = 1; Top = y0; }
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
@@ -54,6 +95,7 @@ namespace TexnikaReyestri.Forms
                         using (var f = new ChangePasswordForm(Session.Login)) if (f.ShowDialog(this) != DialogResult.OK) { Session.Bitir(); return; }
                         break;
                 }
+                if (_xatirlaIcaze) await SistemRepo.ParamYazAsync("XatirlananLogin", chkXatirla.Checked ? txtUser.Text.Trim() : "");
                 await SistemRepo.LogAsync("Giriş", $"{Session.AdSoyad} daxil oldu");
                 DialogResult = DialogResult.OK;
             }
