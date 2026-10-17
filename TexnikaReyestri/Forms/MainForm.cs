@@ -42,7 +42,6 @@ namespace TexnikaReyestri.Forms
             lblUser.Text = $"{Session.AdSoyad} · {Lang.T(Session.RolMetni)}";
             // Rola görə menyu: üst qurumlar texnika daxil etmir, İcmal isə yalnız üst qurumlarda var
             navAdd.Visible = navSorgu.Visible = Session.YazaBiler;
-            navBackup.Visible = false;   // Ehtiyat nüsxə və Loglar → "Tənzimləmə" (navLogs)
             navSummary.Visible = Session.Tip != QurumTip.Zavod;
             int y = 64;
             foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navTech, navSorgu, navRep, navNoti, navSync, navLogs }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
@@ -86,26 +85,75 @@ namespace TexnikaReyestri.Forms
         // Loqoya klik: menyu açılır (ikon + ad) və ya bağlanır (yalnız ikon)
         private void logo_Click(object sender, EventArgs e) => MenyuAc(pnlNav.Width < 100);
         // Menyu məzmunun ÜSTÜNDƏ açılır (dock deyil): genişlənəndə səhifələr yenidən düzülmür — animasiya hamar olur
-        private readonly System.Windows.Forms.Timer _menyuT = new() { Interval = 12 };
-        private int _menyuHedef = 64;
+        private readonly System.Windows.Forms.Timer _menyuT = new() { Interval = 10 };
+        private int _menyuHedef = 64, _menyuBasla = 64;
+        private readonly System.Diagnostics.Stopwatch _menyuSaat = new();
+        private const double MenyuMuddet = 180;   // ms; addım gecikəndə animasiya uzanmır, növbəti addımda yetişir
+        private void MenyuEni(int w)
+        {
+            pnlNav.SuspendLayout();
+            pnlNav.Width = w; foreach (Control c in pnlNav.Controls) if (c is NavButton nb) nb.Width = w;
+            lblApp.Visible = w > 150;
+            pnlNav.ResumeLayout(false);   // bir addımda bir dəfə düzülür
+        }
         private void MenyuQur()
         {
             pnlNav.Dock = DockStyle.None; Padding = new Padding(1 + 64, 1, 1, 1);
             pnlNav.SetBounds(1, 1, 64, ClientSize.Height - 2); pnlNav.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left; pnlNav.BringToFront();
             _menyuT.Tick += (_, _) =>
             {
-                int w = pnlNav.Width, d = _menyuHedef - w;
-                if (Math.Abs(d) <= 2) { w = _menyuHedef; _menyuT.Stop(); } else w += (int)Math.Ceiling(Math.Abs(d) * 0.35) * Math.Sign(d);
-                pnlNav.Width = w; foreach (Control c in pnlNav.Controls) if (c is NavButton nb) nb.Width = w;
-                lblApp.Visible = w > 150;
+                double t = Math.Min(1, _menyuSaat.Elapsed.TotalMilliseconds / MenyuMuddet);
+                double e = 1 - Math.Pow(1 - t, 3);   // ease-out
+                int w = (int)Math.Round(_menyuBasla + (_menyuHedef - _menyuBasla) * e);
+                if (t >= 1) { w = _menyuHedef; _menyuT.Stop(); }
+                if (t >= 1) PerdeGizle();
+                if (w == pnlNav.Width) return;
+                MenyuEni(w);
                 pnlNav.Update();   // hər addım dərhal çəkilsin (iz qalmasın)
             };
         }
         private void MenyuAc(bool ac)
         {
             _menyuHedef = ac ? 236 : 64;
-            if (!IsHandleCreated) { _menyuT.Stop(); pnlNav.Width = _menyuHedef; foreach (Control c in pnlNav.Controls) if (c is NavButton nb) nb.Width = _menyuHedef; lblApp.Visible = ac; return; }
+            if (!IsHandleCreated) { _menyuT.Stop(); MenyuEni(_menyuHedef); return; }
+            _menyuBasla = pnlNav.Width; _menyuSaat.Restart();
+            if (ac) PerdeGizle(); else PerdeGoster();
             pnlNav.BringToFront(); _menyuT.Start();
+        }
+
+        // Bağlanarkən menyunun altında açılan səhifə hissəsi hər addımda yenidən çəkilməsin (donma olurdu):
+        // animasiyanın əvvəlində bir dəfə şəkli çəkilir, animasiya boyu "pərdə" bu şəkli göstərir.
+        private Panel _perde;
+        private Bitmap _perdeSekil;
+        private void PerdeGoster()
+        {
+            PerdeGizle();
+            int en = pnlNav.Right - pnlContent.Left, hund = pnlContent.Height;
+            if (en <= 0 || hund <= 0) return;
+            try
+            {
+                using var tam = new Bitmap(pnlContent.Width, hund);
+                pnlContent.DrawToBitmap(tam, new Rectangle(0, 0, tam.Width, hund));
+                _perdeSekil = tam.Clone(new Rectangle(0, 0, Math.Min(en, tam.Width), hund), tam.PixelFormat);
+            }
+            catch { return; }   // şəkil alınmasa adi qaydada bağlanır
+            if (_perde == null)
+            {
+                _perde = new BufPanel { Visible = false };
+                _perde.Paint += (_, e) => { if (_perdeSekil != null) e.Graphics.DrawImageUnscaled(_perdeSekil, 0, 0); };
+                Controls.Add(_perde);
+            }
+            _perde.SetBounds(pnlContent.Left, pnlContent.Top, _perdeSekil.Width, hund);
+            _perde.Visible = true; _perde.BringToFront();
+        }
+        private void PerdeGizle()
+        {
+            if (_perde != null) _perde.Visible = false;
+            _perdeSekil?.Dispose(); _perdeSekil = null;
+        }
+        private sealed class BufPanel : Panel
+        {
+            public BufPanel() { SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint, true); }
         }
 
         private PageBase Sehife(string key)

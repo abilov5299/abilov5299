@@ -19,7 +19,7 @@ namespace TexnikaReyestri.Pages
             InitializeComponent();
             lblLegC = new Label { Name = "lblLegC", AutoSize = true, Font = lblLegB.Font, Tag = "muted", Text = "■ Təhvil verilib", Top = lblLegB.Top };
             lblLegA.Text = "■ Qəbul edilib"; lblLegB.Text = "■ Təmir tamamlanıb"; rpMonthly.Controls.Add(lblLegC);
-            Ui.Saga(lnkLogs); Ui.Saga(lnkLate); Ui.Saga(lblLegC); Ui.Saga(lblLegB, lblLegC); Ui.Saga(lblLegA, lblLegB);   // sağ kənara bərkidilmiş başlıq yazıları
+            Ui.Saga(lblLegC); Ui.Saga(lblLegB, lblLegC); Ui.Saga(lblLegA, lblLegB);   // sağ kənara bərkidilmiş başlıq yazıları
             foreach (var l in new[] { lblLegA, lblLegB, lblLegC }) l.Visible = false;   // əfsanə diaqramın içində çəkilir
             chartMonthly.Genis = true;
             lblMonthlyTitle.Font = lblAvgTitle.Font = new Font("Bahnschrift SemiBold", 15f); lblMonthlyTitle.Height = lblAvgTitle.Height = 40; lblMonthlyTitle.Tag = lblAvgTitle.Tag = null;
@@ -30,8 +30,6 @@ namespace TexnikaReyestri.Pages
             gridZav.Columns.Add(new DataGridViewTextBoxColumn { Name = "colZavGec", HeaderText = "İcra müddəti keçib", Width = 130 });
             gridZav.Columns.Add(new DataGridViewTextBoxColumn { Name = "colZavSon", HeaderText = "Son məlumat tarixi", Width = 150 });
             Duzum();
-            gridLate.RowTemplate.Height = 30; gridEvents.RowTemplate.Height = 30;
-            gridLate.Columns["colLateDays"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             gridZav.RowTemplate.Height = 40;
             foreach (DataGridViewColumn c in gridZav.Columns) if (c.Index > 0) { c.DefaultCellStyle.Alignment = c.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; }
         }
@@ -64,8 +62,7 @@ namespace TexnikaReyestri.Pages
         private void Duzum()
         {
             tlpBody.SuspendLayout();
-            foreach (var c in new Control[] { rpStatus, rpTypes, rpLate, rpEvents, rpMonthly, rpAvg }) tlpBody.Controls.Remove(c);
-            lblFoot.Visible = false;
+            foreach (var c in new Control[] { rpMonthly, rpAvg }) tlpBody.Controls.Remove(c);
             tlpBody.ColumnStyles.Clear(); tlpBody.RowStyles.Clear();
             rpMonthly.Margin = rpAvg.Margin = new Padding(0, 0, 0, 10);
             if (Session.ZavodFiltri != null)
@@ -123,8 +120,6 @@ namespace TexnikaReyestri.Pages
             tlpTiles.Goster(KartStat.Cem(_ks.Values), _n);
             chartMonthly.SeriesBName = "təmir tamamlanıb";
             chartMonthly.SetData(s.Aylar, s.Qebul, s.Tehvil, s.Verilib);
-            brkStatus.SetItems(s.Statuslar);
-            barTypes.SetItems(s.Novler);
             // Zavodlar üzrə icra vəziyyəti: sətir = zavod, sonda cəmi
             gridZav.Rows.Clear();
             string F(long v) => v.ToString("#,0").Replace(",", " ");
@@ -150,16 +145,11 @@ namespace TexnikaReyestri.Pages
                 int i = gridZav.Rows.Add(Lang.T("Cəmi"), F(c.Davam), F(c.Gozlenilir), F(c.Tehvil), F(c.Cemi), F(c.Kecmis), "—");
                 gridZav.Rows[i].DefaultCellStyle.Font = new Font(gridZav.Font, FontStyle.Bold);
             }
-            gridLate.Rows.Clear();
-            foreach (var g in s.Gecikenler) { int i = gridLate.Rows.Add(g.ad + (Session.ZavodFiltri == null ? $" · {g.zavod}" : ""), $"{g.gun} gün"); gridLate.Rows[i].Tag = g.id; gridLate.Rows[i].Cells[1].Style.ForeColor = Theme.Bad; }
-            if (s.Gecikenler.Length == 0) gridLate.Rows.Add(Lang.T("Gecikən təmir yoxdur."), "");
         }
 
         private async void segPeriod_SelectedIndexChanged(object sender, EventArgs e) => await OnShownAsync();
 
         private async void kart_Clicked(object sender, string qrup) => await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = Session.ZavodFiltri, Qrup = qrup });
-
-        private async void brkStatus_StatusClicked(object sender, string status) => await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = Session.ZavodFiltri, Status = status });
 
         private async void gridZav_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -167,14 +157,6 @@ namespace TexnikaReyestri.Pages
             string z = gridZav.Rows[e.RowIndex].Tag as string;   // Cəmi sətrində null = bütün zavodlar
             if (gridZav.Columns[e.ColumnIndex].Name == "colZavGec") await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = z, Qrup = "late" });
             else if (z != null) await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = z, Qrup = "cemi" });
-        }
-
-        private async void lnkLate_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => await MainForm.Current.ReyestrAcAsync(new ReyestrFiltr { Zavod = Session.ZavodFiltri, Qrup = "late" });
-        private async void lnkLogs_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) => await MainForm.Current.AcAsync("log");
-
-        private async void gridLate_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && gridLate.Rows[e.RowIndex].Tag is long id) await MainForm.Current.DetalAcAsync(id);
         }
     }
 }
