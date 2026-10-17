@@ -24,7 +24,8 @@ namespace TexnikaReyestri.Forms
             lnkUnut = new LinkLabel { Text = "Unut", AutoSize = true, Visible = false, TabStop = false, Font = new Font("Segoe UI", 9f) };
             lnkUnut.LinkClicked += async (_, _) => { await SistemRepo.ParamYazAsync("XatirlananLogin", ""); txtUser.Text = ""; chkXatirla.Checked = false; lnkUnut.Visible = false; txtUser.Focus(); };
             txtPass.Parent.Controls.Add(chkXatirla); txtPass.Parent.Controls.Add(lnkUnut);
-            chkXatirla.SizeChanged += (_, _) => lnkUnut.Location = new Point(chkXatirla.Right + 8, chkXatirla.Top + 1);
+            void Unut() => lnkUnut.Location = new Point(chkXatirla.Right + 10, chkXatirla.Top + (chkXatirla.Height - lnkUnut.Height) / 2);
+            chkXatirla.SizeChanged += (_, _) => Unut(); chkXatirla.LocationChanged += (_, _) => Unut(); lnkUnut.SizeChanged += (_, _) => Unut();
             if (btnLogin.Top < chkXatirla.Bottom + 8) { int d = chkXatirla.Bottom + 10 - btnLogin.Top; btnLogin.Top += d; lblError.Top += d; }
             txtUser.KeyDown += (_, e) => { if (e.KeyCode == Keys.Enter) { e.SuppressKeyPress = true; txtPass.Focus(); } };
             // Proqramçı loqosu: brend panelinin sağ aşağı küncündə, solğun, yazısız
@@ -57,6 +58,8 @@ namespace TexnikaReyestri.Forms
             chkXatirla.Visible = _xatirlaIcaze;
             string son = _xatirlaIcaze ? await SistemRepo.ParamStrAsync("XatirlananLogin") : null;
             if (!string.IsNullOrEmpty(son)) { txtUser.Text = son; chkXatirla.Checked = true; lnkUnut.Visible = true; ActiveControl = txtPass; }
+            lnkUnut.BackColor = Color.Transparent; lnkUnut.LinkColor = lnkUnut.ActiveLinkColor = Theme.Accent; lnkUnut.LinkBehavior = LinkBehavior.HoverUnderline;
+            lnkUnut.Location = new Point(chkXatirla.Right + 10, chkXatirla.Top + (chkXatirla.Height - lnkUnut.Height) / 2);
             loqoDev.Visible = await SistemRepo.ParamAsync("ProqramciLoqo", 1) == 1;
         }
 
