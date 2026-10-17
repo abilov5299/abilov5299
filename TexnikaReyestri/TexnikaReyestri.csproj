@@ -10,8 +10,8 @@
     <ApplicationIcon>Assets\TexnikaReyestri.ico</ApplicationIcon>
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <Version>1.0.0</Version>
-    <AssemblyTitle>Texnika Reyestri</AssemblyTitle>
-    <Product>Texnika Reyestri</Product>
+    <AssemblyTitle>Təmir Reyestri</AssemblyTitle>
+    <Product>Təmir Reyestri</Product>
     <Description>Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu</Description>
     <!-- Linux/CI-da yalnız kompilyasiya yoxlaması üçün; Windows-da təsiri yoxdur -->
     <EnableWindowsTargeting>true</EnableWindowsTargeting>

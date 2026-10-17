@@ -127,7 +127,7 @@ namespace TexnikaReyestri.Pages
         private async Task YenidenAsync()
         {
             int v = ++_versiya; _f = Filtr();
-            lblTitle.Text = Lang.T("Reyestr") + " · " + (_f.Zavod ?? Lang.T("bütün zavodlar"));   // hansı zavoda baxıldığı görünsün
+            lblTitle.Text = Lang.T("Təmir reyestri") + " · " + (_f.Zavod ?? Lang.T("bütün zavodlar"));   // hansı zavoda baxıldığı görünsün
             _bazaVersiya = await TexnikaRepo.SonDeyisikAsync();
             _rows.Clear(); _bitdi = false; grid.RowCount = 0;
             await Ui.Is(rpGrid, "Reyestr yüklənir...", async _ =>

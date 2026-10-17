@@ -191,7 +191,7 @@
             this.ClientSize = new System.Drawing.Size(1180, 700);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Texnika Reyestri · Admin";
+            this.Text = "Təmir Reyestri · Admin";
             this.Padding = new System.Windows.Forms.Padding(1);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlAside);

@@ -15,7 +15,7 @@ namespace TexnikaReyestri.Pages
         private readonly FlatButton btnDel = new() { Text = "Sil", Glyph = Icons.Delete, Kind = ButtonKind.Danger, Size = new Size(90, 34) };
         private readonly Dictionary<string, Control> _c = new();
         private readonly ModernGrid gridTex = new() { Dock = DockStyle.Fill }, gridHis = new() { Dock = DockStyle.Fill, ReadOnly = false };
-        private readonly RoundTextBox txtTex = new() { PlaceholderText = "Zavod nömrəsi, lülə nömrəsi və ya marka", Font = new Font("Segoe UI", 10f), Size = new Size(320, 28), Location = new Point(14, 44) };
+        private readonly RoundTextBox txtTex = new() { PlaceholderText = "Zavod nömrəsi, marka və ya ad (boş: siyahı)", Font = new Font("Segoe UI", 10f), Size = new Size(320, 28), Location = new Point(14, 44) };
         private readonly FlatButton btnTexAxtar = new() { Text = "Reyestrdən texnika əlavə et", Glyph = Icons.Add, Kind = ButtonKind.Secondary, Size = new Size(230, 32), Location = new Point(344, 42) };
         private readonly FlatButton btnHisAdd = new() { Text = "Sətir əlavə et", Glyph = Icons.Add, Kind = ButtonKind.Secondary, Size = new Size(150, 32), Location = new Point(14, 42) };
         private DataGridViewComboBoxColumn colTex;
@@ -137,13 +137,12 @@ namespace TexnikaReyestri.Pages
 
         private async Task TexnikaElaveAsync()
         {
-            if (txtTex.Text.Trim().Length == 0) { txtTex.Focus(); return; }
             string zavod = Session.ZavodFiltri ?? ((RoundComboBox)_c["Zavod"]).SelectedItem as string;
             var l = await SorguRepo.TexnikaAxtarAsync(txtTex.Text, zavod);
             l.RemoveAll(x => _s.Tex.Any(t => t.Guid == x.Guid));
             if (l.Count == 0) { Toast.Show(this, "Bu zavodda uyğun texnika tapılmadı", ToastKind.Warn); return; }
             void Elave(SorguTexnika t) { _s.Tex.Add(t); TexGoster(); txtTex.Text = ""; }
-            if (l.Count == 1) { Elave(l[0]); return; }
+            if (l.Count == 1 && txtTex.Text.Trim().Length > 0) { Elave(l[0]); return; }
             var m = new ContextMenuStrip();
             foreach (var t in l) m.Items.Add($"{t.Marka} · {t.ZavodNo} · {Secimler.Ekran(t.Status)}", null, (_, _) => Elave(t));
             m.Show(btnTexAxtar, new Point(0, btnTexAxtar.Height));

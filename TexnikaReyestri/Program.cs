@@ -46,7 +46,7 @@ namespace TexnikaReyestri
         private static void Xeta(Exception ex)
         {
             try { SistemRepo.LogAsync("Xəta", ex?.ToString() ?? "Naməlum xəta").Wait(1000); } catch { }
-            MessageBox.Show(ex?.Message ?? "Naməlum xəta", "Texnika Reyestri", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(ex?.Message ?? "Naməlum xəta", "Təmir Reyestri", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

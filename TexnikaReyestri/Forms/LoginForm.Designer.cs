@@ -81,7 +81,7 @@
             lblBrand.Size = new Size(196, 96);
             lblBrand.TabIndex = 2;
             lblBrand.Tag = "white";
-            lblBrand.Text = "TEXNİKA\r\nREYESTRİ";
+            lblBrand.Text = "TƏMİR\r\nREYESTRİ";
             // 
             // logo
             // 
@@ -242,7 +242,7 @@
             KeyPreview = true;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Texnika Reyestri";
+            Text = "Təmir Reyestri";
             Load += LoginForm_Load;
             KeyDown += LoginForm_KeyDown;
             pnlBrand.ResumeLayout(false);

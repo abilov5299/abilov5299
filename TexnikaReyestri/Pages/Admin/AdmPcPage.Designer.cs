@@ -39,6 +39,7 @@
             this.lblDemoDesc = new System.Windows.Forms.Label();
             this.numDemo = new System.Windows.Forms.NumericUpDown();
             this.btnDemo = new TexnikaReyestri.Controls.FlatButton();
+            this.btnDemoSorgu = new TexnikaReyestri.Controls.FlatButton();
             ((System.ComponentModel.ISupportInitialize)(this.numDemo)).BeginInit();
             this.pnlHead.SuspendLayout();
             this.tlp.SuspendLayout();
@@ -211,6 +212,7 @@
             // rpMaint
             // 
             this.rpMaint.Controls.Add(this.btnDemo);
+            this.rpMaint.Controls.Add(this.btnDemoSorgu);
             this.rpMaint.Controls.Add(this.numDemo);
             this.rpMaint.Controls.Add(this.lblDemoDesc);
             this.rpMaint.Controls.Add(this.lblDemo);
@@ -301,6 +303,15 @@
             this.btnDemo.Size = new System.Drawing.Size(210, 34);
             this.btnDemo.Text = "Nümunə məlumat yarat";
             this.btnDemo.Name = "btnDemo";
+            // 
+            // btnDemoSorgu
+            // 
+            this.btnDemoSorgu.Kind = TexnikaReyestri.Controls.ButtonKind.Secondary;
+            this.btnDemoSorgu.Location = new System.Drawing.Point(350, 208);
+            this.btnDemoSorgu.Size = new System.Drawing.Size(250, 34);
+            this.btnDemoSorgu.Text = "Nümunə təchizat sorğuları yarat";
+            this.btnDemoSorgu.Name = "btnDemoSorgu";
+            this.btnDemoSorgu.Click += new System.EventHandler(this.btnDemoSorgu_Click);
             this.btnDemo.Click += new System.EventHandler(this.btnDemo_Click);
             // 
             // AdmPcPage
@@ -351,5 +362,6 @@
         private System.Windows.Forms.Label lblDemoDesc;
         private System.Windows.Forms.NumericUpDown numDemo;
         private TexnikaReyestri.Controls.FlatButton btnDemo;
+        private TexnikaReyestri.Controls.FlatButton btnDemoSorgu;
     }
 }

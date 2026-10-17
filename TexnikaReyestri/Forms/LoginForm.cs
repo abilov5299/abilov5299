@@ -1,3 +1,4 @@
+using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
 using TexnikaReyestri.Services;
@@ -15,6 +16,14 @@ namespace TexnikaReyestri.Forms
             InitializeComponent();
             pnlForm.MouseDown += (_, e) => { if (e.Button == MouseButtons.Left) Win32.DragWindow(this); };
             pnlBrand.MouseDown += (_, e) => { if (e.Button == MouseButtons.Left) Win32.DragWindow(this); };
+            // Parola baxış gözü: basılı saxlayanda yox, klik ilə göstər/gizlət
+            txtPass.Width -= 34;
+            var goz = new FlatButton { Kind = ButtonKind.Ghost, Glyph = "\uE7B3", Text = "", Size = new Size(30, txtPass.Height), Location = new Point(txtPass.Right + 4, txtPass.Top), TabStop = false };
+            goz.Click += (_, _) => { txtPass.UseSystemPasswordChar = !txtPass.UseSystemPasswordChar; goz.Glyph = txtPass.UseSystemPasswordChar ? "\uE7B3" : "\uED1A"; txtPass.Focus(); };
+            txtPass.Parent.Controls.Add(goz);
+            // Versiya yazısı brend panelinin aşağısında (Designer-də panel ölçüsündən əvvəl bərkidilirdi və yuxarı düşürdü)
+            void Ver() => lblVersion.Top = pnlBrand.ClientSize.Height - lblVersion.Height - 24;
+            lblVersion.Anchor = AnchorStyles.Left | AnchorStyles.Top; pnlBrand.Resize += (_, _) => Ver(); Ver();
         }
 
         private void LoginForm_Load(object sender, EventArgs e)

@@ -154,7 +154,7 @@ namespace TexnikaReyestri.Services
 
         private static (Baslik b, byte[] bas, byte[] cipher, byte[] tag, int imzaHissesi) Parcala(byte[] d)
         {
-            if (d.Length < 30 || !d.AsSpan(0, 4).SequenceEqual(Magic)) throw new InvalidDataException("Bu fayl Texnika Reyestri paketi deyil.");
+            if (d.Length < 30 || !d.AsSpan(0, 4).SequenceEqual(Magic)) throw new InvalidDataException("Bu fayl Təmir Reyestri paketi deyil.");
             int bl = BinaryPrimitives.ReadInt32LittleEndian(d.AsSpan(4, 4));
             if (bl <= 0 || bl > 4096 || 8 + bl + 18 > d.Length) throw new InvalidDataException("Paketin başlığı zədələnib.");
             byte[] bas = d.AsSpan(8, bl).ToArray();

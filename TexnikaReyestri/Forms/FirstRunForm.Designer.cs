@@ -239,7 +239,7 @@
             this.ShowInTaskbar = true;
             this.Padding = new System.Windows.Forms.Padding(1);
             this.AcceptButton = this.btnOk;
-            this.Text = "Texnika Reyestri";
+            this.Text = "Təmir Reyestri";
             this.Controls.Add(this.pnlBody);
             this.Name = "FirstRunForm";
             this.pnlBody.ResumeLayout(false);

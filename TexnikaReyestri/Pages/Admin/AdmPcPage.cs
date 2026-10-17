@@ -44,5 +44,19 @@ namespace TexnikaReyestri.Pages.Admin
             if (await Ui.Is(this, "Nümunə məlumat yazılır...", ov => n == 10 ? DemoData.On10Async(zavod) : DemoData.YaratAsync(n, zavod, new Progress<int>(i => ov.Report(i * 100 / n, $"{i:#,0} / {n:#,0}")), default)))
             { await SistemRepo.AdminLogAsync($"Nümunə məlumat: {n} qeyd"); Toast.Show(this, $"{n:#,0} qeyd {sw.Elapsed.TotalSeconds:0.0} saniyəyə yazıldı"); await OnShownAsync(); }
         }
+
+        private async void btnDemoSorgu_Click(object sender, EventArgs e)
+        {
+            string pk = await SistemRepo.ParamStrAsync("KomputerQurumu");
+            var pq = (await SistemRepo.QurumlarAsync()).FirstOrDefault(q => q.Kod == pk);
+            string zavod = pq?.Tip == QurumTip.Zavod ? pq.Ad : null;
+            if (!Ui.Tesdiq(this, "Nümunə təchizat sorğuları", Lang.T("Hər zavod üçün 10 nümunə sorğu bazadakı texnikalara bağlanaraq yazılacaq. Bu, yalnız sınaq üçündür."), "Yarat")) return;
+            int n = 0;
+            if (await Ui.Is(this, "Nümunə sorğular yazılır...", async _ => n = await DemoData.SorgularAsync(zavod, 10)))
+            {
+                await SistemRepo.AdminLogAsync($"Nümunə təchizat sorğuları: {n}");
+                Toast.Show(this, n > 0 ? $"{n} sorğu yaradıldı" : "Bazada texnika yoxdur: əvvəlcə nümunə məlumat yaradın", n > 0 ? ToastKind.Ok : ToastKind.Warn);
+            }
+        }
     }
 }

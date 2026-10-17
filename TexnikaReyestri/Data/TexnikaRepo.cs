@@ -241,8 +241,8 @@ GROUP BY 1;";
                 // Hər sözü prefiks kimi axtar: "bmp 02" -> "bmp"* "02"*
                 var ifade = string.Join(" ", f.Axtar.Split(' ', StringSplitOptions.RemoveEmptyEntries)
                                                .Select(s => "\"" + s.Replace("\"", "") + "\"*"));
-                // Məktub nömrələri FTS-də yoxdur: əlavə olaraq mətn içində axtarılır
-                w.Append(" AND (Id IN (SELECT rowid FROM TexnikaAxtar WHERE TexnikaAxtar MATCH $q) OR Mektublar LIKE $mk)");
+                // Məktub nömrələri və texnikanın növü FTS-də yoxdur; marka söz ortasından da tapılsın (məs. "72")
+                w.Append(" AND (Id IN (SELECT rowid FROM TexnikaAxtar WHERE TexnikaAxtar MATCH $q) OR Mektublar LIKE $mk OR Nov LIKE $mk OR Marka LIKE $mk)");   // texnikanın adı (növ) da
                 cmd.Parameters.AddWithValue("$q", ifade); cmd.Parameters.AddWithValue("$mk", "%" + f.Axtar.Trim() + "%");
             }
             return w;

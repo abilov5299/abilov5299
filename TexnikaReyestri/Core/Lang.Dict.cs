@@ -8,6 +8,9 @@ namespace TexnikaReyestri.Core
         {
             ["TEXNİKA"] = ("TECHNICAL", "ТЕХНИКА"),
             ["REYESTRİ"] = ("REGISTRY", "РЕЕСТР"),
+            ["TƏMİR"] = ("REPAIR", "РЕМОНТНЫЙ"),
+            ["Təmir reyestri"] = ("Repair registry", "Реестр ремонта"),
+            ["Tənzimləmə"] = ("Settings", "Настройки"),
             ["Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu"] = ("Recording the intake, repair and handover of equipment at repair plants", "Учёт приёма, ремонта и сдачи техники на ремонтных заводах"),
             ["v1.0 · Lokal baza · 7 zavod"] = ("v1.0 · Local database · 7 plants", "v1.0 · Локальная база · 7 заводов"),
             ["Sistemə giriş"] = ("Sign in", "Вход в систему"),

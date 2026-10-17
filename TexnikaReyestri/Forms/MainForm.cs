@@ -24,6 +24,7 @@ namespace TexnikaReyestri.Forms
         public MainForm()
         {
             InitializeComponent();
+            MenyuQur();
             // Proqram həmişə tam ekran açılır (tapşırıq panelini örtmədən)
             StartPosition = FormStartPosition.Manual; MaximizedBounds = Screen.PrimaryScreen.WorkingArea; WindowState = FormWindowState.Maximized;
             Current = this;
@@ -41,9 +42,10 @@ namespace TexnikaReyestri.Forms
             lblUser.Text = $"{Session.AdSoyad} · {Lang.T(Session.RolMetni)}";
             // Rola görə menyu: üst qurumlar texnika daxil etmir, İcmal isə yalnız üst qurumlarda var
             navAdd.Visible = navSorgu.Visible = Session.YazaBiler;
+            navBackup.Visible = false;   // Ehtiyat nüsxə və Loglar → "Tənzimləmə" (navLogs)
             navSummary.Visible = Session.Tip != QurumTip.Zavod;
             int y = 64;
-            foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navTech, navSorgu, navRep, navNoti, navSync, navLogs, navBackup }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
+            foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navTech, navSorgu, navRep, navNoti, navSync, navLogs }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
             MenyuAc(false);   // menyu hər dəfə bağlı açılır
             Ui.Hazirla(this); YerlesdirBaslig();
             // Sınaq üçün: baza boşdursa bir dəfə 10 nümunə texnika yazılır
@@ -74,6 +76,7 @@ namespace TexnikaReyestri.Forms
         private async void nav_Click(object sender, EventArgs e)
         {
             if (sender is not NavButton b) return;
+            if (pnlNav.Width > 64) MenyuAc(false);   // açıq menyu seçimdən sonra bağlanır
             // "Texnika daxil et": əvvəlki redaktə açıq qalmışdısa, boş yeni forma aç
             if (b.PageKey == "add") await AcAsync("add", p => ((EditPage)p).YeniRejim ? Task.CompletedTask : ((EditPage)p).YukleAsync(null));
             else if (b.PageKey == "sadd") await AcAsync("sadd", p => ((SorguEditPage)p).YeniRejim ? Task.CompletedTask : ((SorguEditPage)p).YukleAsync(0));
@@ -82,13 +85,26 @@ namespace TexnikaReyestri.Forms
 
         // Loqoya klik: menyu açılır (ikon + ad) və ya bağlanır (yalnız ikon)
         private void logo_Click(object sender, EventArgs e) => MenyuAc(pnlNav.Width < 100);
+        // Menyu məzmunun ÜSTÜNDƏ açılır (dock deyil): genişlənəndə səhifələr yenidən düzülmür — animasiya hamar olur
+        private readonly System.Windows.Forms.Timer _menyuT = new() { Interval = 12 };
+        private int _menyuHedef = 64;
+        private void MenyuQur()
+        {
+            pnlNav.Dock = DockStyle.None; Padding = new Padding(1 + 64, 1, 1, 1);
+            pnlNav.SetBounds(1, 1, 64, ClientSize.Height - 2); pnlNav.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left; pnlNav.BringToFront();
+            _menyuT.Tick += (_, _) =>
+            {
+                int w = pnlNav.Width, d = _menyuHedef - w;
+                if (Math.Abs(d) <= 2) { w = _menyuHedef; _menyuT.Stop(); } else w += (int)Math.Ceiling(Math.Abs(d) * 0.35) * Math.Sign(d);
+                pnlNav.Width = w; foreach (Control c in pnlNav.Controls) if (c is NavButton nb) nb.Width = w;
+                lblApp.Visible = w > 150;
+            };
+        }
         private void MenyuAc(bool ac)
         {
-            using (Ui.Dondur(this))
-            {
-                pnlNav.Width = ac ? 236 : 64; lblApp.Visible = ac;
-                foreach (Control c in pnlNav.Controls) if (c is NavButton nb) nb.Width = pnlNav.Width;
-            }
+            _menyuHedef = ac ? 236 : 64;
+            if (!IsHandleCreated) { _menyuT.Stop(); pnlNav.Width = _menyuHedef; foreach (Control c in pnlNav.Controls) if (c is NavButton nb) nb.Width = _menyuHedef; lblApp.Visible = ac; return; }
+            pnlNav.BringToFront(); _menyuT.Start();
         }
 
         private PageBase Sehife(string key)
@@ -97,7 +113,7 @@ namespace TexnikaReyestri.Forms
             page = key switch
             {
                 "home" => new HomePage(), "sum" => new SummaryPage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "sadd" => new SorguEditPage(), "rep" => new HesabatPage(),
-                "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "log" => new LogsPage(), "bak" => new BackupPage(),
+                "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "set" => new TenzimlemePage(),
                 _ => throw new ArgumentException(key)
             };
             page.Dock = DockStyle.Fill; page.Visible = false; pnlContent.Controls.Add(page); Ui.Hazirla(page); _pages[key] = page;
@@ -110,7 +126,7 @@ namespace TexnikaReyestri.Forms
         /// </summary>
         private async Task OnHazirlaAsync()
         {
-            var keys = new List<string> { "list", "det", "tech", "rep", "noti", "sync", "log", "bak" };
+            var keys = new List<string> { "list", "det", "tech", "rep", "noti", "sync", "set" };
             if (Session.YazaBiler) keys.Insert(2, "add");
             if (Session.Tip != QurumTip.Zavod) keys.Insert(0, "sum");
             foreach (var k in keys)
@@ -125,6 +141,7 @@ namespace TexnikaReyestri.Forms
 
         public async Task AcAsync(string key, Func<PageBase, Task> hazirliq = null)
         {
+            if (key is "log" or "bak") { int t = key == "log" ? 1 : 0; key = "set"; hazirliq = p => ((TenzimlemePage)p).SecAsync(t); }
             var page = Sehife(key);
             string navKey = key == "det" ? "list" : key;
             foreach (Control c in pnlNav.Controls) if (c is NavButton nb && nb.PageKey.Length > 0) nb.Active = nb.PageKey == navKey;

@@ -39,7 +39,7 @@ namespace TexnikaReyestri.Pages
             Dictionary<string, object> r = id == null ? new() : await TexnikaRepo.TapAsync(id.Value) ?? new();
             if (id != null) lblTitle.Text = $"{Lang.T("Redaktə")}: {r.GetValueOrDefault("Marka")} · {r.GetValueOrDefault("ZavodNo")}";
             if (id == null && Session.ZavodFiltri != null) r["TemirZavodu"] = Session.ZavodFiltri;
-            if (id == null) { r["Status"] = "Qəbul edilib"; r["Merhele"] = "Qəbul"; r["DaxilolmaTarixi"] = Vaxt.Iso(DateTime.Today); }
+            if (id == null) { r["Status"] = "Qəbul edilib"; r["Merhele"] = "Qəbul"; r["DaxilolmaTarixi"] = Vaxt.Iso(DateTime.Today); r["MesulIcraci"] = Session.AdSoyad; }   // məsul icraçı: daxil edən istifadəçi (dəyişdirilə bilər)
             foreach (var s in Saheler.Hamisi)
             {
                 var v = r.GetValueOrDefault(s.Kod); string str = v is null or DBNull ? "" : Convert.ToString(v, CultureInfo.InvariantCulture);

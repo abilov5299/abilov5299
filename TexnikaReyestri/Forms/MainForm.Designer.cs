@@ -80,7 +80,7 @@
             this.lblApp.Font = new System.Drawing.Font("Bahnschrift SemiBold", 12.0F);
             this.lblApp.ForeColor = System.Drawing.Color.White;
             this.lblApp.Location = new System.Drawing.Point(62, 21);
-            this.lblApp.Text = "Texnika Reyestri";
+            this.lblApp.Text = "Təmir Reyestri";
             this.lblApp.Visible = false;
             this.lblApp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblApp.Name = "lblApp";
@@ -111,7 +111,7 @@
             this.navRegistry.Glyph = "\uE8FD";
             this.navRegistry.Location = new System.Drawing.Point(0, 174);
             this.navRegistry.Size = new System.Drawing.Size(64, 52);
-            this.navRegistry.ToolTipText = "Reyestr";
+            this.navRegistry.ToolTipText = "Təmir reyestri";
             this.navRegistry.PageKey = "list";
             this.navRegistry.Name = "navRegistry";
             this.navRegistry.Click += new System.EventHandler(this.nav_Click);
@@ -175,11 +175,11 @@
             // 
             // navLogs
             // 
-            this.navLogs.Glyph = "\uE81C";
+            this.navLogs.Glyph = "\uE713";
             this.navLogs.Location = new System.Drawing.Point(0, 382);
             this.navLogs.Size = new System.Drawing.Size(64, 52);
-            this.navLogs.ToolTipText = "Loglar";
-            this.navLogs.PageKey = "log";
+            this.navLogs.ToolTipText = "Tənzimləmə";
+            this.navLogs.PageKey = "set";
             this.navLogs.Name = "navLogs";
             this.navLogs.Click += new System.EventHandler(this.nav_Click);
             // 
@@ -327,7 +327,7 @@
             this.MinimumSize = new System.Drawing.Size(1100, 680);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Texnika Reyestri";
+            this.Text = "Təmir Reyestri";
             this.KeyPreview = true;
             this.Padding = new System.Windows.Forms.Padding(1);
             this.Controls.Add(this.pnlContent);

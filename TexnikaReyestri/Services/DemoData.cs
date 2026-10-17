@@ -86,5 +86,34 @@ namespace TexnikaReyestri.Services
             }
             return TexnikaRepo.TopluYazAsync(Qeydler(), null, default);
         }
+
+        /// <summary>Sınaq üçün təchizat sorğuları: hər zavodda (və ya yalnız verilən zavodda) bazadakı texnikalara bağlı məktublar və ehtiyat hissələri.</summary>
+        public static async Task<int> SorgularAsync(string zavod, int hereZavod)
+        {
+            var r = new Random(); int say = 0;
+            string[] hisse = { "Yağ filtri", "Yanacaq filtri", "Yanacaq nasosu", "Sürtünmə diski", "Akkumulyator", "Hava filtri", "Generator", "Tırtıl zənciri" };
+            string[] qurum = { "Təminat idarəsi", "Təchizat idarəsi", "Logistika şöbəsi" };
+            foreach (var z in Secimler.Zavodlar.Where(x => zavod == null || x == zavod))
+            {
+                var tex = await SorguRepo.TexnikaAxtarAsync("", z);
+                if (tex.Count == 0) continue;
+                for (int i = 0; i < hereZavod; i++)
+                {
+                    var qeyd = DateTime.Today.AddDays(-r.Next(0, 120)); bool cavab = r.Next(3) == 0;
+                    var s = new Sorgu();
+                    s.V["MektubNo"] = $"{r.Next(100, 999)}/{qeyd:yy}"; s.V["QeydTarixi"] = Vaxt.Iso(qeyd); s.V["Zavod"] = z;
+                    s.V["IcraMuddeti"] = Vaxt.Iso(qeyd.AddDays(r.Next(10, 60))); s.V["TeminEden"] = qurum[r.Next(qurum.Length)];
+                    s.V["TeminIcraci"] = "İcraçı " + (char)('A' + r.Next(5)); s.V["ZavodMesul"] = "İcraçı " + r.Next(1, 6);
+                    s.V["CavabVez"] = cavab ? "Cavab verilib" : "İcrası davam edir"; s.V["CavabTarixi"] = cavab ? Vaxt.Iso(qeyd.AddDays(r.Next(3, 20))) : null;
+                    s.V["Netice"] = SorguRepo.Neticeler[r.Next(SorguRepo.Neticeler.Length)];
+                    s.Tex = tex.OrderBy(_ => r.Next()).Take(r.Next(1, 3)).ToList();
+                    foreach (var t in s.Tex)
+                        for (int k = r.Next(1, 3); k > 0; k--)
+                        { int teleb = r.Next(1, 8); s.His.Add(new SorguHisse { Ad = hisse[r.Next(hisse.Length)], Texnika = $"{t.Marka} ({t.ZavodNo})", Vahid = "ədəd", Teleb = teleb, Qebul = r.Next(0, teleb + 1) }); }
+                    await SorguRepo.SaxlaAsync(s); say++;
+                }
+            }
+            return say;
+        }
     }
 }

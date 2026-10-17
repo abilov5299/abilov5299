@@ -33,7 +33,7 @@ namespace TexnikaReyestri.Services
             void Yeni()
             {
                 g?.Dispose(); page = doc.AddPage(); page.Size = PdfSharp.PageSize.A4; g = XGraphics.FromPdfPage(page); y = 50;
-                g.DrawString("Texnika Reyestri · Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 35, W, 12), XStringFormats.TopLeft);
+                g.DrawString("Təmir Reyestri · Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 35, W, 12), XStringFormats.TopLeft);
             }
             Yeni();
             g.DrawString("TEXNİKANIN TƏMİR PASPORTU", fH, XBrushes.Black, new XRect(L, y, W, 20), XStringFormats.TopCenter); y += 24;
@@ -81,7 +81,7 @@ namespace TexnikaReyestri.Services
                 g?.Dispose(); page = doc.AddPage(); page.Size = PdfSharp.PageSize.A4; if (genis) page.Orientation = PdfSharp.PageOrientation.Landscape;
                 g = XGraphics.FromPdfPage(page); y = 40;
                 double w = W(); en = h.Sutun.Select((_, i) => i == 0 ? w * 0.28 : w * 0.72 / (h.Sutun.Length - 1)).ToArray();
-                g.DrawString($"Texnika Reyestri · Çap tarixi: {DateTime.Now:dd.MM.yyyy HH:mm}", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 30, w, 12), XStringFormats.TopLeft);
+                g.DrawString($"Təmir Reyestri · Çap tarixi: {DateTime.Now:dd.MM.yyyy HH:mm}", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 30, w, 12), XStringFormats.TopLeft);
             }
             void Setir(string[] v, XFont f, XBrush fon)
             {
