@@ -114,6 +114,65 @@ namespace TexnikaReyestri.Services
             g.Dispose(); doc.Save(yol);
         }
 
+        /// <summary>Təchizat sorğusu sənədi (A4): məktub məlumatları, əlaqəli texnikalar, ehtiyat hissələri, imza yerləri.</summary>
+        public static void Sorgu(string yol, Sorgu s)
+        {
+            string V(string k) => s.V.TryGetValue(k, out var v) && !string.IsNullOrEmpty(v) ? v : "—";
+            string T(string k) => V(k) == "—" ? "—" : Vaxt.Tarix(V(k));
+            var doc = new PdfDocument(); doc.Info.Title = $"Təchizat sorğusu {V("MektubNo")}";
+            var fH = new XFont("Times New Roman", 15, XFontStyleEx.Bold); var fG = new XFont("Times New Roman", 10.5, XFontStyleEx.Bold);
+            var fB = new XFont("Times New Roman", 9.5, XFontStyleEx.Bold); var fN = new XFont("Times New Roman", 10); var fS = new XFont("Times New Roman", 9);
+            var pen = new XPen(XColor.FromArgb(150, 150, 150), 0.6); var boz = new XSolidBrush(XColor.FromArgb(235, 235, 235));
+            PdfPage page = null; XGraphics g = null; double y = 0; const double L = 50, W = 495;
+            void Yeni()
+            {
+                g?.Dispose(); page = doc.AddPage(); page.Size = PdfSharp.PageSize.A4; g = XGraphics.FromPdfPage(page); y = 50;
+                g.DrawString($"Təmir Reyestri · Çap tarixi: {DateTime.Now:dd.MM.yyyy HH:mm}", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 35, W, 12), XStringFormats.TopLeft);
+            }
+            void Bolme(string ad) { if (y + 40 > page.Height.Point - 60) Yeni(); g.DrawString(ad, fG, XBrushes.Black, new XRect(L, y, W, 14), XStringFormats.TopLeft); y += 18; }
+            void Cedvel(double[] en, string[] bas, IEnumerable<string[]> rows)
+            {
+                void Setir(string[] v, XFont f, XBrush fon)
+                {
+                    var lines = v.Select((x, i) => Wrap(g, x ?? "", f, en[i] * W - 8)).ToArray(); double rh = Math.Max(18, lines.Max(l => l.Count) * 12 + 6);
+                    if (y + rh > page.Height.Point - 60) { Yeni(); if (f != fB) Setir(bas, fB, boz); }
+                    double x = L;
+                    for (int i = 0; i < v.Length; i++)
+                    {
+                        double w = en[i] * W; if (fon != null) g.DrawRectangle(pen, fon, x, y, w, rh); else g.DrawRectangle(pen, x, y, w, rh);
+                        for (int k = 0; k < lines[i].Count; k++) g.DrawString(lines[i][k], f, XBrushes.Black, new XRect(x + 4, y + 3 + k * 12, w - 8, 12), XStringFormats.TopLeft);
+                        x += w;
+                    }
+                    y += rh;
+                }
+                Setir(bas, fB, boz); foreach (var r in rows) Setir(r, fN, null); y += 12;
+            }
+            Yeni();
+            g.DrawString("TƏMİR VƏ TƏMİNAT ÜZRƏ", fS, XBrushes.DimGray, new XRect(L, y, W, 12), XStringFormats.TopCenter); y += 14;
+            g.DrawString("TƏCHİZAT SORĞUSU", fH, XBrushes.Black, new XRect(L, y, W, 20), XStringFormats.TopCenter); y += 22;
+            g.DrawString($"Məktub № {V("MektubNo")} · {T("QeydTarixi")} · {V("Zavod")}", fN, XBrushes.Black, new XRect(L, y, W, 14), XStringFormats.TopCenter); y += 26;
+            Bolme("Məktub məlumatları");
+            Cedvel(new[] { 0.4, 0.6 }, new[] { "Sahə", "Dəyər" }, new[]
+            {
+                new[] { "Məktub nömrəsi", V("MektubNo") }, new[] { "Qeydiyyat tarixi", T("QeydTarixi") }, new[] { "Zavod", V("Zavod") },
+                new[] { "Məktubun icra müddəti", T("IcraMuddeti") }, new[] { "Təmin edən qurum", V("TeminEden") }, new[] { "Təmin edən qurum üzrə icraçı", V("TeminIcraci") },
+                new[] { "Zavod üzrə məsul şəxs", V("ZavodMesul") }, new[] { "Cavab vəziyyəti", V("CavabVez") }, new[] { "Cavab tarixi", T("CavabTarixi") },
+                new[] { "Təminat nəticəsi", V("Netice") }, new[] { "Qeyd", V("Qeyd") },
+            });
+            Bolme("Əlaqəli texnikalar");
+            Cedvel(new[] { 0.08, 0.42, 0.25, 0.25 }, new[] { "№", "Marka", "Zavod nömrəsi", "Status" }, s.Tex.Select((t, i) => new[] { (i + 1).ToString(), t.Marka, t.ZavodNo, Secimler.Ekran(t.Status) }));
+            Bolme("Ehtiyat hissələri");
+            string F(double v) => v.ToString("0.##");
+            Cedvel(new[] { 0.06, 0.28, 0.24, 0.1, 0.11, 0.11, 0.1 }, new[] { "№", "Ehtiyat hissəsi", "Texnika", "Ölçü vahidi", "Tələb olunan", "Qəbul edilmiş", "Qalıq" },
+                s.His.Select((h, i) => new[] { (i + 1).ToString(), h.Ad, h.Texnika, h.Vahid, F(h.Teleb), F(h.Qebul), F(Math.Max(0, h.Teleb - h.Qebul)) })
+                     .Append(new[] { "", "Cəmi", "", "", F(s.His.Sum(h => h.Teleb)), F(s.His.Sum(h => h.Qebul)), F(s.His.Sum(h => Math.Max(0, h.Teleb - h.Qebul))) }));
+            if (y + 70 > page.Height.Point - 60) Yeni();
+            y += 24;
+            g.DrawString($"Zavod üzrə məsul şəxs: {V("ZavodMesul")}   ______________", fN, XBrushes.Black, new XRect(L, y, W, 14), XStringFormats.TopLeft); y += 26;
+            g.DrawString($"Təmin edən qurum üzrə icraçı: {V("TeminIcraci")}   ______________", fN, XBrushes.Black, new XRect(L, y, W, 14), XStringFormats.TopLeft);
+            g.Dispose(); doc.Save(yol);
+        }
+
         private static List<string> Wrap(XGraphics g, string s, XFont f, double w)
         {
             var l = new List<string>(); var cur = "";

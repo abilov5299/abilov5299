@@ -11,7 +11,7 @@ namespace TexnikaReyestri.Controls
 
         public NavButton()
         {
-            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.Selectable, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.Selectable | ControlStyles.ResizeRedraw, true);   // menyu açılanda ad tam yenidən çəkilsin
             Size = new Size(64, 52); Cursor = Cursors.Hand; TabStop = true;
         }
 

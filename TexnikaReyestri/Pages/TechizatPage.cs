@@ -3,6 +3,7 @@ using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
 using TexnikaReyestri.Forms;
+using TexnikaReyestri.Services;
 
 namespace TexnikaReyestri.Pages
 {
@@ -18,6 +19,7 @@ namespace TexnikaReyestri.Pages
         private readonly Label lblDet = new() { AutoSize = true, Font = new Font("Segoe UI Semibold", 11f), Location = new Point(4, 8) };
         private readonly Label lblMesul = new() { Dock = DockStyle.Bottom, Height = 24, Tag = "muted", TextAlign = ContentAlignment.MiddleLeft };
         private readonly FlatButton btnQebul = new() { Text = "Ehtiyat hissələrinin qəbulunu qeyd et", Size = new Size(270, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+        private readonly FlatButton btnPdf = new() { Text = "PDF sənəd", Glyph = Icons.Print, Kind = ButtonKind.Secondary, Size = new Size(130, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
         private readonly FlatButton btnTex = new() { Text = "Sorğuya texnika əlavə et", Kind = ButtonKind.Secondary, Size = new Size(200, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
         private readonly System.Windows.Forms.Timer _axtar = new() { Interval = 300 };
         private DataTable _dt; private bool _hazir;
@@ -87,9 +89,10 @@ namespace TexnikaReyestri.Pages
             gridHis.Columns.Add("Teleb", "Tələb olunan"); gridHis.Columns.Add("Qebul", "Qəbul edilmiş"); gridHis.Columns.Add("Qaliq", "Qalıq");
             foreach (DataGridViewColumn c in gridHis.Columns) c.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             var dh = new Panel { Dock = DockStyle.Top, Height = 42 };
-            dh.Controls.AddRange(new Control[] { lblDet, btnTex, btnQebul });
-            dh.Resize += (_, _) => { btnQebul.Left = dh.Width - btnQebul.Width - 4; btnTex.Left = btnQebul.Left - btnTex.Width - 8; btnQebul.Top = btnTex.Top = 4; };
+            dh.Controls.AddRange(new Control[] { lblDet, btnPdf, btnTex, btnQebul });
+            dh.Resize += (_, _) => { btnQebul.Left = dh.Width - btnQebul.Width - 4; btnTex.Left = btnQebul.Left - btnTex.Width - 8; btnPdf.Left = (Session.YazaBiler ? btnTex.Left : dh.Width + 4) - btnPdf.Width - 8; btnQebul.Top = btnTex.Top = btnPdf.Top = 4; };
             btnQebul.Click += async (_, _) => { if (SecilmisId is long id) await MainForm.Current.SorguAcAsync(id); };
+            btnPdf.Click += async (_, _) => await PdfAsync();
             btnTex.Click += async (_, _) => { if (SecilmisId is long id) await MainForm.Current.SorguAcAsync(id); };
             var rpDet = new RoundPanel { Dock = DockStyle.Bottom, Height = 250, Padding = new Padding(14, 8, 14, 8) };
             rpDet.Controls.Add(gridHis); rpDet.Controls.Add(dh); rpDet.Controls.Add(lblMesul);
@@ -152,12 +155,21 @@ namespace TexnikaReyestri.Pages
         private async void Detal()
         {
             gridHis.Rows.Clear();
-            if (SecilmisId is not long id) { lblDet.Text = Lang.T("Sorğu seçilməyib"); lblMesul.Text = ""; btnQebul.Enabled = btnTex.Enabled = false; return; }
-            btnQebul.Enabled = btnTex.Enabled = true;
+            if (SecilmisId is not long id) { lblDet.Text = Lang.T("Sorğu seçilməyib"); lblMesul.Text = ""; btnQebul.Enabled = btnTex.Enabled = btnPdf.Enabled = false; return; }
+            btnQebul.Enabled = btnTex.Enabled = btnPdf.Enabled = true;
             var s = await SorguRepo.GetAsync(id); if (s == null || SecilmisId != id) return;
             lblDet.Text = $"{s.V["MektubNo"]} {Lang.T("nömrəli məktub üzrə ehtiyat hissələri")}";
             foreach (var h in s.His) gridHis.Rows.Add(h.Ad, h.Texnika, h.Vahid, h.Teleb, h.Qebul, Math.Max(0, h.Teleb - h.Qebul));
             lblMesul.Text = $"{Lang.T("Məsul şəxslər")}: {Lang.T("Zavod üzrə")} — {s.V["ZavodMesul"] ?? "—"}   •   {Lang.T("Təmin edən qurum üzrə")} — {s.V["TeminIcraci"] ?? "—"}";
+        }
+
+        private async Task PdfAsync()
+        {
+            if (SecilmisId is not long id || await SorguRepo.GetAsync(id) is not { } s) return;
+            using var d = new SaveFileDialog { Filter = "PDF (*.pdf)|*.pdf", FileName = $"Sorgu_{(s.V["MektubNo"] ?? "").Replace("/", "-")}.pdf" };
+            if (d.ShowDialog(this) != DialogResult.OK) return;
+            try { PdfService.Sorgu(d.FileName, s); System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(d.FileName) { UseShellExecute = true }); }
+            catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }
         }
 
         private void Excel()

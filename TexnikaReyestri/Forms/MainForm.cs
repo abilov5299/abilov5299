@@ -98,6 +98,7 @@ namespace TexnikaReyestri.Forms
                 if (Math.Abs(d) <= 2) { w = _menyuHedef; _menyuT.Stop(); } else w += (int)Math.Ceiling(Math.Abs(d) * 0.35) * Math.Sign(d);
                 pnlNav.Width = w; foreach (Control c in pnlNav.Controls) if (c is NavButton nb) nb.Width = w;
                 lblApp.Visible = w > 150;
+                pnlNav.Update();   // hər addım dərhal çəkilsin (iz qalmasın)
             };
         }
         private void MenyuAc(bool ac)
