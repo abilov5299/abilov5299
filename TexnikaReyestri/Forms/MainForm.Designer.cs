@@ -17,7 +17,6 @@
             this.pnlNav = new System.Windows.Forms.Panel();
             this.logo = new TexnikaReyestri.Controls.LogoMark();
             this.navHome = new TexnikaReyestri.Controls.NavButton();
-            this.navSummary = new TexnikaReyestri.Controls.NavButton();
             this.navRegistry = new TexnikaReyestri.Controls.NavButton();
             this.navAdd = new TexnikaReyestri.Controls.NavButton();
             this.navTech = new TexnikaReyestri.Controls.NavButton();
@@ -57,7 +56,6 @@
             this.pnlNav.Controls.Add(this.navTech);
             this.pnlNav.Controls.Add(this.navAdd);
             this.pnlNav.Controls.Add(this.navRegistry);
-            this.pnlNav.Controls.Add(this.navSummary);
             this.pnlNav.Controls.Add(this.navHome);
             this.pnlNav.Controls.Add(this.lblApp);
             this.pnlNav.Controls.Add(this.logo);
@@ -95,16 +93,6 @@
             this.navHome.PageKey = "home";
             this.navHome.Name = "navHome";
             this.navHome.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navSummary
-            // 
-            this.navSummary.Glyph = "\uE8A9";
-            this.navSummary.Location = new System.Drawing.Point(0, 122);
-            this.navSummary.Size = new System.Drawing.Size(64, 52);
-            this.navSummary.ToolTipText = "İcmal (zavodlar üzrə)";
-            this.navSummary.PageKey = "sum";
-            this.navSummary.Name = "navSummary";
-            this.navSummary.Click += new System.EventHandler(this.nav_Click);
             // 
             // navRegistry
             // 
@@ -352,7 +340,6 @@
         private System.Windows.Forms.Panel pnlNav;
         private TexnikaReyestri.Controls.LogoMark logo;
         private TexnikaReyestri.Controls.NavButton navHome;
-        private TexnikaReyestri.Controls.NavButton navSummary;
         private TexnikaReyestri.Controls.NavButton navRegistry;
         private TexnikaReyestri.Controls.NavButton navAdd;
         private TexnikaReyestri.Controls.NavButton navTech;

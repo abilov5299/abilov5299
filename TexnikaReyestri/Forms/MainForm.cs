@@ -43,9 +43,8 @@ namespace TexnikaReyestri.Forms
             // Rola görə menyu: üst qurumlar texnika daxil etmir, İcmal isə yalnız üst qurumlarda var
             navAdd.Visible = navSorgu.Visible = Session.YazaBiler;
             navBackup.Visible = false;   // Ehtiyat nüsxə və Loglar → "Tənzimləmə" (navLogs)
-            navSummary.Visible = Session.Tip != QurumTip.Zavod;
             int y = 64;
-            foreach (var n in new[] { navHome, navSummary, navRegistry, navAdd, navTech, navSorgu, navRep, navNoti, navSync, navLogs }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
+            foreach (var n in new[] { navHome, navRegistry, navAdd, navTech, navSorgu, navRep, navNoti, navSync, navLogs }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
             MenyuAc(false);   // menyu hər dəfə bağlı açılır
             Ui.Hazirla(this); YerlesdirBaslig();
             // Sınaq üçün: baza boşdursa bir dəfə 10 nümunə texnika yazılır
@@ -113,7 +112,7 @@ namespace TexnikaReyestri.Forms
             if (_pages.TryGetValue(key, out var page)) return page;
             page = key switch
             {
-                "home" => new HomePage(), "sum" => new SummaryPage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "sadd" => new SorguEditPage(), "rep" => new HesabatPage(),
+                "home" => new HomePage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "sadd" => new SorguEditPage(), "rep" => new HesabatPage(),
                 "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "set" => new TenzimlemePage(),
                 _ => throw new ArgumentException(key)
             };
@@ -129,7 +128,6 @@ namespace TexnikaReyestri.Forms
         {
             var keys = new List<string> { "list", "det", "tech", "rep", "noti", "sync", "set" };
             if (Session.YazaBiler) keys.Insert(2, "add");
-            if (Session.Tip != QurumTip.Zavod) keys.Insert(0, "sum");
             foreach (var k in keys)
             {
                 await Task.Delay(120);                       // UI-yə nəfəs: istifadəçinin klikləri arada işlənir

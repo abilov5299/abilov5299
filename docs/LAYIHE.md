@@ -47,7 +47,6 @@
 | PageKey | Səhifə | Qeyd |
 |---|---|---|
 | `home` | HomePage | 6 kart (`KartPaneli`) + diaqram (qəbul / təmir tamamlanıb / təhvil). Zavod: diaqram + "Təhvil gözlənilən" və "Məlumat mübadiləsi" zolaqları. Üst qurum: "Zavodlar üzrə icra vəziyyəti" cədvəli + diaqram |
-| `sum` | SummaryPage | İcmal (yalnız üst qurum) |
 | `list` | RegistryPage | Təmir reyestri: 6 kart + filtr paneli (Zavod, Status, İcra müddəti, Məsul icraçı, Axtarış, Tarix növü/aralığı) |
 | `add` | EditPage | Texnika daxil et; məsul icraçı avtomatik = istifadəçinin adı |
 | `tech` | TechizatPage | Təchizat sorğuları: 5 kart, filtr, cədvəl, ehtiyat hissələri, Excel, PDF sənəd |
@@ -107,7 +106,7 @@ Konvensiyalar: Label rəngi `Tag` ilə (`title`, `muted`, `danger`, `white`, `na
 
 ## 8. Son vəziyyət (harada qaldıq)
 
-Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi.
+Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → İcmal bölməsi ləğv edildi (məlumatı Reyestrdə var).
 
 ### Windows-da yoxlanılmalı (istifadəçi hələ təsdiqləməyib)
 
