@@ -22,6 +22,7 @@ namespace TexnikaReyestri.Pages
         public RegistryPage()
         {
             InitializeComponent();
+            grid.BasliqSrift = new Font("Segoe UI", 11f, FontStyle.Bold); grid.ColumnHeadersHeight = 44; grid.ApplyColors();
             _axtar.Tick += async (_, _) => { _axtar.Stop(); await YenidenAsync(); };
             txtSearch.TextChanged += (_, _) => { if (_hazir) { _axtar.Stop(); _axtar.Start(); } };
             cmbZavod.Items.Add("Hamısı"); cmbZavod.Items.AddRange(Secimler.Sahe["TemirZavodu"]);
@@ -196,7 +197,7 @@ namespace TexnikaReyestri.Pages
 
         private void grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 1 && e.RowIndex < _rows.Count && Gecikir(_rows[e.RowIndex])) { e.CellStyle.ForeColor = Theme.Bad; e.CellStyle.Font = new Font(grid.Font, FontStyle.Bold); }
+            
         }
 
         private async void grid_CellContentClick(object sender, DataGridViewCellEventArgs e) { if (e.RowIndex >= 0 && e.ColumnIndex == 6) await DetalAc(e.RowIndex); }

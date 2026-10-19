@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using TexnikaReyestri.Core;
 
 namespace TexnikaReyestri.Controls
@@ -25,11 +25,15 @@ namespace TexnikaReyestri.Controls
             ApplyColors();
         }
 
+        /// <summary>Başlıq şrifti (boşdursa standart 8.5 Semibold).</summary>
+        [System.ComponentModel.Browsable(false), System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public Font BasliqSrift { get; set; }
+
         public void ApplyColors()
         {
             BackgroundColor = Theme.Card; GridColor = Theme.Alt;
             ColumnHeadersDefaultCellStyle.BackColor = Theme.Card; ColumnHeadersDefaultCellStyle.ForeColor = Theme.Muted;
-            ColumnHeadersDefaultCellStyle.SelectionBackColor = Theme.Card; ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI Semibold", 8.5f);
+            ColumnHeadersDefaultCellStyle.SelectionBackColor = Theme.Card; ColumnHeadersDefaultCellStyle.Font = BasliqSrift ?? new Font("Segoe UI Semibold", 8.5f);
             ColumnHeadersDefaultCellStyle.Padding = new Padding(8, 0, 0, 0);
             DefaultCellStyle.BackColor = Theme.Card; DefaultCellStyle.ForeColor = Theme.Ink;
             DefaultCellStyle.SelectionBackColor = Theme.Sel; DefaultCellStyle.SelectionForeColor = Theme.Ink; DefaultCellStyle.Padding = new Padding(8, 0, 0, 0);
