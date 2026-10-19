@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 using System.Text;
 using Microsoft.Data.Sqlite;
 
@@ -33,7 +33,7 @@ namespace TexnikaReyestri.Data
     public static partial class TexnikaRepo
     {
         public const int SehifeOlcusu = 200;
-        private static readonly string ReyestrSql = "Id, " + string.Join(", ", Saheler.Reyestr);
+        private static readonly string ReyestrSql = "Id, " + string.Join(", ", Saheler.Reyestr) + ", TemirZavodu, MesulIcraci";
 
         // Reyestr səhifəsi: 1 mln sətirdə ölçülmüş müddət ~0.2–0.3 ms
         public static async Task<DataTable> SehifeAsync(ReyestrFiltr f, Kursor? sonra, CancellationToken ct = default)

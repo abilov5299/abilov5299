@@ -106,7 +106,7 @@ Konvensiyalar: Label rəngi `Tag` ilə (`title`, `muted`, `danger`, `white`, `na
 
 ## 8. Son vəziyyət (harada qaldıq)
 
-Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → tam dil tərcüməsi → İcmal bölməsi ləğv edildi (19.10) → Təchizat kartlarının sırası və adları dəyişdi (19.10).
+Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → tam dil tərcüməsi → İcmal bölməsi ləğv edildi (19.10) → Təchizat kartlarının sırası və adları dəyişdi → Reyestr cədvəli 4 sütun: Texnika / inventar kodu, Zavod, İcra statusu, Məsul icraçı (19.10).
 
 ### Windows-da yoxlanılmalı (istifadəçi hələ təsdiqləməyib)
 

@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
@@ -149,7 +149,7 @@ namespace TexnikaReyestri.Pages
                 Kursor? k = _rows.Count == 0 ? null : new Kursor(_rows[^1][6] as string, (long)_rows[^1][0]);
                 var dt = await Task.Run(() => TexnikaRepo.SehifeAsync(_f, k));
                 if (v != _versiya) return;
-                foreach (DataRow r in dt.Rows) _rows.Add(new object[] { r["Id"], _rows.Count + 1, r["Nov"], r["Marka"], r["ZavodNo"], r["Status"], r["GozlenilenBitme"] });
+                foreach (DataRow r in dt.Rows) _rows.Add(new object[] { r["Id"], _rows.Count + 1, r["Nov"], r["Marka"], r["ZavodNo"], r["Status"], r["GozlenilenBitme"], r["TemirZavodu"], r["MesulIcraci"] });
                 if (dt.Rows.Count < TexnikaRepo.SehifeOlcusu) _bitdi = true;
                 grid.RowCount = _rows.Count; grid.Invalidate();
             }
@@ -184,8 +184,10 @@ namespace TexnikaReyestri.Pages
             var r = _rows[e.RowIndex];
             e.Value = e.ColumnIndex switch
             {
-                0 => r[1], 1 => r[2] is DBNull ? "" : Lang.T((string)r[2]), 2 => r[3], 3 => r[4], 4 => r[5] is DBNull ? "" : r[5],
-                5 => r[6] is string s ? Vaxt.Tarix(s) + (Gecikir(r) ? $" · {(DateTime.Today - DateTime.Parse(s)).Days} {Lang.T("gün gecikir")}" : "") : "",
+                // Görünən sütunlar: Texnika / inventar kodu, Zavod, İcra statusu, Məsul icraçı
+                1 => string.Join(" · ", new[] { r[3], r[4] }.OfType<string>().Where(x => x != "")), 2 => r[7] is string z ? Lang.T(z) : "",
+                3 => r[5] is DBNull ? "" : r[5],   // nişan kimi çəkilir (ModernGrid, ad "Status")
+                4 => r[8] is DBNull ? "" : r[8],
                 6 => Lang.T("Geniş bax →"), _ => null
             };
         }
@@ -194,7 +196,7 @@ namespace TexnikaReyestri.Pages
 
         private void grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 5 && e.RowIndex < _rows.Count && Gecikir(_rows[e.RowIndex])) { e.CellStyle.ForeColor = Theme.Bad; e.CellStyle.Font = new Font(grid.Font, FontStyle.Bold); }
+            if (e.ColumnIndex == 1 && e.RowIndex < _rows.Count && Gecikir(_rows[e.RowIndex])) { e.CellStyle.ForeColor = Theme.Bad; e.CellStyle.Font = new Font(grid.Font, FontStyle.Bold); }
         }
 
         private async void grid_CellContentClick(object sender, DataGridViewCellEventArgs e) { if (e.RowIndex >= 0 && e.ColumnIndex == 6) await DetalAc(e.RowIndex); }

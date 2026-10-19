@@ -160,37 +160,39 @@
             this.colNo.HeaderText = "№";
             this.colNo.Name = "colNo";
             this.colNo.Width = 70;
+            this.colNo.Visible = false;
             // 
             // colNov
             // 
-            this.colNov.HeaderText = "Texnikanın növü";
+            this.colNov.HeaderText = "Texnika / inventar kodu";
             this.colNov.Name = "colNov";
             this.colNov.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colNov.MinimumWidth = 180;
             // 
             // colMarka
             // 
-            this.colMarka.HeaderText = "Texnikanın markası";
+            this.colMarka.HeaderText = "Zavod";
             this.colMarka.Name = "colMarka";
-            this.colMarka.Width = 170;
+            this.colMarka.Width = 240;
             // 
             // colZavodNo
             // 
-            this.colZavodNo.HeaderText = "Zavod nömrəsi";
-            this.colZavodNo.Name = "colZavodNo";
-            this.colZavodNo.Width = 160;
+            this.colZavodNo.HeaderText = "İcra statusu";
+            this.colZavodNo.Name = "Status";
+            this.colZavodNo.Width = 300;
             // 
             // colStatus
             // 
-            this.colStatus.HeaderText = "Statusu";
-            this.colStatus.Name = "Status";
-            this.colStatus.Width = 160;
+            this.colStatus.HeaderText = "Məsul icraçı";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.Width = 220;
             // 
             // colBitme
             // 
             this.colBitme.HeaderText = "Təmirin gözlənilən bitmə tarixi";
             this.colBitme.Name = "colBitme";
             this.colBitme.Width = 230;
+            this.colBitme.Visible = false;
             // 
             // colDetail
             // 
