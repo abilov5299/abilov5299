@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
@@ -40,9 +40,9 @@ namespace TexnikaReyestri.Pages
             var kart = new TableLayoutPanel { Dock = DockStyle.Top, Height = 96, ColumnCount = 5, Padding = new Padding(0, 4, 0, 8) };
             (string ad, string g, AccentKind a, string netice, string icra)[] t =
             {
-                ("Cəmi sorğu", Icons.List, AccentKind.Nav, null, null), ("Təmin edilməmiş sorğular", Icons.Cancel, AccentKind.Bad, "Təmin edilməyib", null),
-                ("Qismən təmin edilmiş sorğular", Icons.Clock, AccentKind.Warn, "Qismən təmin edilib", null), ("Tam təmin edilmiş sorğular", Icons.Check, AccentKind.Ok, "Tam təmin edilib", null),
-                ("Məktubun icrası davam edən sorğular", Icons.Repair, AccentKind.Info, null, "davam")
+                ("Cəmi sorğu", Icons.List, AccentKind.Nav, null, null), ("İcrası davam edən", Icons.Repair, AccentKind.Info, null, "davam"),
+                ("Qismən təmin edilmiş", Icons.Clock, AccentKind.Warn, "Qismən təmin edilib", null), ("Tam təmin edilmiş", Icons.Check, AccentKind.Ok, "Tam təmin edilib", null),
+                ("Təmin edilməmiş", Icons.Cancel, AccentKind.Bad, "Təmin edilməyib", null)
             };
             for (int i = 0; i < 5; i++)
             {
@@ -128,7 +128,7 @@ namespace TexnikaReyestri.Pages
             long? sec = SecilmisId;
             _dt = await Task.Run(() => SorguRepo.SiyahiAsync(f));
             var st = await SorguRepo.StatAsync(f.Zavod);
-            long[] v = { st.Cemi, st.Edilmeyib, st.Qismen, st.Tam, st.Davam };
+            long[] v = { st.Cemi, st.Davam, st.Qismen, st.Tam, st.Edilmeyib };
             for (int i = 0; i < 5; i++) _k[i].Value = v[i].ToString("#,0").Replace(",", " ");
             string bugun = Vaxt.Iso(DateTime.Today);
             grid.Rows.Clear();

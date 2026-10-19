@@ -1,4 +1,4 @@
-namespace TexnikaReyestri.Core
+﻿namespace TexnikaReyestri.Core
 {
     // Tərcümə lüğəti: açar Azərbaycan dilindəki mətndir (Designer-də yazdığınız mətn).
     // Yeni mətn əlavə edəndə buraya bir sətir əlavə edin: ["Az mətn"] = ("English", "Русский"),
@@ -500,10 +500,10 @@ namespace TexnikaReyestri.Core
             ["PDF sənəd"] = ("PDF document", "Документ PDF"),
             ["Sorğuya texnika əlavə et"] = ("Add vehicle to request", "Добавить технику в запрос"),
             ["Cəmi sorğu"] = ("Total requests", "Всего запросов"),
-            ["Təmin edilməmiş sorğular"] = ("Unsupplied requests", "Необеспеченные запросы"),
-            ["Qismən təmin edilmiş sorğular"] = ("Partially supplied requests", "Частично обеспеченные запросы"),
-            ["Tam təmin edilmiş sorğular"] = ("Fully supplied requests", "Полностью обеспеченные запросы"),
-            ["Məktubun icrası davam edən sorğular"] = ("Requests with letters in progress", "Запросы с письмами в исполнении"),
+            ["Təmin edilməmiş"] = ("Unsupplied requests", "Необеспеченные запросы"),
+            ["Qismən təmin edilmiş"] = ("Partially supplied requests", "Частично обеспеченные запросы"),
+            ["Tam təmin edilmiş"] = ("Fully supplied requests", "Полностью обеспеченные запросы"),
+            ["İcrası davam edən"] = ("In progress", "В исполнении"),
             ["İcrası davam edir"] = ("In progress", "Исполняется"),
             ["Məktubun icra müddəti keçib"] = ("Letter deadline passed", "Срок исполнения письма истёк"),
             ["Məktubun qeydiyyat tarixi"] = ("Letter registration date", "Дата регистрации письма"),
