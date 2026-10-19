@@ -30,14 +30,20 @@ namespace TexnikaReyestri.Forms
             Current = this;
             _badge.Tick += async (_, _) => await BadgeYenileAsync();
             _idle.Tick += Idle_Tick;
-            Theme.Changed += (_, _) => { Ui.Hazirla(this); Invalidate(true); };
-            Lang.Changed += async (_, _) =>
-            {
-                Lang.Apply(this); foreach (var p in _pages.Values) Lang.Apply(p);
-                lblUser.Text = $"{Session.AdSoyad} · {Lang.T(Session.RolMetni)}"; YerlesdirBaslig();
-                Invalidate(true);                                  // özü çəkilən kontrollar (kartlar, diaqram, menyu) yeni dildə çəkilsin
-                if (_aktiv != null) await _aktiv.OnShownAsync();   // koddan yazılan mətnlər (məlumat zolaqları, cədvəllər) yenilənsin
-            };
+            Theme.Changed += Tema_Changed;
+            Lang.Changed += Dil_Changed;
+        }
+
+        // Statik hadisələr: forma bağlananda abunə ləğv edilir, yoxsa yenidən girişdən sonra köhnə (bağlanmış) səhifələr yüklənməyə çalışır
+        private void Tema_Changed(object sender, EventArgs e) { Ui.Hazirla(this); Invalidate(true); }
+
+        private async void Dil_Changed(object sender, EventArgs e)
+        {
+            if (IsDisposed) return;
+            Lang.Apply(this); foreach (var p in _pages.Values) Lang.Apply(p);
+            lblUser.Text = $"{Session.AdSoyad} · {Lang.T(Session.RolMetni)}"; YerlesdirBaslig();
+            Invalidate(true);                                  // özü çəkilən kontrollar (kartlar, diaqram, menyu) yeni dildə çəkilsin
+            if (_aktiv != null) await _aktiv.OnShownAsync();   // koddan yazılan mətnlər (məlumat zolaqları, cədvəllər) yenilənsin
         }
 
         // ---------------- Açılış ----------------
@@ -299,7 +305,7 @@ namespace TexnikaReyestri.Forms
         protected override void OnPaint(PaintEventArgs e) { base.OnPaint(e); if (WindowState == FormWindowState.Normal) Ui.Kenar(this, e); }
         // Böyüdüləndə tapşırıq panelini örtməsin (pəncərə hansı ekrandadırsa)
         protected override void OnMove(EventArgs e) { base.OnMove(e); if (WindowState == FormWindowState.Normal) MaximizedBounds = Screen.FromHandle(Handle).WorkingArea; }
-        protected override void OnFormClosed(FormClosedEventArgs e) { _badge.Stop(); _idle.Stop(); Current = null; base.OnFormClosed(e); }
+        protected override void OnFormClosed(FormClosedEventArgs e) { Theme.Changed -= Tema_Changed; Lang.Changed -= Dil_Changed; _badge.Stop(); _idle.Stop(); Current = null; base.OnFormClosed(e); }
 
         protected override CreateParams CreateParams { get { var cp = base.CreateParams; cp.ClassStyle |= Win32.CS_DROPSHADOW; return cp; } }
         protected override void OnHandleCreated(EventArgs e) { base.OnHandleCreated(e); Win32.Yumru(this); }
