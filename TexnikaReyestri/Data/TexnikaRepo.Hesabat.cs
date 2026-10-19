@@ -118,9 +118,9 @@ namespace TexnikaReyestri.Data
                 if (r["SonPaket"] is long t)
                 {
                     var d = DateTimeOffset.FromUnixTimeMilliseconds(t).LocalDateTime;
-                    if ((DateTime.Now - d).TotalDays >= 7) l.Add($"{r["Zavod"]} üzrə məlumat {d:dd.MM.yyyy} tarixinə aiddir.");
+                    if ((DateTime.Now - d).TotalDays >= 7) l.Add(string.Format(Core.Lang.T("{0} üzrə məlumat {1} tarixinə aiddir."), Core.Lang.T((string)r["Zavod"]), d.ToString("dd.MM.yyyy")));
                 }
-                else l.Add($"{r["Zavod"]} üzrə hələ paket idxal olunmayıb.");
+                else l.Add(string.Format(Core.Lang.T("{0} üzrə hələ paket idxal olunmayıb."), Core.Lang.T((string)r["Zavod"])));
             }
             return l;
         }

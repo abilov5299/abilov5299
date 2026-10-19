@@ -142,7 +142,7 @@ namespace TexnikaReyestri.Pages
                 { int g = (d - DateTime.Today).Days; icra += g >= 0 ? $" · {g} {Lang.T("gün qalıb")}" : $" · {-g} {Lang.T("gün keçib")}"; }
                 string cavab = davam ? Lang.T("İcrası davam edir") : Lang.T("Cavab verilib") + (S("CavabTarixi") is string ct ? " · " + Vaxt.Tarix(ct) : "");
                 int i = grid.Rows.Add($"{S("MektubNo")} · {Vaxt.Tarix(S("QeydTarixi"))}",
-                    S("Zavod") + (tex.Count > 0 ? " · " + string.Join(", ", tex.Select(x => x.Marka)) : ""),
+                    Lang.T(S("Zavod")) + (tex.Count > 0 ? " · " + string.Join(", ", tex.Select(x => x.Marka)) : ""),
                     string.Join(" · ", new[] { S("TeminEden"), S("TeminIcraci") }.Where(x => !string.IsNullOrEmpty(x))),
                     icra, cavab, S("Netice") ?? "Təyin edilməyib");
                 grid.Rows[i].Tag = Convert.ToInt64(r["Id"]);

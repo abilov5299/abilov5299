@@ -46,7 +46,7 @@ namespace TexnikaReyestri.Pages
                 _paket.Clear();
                 if (Session.ZavodFiltri == null)
                     foreach (System.Data.DataRow r in (await TexnikaRepo.ZavodIcmalAsync()).Rows) if (r["SonPaket"] is long t) _paket[(string)r["Zavod"]] = t;
-                chartMonthly.Note = $"{Lang.T(_ayAd[DateTime.Today.Month - 1])}: {DateTime.Today:dd.MM.yyyy}-{Lang.T("dək")}";
+                chartMonthly.Note = $"{Lang.T(_ayAd[DateTime.Today.Month - 1])}: {string.Format(Lang.T("{0}-dək"), DateTime.Today.ToString("dd.MM.yyyy"))}";
                 Goster();
                 if (Session.ZavodFiltri != null) await ZolaqlarAsync();
             });
@@ -136,7 +136,7 @@ namespace TexnikaReyestri.Pages
             var kz = Secimler.Zavodlar.Where(z => !_paket.TryGetValue(z, out var t) || (DateTime.Now - DateTimeOffset.FromUnixTimeMilliseconds(t).LocalDateTime).TotalDays >= 7).ToList();
             if (lblXeber != null)
             {
-                lblXeber.Text = kz.Count == 0 ? "" : string.Join(", ", kz) + " " + Lang.T("üzrə məlumatın yenilənməsi gözlənilir.");
+                lblXeber.Text = kz.Count == 0 ? "" : string.Join(", ", kz.Select(Lang.T)) + " " + Lang.T("üzrə məlumatın yenilənməsi gözlənilir.");
                 lblXeber.Height = kz.Count == 0 ? 0 : 36; lblXeber.BackColor = Theme.Mix(Theme.Warn, Theme.Card, 0.82f); lblXeber.ForeColor = Theme.Ink;
             }
             if (Session.ZavodFiltri == null)

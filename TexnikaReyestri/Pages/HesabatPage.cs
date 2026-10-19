@@ -91,7 +91,7 @@ namespace TexnikaReyestri.Pages
 
         private string Zavod => Session.ZavodFiltri ?? (cmbZavod.SelectedIndex > 0 ? Secimler.Zavodlar[cmbZavod.SelectedIndex - 1] : null);
 
-        private string AltBasliq => (Zavod ?? $"{Secimler.Zavodlar.Length} {Lang.T("zavod üzrə")}") + " • " + dtTarix.Value.ToString("dd.MM.yyyy") + " " + Lang.T("tarixinə");
+        private string AltBasliq => (Zavod ?? $"{Secimler.Zavodlar.Length} {Lang.T("zavod üzrə")}") + " • " + string.Format(Lang.T("{0} tarixinə"), dtTarix.Value.ToString("dd.MM.yyyy"));
 
         private async Task GosterAsync()
         {

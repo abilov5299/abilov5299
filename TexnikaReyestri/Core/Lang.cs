@@ -20,6 +20,7 @@ namespace TexnikaReyestri.Core
         {
             (new(@"^(\d+) gün$"), "$1 days", "$1 дн."),
             (new(@"^Zavod (\d+)$"), "Plant $1", "Завод $1"),
+            (new(@"^İcra müddətinə 0–(\d+) gün qalıb$"), "0–$1 days left to deadline", "До срока 0–$1 дн."),
             (new(@"^Göstərilir: (\S+) / (\S+)$"), "Showing: $1 / $2", "Показано: $1 / $2"),
             (new(@"^(\d+) oxunmamış bildiriş$"), "$1 unread notifications", "$1 непрочитанных уведомлений"),
             (new(@"^\+ (\d+) hissə gözləyir$"), "+ $1 awaiting parts", "+ $1 ожидают запчасти"),
@@ -57,7 +58,12 @@ namespace TexnikaReyestri.Core
 
         private static void One(Control c)
         {
-            if (c is TextBox or NumericUpDown or DateTimePicker) return;   // istifadəçinin yazdığı mətnə toxunma
+            if (c is TextBox tb)   // istifadəçinin yazdığı mətnə toxunma, yalnız boş xanadakı ipucu (placeholder) tərcümə olunur
+            {
+                if (!string.IsNullOrEmpty(tb.PlaceholderText)) tb.PlaceholderText = T(Keep(tb, "ph", tb.PlaceholderText));
+                return;
+            }
+            if (c is NumericUpDown or DateTimePicker) return;
             if (c is ComboBox cb) { TrItems(cb); return; }
             if (!string.IsNullOrEmpty(c.Text) && c is not Form || c is Form) c.Text = T(Keep(c, c.Text));
             if (c is DataGridView g)
@@ -85,8 +91,8 @@ namespace TexnikaReyestri.Core
             return current;
         }
 
-        private static readonly ConditionalWeakTable<ComboBox, Dictionary<string, string>> ItemOrig = new();
-        private static string Keep(ComboBox cb, string slot, string current)
+        private static readonly ConditionalWeakTable<Control, Dictionary<string, string>> ItemOrig = new();
+        private static string Keep(Control cb, string slot, string current)
         {
             var d = ItemOrig.GetOrCreateValue(cb);
             if (d.TryGetValue(slot, out var az) && Tercumesi(az, current)) return az;

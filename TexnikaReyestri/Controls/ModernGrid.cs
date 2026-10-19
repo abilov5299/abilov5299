@@ -39,6 +39,18 @@ namespace TexnikaReyestri.Controls
 
         public void OnThemeChanged() => ApplyColors();
 
+        // Xanadakı dəyər lüğətdə varsa (status, nəticə, zavod adı...) ekranda tərcüməsi göstərilir; dəyərin özü dəyişmir.
+        // Redaktə olunan xanalara toxunulmur: tərcümə bazaya yazılmasın.
+        protected override void OnCellFormatting(DataGridViewCellFormattingEventArgs e)
+        {
+            base.OnCellFormatting(e);
+            if (Lang.Current == Language.Az || e.Value is not string s || s.Length == 0 || e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            var c = this[e.ColumnIndex, e.RowIndex];
+            if (!c.ReadOnly || c is DataGridViewComboBoxCell) return;
+            string t = Lang.T(s);
+            if (!ReferenceEquals(t, s)) { e.Value = t; e.FormattingApplied = true; }
+        }
+
         protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
         {
             base.OnCellPainting(e);

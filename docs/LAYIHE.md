@@ -29,7 +29,7 @@
 | № | Qərar |
 |---|---|
 | 1 | 46 sahə kodda sabitdir (`Data/Saheler.cs`), seçimlər `Data/Secimler.cs`-də |
-| 2 | Üst qurumlar texnika daxil etmir, yalnız baxır; İcmal yalnız üst qurumlarda |
+| 2 | Üst qurumlar texnika daxil etmir, yalnız baxır (İcmal bölməsi 19.10-da ləğv edildi: Reyestr eyni işi görür) |
 | 3 | USB paketi: ECDH P-384 + AES-256-GCM + ECDSA imza + ardıcıllıq nömrəsi; zavod yalnız öz məlumatını göndərə bilər |
 | 4 | **Status adları yalnız ekranda dəyişir** (`Secimler.Ekran/Baza`): bazada "Hissə gözləyir" → ekranda "Ehtiyat hissələrinin təminatı gözlənilir", "Təmirdə" → "Təmirdədir". `Lang.T`-yə qoyulmur (EditPage seçimi bazaya yazır) |
 | 5 | Aktiv (təmiri davam edən) statuslar: Qəbul edilib, Təmirdə, Hissə gözləyir, **Qismən təmin edilib** (`Secimler.AktivStatus`, SQL-də `DavamSql`) |
@@ -106,7 +106,7 @@ Konvensiyalar: Label rəngi `Tag` ilə (`title`, `muted`, `danger`, `white`, `na
 
 ## 8. Son vəziyyət (harada qaldıq)
 
-Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → İcmal bölməsi ləğv edildi (məlumatı Reyestrdə var).
+Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → tam dil tərcüməsi → İcmal bölməsi ləğv edildi (19.10).
 
 ### Windows-da yoxlanılmalı (istifadəçi hələ təsdiqləməyib)
 
@@ -117,6 +117,10 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 - [x] Ana səhifə: zavodlar cədvəli + diaqram yan-yana (təsdiqləndi)
 - [x] Sorğuya texnika əlavəsi (təsdiqləndi)
 - [x] Hesabatlar və sorğu PDF-i (hələlik normal)
+
+- [x] Dil (17.10): lüğətə ~390 mətn (EN/RU); placeholder, cədvəl xanaları (`ModernGrid.OnCellFormatting`, yalnız oxunan xanalar), dil dəyişəndə aktiv səhifə yenidən yüklənir. EN/RU ekranda yoxlandı. Tərcümə olunmur: PDF/Excel sənədləri, jurnal/log mətnləri (bazada Az)
+- [x] Yan menyu: bölmə seçiləndə açıq qalır, yalnız loqo bağlayır
+- [ ] Yan menyu animasiyası hələ hamar deyil: səhifə sürüşəndə addım ~100 ms (səbəb: şəffaf panellərin yenidən çəkilməsi). Yeni yanaşma lazımdır
 
 ### Açıq təkliflər (istifadəçi qərar verməyib)
 
