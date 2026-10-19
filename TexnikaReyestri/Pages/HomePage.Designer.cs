@@ -24,12 +24,6 @@
             this.lblLegA = new System.Windows.Forms.Label();
             this.lblLegB = new System.Windows.Forms.Label();
             this.chartMonthly = new TexnikaReyestri.Controls.ColumnChart();
-            this.rpStatus = new TexnikaReyestri.Controls.RoundPanel();
-            this.lblStatusTitle = new System.Windows.Forms.Label();
-            this.brkStatus = new TexnikaReyestri.Controls.StatusBreakdown();
-            this.rpTypes = new TexnikaReyestri.Controls.RoundPanel();
-            this.lblTypesTitle = new System.Windows.Forms.Label();
-            this.barTypes = new TexnikaReyestri.Controls.BarList();
             this.rpAvg = new TexnikaReyestri.Controls.RoundPanel();
             this.lblAvgTitle = new System.Windows.Forms.Label();
             this.gridZav = new TexnikaReyestri.Controls.ModernGrid();
@@ -38,32 +32,12 @@
             this.colZavGozl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colZavTehvil = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colZavCemi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rpLate = new TexnikaReyestri.Controls.RoundPanel();
-            this.lblLateTitle = new System.Windows.Forms.Label();
-            this.lnkLate = new System.Windows.Forms.LinkLabel();
-            this.gridLate = new TexnikaReyestri.Controls.ModernGrid();
-            this.colLateName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colLateDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rpEvents = new TexnikaReyestri.Controls.RoundPanel();
-            this.lblEventsTitle = new System.Windows.Forms.Label();
-            this.lnkLogs = new System.Windows.Forms.LinkLabel();
-            this.gridEvents = new TexnikaReyestri.Controls.ModernGrid();
-            this.colEvTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEvType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEvText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblFoot = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.gridLate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridZav)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridEvents)).BeginInit();
             this.pnlHead.SuspendLayout();
             this.tlpTiles.SuspendLayout();
             this.tlpBody.SuspendLayout();
             this.rpMonthly.SuspendLayout();
-            this.rpStatus.SuspendLayout();
-            this.rpTypes.SuspendLayout();
             this.rpAvg.SuspendLayout();
-            this.rpLate.SuspendLayout();
-            this.rpEvents.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlHead
@@ -114,13 +88,8 @@
             this.tlpBody.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.0F));
             this.tlpBody.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.0F));
             this.tlpBody.Controls.Add(this.rpMonthly, 0, 0);
-            this.tlpBody.Controls.Add(this.rpStatus, 2, 0);
-            this.tlpBody.Controls.Add(this.rpTypes, 0, 1);
             this.tlpBody.Controls.Add(this.rpAvg, 1, 1);
-            this.tlpBody.Controls.Add(this.rpLate, 2, 1);
-            this.tlpBody.Controls.Add(this.rpEvents, 0, 2);
             this.tlpBody.SetColumnSpan(this.rpMonthly, 2);
-            this.tlpBody.SetColumnSpan(this.rpEvents, 2);
             this.tlpBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpBody.Size = new System.Drawing.Size(1172, 520);
             this.tlpBody.Name = "tlpBody";
@@ -173,62 +142,6 @@
             this.chartMonthly.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chartMonthly.Size = new System.Drawing.Size(352, 162);
             this.chartMonthly.Name = "chartMonthly";
-            // 
-            // rpStatus
-            // 
-            this.rpStatus.Controls.Add(this.brkStatus);
-            this.rpStatus.Controls.Add(this.lblStatusTitle);
-            this.rpStatus.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
-            this.rpStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rpStatus.Size = new System.Drawing.Size(380, 208);
-            this.rpStatus.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
-            this.rpStatus.Name = "rpStatus";
-            // 
-            // lblStatusTitle
-            // 
-            this.lblStatusTitle.AutoSize = false;
-            this.lblStatusTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
-            this.lblStatusTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblStatusTitle.Text = "Status bölgüsü";
-            this.lblStatusTitle.Tag = "muted";
-            this.lblStatusTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblStatusTitle.Size = new System.Drawing.Size(352, 26);
-            this.lblStatusTitle.Name = "lblStatusTitle";
-            // 
-            // brkStatus
-            // 
-            this.brkStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.brkStatus.Size = new System.Drawing.Size(352, 162);
-            this.brkStatus.Name = "brkStatus";
-            this.brkStatus.StatusClicked += new System.EventHandler<string>(this.brkStatus_StatusClicked);
-            // 
-            // rpTypes
-            // 
-            this.rpTypes.Controls.Add(this.barTypes);
-            this.rpTypes.Controls.Add(this.lblTypesTitle);
-            this.rpTypes.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
-            this.rpTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rpTypes.Size = new System.Drawing.Size(380, 146);
-            this.rpTypes.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
-            this.rpTypes.Name = "rpTypes";
-            // 
-            // lblTypesTitle
-            // 
-            this.lblTypesTitle.AutoSize = false;
-            this.lblTypesTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
-            this.lblTypesTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblTypesTitle.Text = "Texnika növü üzrə";
-            this.lblTypesTitle.Tag = "muted";
-            this.lblTypesTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTypesTitle.Size = new System.Drawing.Size(352, 26);
-            this.lblTypesTitle.Name = "lblTypesTitle";
-            // 
-            // barTypes
-            // 
-            this.barTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.barTypes.Size = new System.Drawing.Size(352, 100);
-            this.barTypes.LabelWidth = 170;
-            this.barTypes.Name = "barTypes";
             // 
             // rpAvg
             // 
@@ -295,159 +208,18 @@
             this.colZavCemi.Name = "colZavCemi";
             this.colZavCemi.Width = 70;
             // 
-            // rpLate
-            // 
-            this.rpLate.Controls.Add(this.gridLate);
-            this.rpLate.Controls.Add(this.lnkLate);
-            this.rpLate.Controls.Add(this.lblLateTitle);
-            this.rpLate.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
-            this.rpLate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rpLate.Size = new System.Drawing.Size(380, 146);
-            this.rpLate.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
-            this.rpLate.Name = "rpLate";
-            // 
-            // lblLateTitle
-            // 
-            this.lblLateTitle.AutoSize = false;
-            this.lblLateTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
-            this.lblLateTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblLateTitle.Text = "Ən çox gecikənlər";
-            this.lblLateTitle.Tag = "muted";
-            this.lblLateTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblLateTitle.Size = new System.Drawing.Size(352, 26);
-            this.lblLateTitle.Name = "lblLateTitle";
-            // 
-            // lnkLate
-            // 
-            this.lnkLate.AutoSize = true;
-            this.lnkLate.Text = "Hamısı →";
-            this.lnkLate.Location = new System.Drawing.Point(300, 12);
-            this.lnkLate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lnkLate.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkLate.Name = "lnkLate";
-            this.lnkLate.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLate_LinkClicked);
-            // 
-            // gridLate
-            // 
-            this.gridLate.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colLateName,
-            this.colLateDays});
-            this.gridLate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridLate.Size = new System.Drawing.Size(352, 100);
-            this.gridLate.ColumnHeadersVisible = false;
-            this.gridLate.Name = "gridLate";
-            this.gridLate.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridLate_CellClick);
-            // 
-            // colLateName
-            // 
-            this.colLateName.HeaderText = "Texnika";
-            this.colLateName.Name = "colLateName";
-            this.colLateName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colLateName.MinimumWidth = 100;
-            // 
-            // colLateDays
-            // 
-            this.colLateDays.HeaderText = "Gecikmə";
-            this.colLateDays.Name = "colLateDays";
-            this.colLateDays.Width = 80;
-            // 
-            // rpEvents
-            // 
-            this.rpEvents.Controls.Add(this.gridEvents);
-            this.rpEvents.Controls.Add(this.lnkLogs);
-            this.rpEvents.Controls.Add(this.lblEventsTitle);
-            this.rpEvents.Padding = new System.Windows.Forms.Padding(14, 10, 14, 10);
-            this.rpEvents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rpEvents.Size = new System.Drawing.Size(380, 135);
-            this.rpEvents.Margin = new System.Windows.Forms.Padding(0, 0, 10, 10);
-            this.rpEvents.Name = "rpEvents";
-            // 
-            // lblEventsTitle
-            // 
-            this.lblEventsTitle.AutoSize = false;
-            this.lblEventsTitle.Font = new System.Drawing.Font("Bahnschrift SemiBold", 10.5F);
-            this.lblEventsTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblEventsTitle.Text = "Son hadisələr";
-            this.lblEventsTitle.Tag = "muted";
-            this.lblEventsTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblEventsTitle.Size = new System.Drawing.Size(352, 26);
-            this.lblEventsTitle.Name = "lblEventsTitle";
-            // 
-            // lnkLogs
-            // 
-            this.lnkLogs.AutoSize = true;
-            this.lnkLogs.Text = "Loglar →";
-            this.lnkLogs.Location = new System.Drawing.Point(326, 12);
-            this.lnkLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lnkLogs.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.lnkLogs.Name = "lnkLogs";
-            this.lnkLogs.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLogs_LinkClicked);
-            // 
-            // gridEvents
-            // 
-            this.gridEvents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colEvTime,
-            this.colEvType,
-            this.colEvText});
-            this.gridEvents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridEvents.Size = new System.Drawing.Size(352, 89);
-            this.gridEvents.ColumnHeadersVisible = false;
-            this.gridEvents.Name = "gridEvents";
-            // 
-            // colEvTime
-            // 
-            this.colEvTime.HeaderText = "Tarix";
-            this.colEvTime.Name = "colEvTime";
-            this.colEvTime.Width = 130;
-            // 
-            // colEvType
-            // 
-            this.colEvType.HeaderText = "Növ";
-            this.colEvType.Name = "Status";
-            this.colEvType.Width = 110;
-            // 
-            // colEvText
-            // 
-            this.colEvText.HeaderText = "Hadisə";
-            this.colEvText.Name = "colEvText";
-            this.colEvText.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colEvText.MinimumWidth = 100;
-            // 
-            // lblFoot
-            // 
-            this.lblFoot.AutoSize = false;
-            this.lblFoot.Font = new System.Drawing.Font("Segoe UI", 8.5F);
-            this.lblFoot.Location = new System.Drawing.Point(0, 0);
-            this.lblFoot.Text = "Kartlara, status zolağına və zavodlara klikləyəndə reyestr həmin filtrlə açılır.";
-            this.lblFoot.Tag = "muted";
-            this.lblFoot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFoot.Size = new System.Drawing.Size(1172, 22);
-            this.lblFoot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblFoot.Name = "lblFoot";
-            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Size = new System.Drawing.Size(1216, 712);
             this.Controls.Add(this.tlpBody);
-            this.Controls.Add(this.lblFoot);
             this.Controls.Add(this.tlpTiles);
             this.Controls.Add(this.pnlHead);
             this.Name = "HomePage";
-            ((System.ComponentModel.ISupportInitialize)(this.gridLate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridZav)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridEvents)).EndInit();
-            this.rpEvents.ResumeLayout(false);
-            this.rpEvents.PerformLayout();
-            this.rpLate.ResumeLayout(false);
-            this.rpLate.PerformLayout();
             this.rpAvg.ResumeLayout(false);
             this.rpAvg.PerformLayout();
-            this.rpTypes.ResumeLayout(false);
-            this.rpTypes.PerformLayout();
-            this.rpStatus.ResumeLayout(false);
-            this.rpStatus.PerformLayout();
             this.rpMonthly.ResumeLayout(false);
             this.rpMonthly.PerformLayout();
             this.tlpBody.ResumeLayout(false);
@@ -472,12 +244,6 @@
         private System.Windows.Forms.Label lblLegA;
         private System.Windows.Forms.Label lblLegB;
         private TexnikaReyestri.Controls.ColumnChart chartMonthly;
-        private TexnikaReyestri.Controls.RoundPanel rpStatus;
-        private System.Windows.Forms.Label lblStatusTitle;
-        private TexnikaReyestri.Controls.StatusBreakdown brkStatus;
-        private TexnikaReyestri.Controls.RoundPanel rpTypes;
-        private System.Windows.Forms.Label lblTypesTitle;
-        private TexnikaReyestri.Controls.BarList barTypes;
         private TexnikaReyestri.Controls.RoundPanel rpAvg;
         private System.Windows.Forms.Label lblAvgTitle;
         private TexnikaReyestri.Controls.ModernGrid gridZav;
@@ -486,19 +252,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colZavGozl;
         private System.Windows.Forms.DataGridViewTextBoxColumn colZavTehvil;
         private System.Windows.Forms.DataGridViewTextBoxColumn colZavCemi;
-        private TexnikaReyestri.Controls.RoundPanel rpLate;
-        private System.Windows.Forms.Label lblLateTitle;
-        private System.Windows.Forms.LinkLabel lnkLate;
-        private TexnikaReyestri.Controls.ModernGrid gridLate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colLateName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colLateDays;
-        private TexnikaReyestri.Controls.RoundPanel rpEvents;
-        private System.Windows.Forms.Label lblEventsTitle;
-        private System.Windows.Forms.LinkLabel lnkLogs;
-        private TexnikaReyestri.Controls.ModernGrid gridEvents;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEvTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEvType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEvText;
-        private System.Windows.Forms.Label lblFoot;
     }
 }

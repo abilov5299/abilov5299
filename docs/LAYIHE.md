@@ -38,7 +38,7 @@
 | 8 | Təhvil tarixi ayrıca sahə deyil: statusun "Təhvil verilib"ə dəyişdiyi an (Tarixce), yoxdursa Faktiki bitmə |
 | 9 | Təchizat sorğusunun "Təminat nəticəsi" istifadəçi tərəfindən seçilir (avtomatik hesablanmır) |
 | 10 | "Məni xatırla" yalnız istifadəçi adını saxlayır, parolu yox |
-| 11 | Yan menyu həmişə bağlı açılır; loqoya klik ilə açılır (məzmunun üstündə, animasiya ilə) |
+| 11 | Yan menyu həmişə bağlı açılır; loqoya klik ilə açılır. Açıq menyu səhifəni sıxır (altında qalmır); animasiya üstdə gedir, səhifə yalnız sonda bir dəfə düzülür |
 | 12 | Admin paneli gizlidir: giriş ekranında loqoya 3 s-də 5 klik və ya Ctrl+Shift+F12 |
 | 13 | Proqramçı loqosu: giriş ekranının brend panelində sağ aşağı küncdə, solğun, yazısız (`ProqramciLoqo`) |
 
@@ -110,11 +110,13 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 ### Windows-da yoxlanılmalı (istifadəçi hələ təsdiqləməyib)
 
-- [ ] Yan menyunun hamar açılması və yazıların kəsilməməsi (`NavButton` ResizeRedraw düzəlişi)
+- [x] Yan menyu: açılış və bağlanma normal (17.10, təsdiqləndi); bağlanma üçün bağlanarkən altdakı səhifənin şəkli "pərdə" kimi göstərilir (`PerdeGoster`)
+- [x] Yan menyu açılanda səhifə sıxılır (17.10, `MezmunSol`, təsdiqləndi)
 - [ ] Giriş: "Unut" linkinin yeri, parol gözü xananın içində, animasiyanın hiss olunması
-- [ ] Ana səhifə: zavodlar cədvəli (böyük şrift) + diaqram yan-yana; "1 il" seçiləndə ay adları sıxlaşırmı
-- [ ] Sorğuya texnika əlavəsi (boş axtarış → siyahı)
-- [ ] Hesabatlar və sorğu PDF-inin görünüşü
+- [ ] Ana səhifə: "1 il" seçiləndə ay adları sıxlaşırmı
+- [x] Ana səhifə: zavodlar cədvəli + diaqram yan-yana (təsdiqləndi)
+- [x] Sorğuya texnika əlavəsi (təsdiqləndi)
+- [x] Hesabatlar və sorğu PDF-i (hələlik normal)
 
 ### Açıq təkliflər (istifadəçi qərar verməyib)
 
@@ -127,6 +129,6 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 ### Texniki borc (kiçik)
 
-- `HomePage.Designer.cs`-də köhnə panellər (rpStatus, rpTypes, rpLate, rpEvents) qalır, kodda gizlədilir — Designer-dən silmək olar.
-- `navBackup` düyməsi MainForm Designer-də qalır, gizlidir (Tənzimləmə əvəz edir).
-- Kod qovluğu/namespace `TexnikaReyestri` adındadır; ekrandakı ad dəyişib.
+- Kod qovluğu/namespace `TexnikaReyestri` adındadır; ekrandakı ad dəyişib (istifadəçi qərarı: toxunulmur).
+- 17.10: HomePage-dəki köhnə panellər (rpStatus, rpTypes, rpLate, rpEvents, lblFoot) və `navBackup` silindi.
+- `EvStat` hələ də Statuslar/Novler/Gecikenler hesablayır, ana səhifədə istifadə olunmur.

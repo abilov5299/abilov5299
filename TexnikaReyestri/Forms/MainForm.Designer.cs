@@ -26,7 +26,6 @@
             this.navNoti = new TexnikaReyestri.Controls.NavButton();
             this.navSync = new TexnikaReyestri.Controls.NavButton();
             this.navLogs = new TexnikaReyestri.Controls.NavButton();
-            this.navBackup = new TexnikaReyestri.Controls.NavButton();
             this.navOut = new TexnikaReyestri.Controls.NavButton();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblQurum = new System.Windows.Forms.Label();
@@ -47,7 +46,6 @@
             // pnlNav
             // 
             this.pnlNav.Controls.Add(this.navOut);
-            this.pnlNav.Controls.Add(this.navBackup);
             this.pnlNav.Controls.Add(this.navLogs);
             this.pnlNav.Controls.Add(this.navSync);
             this.pnlNav.Controls.Add(this.navNoti);
@@ -170,16 +168,6 @@
             this.navLogs.PageKey = "set";
             this.navLogs.Name = "navLogs";
             this.navLogs.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navBackup
-            // 
-            this.navBackup.Glyph = "\uE7B8";
-            this.navBackup.Location = new System.Drawing.Point(0, 434);
-            this.navBackup.Size = new System.Drawing.Size(64, 52);
-            this.navBackup.ToolTipText = "Ehtiyat nüsxə";
-            this.navBackup.PageKey = "bak";
-            this.navBackup.Name = "navBackup";
-            this.navBackup.Click += new System.EventHandler(this.nav_Click);
             // 
             // navOut
             // 
@@ -349,7 +337,6 @@
         private TexnikaReyestri.Controls.NavButton navNoti;
         private TexnikaReyestri.Controls.NavButton navSync;
         private TexnikaReyestri.Controls.NavButton navLogs;
-        private TexnikaReyestri.Controls.NavButton navBackup;
         private TexnikaReyestri.Controls.NavButton navOut;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label lblQurum;
