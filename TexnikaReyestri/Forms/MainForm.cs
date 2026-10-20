@@ -53,9 +53,9 @@ namespace TexnikaReyestri.Forms
             lblQurum.Text = Session.QurumAd;
             lblUser.Text = $"{Session.AdSoyad} · {Lang.T(Session.RolMetni)}";
             // Rola görə menyu: üst qurumlar texnika daxil etmir
-            navAdd.Visible = navSorgu.Visible = Session.YazaBiler;
+            navAdd.Visible = Session.YazaBiler;
             int y = 64;
-            foreach (var n in new[] { navHome, navRegistry, navAdd, navTech, navSorgu, navRep, navNoti, navSync, navLogs }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
+            foreach (var n in new[] { navHome, navRegistry, navAdd, navTech, navRep, navNoti, navSync, navLogs }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
             MenyuAc(false);   // menyu hər dəfə bağlı açılır
             Ui.Hazirla(this); YerlesdirBaslig();
             // Sınaq üçün: baza boşdursa bir dəfə 10 nümunə texnika yazılır
@@ -88,7 +88,6 @@ namespace TexnikaReyestri.Forms
             if (sender is not NavButton b) return;
             // "Texnika daxil et": əvvəlki redaktə açıq qalmışdısa, boş yeni forma aç
             if (b.PageKey == "add") await AcAsync("add", p => ((EditPage)p).YeniRejim ? Task.CompletedTask : ((EditPage)p).YukleAsync(null));
-            else if (b.PageKey == "sadd") await AcAsync("sadd", p => ((SorguEditPage)p).YeniRejim ? Task.CompletedTask : ((SorguEditPage)p).YukleAsync(0));
             else await AcAsync(b.PageKey);
         }
 
@@ -158,7 +157,7 @@ namespace TexnikaReyestri.Forms
             if (_pages.TryGetValue(key, out var page)) return page;
             page = key switch
             {
-                "home" => new HomePage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "sadd" => new SorguEditPage(), "rep" => new HesabatPage(),
+                "home" => new HomePage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "rep" => new HesabatPage(),
                 "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "set" => new TenzimlemePage(),
                 _ => throw new ArgumentException(key)
             };
@@ -202,8 +201,8 @@ namespace TexnikaReyestri.Forms
 
         public Task ReyestrAcAsync(ReyestrFiltr f) => AcAsync("list", p => ((RegistryPage)p).FiltrTetbiqAsync(f));
         public Task DetalAcAsync(long id, IReadOnlyList<long> siyahi = null) => AcAsync("det", p => ((DetailPage)p).YukleAsync(id, siyahi));
-        public Task SorguAcAsync(long id) => AcAsync("sadd", p => ((SorguEditPage)p).YukleAsync(id));
-        public Task RedakteAcAsync(long? id) => AcAsync("add", p => ((EditPage)p).YukleAsync(id));
+        /// <param name="bolme">Açılacaq bölmə (0–4); məs. Təchizatdan gələndə 3 — "Ehtiyat hissələri və məktublar".</param>
+        public Task RedakteAcAsync(long? id, int bolme = 0) => AcAsync("add", p => ((EditPage)p).YukleAsync(id, bolme));
 
         // ---------------- Bildiriş nişanı ----------------
         public async Task<int> BadgeYenileAsync()

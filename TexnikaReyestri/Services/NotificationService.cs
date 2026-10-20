@@ -1,4 +1,4 @@
-using TexnikaReyestri.Data;
+﻿using TexnikaReyestri.Data;
 
 namespace TexnikaReyestri.Services
 {
@@ -15,9 +15,9 @@ namespace TexnikaReyestri.Services
             {
                 using var cmd = con.CreateCommand();
                 cmd.CommandText = @"
-SELECT Id, Marka, ZavodNo, TemirZavodu, GozlenilenBitme, CAST(julianday($b)-julianday(GozlenilenBitme) AS INTEGER), Status, SorguStatus, BaslamaTarixi
-FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir','Qismən təmin edilib')
-  AND (GozlenilenBitme <= date($b, '+' || $y || ' days') OR SorguStatus='Cavab gözlənilir');";
+SELECT Id, Marka, ZavodNo, TemirZavodu, GozlenilenBitme, CAST(julianday($b)-julianday(GozlenilenBitme) AS INTEGER), Status, Teminat, BaslamaTarixi
+FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND Status IN ('Qəbul edilib','Təmirdə') AND IFNULL(FaktikiBitme,'')=''
+  AND (GozlenilenBitme <= date($b, '+' || $y || ' days') OR Teminat IN ('Təminat gözlənilir','Qismən təmin edilib'));";
                 cmd.Parameters.AddWithValue("$b", bugun); cmd.Parameters.AddWithValue("$y", yaxin); cmd.Parameters.AddWithValue("$z", (object)Session.ZavodFiltri ?? DBNull.Value);
                 await using var r = await cmd.ExecuteReaderAsync();
                 while (await r.ReadAsync())
@@ -29,8 +29,9 @@ FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND Status IN
                         if (fark > gec) siyahi.Add(($"late:{id}:{bugun}", "late", "Təmir gecikir", $"{ad}: gözlənilən bitmə tarixi {Vaxt.Tarix(r[4])} idi, {fark} gün keçib", zv, id));
                         else if (fark <= 0) siyahi.Add(($"soon:{id}:{r[4]}", "soon", "Son tarix yaxınlaşır", $"{ad}: təmirin bitməsinə {-fark} gün qalıb", zv, id));
                     }
-                    if (r[7] as string == "Cavab gözlənilir" && DateTime.TryParse(r[8] as string, out var bas) && (DateTime.Today - bas).TotalDays >= sorgu)
-                        siyahi.Add(($"part:{id}", "part", "Sorğu cavabsızdır", $"{ad}: hissə sorğusu {(int)(DateTime.Today - bas).TotalDays} gündür cavabsızdır", zv, id));
+                    // Ehtiyat hissələri diaqnostikadan bəri "sorgu" gündür tam təmin edilməyib
+                    if (r[7] is "Təminat gözlənilir" or "Qismən təmin edilib" && DateTime.TryParse(r[8] as string, out var bas) && (DateTime.Today - bas).TotalDays >= sorgu)
+                        siyahi.Add(($"part:{id}", "part", "Ehtiyat hissələri gözlənilir", $"{ad}: ehtiyat hissələri {(int)(DateTime.Today - bas).TotalDays} gündür tam təmin edilməyib ({r[7]})", zv, id));
                 }
             }
             if (Session.Tip != QurumTip.Zavod)
@@ -45,7 +46,7 @@ FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND Status IN
             {
                 if (grp.Count() > 20)
                 {
-                    string bas = grp.Key switch { "late" => "Təmir gecikir", "soon" => "Son tarix yaxınlaşır", "part" => "Sorğu cavabsızdır", _ => grp.First().basliq };
+                    string bas = grp.Key switch { "late" => "Təmir gecikir", "soon" => "Son tarix yaxınlaşır", "part" => "Ehtiyat hissələri gözlənilir", _ => grp.First().basliq };
                     foreach (var z in grp.GroupBy(x => x.zavod))
                         await SistemRepo.BildirisAsync($"{grp.Key}:sum:{z.Key}:{bugun}", grp.Key, bas, $"{z.Key}: {z.Count()} texnika. Siyahı üçün reyestrdə filtrdən istifadə edin.", z.Key, null);
                 }

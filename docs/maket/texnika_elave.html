@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="az"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Texnika əlavə et — maket</title>
+<style>
+:root{--bg:#F4F7F6;--card:#fff;--line:#D9E2E0;--txt:#12302E;--mut:#6B7C7A;--pri:#0E4B48;--soft:#E7F0EE;--y:#FFF6DA;--yb:#F1C84B}
+*{box-sizing:border-box}body{margin:0;font:14px "Segoe UI",sans-serif;background:var(--bg);color:var(--txt)}
+header{background:#E9F2F0;padding:16px 24px 12px}
+.top{display:flex;align-items:center;gap:10px}.top h1{margin:0;flex:1;font-size:28px;color:var(--pri)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;cursor:pointer;font:inherit}
+.btn.p{background:var(--pri);color:#fff;border-color:var(--pri)}.btn.s{background:var(--soft)}
+.tabs{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:#fff;border-radius:20px;padding:8px 16px;cursor:pointer;font:inherit}
+.tab.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+main{padding:16px 24px}.sec{display:none}.sec.on{display:block}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:14px}
+.box h2{margin:0 0 10px;font-size:20px}.box h3{margin:12px 0 4px;font-size:15px}
+.g{display:grid;gap:12px 18px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}
+label{display:block;font-size:13px;margin-bottom:4px}label i{color:#B3261E;font-style:normal}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid #C6D3D1;border-radius:6px;font:inherit;background:#fff}
+textarea{min-height:60px}.ro{background:#EEF2F1;color:var(--mut)}
+.hint{font-size:12px;color:var(--mut);margin-top:4px}
+.info{background:var(--soft);border-radius:6px;padding:8px 12px;margin-top:12px}
+.yel{background:var(--y);border:1px solid var(--yb);border-radius:8px;padding:12px}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:8px;text-align:left}th{background:#EEF3F2}
+.chip{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px}
+.c1{background:#FCE7D2;color:#A65A10}.c2{background:#EDE3FA;color:#5B3A99}.c3{background:#DDF1E3;color:#23703E}.c4{background:#DCEBF6;color:#1F5F8B}.c5{background:#E7ECEB;color:#4A5A59}.c6{background:#FFE4D6;color:#A64B10}
+.row{display:flex;gap:12px;align-items:flex-start}
+.kart{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:12px}.kart div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px;color:var(--mut)}.kart b{display:block;font-size:20px;color:var(--txt)}
+.new{outline:3px solid var(--yb);outline-offset:2px;border-radius:6px}
+@media(max-width:800px){.g4,.g3,.g2,.kart{grid-template-columns:1fr}}
+</style></head><body>
+<header>
+ <div class="top"><h1>Texnika əlavə et</h1>
+  <button class="btn" onclick="go(-1)">← Əvvəlki bölmə</button><button class="btn s" onclick="go(1)">Növbəti bölmə →</button><button class="btn p">💾 Yadda saxla</button></div>
+ <div class="tabs" id="tabs"></div>
+</header>
+<main>
+
+<!-- 1 -->
+<div class="sec">
+ <div class="box"><h2>Texnika haqqında məlumat</h2><div class="g g4">
+  <div><label>Texnikanın növü <i>*</i></label><select><option>Seçimlər</option><option>Nəqliyyat vasitəsi</option><option>Zirehli texnika</option><option>Digər texnika</option></select></div>
+  <div><label>Texnikanın markası <i>*</i></label><input value="KamAZ"></div>
+  <div><label>Zavod nömrəsi <i>*</i></label><input placeholder="Nömrəni daxil edin"></div>
+  <div><label>Kateqoriyası — faktiki</label><select><option></option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><div class="hint">Aktda göstərildiyi kimi</div></div>
+ </div></div>
+ <div class="box"><h2>Naryad və qəbul məlumatları</h2><div class="g g4">
+  <div><label>Naryadın nömrəsi <i>*</i></label><input value="818/20"><div class="hint">Bir naryadla bir neçə texnika gələ bilər</div></div>
+  <div><label>Sənədin tarixi (naryadın tarixi) <i>*</i></label><input type="date"></div>
+  <div><label>Zavoda faktiki daxilolma tarixi <i>*</i></label><input type="date"></div>
+  <div><label>Təhvil verən (göndərən) <i>*</i></label><input></div>
+ </div></div>
+ <div class="box"><h2>Texniki vəziyyət aktı</h2><div class="g g3">
+  <div><label>Aktın forması</label><select><option>Seçimlər</option><option>Forma 12</option><option>Forma 12 (RAS)</option></select></div>
+  <div><label>Aktın nömrəsi</label><input></div><div><label>Aktın tarixi</label><input type="date"></div>
+ </div><div class="info"><b>Qəbul edən təmir müəssisəsi:</b> Zavod 1 &nbsp;•&nbsp; <b>İlkin status:</b> Qəbul edilib</div></div>
+</div>
+
+<!-- 2 -->
+<div class="sec">
+ <div class="box"><h2>Texniki-istismar göstəriciləri</h2>
+  <div class="g g4"><div><label>İstehsal ili</label><input placeholder="2015"></div><div><label>İstismara verilib (tarix)</label><input type="date"></div></div>
+  <h3>İstismarın əvvəlindən işləyib</h3><div class="hint">İlk istismara verildiyi vaxtdan ümumi göstərici</div>
+  <table style="margin-top:8px;max-width:640px" id="gost"><tr><th>Göstəricinin növü</th><th>Miqdar</th><th></th></tr></table>
+  <button class="btn p" style="margin-top:10px" onclick="gostEl()">＋ Digər istismar göstəricisini əlavə et</button>
+  <div class="hint">"Tətbiq edilmir" və "Məlumat yoxdur" seçiləndə miqdar tələb olunmur.</div>
+ </div>
+ <div class="box"><h2>Zavoda daxilolmadan əvvəlki son təmir</h2><div class="hint">Yalnız ən son aparılmış təmir qeyd olunur.</div>
+  <div class="g g3" style="margin-top:8px">
+   <div><label>Təmirin növü</label><select><option></option><option>Cari təmir</option><option>Orta təmir</option><option>Əsaslı təmir</option></select></div>
+   <div><label>Tamamlanma tarixi</label><input type="date"></div>
+   <div><label>Təmiri aparmış hərbi hissə və ya müəssisə</label><input></div></div>
+  <div style="margin-top:12px"><label>Yerinə yetirilmiş işlər haqqında qeyd</label><textarea></textarea></div>
+ </div>
+</div>
+
+<!-- 3 -->
+<div class="sec">
+ <div class="box"><h2>Texniki vəziyyəti</h2><div class="g" style="grid-template-columns:3fr 1fr">
+  <div><label>Aşkar edilmiş nasazlıqların qısa təsviri <i>*</i></label><textarea placeholder="Nasazlıqların qısa təsvirini daxil edin..."></textarea></div>
+  <div><label>Diaqnostika tarixi <i>*</i></label><input type="date" id="diaq" value="2026-10-01" oninput="hesab()"></div></div></div>
+ <div class="box"><h2>Təmir məlumatları</h2><div class="g g3">
+  <div><label>Təmirin / işin növü <i>*</i></label><select><option>Seçimlər</option><option>Cari təmir</option><option>Orta təmir</option><option>Əsaslı təmir</option><option>Nasazlıqların aradan qaldırılması</option></select><div class="hint">Hazırkı qəbul üzrə görüləcək iş seçilir.</div></div>
+  <div><label>İcra statusu <i>*</i></label><select><option>Qəbul edilib</option><option>Təmirdədir</option><option>Təmir tamamlanıb, təhvil gözlənilir</option><option>Təhvil verilib</option><option>Təmirə yararsız</option></select><div class="hint">Tamamlanma və təhvil statusları tarixlərə əsasən yenilənir.</div></div>
+  <div><label>Ehtiyat hissələrinin təminatı:</label><input class="ro" value="⚙ Təminat gözlənilir" readonly><div class="hint">Təchizat məlumatlarından avtomatik göstərilir.</div></div>
+ </div></div>
+ <div class="box"><h2>İcra olunma müddəti</h2><div class="g g4">
+  <div><label>Müddət <i>*</i></label><input id="mud" value="10" oninput="hesab()"><div class="hint">Hesablama diaqnostika tarixindən aparılır.</div></div>
+  <div><label>Vahid <i>*</i></label><select id="vah" onchange="hesab()"><option>Gün</option><option>Ay</option></select></div>
+  <div><label>Plan üzrə bitmə tarixi <i>*</i></label><input class="ro" id="plan" readonly><div class="hint">🔒 Avtomatik hesablanır</div></div>
+  <div><label>Qalan / gecikən gün</label><input class="ro" id="qal" readonly></div></div></div>
+ <div class="box"><h2>Gecikmə və plan dəyişikliyi</h2><div class="g" style="grid-template-columns:2fr 1fr 1fr auto;align-items:end">
+  <div><label>Gecikmənin və ya plan dəyişikliyinin səbəbi</label><textarea placeholder="Səbəbi daxil edin..."></textarea></div>
+  <div><label>Gözlənilən bitmə tarixi</label><input type="date"></div>
+  <div><label>Yeni plan üzrə bitmə tarixi</label><input type="date"></div>
+  <div><button class="btn p">Dəyişikliyi yadda saxla</button></div></div>
+  <div class="hint">Yalnız dəyişiklik olduqda doldurulur. İlkin plan tarixçədə saxlanılır.</div></div>
+</div>
+
+<!-- 4 -->
+<div class="sec">
+ <div class="box"><h2>Təchizat məktubu</h2><div class="row">
+  <div style="width:260px"><button class="btn p">🗎 Qeydiyyatdakı məktubu seç</button><div class="hint">Əvvəl qeyd edilmiş məktubu bu texnikaya bağlayır.</div><br>
+   <button class="btn s" onclick="tg('mk')">＋ Yeni məktub qeyd et</button><div class="hint">Bir məktub bir neçə texnikaya aid ola bilər.</div></div>
+  <div class="yel" id="mk" style="flex:1;display:none"><b>Yeni məktub</b><div class="g g3" style="margin-top:8px">
+   <div><label>Məktubun nömrəsi <i>*</i></label><input></div><div><label>Məktubun tarixi <i>*</i></label><input type="date"></div><div><label>Təmin edən qurum <i>*</i></label><input></div>
+   <div><label>Təmin edən qurum üzrə məsul icraçı <i>*</i></label><input></div><div><label>Əlaqə nömrəsi <i>*</i></label><input></div><div><label>İcra üçün son tarix <i>*</i></label><input type="date"></div>
+   <div><label>Məktubun icra vəziyyəti <i>*</i></label><select><option>İcrası davam edir</option><option>İcra başa çatıb</option></select></div>
+   <div style="align-self:end"><button class="btn p">💾 Məktubu yadda saxla</button></div></div></div>
+ </div>
+ <table style="margin-top:12px"><tr><th>Məktub №</th><th>Tarix</th><th>Təmin edən qurum</th><th>Məsul icraçı</th><th>Son tarix</th><th>Vəziyyət</th></tr>
+  <tr><td>45/112</td><td>05.10.2026</td><td>Təchizat idarəsi</td><td>Həsənov R.</td><td>25.10.2026</td><td><span class="chip c4">İcrası davam edir</span></td></tr></table></div>
+ <div class="box"><div class="row" style="justify-content:space-between"><h2>Ehtiyat hissələri</h2><div>Təminat vəziyyəti: <span class="chip c2">Qismən təmin edilib</span></div></div>
+  <table><tr><th>Adı</th><th>Kodu</th><th>Ölçü vahidi</th><th>Tələb olunan</th><th>Qəbul edilmiş</th><th>Qalıq</th></tr>
+   <tr><td>Yağ filtri</td><td>—</td><td>ədəd</td><td>4</td><td>2</td><td>2</td></tr><tr><td>Akkumulyator</td><td>6CT-190</td><td>ədəd</td><td>2</td><td>0</td><td>2</td></tr></table>
+  <div class="row" style="margin-top:12px"><div><button class="btn p" onclick="tg('eh')">＋ Ehtiyat hissəsi əlavə et</button> <button class="btn s" onclick="tg('qb')">Ehtiyat hissəsinin qəbulunu qeyd et</button><div class="hint">Qəbul edilmiş miqdar, qalıq və təminat vəziyyəti avtomatik hesablanır.</div></div></div>
+  <div class="yel" id="eh" style="display:none;margin-top:10px"><div class="g g4"><div><label>Adı <i>*</i></label><input></div><div><label>Kodu</label><input></div><div><label>Ölçü vahidi <i>*</i></label><input value="ədəd"></div><div><label>Tələb olunan <i>*</i></label><input></div></div><button class="btn p" style="margin-top:8px">💾 Yadda saxla</button></div>
+  <div class="yel" id="qb" style="display:none;margin-top:10px"><div class="g g3"><div><label>Ehtiyat hissəsi <i>*</i></label><select><option>Yağ filtri</option><option>Akkumulyator</option></select></div><div><label>Qəbul tarixi <i>*</i></label><input type="date"></div><div><label>Miqdar <i>*</i></label><input></div></div><button class="btn p" style="margin-top:8px">💾 Yadda saxla</button></div>
+ </div>
+ <div class="box"><h2>Məktubun icrası üzrə qeydlər</h2>
+  <button class="btn p" onclick="tg('iq')">＋ İcra qeydi əlavə et</button><div class="hint">Son qeyd yuxarıda göstərilir.</div>
+  <div class="yel" id="iq" style="display:none;margin-top:10px"><div class="g" style="grid-template-columns:1fr 2fr 1fr"><div><label>Əlaqə tarixi <i>*</i></label><input type="date"></div><div><label>Danışığın nəticəsi və ya alınmış məlumat <i>*</i></label><textarea></textarea></div><div><label>Bildirildiyi üzrə gözlənilən təminat tarixi</label><input type="date"></div></div><button class="btn p" style="margin-top:8px">💾 Qeydi yadda saxla</button></div>
+  <table style="margin-top:10px"><tr><th>Əlaqə tarixi</th><th>Nəticə</th><th>Gözlənilən təminat</th></tr><tr><td>15.10.2026</td><td>Akkumulyatorlar anbara daxil olub, göndəriləcək</td><td>22.10.2026</td></tr></table>
+  <div class="info">Məktubun icrası və ehtiyat hissələrinin təminatı ayrı izlənilir.</div></div>
+</div>
+
+<!-- 5 -->
+<div class="sec">
+ <div class="box"><h2>Təmirin tamamlanması</h2><div class="g" style="grid-template-columns:1fr 2fr">
+  <div><label>Təmirin faktiki tamamlanma tarixi <i>*</i></label><input type="date"></div><div><label>Yerinə yetirilmiş işlər haqqında qeyd <i>*</i></label><textarea></textarea></div></div>
+  <div class="hint">Saxlananda status: <b>Təmir tamamlanıb, təhvil gözlənilir</b>.</div></div>
+ <div class="box"><h2>Texnikanın təhvili</h2><div class="g g4">
+  <div><label>Faktiki təhvil tarixi <i>*</i></label><input type="date"></div><div><label>Təhvil sənədinin nömrəsi <i>*</i></label><input></div><div><label>Təhvil sənədinin tarixi <i>*</i></label><input type="date"></div>
+  <div><label>Təhvil alan qurum <i>*</i></label><select id="tq" onchange="document.getElementById('dq').style.display=this.value=='d'?'block':'none'"><option value="g">Göndərən qurum</option><option value="d">Digər qurum</option></select>
+   <input id="dq" style="display:none;margin-top:6px" placeholder="Qurumun adını yazın"><div class="hint">Göndərən qurum təklif edilir; dəyişmək mümkündür.</div></div></div>
+  <div class="hint">Saxlananda status: <b>Təhvil verilib</b>.</div></div>
+ <div class="box"><h2>Təhvil gözləmə müddəti</h2><input class="ro" value="Avtomatik hesablanır" readonly><div class="hint">Tamamlanmadan faktiki təhvilədək; təhvil verilməyibsə, bu günədək.</div></div>
+</div>
+
+<!-- 6: Reyestr -->
+<div class="sec">
+ <h2 style="margin:0 0 12px">Təmir reyestri · bütün zavodlar</h2>
+ <div class="kart"><div>CƏMİ TEXNİKA<b>73 476</b></div><div>TƏMİRİ DAVAM EDƏN TEXNİKALAR<b>48 883</b></div><div>TƏMİR TAMAMLANIB, TƏHVİL GÖZLƏNİLİR<b>0</b></div><div>TƏHVİL VERİLMİŞ TEXNİKALAR<b>24 593</b></div><div>İCRA MÜDDƏTİNƏ 0-5 GÜN QALIB<b>733</b></div><div>İCRA MÜDDƏTİ KEÇMİŞ TEXNİKALAR<b>38 186</b></div></div>
+ <div class="box"><div class="g g4">
+  <div><label>Zavod:</label><select><option>Hamısı</option></select></div>
+  <div><label>Status:</label><select><option>Hamısı</option></select></div>
+  <div><label>İcra müddəti:</label><select><option>Hamısı</option></select></div>
+  <div><label>Məsul icraçı:</label><select><option>Hamısı</option></select></div>
+  <div><label>&nbsp;</label><input placeholder="Texnikanın adı, inventar kodu və ya məktub nömrəsi"></div>
+  <div><label>Tarix növü:</label><select><option>Plan üzrə bitmə tarixi</option></select></div>
+  <div><label>Tarixdən:</label><input type="date" value="2026-10-19"></div>
+  <div><label>Tarixədək:</label><input type="date" value="2026-10-19"></div>
+  <div style="grid-column:span 2;display:flex;align-items:center;gap:12px"><label style="margin:0;white-space:nowrap">Ehtiyat hissələrinin təminatı:</label><select><option>Hamısı</option><option>Təminat gözlənilir</option><option>Qismən təmin edilib</option><option>Tam təmin edilib</option></select></div>
+ </div></div>
+ <div class="box"><table id="rey"><tr><th>Texnika / inventar kodu</th><th>Zavod</th><th>İcra statusu</th><th>Ehtiyat hissələrinin təminatı</th><th>Məsul icraçı</th><th></th></tr></table></div>
+</div>
+</main>
+<script>
+const ad=["1. Qəbul və sənədlər","2. İstismar göstəriciləri və son təmir","3. Təmirin icrası","4. Ehtiyat hissələri və məktublar","5. Təmirin tamamlanması və təhvil","Reyestr (yeni sütun)"];
+let cur=0;const T=document.getElementById('tabs'),S=document.querySelectorAll('.sec');
+ad.forEach((a,i)=>{const b=document.createElement('button');b.className='tab';b.textContent=a;b.onclick=()=>show(i);T.appendChild(b)});
+function show(i){cur=i;S.forEach((s,j)=>s.classList.toggle('on',j==i));[...T.children].forEach((b,j)=>b.classList.toggle('on',j==i))}
+function go(d){show(Math.max(0,Math.min(ad.length-1,cur+d)))}
+function tg(id){const e=document.getElementById(id);e.style.display=e.style.display=='none'?'block':'none'}
+const nov=["Gediş, km","İşləmə, saat","Motosaat","Dövr","Atəş sayı","Tətbiq edilmir","Məlumat yoxdur"];
+function gostEl(){const t=document.getElementById('gost'),r=t.insertRow();r.innerHTML=`<td><select onchange="this.closest('tr').cells[1].firstChild.disabled=this.selectedIndex>4">${nov.map(n=>`<option>${n}</option>`).join('')}</select></td><td><input></td><td><button class="btn" onclick="this.closest('tr').remove()">✕</button></td>`}
+function hesab(){const d=new Date(document.getElementById('diaq').value),m=+document.getElementById('mud').value||0;if(isNaN(d))return;
+ const p=new Date(d);document.getElementById('vah').value=='Ay'?p.setMonth(p.getMonth()+m):p.setDate(p.getDate()+m);
+ document.getElementById('plan').value=p.toLocaleDateString('ru-RU');const g=Math.round((p-new Date(new Date().toDateString()))/864e5);
+ document.getElementById('qal').value=g>=0?g+' gün qalıb':(-g)+' gün gecikir'}
+gostEl();hesab();show(0);
+const R=[["KamAZ-4310 · 21367017064","114","Təmirdədir","Təminat gözlənilir","baş leytenant Əliyev T."],["KamAZ-4310 · 99023946160","114","Təmirdədir","Qismən təmin edilib","baş leytenant Əliyev T."],["BTR-70 · 5215718903","339","Qəbul edilib","—","kapitan Məmmədov R."],["T-72 M-1 · 29201227854","939","Təmirdədir","Tam təmin edilib","baş leytenant Kərimov S."],["KamAZ-4310 · 50610887545","329","Təmir tamamlanıb, təhvil gözlənilir","Tam təmin edilib","kapitan Əliyev T."],["BTR-70 · 33861117762","412","Təhvil verilib","Tam təmin edilib","mayor Rzayev E."],["KamAZ-4310 · 28902933850","412","Qəbul edilib","Qismən təmin edilib","baş leytenant Əliyev T."],["251 · 31986273837","329","Təmirdədir","Təminat gözlənilir","kapitan Məmmədov R."],["BMP-1 · 49873914836","329","Təhvil verilib","Tam təmin edilib","baş leytenant Kərimov S."],["T-72 M-1 · 54713316522","412","Təmir tamamlanıb, təhvil gözlənilir","—","mayor Rzayev E."],["KamAZ-4310 · 96524940006","328","Qəbul edilib","—","kapitan Əliyev T."],["T-72 B · 33892368520","328","Təmirdədir","Qismən təmin edilib","baş leytenant Kərimov S."]];
+const CH={"Təmirdədir":"c4","Qəbul edilib":"c5","Təmir tamamlanıb, təhvil gözlənilir":"c6","Təhvil verilib":"c3","Təminat gözlənilir":"c1","Qismən təmin edilib":"c2","Tam təmin edilib":"c3"};
+const ch=t=>t=="—"?"—":`<span class="chip ${CH[t]}">${t}</span>`;
+R.forEach(r=>{document.getElementById('rey').insertRow().innerHTML=`<td>${r[0]}</td><td>${r[1]} nömrəli hərbi hissə</td><td>${ch(r[2])}</td><td style="text-align:center">${ch(r[3])}</td><td>${r[4]}</td><td><button class="btn p">Geniş bax →</button></td>`});
+</script></body></html>

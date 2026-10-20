@@ -1,10 +1,11 @@
-using System.Data;
+﻿using System.Data;
 using System.Text.Json;
 using Microsoft.Data.Sqlite;
 
 namespace TexnikaReyestri.Data
 {
     public sealed record SorguTexnika(string Guid, string Marka, string ZavodNo, string Status);
+    public sealed class SorguQeyd { public string Tarix { get; set; } public string Netice { get; set; } public string Gozlenilen { get; set; } }
     public sealed class SorguHisse { public string Ad { get; set; } public string Texnika { get; set; } public string Vahid { get; set; } public double Teleb { get; set; } public double Qebul { get; set; } }
     public readonly record struct SorguStat(long Cemi, long Edilmeyib, long Qismen, long Tam, long Davam);
 
@@ -25,18 +26,22 @@ namespace TexnikaReyestri.Data
     public static class SorguRepo
     {
         /// <summary>Mətn sahələri (sütun adı = açar).</summary>
-        public static readonly string[] Sahe = { "MektubNo", "QeydTarixi", "Zavod", "IcraMuddeti", "TeminEden", "TeminIcraci", "ZavodMesul", "CavabVez", "CavabTarixi", "Netice", "Qeyd" };
+        public static readonly string[] Sahe = { "MektubNo", "QeydTarixi", "Zavod", "IcraMuddeti", "TeminEden", "TeminIcraci", "ZavodMesul", "CavabVez", "CavabTarixi", "Netice", "Qeyd", "Telefon", "Qeydler" };
         public static readonly string[] Neticeler = { "Təyin edilməyib", "Təmin edilməyib", "Qismən təmin edilib", "Tam təmin edilib" };
-        public static readonly string[] CavabVez = { "İcrası davam edir", "Cavab verilib" };
+        public static readonly string[] CavabVez = { "İcrası davam edir", "İcra başa çatıb" };
         public static readonly string[] Vahidler = { "ədəd", "dəst", "litr", "kq", "metr" };
         private static readonly HashSet<string> TarixSahe = new() { "QeydTarixi", "IcraMuddeti", "CavabTarixi" };
 
-        public static void Yarat(SqliteConnection con) => LocalDb.Exec(con, $@"
+        public static void Yarat(SqliteConnection con)
+        {
+            LocalDb.Exec(con, $@"
 CREATE TABLE IF NOT EXISTS Sorgular (
   Id INTEGER PRIMARY KEY, Guid TEXT NOT NULL UNIQUE, Versiya INTEGER NOT NULL DEFAULT 1, Deyisdi INTEGER NOT NULL, Silinib INTEGER NOT NULL DEFAULT 0,
   {string.Join(", ", Sahe.Select(s => s + " TEXT"))}, Texnikalar TEXT, Hisseler TEXT);
 CREATE INDEX IF NOT EXISTS IX_S_Zavod ON Sorgular(Silinib, Zavod, QeydTarixi);
 CREATE INDEX IF NOT EXISTS IX_S_Deyisdi ON Sorgular(Deyisdi);");
+            foreach (var x in Sahe.Where(x => !Miqrasiya.SutunVar(con, "Sorgular", x))) LocalDb.Exec(con, $"ALTER TABLE Sorgular ADD COLUMN {x} TEXT;");
+        }
 
         private static string Sert(SorguFiltr f, SqliteCommand c)
         {
@@ -45,7 +50,7 @@ CREATE INDEX IF NOT EXISTS IX_S_Deyisdi ON Sorgular(Deyisdi);");
             if (f.Zavod != null) { w.Add("Zavod=$z"); P("$z", f.Zavod); }
             if (f.Netice != null) { w.Add("IFNULL(Netice,'Təyin edilməyib')=$n"); P("$n", f.Netice); }
             if (f.Icra == "davam") w.Add("IFNULL(CavabVez,'İcrası davam edir')='İcrası davam edir'");
-            else if (f.Icra == "cavab") w.Add("CavabVez='Cavab verilib'");
+            else if (f.Icra == "cavab") w.Add("CavabVez='İcra başa çatıb'");
             else if (f.Icra == "late") { w.Add("IFNULL(CavabVez,'İcrası davam edir')='İcrası davam edir' AND IcraMuddeti<$b"); P("$b", Vaxt.Iso(DateTime.Today)); }
             if (!string.IsNullOrWhiteSpace(f.Mektub)) { w.Add("MektubNo LIKE $m"); P("$m", "%" + f.Mektub.Trim() + "%"); }
             string ts = TarixSahe.Contains(f.TarixSahe) ? f.TarixSahe : "QeydTarixi";
@@ -91,6 +96,103 @@ FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z);";
             if (!r.IsDBNull(k + 1)) s.His = JsonSerializer.Deserialize<List<SorguHisse>>(r.GetString(k + 1)) ?? new();
             return s;
         }
+
+        public static List<SorguQeyd> QeydJson(string v) => string.IsNullOrEmpty(v) ? new() : JsonSerializer.Deserialize<List<SorguQeyd>>(v) ?? new();
+
+        private const string TexnikaSert = "EXISTS (SELECT 1 FROM json_each(Sorgular.Texnikalar) j WHERE json_extract(j.value,'$.Guid')=$tg)";
+
+        /// <summary>Texnikanın bağlı olduğu məktublar (yeni əvvəldə).</summary>
+        public static async Task<List<Sorgu>> TexnikaUzreAsync(string texGuid)
+        {
+            var idler = new List<long>();
+            await using (var con = await LocalDb.AcAsync())
+            using (var c = con.CreateCommand())
+            {
+                c.CommandText = $"SELECT Id FROM Sorgular WHERE Silinib=0 AND {TexnikaSert} ORDER BY QeydTarixi DESC, Id DESC;";
+                c.Parameters.AddWithValue("$tg", texGuid ?? "");
+                await using var r = await c.ExecuteReaderAsync();
+                while (await r.ReadAsync()) idler.Add(r.GetInt64(0));
+            }
+            var l = new List<Sorgu>(); foreach (var id in idler) l.Add(await GetAsync(id));
+            return l;
+        }
+
+        /// <summary>Qeydiyyatdakı məktublar (texnikaya bağlamaq üçün): nömrəyə görə axtarış, zavod üzrə. Ən çox 50.</summary>
+        public static async Task<List<(long id, string ad)>> MektublarAsync(string zavod, string metn)
+        {
+            await using var con = await LocalDb.AcAsync();
+            using var c = con.CreateCommand();
+            c.CommandText = "SELECT Id, IFNULL(MektubNo,'') || ' · ' || IFNULL(QeydTarixi,'') || ' · ' || IFNULL(TeminEden,'') FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z) AND ($t='' OR MektubNo LIKE $l) ORDER BY QeydTarixi DESC, Id DESC LIMIT 50;";
+            c.Parameters.AddWithValue("$z", (object)zavod ?? DBNull.Value); c.Parameters.AddWithValue("$t", (metn ?? "").Trim()); c.Parameters.AddWithValue("$l", "%" + (metn ?? "").Trim() + "%");
+            var l = new List<(long, string)>(); await using var r = await c.ExecuteReaderAsync();
+            while (await r.ReadAsync()) l.Add((r.GetInt64(0), r.GetString(1)));
+            return l;
+        }
+
+        /// <summary>
+        /// Texnika yadda saxlananda: ona bağlı məktubların ehtiyat hissələri (texnikaların siyahısından toplanır) və təminat nəticəsi yenilənir.
+        /// Nəticə: hissə yoxdur — "Təyin edilməyib"; heç nə qəbul olunmayıb — "Təmin edilməyib"; hamısı — "Tam"; qalanı — "Qismən".
+        /// </summary>
+        internal static async Task TexnikaUzreYenileAsync(SqliteConnection con, SqliteTransaction tr, string texGuid)
+        {
+            var sorgular = new List<(long id, List<SorguTexnika> tex)>();
+            using (var c = con.CreateCommand())
+            {
+                c.Transaction = tr; c.CommandText = $"SELECT Id, Texnikalar FROM Sorgular WHERE Silinib=0 AND {TexnikaSert};";
+                c.Parameters.AddWithValue("$tg", texGuid);
+                await using var r = await c.ExecuteReaderAsync();
+                while (await r.ReadAsync()) sorgular.Add((r.GetInt64(0), TexnikaJson(r.IsDBNull(1) ? null : r.GetString(1))));
+            }
+            foreach (var (id, tex) in sorgular)
+            {
+                var his = new List<SorguHisse>();
+                foreach (var t in tex)
+                {
+                    using var c = con.CreateCommand(); c.Transaction = tr;
+                    c.CommandText = "SELECT Hisseler FROM Texnikalar WHERE Guid=$g AND Silinib=0;"; c.Parameters.AddWithValue("$g", t.Guid);
+                    foreach (var h in Data.TexnikaJson.Hisseler(await c.ExecuteScalarAsync()))
+                        his.Add(new SorguHisse { Ad = h.Ad, Texnika = $"{t.Marka} ({t.ZavodNo})", Vahid = h.Vahid, Teleb = h.Teleb, Qebul = h.Qebul });
+                }
+                string netice = his.Count == 0 ? "Təyin edilməyib" : his.All(h => h.Qebul <= 0) ? "Təmin edilməyib" : his.All(h => h.Qebul >= h.Teleb) ? "Tam təmin edilib" : "Qismən təmin edilib";
+                using var u = con.CreateCommand(); u.Transaction = tr;
+                u.CommandText = "UPDATE Sorgular SET Hisseler=$h, Netice=$n, Versiya=Versiya+1, Deyisdi=$d WHERE Id=$i AND (IFNULL(Hisseler,'')<>$h OR IFNULL(Netice,'')<>$n);";
+                u.Parameters.AddWithValue("$h", JsonSerializer.Serialize(his)); u.Parameters.AddWithValue("$n", netice); u.Parameters.AddWithValue("$d", Vaxt.Indi); u.Parameters.AddWithValue("$i", id);
+                await u.ExecuteNonQueryAsync();
+            }
+        }
+
+        /// <summary>Texnikanı məktubun texnika siyahısına əlavə edir (artıq varsa, dəyişmir).</summary>
+        internal static async Task TexnikaBaglaAsync(SqliteConnection con, SqliteTransaction tr, long sorguId, string texGuid, Dictionary<string, object> t)
+        {
+            using var c = con.CreateCommand(); c.Transaction = tr; c.CommandText = "SELECT Texnikalar FROM Sorgular WHERE Id=$i;"; c.Parameters.AddWithValue("$i", sorguId);
+            var l = TexnikaJson(await c.ExecuteScalarAsync());
+            if (l.Any(x => x.Guid == texGuid)) return;
+            l.Add(new SorguTexnika(texGuid, t.GetValueOrDefault("Marka") as string ?? "", t.GetValueOrDefault("ZavodNo") as string ?? "", t.GetValueOrDefault("Status") as string ?? ""));
+            using var u = con.CreateCommand(); u.Transaction = tr;
+            u.CommandText = "UPDATE Sorgular SET Texnikalar=$t, Versiya=Versiya+1, Deyisdi=$d WHERE Id=$i;";
+            u.Parameters.AddWithValue("$t", JsonSerializer.Serialize(l)); u.Parameters.AddWithValue("$d", Vaxt.Indi); u.Parameters.AddWithValue("$i", sorguId);
+            await u.ExecuteNonQueryAsync();
+        }
+
+        /// <summary>Mövcud texnikanı məktuba bağlayır (bağlı > true) və ya ayırır; sonra hissələr və nəticə yenilənir.</summary>
+        public static Task BaglaAsync(long sorguId, string texGuid, Dictionary<string, object> t, bool bagli) => LocalDb.YazAsync(async (con, tr) =>
+        {
+            if (bagli) await TexnikaBaglaAsync(con, tr, sorguId, texGuid, t);
+            else
+            {
+                using var c = con.CreateCommand(); c.Transaction = tr; c.CommandText = "SELECT Texnikalar FROM Sorgular WHERE Id=$i;"; c.Parameters.AddWithValue("$i", sorguId);
+                var l = TexnikaJson(await c.ExecuteScalarAsync()); l.RemoveAll(x => x.Guid == texGuid);
+                using var u = con.CreateCommand(); u.Transaction = tr;
+                u.CommandText = "UPDATE Sorgular SET Texnikalar=$t, Versiya=Versiya+1, Deyisdi=$d WHERE Id=$i;";
+                u.Parameters.AddWithValue("$t", JsonSerializer.Serialize(l)); u.Parameters.AddWithValue("$d", Vaxt.Indi); u.Parameters.AddWithValue("$i", sorguId);
+                await u.ExecuteNonQueryAsync();
+                // Ayrılan məktubun hissə siyahısı qalan texnikalardan yenidən toplanır
+                foreach (var x in l.Take(1)) await TexnikaUzreYenileAsync(con, tr, x.Guid);
+                if (l.Count == 0) { using var z = con.CreateCommand(); z.Transaction = tr; z.CommandText = "UPDATE Sorgular SET Hisseler='[]', Netice='Təyin edilməyib' WHERE Id=$i;"; z.Parameters.AddWithValue("$i", sorguId); await z.ExecuteNonQueryAsync(); }
+            }
+            await TexnikaUzreYenileAsync(con, tr, texGuid);
+            return 0;
+        });
 
         public static List<SorguTexnika> TexnikaJson(object v) => v is string s ? JsonSerializer.Deserialize<List<SorguTexnika>>(s) ?? new() : new();
         public static List<SorguHisse> HisseJson(object v) => v is string s ? JsonSerializer.Deserialize<List<SorguHisse>>(s) ?? new() : new();

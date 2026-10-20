@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
 using ClosedXML.Excel;
 using TexnikaReyestri.Data;
@@ -23,14 +23,13 @@ namespace TexnikaReyestri.Services
         // Faylınızdakı başlıqlar proqramdakı adlardan fərqlidirsə, burada uyğunluq yazılır (kiçik hərflə)
         private static readonly Dictionary<string, string> Alias = new()
         {
-            ["o/t"] = "OrtaTemir", ["ə/t"] = "EsasliTemir", ["e/t"] = "EsasliTemir",
-            ["maşının iş uçotu (km, son göstərici)"] = "Km", ["mühərrikin iş uçotu (motosaat, son göstərici)"] = "Motosaat",
-            ["atışların uçotu (say, son göstərici)"] = "Atislar", ["topun və ya lülənin nömrəsi"] = "LuleNo",
-            ["lülə və avtomatik doldurma sisteminin vəziyyəti"] = "VLule", ["atəşi idarəetmə sistemi və stabilizatorun vəziyyəti"] = "VAis",
-            ["optik və termal cihazların vəziyyəti"] = "VOptik", ["təmir gecikirsə, gecikmə səbəbi"] = "GecikmeSebebi",
-            ["əlaqəli məktubların nömrələri və çıxış tarixləri"] = "Mektublar", ["təmin edən idarə və həmin idarədə icraçı"] = "TeminEden",
-            ["hissələr üzrə daxilolma tarixləri və miqdarları"] = "HisseDaxilolma", ["əlaqəli sənədlərin qeydiyyat nömrələri, tarixləri və fayl adları"] = "Senedler",
-            ["icra müddəti (say)"] = "IcraMuddeti", ["istismarda olduğu h/h"] = "HerbiHisse", ["təmirə yararlı deyilsə, səbəbi"] = "YararsizSebeb",
+            // Köhnə reyestr faylının başlıqları → yeni sahələr
+            ["istismarda olduğu h/h"] = "GonderenQurum", ["göndərən qurum"] = "GonderenQurum", ["qəbul sənədinin nömrəsi və tarixi"] = "NaryadNo",
+            ["dərəcəsi"] = "Kateqoriya", ["təmir növü"] = "TemirNovu", ["statusu"] = "Status", ["təmiri aparan zavod"] = "TemirZavodu",
+            ["zavoda daxilolma tarixi"] = "DaxilolmaTarixi", ["təmirin başlama tarixi"] = "BaslamaTarixi", ["təmirin gözlənilən bitmə tarixi"] = "GozlenilenBitme",
+            ["təmirin faktiki bitmə tarixi"] = "FaktikiBitme", ["icra müddəti (gün)"] = "IcraMuddeti", ["icra müddəti (say)"] = "IcraMuddeti",
+            ["təmir gecikirsə, gecikmə səbəbi"] = "GecikmeSebebi", ["gecikmə səbəbi"] = "GecikmeSebebi", ["təhvil sənədinin nömrəsi və tarixi"] = "TehvilSenedNo",
+            ["digər nasazlıqlar"] = "Nasazliqlar", ["təmirin icra statusu"] = "Status",
         };
 
         // Azərbaycan hərfləri: "İ" → "i", "I" → "ı" (ToLowerInvariant "İ"-ni "i̇" edir və müqayisə pozulur)
@@ -49,7 +48,7 @@ namespace TexnikaReyestri.Services
             using var wb = new XLWorkbook(yol);
             var f = new Fayl { Yol = yol, Vereqler = wb.Worksheets.Select(w => w.Name).ToList() };
             var ws = vereq == null ? wb.Worksheets.First() : wb.Worksheet(vereq); f.Vereq = ws.Name;
-            var adlar = Saheler.Hamisi.ToDictionary(s => Norm(s.Ad), s => s.Kod);
+            var adlar = Saheler.Hamisi.Where(s => Idxal(s.Kod)).ToDictionary(s => Norm(s.Ad), s => s.Kod);
             int best = 1, bestN = -1, lastCol = Math.Min(ws.LastColumnUsed()?.ColumnNumber() ?? 1, 300);
             for (int r = 1; r <= 12; r++)
             {
@@ -73,6 +72,19 @@ namespace TexnikaReyestri.Services
             }
             return f;
         }
+
+        /// <summary>Excel-dən idxal oluna bilən sahə (JSON siyahılar və avtomatik təminat xaricdə).</summary>
+        public static bool Idxal(string kod) => !Saheler.Json.Contains(kod) && kod != "Teminat";
+
+        // Köhnə dəyərlər yeni siyahılara uyğunlaşdırılır (Miqrasiya ilə eyni qayda)
+        private static object Uygun(string kod, object v) => (kod, v as string) switch
+        {
+            ("Nov", "Əsas döyüş tankı" or "Piyadaların döyüş maşını" or "Zirehli transportyor" or "Özüyeriyən artilleriya qurğusu") => "Zirehli texnika",
+            ("Nov", "Təkərli texnika") => "Nəqliyyat vasitəsi",
+            ("TemirNovu", "Cari" or "Orta" or "Əsaslı") => v + " təmir",
+            ("Status", "Hissə gözləyir" or "Qismən təmin edilib" or "Ehtiyat hissələrinin təminatı gözlənilir") => "Təmirdə",
+            _ => v
+        };
 
         private static string Tap(string n, Dictionary<string, string> adlar) => n.Length == 0 ? null : adlar.TryGetValue(n, out var k) ? k : AliasN.TryGetValue(n, out var a) ? a : null;
 
@@ -104,13 +116,14 @@ namespace TexnikaReyestri.Services
                         var cell = ws.Cell(r, m.Sutun); if (cell.IsEmpty()) continue;
                         object v = Deyer(cell, tipler[m.SaheKod], out string err);
                         if (err != null) { xeta = true; qeyd.Add($"{Saheler.Hamisi.First(x => x.Kod == m.SaheKod).Ad}: {err}"); continue; }
-                        if (v != null) s.Deyerler[m.SaheKod] = v;
+                        if (v != null) s.Deyerler[m.SaheKod] = Uygun(m.SaheKod, v);
                     }
                     if (s.Deyerler.Count == 0) { s.Veziyyet = SetirVeziyyet.Bos; l.Add(s); continue; }
                     foreach (var k in new[] { "Nov", "Marka", "ZavodNo" }) if (!s.Deyerler.ContainsKey(k)) { xeta = true; qeyd.Add($"{Saheler.Hamisi.First(x => x.Kod == k).Ad} boşdur"); }
                     if (s.Deyerler.TryGetValue("IstehsalIli", out var il) && il is double y && (y < 1940 || y > DateTime.Today.Year + 1)) { xeb = true; qeyd.Add($"İl şübhəlidir ({y})"); }
                     s.Deyerler.TryAdd("Status", "Qəbul edilib");
-                    if (s.Deyerler["Status"] is string sto) s.Deyerler["Status"] = Secimler.Baza(sto);   // ekran adı yazılıbsa
+                    if (s.Deyerler["Status"] is string sto) s.Deyerler["Status"] = Uygun("Status", Secimler.Baza(sto));   // ekran adı yazılıbsa
+                    if (s.Deyerler.ContainsKey("IcraMuddeti")) s.Deyerler.TryAdd("MuddetVahidi", "Gün");
                     if (Session.ZavodFiltri != null) s.Deyerler.TryAdd("TemirZavodu", Session.ZavodFiltri);
                     if (s.Deyerler.TryGetValue("ZavodNo", out var zn))
                     {
@@ -187,7 +200,7 @@ namespace TexnikaReyestri.Services
                 h.Style.Fill.BackgroundColor = light; h.Style.Font.Bold = true; h.Style.Font.FontColor = teal; h.Style.Alignment.WrapText = true; h.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
                 ws.Row(row).Height = 45;
                 int hdr = row, n2 = 0; string bugun = Vaxt.Iso(DateTime.Today);
-                int si = Array.FindIndex(sahe, x => x.Kod == "Status"), gi = Array.FindIndex(sahe, x => x.Kod == "GozlenilenBitme");
+                int si = Array.FindIndex(sahe, x => x.Kod == "Status"), gi = Array.FindIndex(sahe, x => x.Kod == "GozlenilenBitme"), ti = Array.FindIndex(sahe, x => x.Kod == "Teminat");
                 await using var r = await cmd.ExecuteReaderAsync(ct);
                 while (await r.ReadAsync(ct))
                 {
@@ -197,11 +210,14 @@ namespace TexnikaReyestri.Services
                         if (r.IsDBNull(i)) continue;
                         var cell = ws.Cell(row, i + 2);
                         if (sahe[i].Nov == Data.SaheNov.Tarix && DateTime.TryParse(r.GetString(i), out var d)) { cell.Value = d; cell.Style.DateFormat.Format = "dd.MM.yyyy"; }
-                        else if (sahe[i].Nov == Data.SaheNov.Reqem) cell.Value = r.GetDouble(i); else cell.Value = r.GetString(i);
+                        else if (sahe[i].Nov == Data.SaheNov.Reqem) cell.Value = r.GetDouble(i);
+                        else if (Saheler.Json.Contains(sahe[i].Kod)) cell.Value = TexnikaJson.Metn(sahe[i].Kod, r.GetString(i));
+                        else cell.Value = sahe[i].Kod == "Status" ? Secimler.Ekran(r.GetString(i)) : r.GetString(i);
                     }
-                    if (s.StatusReng && si >= 0 && !r.IsDBNull(si))
-                    { var (bk, fg) = Core.Theme.StatusColors(r.GetString(si)); ws.Cell(row, si + 2).Style.Fill.BackgroundColor = XLColor.FromColor(bk); ws.Cell(row, si + 2).Style.Font.FontColor = XLColor.FromColor(fg); }
-                    if (s.GecikenQirmizi && gi >= 0 && !r.IsDBNull(gi) && string.CompareOrdinal(r.GetString(gi), bugun) < 0 && si >= 0 && !r.IsDBNull(si) && r.GetString(si) is "Qəbul edilib" or "Təmirdə" or "Hissə gözləyir" or "Qismən təmin edilib")
+                    foreach (int ci in new[] { si, ti })
+                        if (s.StatusReng && ci >= 0 && !r.IsDBNull(ci))
+                        { var (bk, fg) = Core.Theme.StatusColors(r.GetString(ci)); ws.Cell(row, ci + 2).Style.Fill.BackgroundColor = XLColor.FromColor(bk); ws.Cell(row, ci + 2).Style.Font.FontColor = XLColor.FromColor(fg); }
+                    if (s.GecikenQirmizi && gi >= 0 && !r.IsDBNull(gi) && string.CompareOrdinal(r.GetString(gi), bugun) < 0 && si >= 0 && !r.IsDBNull(si) && r.GetString(si) is "Qəbul edilib" or "Təmirdə")
                     { ws.Cell(row, gi + 2).Style.Font.FontColor = XLColor.FromHtml("#C00000"); ws.Cell(row, gi + 2).Style.Font.Bold = true; }
                     if (n2 % 500 == 0) p?.Report((int)(n2 * 90 / Math.Max(1, cemi)));
                 }
@@ -210,7 +226,7 @@ namespace TexnikaReyestri.Services
                 if (s.IcmalVereqi)
                 {
                     var ic = wb.AddWorksheet("İcmal"); var dt = await TexnikaRepo.ZavodIcmalAsync();
-                    string[] b = { "Zavod", "Cəmi", "Təmirdə", "Hissə gözləyir", "Gecikən", "Orta təmir (gün)" };
+                    string[] b = { "Zavod", "Cəmi", "Təmirdədir", "Ehtiyat hissəsi gözləyən", "Gecikən", "Orta təmir (gün)" };
                     for (int i = 0; i < b.Length; i++) ic.Cell(1, i + 1).Value = b[i];
                     ic.Range(1, 1, 1, b.Length).Style.Fill.BackgroundColor = light; ic.Range(1, 1, 1, b.Length).Style.Font.Bold = true;
                     int rr = 2;

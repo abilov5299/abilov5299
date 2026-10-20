@@ -50,7 +50,6 @@
 | `list` | RegistryPage | Təmir reyestri: 6 kart + filtr paneli (Zavod, Status, İcra müddəti, Məsul icraçı, Axtarış, Tarix növü/aralığı) |
 | `add` | EditPage | Texnika daxil et; məsul icraçı avtomatik = istifadəçinin adı |
 | `tech` | TechizatPage | Təchizat sorğuları: 5 kart, filtr, cədvəl, ehtiyat hissələri, Excel, PDF sənəd |
-| `sadd` | SorguEditPage | Sorğu əlavə et / redaktə |
 | `rep` | HesabatPage | 6 hesabat, Excel, PDF ("Təmir və təminat üzrə hesabat" + hesabatın adı) |
 | `noti` | NotificationsPage | Bildirişlər |
 | `sync` | SyncPage | USB ixrac / idxal |
@@ -76,7 +75,7 @@ TexnikaReyestri/
   Assets/                  ikon faylları
 ```
 
-Konvensiyalar: Label rəngi `Tag` ilə (`title`, `muted`, `danger`, `white`, `navtext`); forma `Load`-da `Ui.Hazirla(this)`; bazaya yazı `LocalDb.YazAsync`; uzun iş `Ui.Is(host, "mesaj", async ov => ...)`. Yeni səhifələr (Techizat, SorguEdit, Hesabat, Tenzimleme) Designer-siz, kodla qurulub.
+Konvensiyalar: Label rəngi `Tag` ilə (`title`, `muted`, `danger`, `white`, `navtext`); forma `Load`-da `Ui.Hazirla(this)`; bazaya yazı `LocalDb.YazAsync`; uzun iş `Ui.Is(host, "mesaj", async ov => ...)`. Yeni səhifələr (Techizat, Hesabat, Tenzimleme) və EditPage-in 5 bölməsi Designer-siz, kodla qurulub.
 
 ## 6. Baza
 
@@ -106,7 +105,15 @@ Konvensiyalar: Label rəngi `Tag` ilə (`title`, `muted`, `danger`, `white`, `na
 
 ## 8. Son vəziyyət (harada qaldıq)
 
-Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → tam dil tərcüməsi → İcmal bölməsi ləğv edildi (19.10) → Təchizat kartlarının sırası və adları dəyişdi → Reyestr cədvəli 4 sütun: Texnika / inventar kodu, Zavod, İcra statusu, Məsul icraçı (19.10).
+Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → tam dil tərcüməsi → İcmal bölməsi ləğv edildi (19.10) → Təchizat kartlarının sırası və adları dəyişdi → Reyestr cədvəli 4 sütun: Texnika / inventar kodu, Zavod, İcra statusu, Məsul icraçı (19.10). → **Yeni 5 bölməli "Texnika əlavə et" forması və baza quruluşu (20.10)** — tələblər: `docs/YENI_FORMA.md`, maket: `docs/maket/texnika_elave.html`.
+
+**20.10 dəyişikliyi qısaca:**
+- `Saheler.cs` yeni sahələrlə; köhnə sahələr (pasport, silah sistemi, texniki vəziyyət, mərhələ...) bazadan silinir. Bir dəfəlik keçid `Data/Miqrasiya.cs`: əvvəlcə bazanın yanına `reyestr_kohne_<tarix>.db` nüsxəsi, sonra köçürmə (km/motosaat/atış → göstəricilər, V* sahələri → nasazlıqlar, köhnə sorğu hissələri → texnikanın hissələri), cədvəl yenidən qurulur, VACUUM. 85 804 sətirlik bazanın nüsxəsində ~9 s, `integrity_check` = ok.
+- Statuslar: Qəbul edilib · Təmirdə (ekranda "Təmirdədir") · Təmir tamamlanıb, təhvil gözlənilir · Təhvil verilib · Təmirə yararsız. "Hissə gözləyir"/"Qismən təmin edilib" → Təmirdə. Tamamlanma/təhvil statusu tarixlərdən avtomatik.
+- Göstəricilər və ehtiyat hissələri texnikada JSON (`Gostericiler`, `Hisseler`, `TexnikaJson.cs`); `Teminat` avtomatik (Təminat gözlənilir / Qismən / Tam). Plan bitmə = diaqnostika + müddət (gün/ay), yeni plan yazılıbsa o.
+- Məktub = `Sorgular` sətri (texnikalar JSON-da); yeni sahələr `Telefon`, `Qeydler` (icra qeydləri). Məktubun hissələri və nəticəsi texnika yadda saxlananda texnikalardan yığılır. "Sorğu əlavə et" bölməsi ləğv edildi; Təchizat siyahısından texnika 4-cü bölmədə açılır.
+- Reyestr: "Ehtiyat hissələrinin təminatı" sütunu (çip) və filtri; Excel ixracında da var.
+- Ekran şəkilləri ilə yoxlandı (nüsxə bazada): forma 5 bölmə, "Geniş bax", reyestr. **İstifadəçi testi gözlənilir.**
 
 ### Windows-da yoxlanılmalı (istifadəçi hələ təsdiqləməyib)
 
@@ -124,8 +131,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 ### Açıq təkliflər (istifadəçi qərar verməyib)
 
-- [ ] Ayrıca "Təhvil tarixi" sahəsi (diaqram və hesabatda dəqiq təhvil sayı üçün)
-- [ ] "Sorğuya texnika əlavə et" və "Hissələrin qəbulunu qeyd et" üçün ayrıca pəncərələr (indi hər ikisi redaktə formasını açır)
+- [x] Ayrıca "Təhvil tarixi" sahəsi (20.10, `TehvilTarixi`)
 - [ ] Girişi kompüterin öz qurumu ilə məhdudlaşdırmaq; bir zavodda bir neçə kompüter
 - [ ] Excel idxal pəncərəsinin dizaynı
 - [ ] İstifadə təlimatı (köhnə .docx silindi, yeni ekranlarla yenidən hazırlanmalıdır)

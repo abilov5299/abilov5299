@@ -20,7 +20,6 @@
             this.navRegistry = new TexnikaReyestri.Controls.NavButton();
             this.navAdd = new TexnikaReyestri.Controls.NavButton();
             this.navTech = new TexnikaReyestri.Controls.NavButton();
-            this.navSorgu = new TexnikaReyestri.Controls.NavButton();
             this.navRep = new TexnikaReyestri.Controls.NavButton();
             this.lblApp = new System.Windows.Forms.Label();
             this.navNoti = new TexnikaReyestri.Controls.NavButton();
@@ -50,7 +49,6 @@
             this.pnlNav.Controls.Add(this.navSync);
             this.pnlNav.Controls.Add(this.navNoti);
             this.pnlNav.Controls.Add(this.navRep);
-            this.pnlNav.Controls.Add(this.navSorgu);
             this.pnlNav.Controls.Add(this.navTech);
             this.pnlNav.Controls.Add(this.navAdd);
             this.pnlNav.Controls.Add(this.navRegistry);
@@ -120,15 +118,6 @@
             this.navTech.PageKey = "tech";
             this.navTech.Name = "navTech";
             this.navTech.Click += new System.EventHandler(this.nav_Click);
-            // 
-            // navSorgu
-            // 
-            this.navSorgu.Glyph = "\uE8A5";
-            this.navSorgu.Size = new System.Drawing.Size(64, 52);
-            this.navSorgu.ToolTipText = "Sorğu əlavə et";
-            this.navSorgu.PageKey = "sadd";
-            this.navSorgu.Name = "navSorgu";
-            this.navSorgu.Click += new System.EventHandler(this.nav_Click);
             // 
             // navRep
             // 
@@ -331,7 +320,6 @@
         private TexnikaReyestri.Controls.NavButton navRegistry;
         private TexnikaReyestri.Controls.NavButton navAdd;
         private TexnikaReyestri.Controls.NavButton navTech;
-        private TexnikaReyestri.Controls.NavButton navSorgu;
         private TexnikaReyestri.Controls.NavButton navRep;
         private System.Windows.Forms.Label lblApp;
         private TexnikaReyestri.Controls.NavButton navNoti;

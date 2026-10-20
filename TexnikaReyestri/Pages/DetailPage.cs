@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
@@ -11,19 +11,51 @@ namespace TexnikaReyestri.Pages
     public partial class DetailPage : PageBase
     {
         private long _id; private IReadOnlyList<long> _siyahi = Array.Empty<long>();
-        private Dictionary<string, object> _r;
-        // Kartların sütunlara bölgüsü (Designer-də yerini dəyişsəniz, bu siyahını da uyğunlaşdırın)
+        private Dictionary<string, object> _r; private List<Sorgu> _mektublar = new();
+        // Kartlar: hər bölmə (Saheler.Qrup) bir kart, üstəlik məktublar. Sütunlara bölgü aşağıdadır.
+        private readonly Dictionary<string, RoundPanel> _kart = new();
+        private RoundPanel rpMektub; private TableLayoutPanel tlpMektub;
         private RoundPanel[][] Sutunlar => new[]
         {
-            new[] { rpHist, rpPasport, rpTemirtarixcesi, rpIstismargoster },
-            new[] { rpSilahsistemi, rpTexnikiveziyye, rpCaritemir },
-            new[] { rpQebulveicra, rpEhtiyathissele, rpTehvil }
+            new[] { rpHist, _kart["Qəbul və sənədlər"] },
+            new[] { _kart["İstismar göstəriciləri və son təmir"], _kart["Təmirin icrası"] },
+            new[] { _kart["Ehtiyat hissələri və məktublar"], rpMektub, _kart["Təmirin tamamlanması və təhvil"] }
         };
+        private static readonly string[] Merhele = { "Qəbul edilib", "Təmirdədir", "Təmir tamamlanıb", "Təhvil verilib" };
 
         public DetailPage()
         {
             InitializeComponent();
+            stepper.Steps = Merhele;
+            foreach (var g in Saheler.Hamisi.GroupBy(x => x.Qrup))
+            {
+                var t = Cedvel();
+                int r = 0;
+                foreach (var x in g)
+                {
+                    t.Controls.Add(new Label { Name = "cap_" + x.Kod, Text = x.Ad, AutoSize = true, Font = new Font("Segoe UI", 8.5f), Tag = "muted", Anchor = AnchorStyles.Left, Margin = new Padding(0, 6, 4, 6) }, 0, r);
+                    t.Controls.Add(new Label { Name = "val_" + x.Kod, Text = "—", AutoSize = true, Font = new Font("Segoe UI Semibold", 9f), Anchor = AnchorStyles.Right, TextAlign = ContentAlignment.MiddleRight, Margin = new Padding(4, 6, 0, 6) }, 1, r++);
+                }
+                _kart[g.Key] = Kart(g.Key, t);
+            }
+            tlpMektub = Cedvel(); rpMektub = Kart("Təchizat məktubları", tlpMektub);
             scroll.Resize += (_, _) => { if (scroll.ClientSize.Width != _enSon) Duzle(); };
+        }
+
+        private static TableLayoutPanel Cedvel()
+        {
+            var t = new TableLayoutPanel { Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, ColumnCount = 2 };
+            t.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48f)); t.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 52f));
+            return t;
+        }
+
+        private RoundPanel Kart(string basliq, Control icerik)
+        {
+            var rp = new RoundPanel { Padding = new Padding(14, 10, 14, 10), Size = new Size(396, 200) };
+            rp.Controls.Add(icerik);
+            rp.Controls.Add(new Label { Text = basliq, AutoSize = false, Dock = DockStyle.Top, Height = 26, Font = new Font("Bahnschrift SemiBold", 10.5f), Tag = "muted" });
+            scroll.Controls.Add(rp);
+            return rp;
         }
 
         public async Task YukleAsync(long id, IReadOnlyList<long> siyahi)
@@ -32,6 +64,7 @@ namespace TexnikaReyestri.Pages
             await Ui.Is(this, "Texnika məlumatları açılır...", async _ =>
             {
                 _r = await TexnikaRepo.TapAsync(id) ?? throw new InvalidOperationException(Lang.T("Qeyd tapılmadı"));
+                _mektublar = await SorguRepo.TexnikaUzreAsync(_r.GetValueOrDefault("Guid") as string);
                 var tc = await TexnikaRepo.TarixceAsync(id);
                 Doldur(tc);
             });
@@ -51,17 +84,28 @@ namespace TexnikaReyestri.Pages
             lblName.Text = $"{V("Marka")} · {V("ZavodNo")}";
             lblSub.Text = $"{Lang.T(V("Nov") ?? "")} · {Lang.T(V("TemirZavodu") ?? "")} · {Lang.T("daxil olub")} {Vaxt.Tarix(V("DaxilolmaTarixi")) ?? "—"}";
             chipStatus.Text = V("Status") ?? "—"; chipStatus.Left = lblName.Right + 12;
+            chipStatus.Width = TextRenderer.MeasureText(Lang.T(Secimler.Ekran(chipStatus.Text)), new Font("Segoe UI Semibold", 8f)).Width + 18;
             bool gec = V("GozlenilenBitme") is string g && string.CompareOrdinal(g, Vaxt.Iso(DateTime.Today)) < 0 && Secimler.AktivStatus.Contains(V("Status"));
             chipLate.Visible = gec; chipLate.Left = chipStatus.Right + 6;
-            int m = Array.IndexOf(Secimler.Merhele, V("Merhele"));
-            stepper.CurrentStep = V("Status") == "Təhvil verilib" ? Secimler.Merhele.Length : Math.Max(0, m);
+            stepper.CurrentStep = V("Status") switch { "Təmirdə" => 1, Secimler.StTamamlanib => 2, Secimler.StTehvil => 4, _ => 0 };
             foreach (var s in Saheler.Hamisi)
             {
                 if (Controls.Find("val_" + s.Kod, true).FirstOrDefault() is not Label l) continue;
                 string v = V(s.Kod);
-                l.Text = v == null ? "—" : s.Nov == SaheNov.Tarix ? Vaxt.Tarix(v) : s.Nov == SaheNov.Secim ? Lang.T(Secimler.Ekran(v)) : v;
+                l.Text = v == null ? "—" : Saheler.Json.Contains(s.Kod) ? TexnikaJson.Metn(s.Kod, v).Replace("; ", "\n") : s.Nov == SaheNov.Tarix ? Vaxt.Tarix(v) : s.Nov == SaheNov.Secim ? Lang.T(Secimler.Ekran(v)) : v;
                 l.ForeColor = v == null ? Theme.Muted : s.Kod == "GozlenilenBitme" && gec ? Theme.Bad : Theme.Ink;
             }
+            // Məktublar (Təchizat sorğuları)
+            tlpMektub.SuspendLayout(); tlpMektub.Controls.Clear(); tlpMektub.RowCount = 0;
+            int mr = 0;
+            foreach (var mk in _mektublar)
+            {
+                string M(string k) => mk.V.GetValueOrDefault(k);
+                tlpMektub.Controls.Add(new Label { Text = $"{M("MektubNo")} · {Vaxt.Tarix(M("QeydTarixi"))}", AutoSize = true, Font = new Font("Segoe UI", 8.5f), Tag = "muted", Anchor = AnchorStyles.Left, Margin = new Padding(0, 6, 4, 6) }, 0, mr);
+                tlpMektub.Controls.Add(new Label { Text = $"{M("TeminEden")}\n{Lang.T(M("CavabVez") ?? "İcrası davam edir")} · {Lang.T(M("Netice") ?? "")}", AutoSize = true, Font = new Font("Segoe UI Semibold", 9f), ForeColor = Theme.Ink, Anchor = AnchorStyles.Right, TextAlign = ContentAlignment.MiddleRight, Margin = new Padding(4, 6, 0, 6) }, 1, mr++);
+            }
+            if (mr == 0) tlpMektub.Controls.Add(new Label { Text = Lang.T("Bağlı məktub yoxdur"), AutoSize = true, ForeColor = Theme.Muted, Margin = new Padding(0, 6, 0, 6) }, 0, 0);
+            tlpMektub.ResumeLayout();
             // Tarixçə
             flHist.SuspendLayout(); flHist.Controls.Clear();
             foreach (var t in tc.Take(30))

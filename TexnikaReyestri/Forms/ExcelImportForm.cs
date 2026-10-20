@@ -1,4 +1,4 @@
-using TexnikaReyestri.Controls;
+﻿using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
 using TexnikaReyestri.Services;
@@ -22,7 +22,7 @@ namespace TexnikaReyestri.Forms
         private void ExcelImportForm_Load(object sender, EventArgs e)
         {
             Ui.Hazirla(this); BackColor = Theme.Line;
-            colField.Items.Add("— ötür —"); foreach (var s in Saheler.Hamisi) colField.Items.Add(s.Ad);
+            colField.Items.Add("— ötür —"); foreach (var s in Saheler.Hamisi.Where(x => ExcelService.Idxal(x.Kod))) colField.Items.Add(s.Ad);
             Goster(0);
         }
 

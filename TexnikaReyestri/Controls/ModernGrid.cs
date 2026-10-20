@@ -5,7 +5,7 @@ namespace TexnikaReyestri.Controls
 {
     /// <summary>
     /// Temaya uyğun cədvəl. Skrol zolağı gizlidir (siçan təkəri ilə sürüşür), titrəmə yoxdur (DoubleBuffered).
-    /// Adı "Status" olan sütunda nişan, DataGridViewButtonColumn-da yumru düymə çəkilir.
+    /// Adı "Status" ilə başlayan sütunda nişan, DataGridViewButtonColumn-da yumru düymə çəkilir.
     /// Böyük siyahılar üçün VirtualMode = true və CellValueNeeded istifadə olunur.
     /// </summary>
     [ToolboxItem(true), Description("Temalı cədvəl (gizli skrol, status nişanları)")]
@@ -60,7 +60,7 @@ namespace TexnikaReyestri.Controls
             base.OnCellPainting(e);
             if (e.RowIndex < 0 || e.ColumnIndex < 0 || e.Handled) return;
             var col = Columns[e.ColumnIndex];
-            if (col.Name == "Status" && e.Value is string s && s.Length > 0)
+            if (col.Name.StartsWith("Status") && e.Value is string s && s.Length > 0 && s != "—")
             {
                 e.PaintBackground(e.CellBounds, true);
                 var f = new Font("Segoe UI Semibold", 8f);

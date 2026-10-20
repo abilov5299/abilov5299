@@ -11,29 +11,26 @@ namespace TexnikaReyestri.Pages
     public class TechizatPage : PageBase
     {
         private readonly Label lblTitle = new() { Text = "Təchizat sorğuları", Tag = "title", AutoSize = true, Font = new Font("Bahnschrift SemiBold", 18f), Location = new Point(0, 4) };
-        private readonly FlatButton btnAdd = new() { Text = "Sorğu əlavə et", Glyph = Icons.Add, Size = new Size(160, 34), Anchor = AnchorStyles.Top | AnchorStyles.Right };
         private readonly FlatButton btnExcel = new() { Text = "Excel hesabatı", Glyph = Icons.Excel, Kind = ButtonKind.Secondary, Size = new Size(150, 34), Anchor = AnchorStyles.Top | AnchorStyles.Right };
         private readonly StatCard[] _k = new StatCard[5];
         private RoundComboBox cmbZavod, cmbNetice, cmbIcra, cmbTarix; private RoundDatePicker dtDan, dtDek; private RoundTextBox txtMektub; private Label lblZavod;
         private readonly ModernGrid grid = new() { Dock = DockStyle.Fill }, gridHis = new() { Dock = DockStyle.Fill };
         private readonly Label lblDet = new() { AutoSize = true, Font = new Font("Segoe UI Semibold", 11f), Location = new Point(4, 8) };
         private readonly Label lblMesul = new() { Dock = DockStyle.Bottom, Height = 24, Tag = "muted", TextAlign = ContentAlignment.MiddleLeft };
-        private readonly FlatButton btnQebul = new() { Text = "Ehtiyat hissələrinin qəbulunu qeyd et", Size = new Size(270, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+        private readonly FlatButton btnQebul = new() { Text = "Texnikanı aç (ehtiyat hissələri)", Size = new Size(250, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
         private readonly FlatButton btnPdf = new() { Text = "PDF sənəd", Glyph = Icons.Print, Kind = ButtonKind.Secondary, Size = new Size(130, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-        private readonly FlatButton btnTex = new() { Text = "Sorğuya texnika əlavə et", Kind = ButtonKind.Secondary, Size = new Size(200, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
         private readonly System.Windows.Forms.Timer _axtar = new() { Interval = 300 };
         private DataTable _dt; private bool _hazir;
 
         private static readonly string[] IcraKod = { null, "davam", "cavab", "late" };
-        private static readonly string[] TarixKod = { "QeydTarixi", "IcraMuddeti", "CavabTarixi" };
+        private static readonly string[] TarixKod = { "QeydTarixi", "IcraMuddeti" };
 
         public TechizatPage()
         {
             // --- Başlıq ---
             var head = new Panel { Dock = DockStyle.Top, Height = 44 };
-            head.Controls.AddRange(new Control[] { lblTitle, btnExcel, btnAdd });
-            head.Resize += (_, _) => { btnExcel.Left = head.Width - btnExcel.Width; btnAdd.Left = btnExcel.Left - btnAdd.Width - 8; btnAdd.Top = btnExcel.Top = 4; };
-            btnAdd.Click += async (_, _) => await MainForm.Current.SorguAcAsync(0);
+            head.Controls.AddRange(new Control[] { lblTitle, btnExcel });
+            head.Resize += (_, _) => { btnExcel.Left = head.Width - btnExcel.Width; btnExcel.Top = 4; };
             btnExcel.Click += (_, _) => Excel();
 
             // --- Kartlar ---
@@ -58,8 +55,8 @@ namespace TexnikaReyestri.Pages
             Label L(string s) => new() { Text = s, AutoSize = false, Dock = DockStyle.Fill, Tag = "muted", Font = new Font("Segoe UI Semibold", 9f), TextAlign = ContentAlignment.BottomLeft, Margin = new Padding(0, 0, 12, 2) };
             cmbZavod = Cmb(new[] { "Hamısı" }.Concat(Secimler.Zavodlar).ToArray());
             cmbNetice = Cmb(new[] { "Hamısı" }.Concat(SorguRepo.Neticeler).ToArray());
-            cmbIcra = Cmb("Hamısı", "İcrası davam edir", "Cavab verilib", "Məktubun icra müddəti keçib");
-            cmbTarix = Cmb("Məktubun qeydiyyat tarixi", "Məktubun icra müddəti", "Cavab tarixi");
+            cmbIcra = Cmb("Hamısı", "İcrası davam edir", "İcra başa çatıb", "Məktubun icra müddəti keçib");
+            cmbTarix = Cmb("Məktubun tarixi", "İcra üçün son tarix");
             dtDan = Dt(); dtDek = Dt();
             txtMektub = new RoundTextBox { PlaceholderText = "Məktubun nömrəsi", Font = new Font("Segoe UI", 10f), Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) };
             txtMektub.TextChanged += (_, _) => { if (_hazir) { _axtar.Stop(); _axtar.Start(); } };
@@ -75,12 +72,12 @@ namespace TexnikaReyestri.Pages
 
             // --- Sorğular cədvəli ---
             grid.Columns.Add("Mektub", "Məktub / qeydiyyat tarixi"); grid.Columns.Add("Zavod", "Zavod / əlaqəli texnikalar");
-            grid.Columns.Add("Temin", "Təmin edən qurum / icraçı"); grid.Columns.Add("Icra", "Məktubun icra müddəti");
-            grid.Columns.Add("Cavab", "Cavab vəziyyəti"); grid.Columns.Add("Status", "Təminat nəticəsi");
+            grid.Columns.Add("Temin", "Təmin edən qurum / icraçı"); grid.Columns.Add("Icra", "İcra üçün son tarix");
+            grid.Columns.Add("Cavab", "Məktubun icra vəziyyəti"); grid.Columns.Add("Status", "Təminat nəticəsi");
             foreach (var (c, w) in new[] { (0, 170), (1, 320), (2, 220), (3, 190), (4, 200), (5, 180) }) grid.Columns[c].Width = w;
             grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             grid.SelectionChanged += (_, _) => Detal();
-            grid.CellDoubleClick += async (_, e) => { if (e.RowIndex >= 0) await MainForm.Current.SorguAcAsync((long)grid.Rows[e.RowIndex].Tag); };
+            grid.CellDoubleClick += async (_, e) => { if (e.RowIndex >= 0) await TexnikaAcAsync(); };
             grid.MouseWheel += (_, e) => grid.ScrollRows(e.Delta);
             var rpGrid = new RoundPanel { Dock = DockStyle.Fill, Padding = new Padding(6) }; rpGrid.Controls.Add(grid);
 
@@ -89,11 +86,10 @@ namespace TexnikaReyestri.Pages
             gridHis.Columns.Add("Teleb", "Tələb olunan"); gridHis.Columns.Add("Qebul", "Qəbul edilmiş"); gridHis.Columns.Add("Qaliq", "Qalıq");
             foreach (DataGridViewColumn c in gridHis.Columns) c.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             var dh = new Panel { Dock = DockStyle.Top, Height = 42 };
-            dh.Controls.AddRange(new Control[] { lblDet, btnPdf, btnTex, btnQebul });
-            dh.Resize += (_, _) => { btnQebul.Left = dh.Width - btnQebul.Width - 4; btnTex.Left = btnQebul.Left - btnTex.Width - 8; btnPdf.Left = (Session.YazaBiler ? btnTex.Left : dh.Width + 4) - btnPdf.Width - 8; btnQebul.Top = btnTex.Top = btnPdf.Top = 4; };
-            btnQebul.Click += async (_, _) => { if (SecilmisId is long id) await MainForm.Current.SorguAcAsync(id); };
+            dh.Controls.AddRange(new Control[] { lblDet, btnPdf, btnQebul });
+            dh.Resize += (_, _) => { btnQebul.Left = dh.Width - btnQebul.Width - 4; btnPdf.Left = (Session.YazaBiler ? btnQebul.Left : dh.Width + 4) - btnPdf.Width - 8; btnQebul.Top = btnPdf.Top = 4; };
+            btnQebul.Click += async (_, _) => await TexnikaAcAsync();
             btnPdf.Click += async (_, _) => await PdfAsync();
-            btnTex.Click += async (_, _) => { if (SecilmisId is long id) await MainForm.Current.SorguAcAsync(id); };
             var rpDet = new RoundPanel { Dock = DockStyle.Bottom, Height = 250, Padding = new Padding(14, 8, 14, 8) };
             rpDet.Controls.Add(gridHis); rpDet.Controls.Add(dh); rpDet.Controls.Add(lblMesul);
             var ara = new Panel { Dock = DockStyle.Bottom, Height = 10 };
@@ -107,7 +103,7 @@ namespace TexnikaReyestri.Pages
         public override async Task OnShownAsync()
         {
             cmbZavod.Visible = lblZavod.Visible = Session.ZavodFiltri == null;
-            btnAdd.Visible = btnQebul.Visible = btnTex.Visible = Session.YazaBiler;
+            btnQebul.Visible = Session.YazaBiler;
             await YukleAsync();
         }
 
@@ -140,10 +136,10 @@ namespace TexnikaReyestri.Pages
                 string icra = Vaxt.Tarix(S("IcraMuddeti"));
                 if (davam && S("IcraMuddeti") is string im && DateTime.TryParse(im, out var d))
                 { int g = (d - DateTime.Today).Days; icra += g >= 0 ? $" · {g} {Lang.T("gün qalıb")}" : $" · {-g} {Lang.T("gün keçib")}"; }
-                string cavab = davam ? Lang.T("İcrası davam edir") : Lang.T("Cavab verilib") + (S("CavabTarixi") is string ct ? " · " + Vaxt.Tarix(ct) : "");
+                string cavab = davam ? Lang.T("İcrası davam edir") : Lang.T("İcra başa çatıb");
                 int i = grid.Rows.Add($"{S("MektubNo")} · {Vaxt.Tarix(S("QeydTarixi"))}",
                     Lang.T(S("Zavod")) + (tex.Count > 0 ? " · " + string.Join(", ", tex.Select(x => x.Marka)) : ""),
-                    string.Join(" · ", new[] { S("TeminEden"), S("TeminIcraci") }.Where(x => !string.IsNullOrEmpty(x))),
+                    string.Join(" · ", new[] { S("TeminEden"), S("TeminIcraci"), S("Telefon") }.Where(x => !string.IsNullOrEmpty(x))),
                     icra, cavab, S("Netice") ?? "Təyin edilməyib");
                 grid.Rows[i].Tag = Convert.ToInt64(r["Id"]);
                 if (davam && string.CompareOrdinal(S("IcraMuddeti") ?? "9", bugun) < 0) grid.Rows[i].Cells[3].Style.ForeColor = Theme.Bad;
@@ -155,12 +151,24 @@ namespace TexnikaReyestri.Pages
         private async void Detal()
         {
             gridHis.Rows.Clear();
-            if (SecilmisId is not long id) { lblDet.Text = Lang.T("Sorğu seçilməyib"); lblMesul.Text = ""; btnQebul.Enabled = btnTex.Enabled = btnPdf.Enabled = false; return; }
-            btnQebul.Enabled = btnTex.Enabled = btnPdf.Enabled = true;
+            if (SecilmisId is not long id) { lblDet.Text = Lang.T("Sorğu seçilməyib"); lblMesul.Text = ""; btnQebul.Enabled = btnPdf.Enabled = false; return; }
+            btnQebul.Enabled = btnPdf.Enabled = true;
             var s = await SorguRepo.GetAsync(id); if (s == null || SecilmisId != id) return;
             lblDet.Text = $"{s.V["MektubNo"]} {Lang.T("nömrəli məktub üzrə ehtiyat hissələri")}";
             foreach (var h in s.His) gridHis.Rows.Add(h.Ad, h.Texnika, h.Vahid, h.Teleb, h.Qebul, Math.Max(0, h.Teleb - h.Qebul));
-            lblMesul.Text = $"{Lang.T("Məsul şəxslər")}: {Lang.T("Zavod üzrə")} — {s.V["ZavodMesul"] ?? "—"}   •   {Lang.T("Təmin edən qurum üzrə")} — {s.V["TeminIcraci"] ?? "—"}";
+            var q = SorguRepo.QeydJson(s.V["Qeydler"]).OrderByDescending(x => x.Tarix).FirstOrDefault();
+            lblMesul.Text = $"{Lang.T("Təmin edən qurum üzrə məsul icraçı")} — {s.V["TeminIcraci"] ?? "—"} {s.V["Telefon"]}" +
+                            (q == null ? "" : $"   •   {Lang.T("Son icra qeydi")} ({Vaxt.Tarix(q.Tarix)}): {q.Netice}");
+        }
+
+        /// <summary>Seçilmiş məktubun (ilk) texnikasını "Ehtiyat hissələri və məktublar" bölməsində açır: hissələr və qəbul orada qeyd olunur.</summary>
+        private async Task TexnikaAcAsync()
+        {
+            if (SecilmisId is not long id || await SorguRepo.GetAsync(id) is not { } s) return;
+            if (s.Tex.Count == 0) { Toast.Show(this, Lang.T("Bu məktuba texnika bağlanmayıb"), ToastKind.Warn); return; }
+            long? tid = await TexnikaRepo.IdAsync(s.Tex[0].Guid);
+            if (tid == null) { Toast.Show(this, Lang.T("Texnika tapılmadı"), ToastKind.Warn); return; }
+            if (Session.YazaBiler) await MainForm.Current.RedakteAcAsync(tid, 3); else await MainForm.Current.DetalAcAsync(tid.Value);
         }
 
         private async Task PdfAsync()

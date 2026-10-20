@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 using System.Globalization;
 using Microsoft.Data.Sqlite;
 
@@ -12,7 +12,8 @@ namespace TexnikaReyestri.Data
     public static partial class TexnikaRepo
     {
         /// <summary>Yeni texnika (id = null) və ya redaktə. Dəyişən hər sahə tarixçəyə yazılır.</summary>
-        public static Task<long> SaxlaAsync(long? id, Dictionary<string, object> deyerler) => LocalDb.YazAsync(async (con, tr) =>
+        /// <param name="sorgular">Yeni texnika üçün: yadda saxlanandan sonra bağlanacaq məktubların Id-ləri.</param>
+        public static Task<long> SaxlaAsync(long? id, Dictionary<string, object> deyerler, IEnumerable<long> sorgular = null) => LocalDb.YazAsync(async (con, tr) =>
         {
             var kodlar = Saheler.Hamisi.Select(s => s.Kod).ToArray();
             long indi = Vaxt.Indi;
@@ -20,10 +21,13 @@ namespace TexnikaReyestri.Data
             {
                 using var ins = con.CreateCommand(); ins.Transaction = tr;
                 ins.CommandText = $"INSERT INTO Texnikalar (Guid, Deyisdi, {string.Join(",", kodlar)}) VALUES ($g, $d, {string.Join(",", kodlar.Select(k => "$" + k))}); SELECT last_insert_rowid();";
-                ins.Parameters.AddWithValue("$g", Guid.NewGuid().ToString("N")); ins.Parameters.AddWithValue("$d", indi);
+                string guid = Guid.NewGuid().ToString("N");
+                ins.Parameters.AddWithValue("$g", guid); ins.Parameters.AddWithValue("$d", indi);
                 foreach (var k in kodlar) ins.Parameters.AddWithValue("$" + k, Bos(deyerler.GetValueOrDefault(k)));
                 long yeni = (long)await ins.ExecuteScalarAsync();
                 await Tarixce(con, tr, yeni, "Qeyd yaradıldı", null, "Texnika reyestrə daxil edildi");
+                foreach (var sid in sorgular ?? Enumerable.Empty<long>()) await SorguRepo.TexnikaBaglaAsync(con, tr, sid, guid, deyerler);
+                await SorguRepo.TexnikaUzreYenileAsync(con, tr, guid);
                 return yeni;
             }
             var kohne = new Dictionary<string, object>();
@@ -34,6 +38,8 @@ namespace TexnikaReyestri.Data
                 if (await r.ReadAsync()) for (int i = 0; i < r.FieldCount; i++) kohne[r.GetName(i)] = r.IsDBNull(i) ? null : r.GetValue(i);
             }
             var deyisen = Saheler.Hamisi.Where(s => deyerler.ContainsKey(s.Kod) && Str(kohne.GetValueOrDefault(s.Kod)) != Str(deyerler[s.Kod])).ToList();
+            string tguid = kohne.GetValueOrDefault("Guid") as string;
+            if (tguid != null) await SorguRepo.TexnikaUzreYenileAsync(con, tr, tguid);   // məktubların hissə siyahısı və nəticəsi
             if (deyisen.Count == 0) return id.Value;
             using (var upd = con.CreateCommand())
             {
@@ -43,7 +49,9 @@ namespace TexnikaReyestri.Data
                 foreach (var s in deyisen) upd.Parameters.AddWithValue("$" + s.Kod, Bos(deyerler[s.Kod]));
                 await upd.ExecuteNonQueryAsync();
             }
-            foreach (var s in deyisen) await Tarixce(con, tr, id.Value, s.Ad, Str(kohne.GetValueOrDefault(s.Kod)), Str(deyerler[s.Kod]));
+            foreach (var s in deyisen)
+                if (Saheler.Json.Contains(s.Kod)) await Tarixce(con, tr, id.Value, s.Ad, TexnikaJson.Metn(s.Kod, kohne.GetValueOrDefault(s.Kod)), TexnikaJson.Metn(s.Kod, deyerler[s.Kod]));
+                else await Tarixce(con, tr, id.Value, s.Ad, Str(kohne.GetValueOrDefault(s.Kod)), Str(deyerler[s.Kod]));
             return id.Value;
         });
 
@@ -66,6 +74,13 @@ namespace TexnikaReyestri.Data
             var l = new List<TarixceQeyd>();
             while (await r.ReadAsync()) l.Add(new(r.GetInt64(0), r.GetString(1), r.GetString(2), r.IsDBNull(3) ? null : r.GetString(3), r.IsDBNull(4) ? null : r.GetString(4)));
             return l;
+        }
+
+        public static async Task<long?> IdAsync(string guid)
+        {
+            await using var con = await LocalDb.AcAsync();
+            using var cmd = con.CreateCommand(); cmd.CommandText = "SELECT Id FROM Texnikalar WHERE Guid=$g AND Silinib=0;"; cmd.Parameters.AddWithValue("$g", guid ?? "");
+            return await cmd.ExecuteScalarAsync() is long l ? l : null;
         }
 
         /// <summary>Zavod nömrəsi bazada varsa, onun Guid-i (Excel idxalında dublikat yoxlaması üçün).</summary>
@@ -96,9 +111,9 @@ namespace TexnikaReyestri.Data
             }
             var st = (await Q("SELECT Status, SUM(Say) FROM Icmal WHERE ($z IS NULL OR Zavod=$z) AND Status<>'' GROUP BY Status;"))
                      .ToDictionary(x => (string)x[0], x => Convert.ToInt64(x[1]));
-            string[] sira = { "Qəbul edilib", "Təmirdə", "Hissə gözləyir", "Qismən təmin edilib", "Təhvil verilib", "Təmirə yararsız" };
+            string[] sira = Secimler.Status;
             long G(string s) => st.GetValueOrDefault(s);
-            long gec = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir','Qismən təmin edilib') AND IFNULL(FaktikiBitme,'')='';"))[0][0]);
+            long gec = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə') AND IFNULL(FaktikiBitme,'')='';"))[0][0]);
             var ayQ = (await Q($"SELECT substr(DaxilolmaTarixi,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND DaxilolmaTarixi>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             var ayT = (await Q($"SELECT substr(FaktikiBitme,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND FaktikiBitme>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             // Təhvil verilib: statusun "Təhvil verilib"ə dəyişdiyi ay (tarixçədən); tarixçəsi olmayanlar (Excel, ilk qeyd) — faktiki bitmə ayı
@@ -121,9 +136,11 @@ namespace TexnikaReyestri.Data
                 ? (await Q($"SELECT TemirNovu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0{zw} AND TemirNovu IS NOT NULL AND FaktikiBitme IS NOT NULL AND BaslamaTarixi IS NOT NULL GROUP BY TemirNovu ORDER BY 2;"))
                 : (await Q($"SELECT TemirZavodu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0 AND FaktikiBitme > '' AND BaslamaTarixi IS NOT NULL GROUP BY TemirZavodu ORDER BY 2 DESC;"));
             var gecList = (await Q($"SELECT Marka||' · '||IFNULL(ZavodNo,''), CAST(julianday($bugun)-julianday(GozlenilenBitme) AS INTEGER), TemirZavodu, Id FROM Texnikalar " +
-                                   $"WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir','Qismən təmin edilib') AND IFNULL(FaktikiBitme,'')='' ORDER BY GozlenilenBitme LIMIT 5;"))
+                                   $"WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə') AND IFNULL(FaktikiBitme,'')='' ORDER BY GozlenilenBitme LIMIT 5;"))
                           .Select(x => ((string)x[0], Convert.ToInt32(x[1]), x[2] as string, Convert.ToInt64(x[3]))).ToArray();
-            return new EvStat(st.Values.Sum(), G("Təmirdə"), G("Hissə gözləyir"), gec, o1, o0,
+            // Hissə gözləyən: təmiri davam edən və təminatı tam olmayanlar
+            long hisse = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND Teminat IN ('Təminat gözlənilir','Qismən təmin edilib') AND Status IN ('Qəbul edilib','Təmirdə');"))[0][0]);
+            return new EvStat(st.Values.Sum(), G("Təmirdə"), hisse, gec, o1, o0,
                 sira.Select(s => (s, G(s))).ToArray(), aylar.Select(d => adlar[d.Month - 1]).ToArray(),
                 aylar.Select(d => ayQ.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(), aylar.Select(d => ayT.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(),
                 nov, uzre.Where(x => x[0] is string).Select(x => ((string)x[0], x[1] is DBNull ? 0 : Convert.ToDouble(x[1]))).ToArray(), gecList,
@@ -151,8 +168,8 @@ namespace TexnikaReyestri.Data
 SELECT q.Ad AS Zavod,
   IFNULL((SELECT SUM(Say) FROM Icmal i WHERE i.Zavod=q.Ad),0) AS Cemi,
   IFNULL((SELECT Say FROM Icmal i WHERE i.Zavod=q.Ad AND i.Status='Təmirdə'),0) AS Temirde,
-  IFNULL((SELECT Say FROM Icmal i WHERE i.Zavod=q.Ad AND i.Status='Hissə gözləyir'),0) AS HisseGozleyir,
-  (SELECT COUNT(*) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND t.GozlenilenBitme<$b AND t.Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir','Qismən təmin edilib')) AS Geciken,
+  (SELECT COUNT(*) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND t.Teminat IN ('Təminat gözlənilir','Qismən təmin edilib') AND t.Status IN ('Qəbul edilib','Təmirdə')) AS HisseGozleyir,
+  (SELECT COUNT(*) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND t.GozlenilenBitme<$b AND t.Status IN ('Qəbul edilib','Təmirdə')) AS Geciken,
   (SELECT ROUND(AVG(julianday(FaktikiBitme)-julianday(BaslamaTarixi))) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND FaktikiBitme IS NOT NULL AND BaslamaTarixi IS NOT NULL) AS OrtaGun,
   (SELECT MAX(Tarix) FROM SyncJurnal s WHERE s.Qurum=q.Kod AND s.Emeliyyat='İdxal' AND s.Netice='Uğurlu') AS SonPaket
 FROM Qurumlar q WHERE q.Tip=1 ORDER BY q.Kod;";

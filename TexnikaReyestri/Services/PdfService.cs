@@ -1,4 +1,4 @@
-using PdfSharp.Drawing;
+﻿using PdfSharp.Drawing;
 using PdfSharp.Fonts;
 using PdfSharp.Pdf;
 using TexnikaReyestri.Data;
@@ -48,7 +48,8 @@ namespace TexnikaReyestri.Services
                 g.DrawString(grp.Key, fG, XBrushes.Black, new XRect(L + 6, y + 3, W, row), XStringFormats.TopLeft); y += row;
                 foreach (var s in dolu)
                 {
-                    string v = s.Nov == SaheNov.Tarix ? Vaxt.Tarix(t[s.Kod]) : Convert.ToString(t[s.Kod], System.Globalization.CultureInfo.InvariantCulture);
+                    string v = s.Nov == SaheNov.Tarix ? Vaxt.Tarix(t[s.Kod]) : Saheler.Json.Contains(s.Kod) ? TexnikaJson.Metn(s.Kod, t[s.Kod])
+                             : s.Kod == "Status" ? Secimler.Ekran(t[s.Kod] as string) : Convert.ToString(t[s.Kod], System.Globalization.CultureInfo.InvariantCulture);
                     var lines = Wrap(g, v, fN, W * 0.55 - 10); double h = Math.Max(row, lines.Count * 13 + 5);
                     if (y + h > page.Height.Point - 60) Yeni();
                     g.DrawRectangle(pen, L, y, W * 0.45, h); g.DrawRectangle(pen, L + W * 0.45, y, W * 0.55, h);
@@ -155,9 +156,8 @@ namespace TexnikaReyestri.Services
             Cedvel(new[] { 0.4, 0.6 }, new[] { "Sahə", "Dəyər" }, new[]
             {
                 new[] { "Məktub nömrəsi", V("MektubNo") }, new[] { "Qeydiyyat tarixi", T("QeydTarixi") }, new[] { "Zavod", V("Zavod") },
-                new[] { "Məktubun icra müddəti", T("IcraMuddeti") }, new[] { "Təmin edən qurum", V("TeminEden") }, new[] { "Təmin edən qurum üzrə icraçı", V("TeminIcraci") },
-                new[] { "Zavod üzrə məsul şəxs", V("ZavodMesul") }, new[] { "Cavab vəziyyəti", V("CavabVez") }, new[] { "Cavab tarixi", T("CavabTarixi") },
-                new[] { "Təminat nəticəsi", V("Netice") }, new[] { "Qeyd", V("Qeyd") },
+                new[] { "İcra üçün son tarix", T("IcraMuddeti") }, new[] { "Təmin edən qurum", V("TeminEden") }, new[] { "Təmin edən qurum üzrə məsul icraçı", V("TeminIcraci") },
+                new[] { "Əlaqə nömrəsi", V("Telefon") }, new[] { "Məktubun icra vəziyyəti", V("CavabVez") }, new[] { "Təminat nəticəsi", V("Netice") },
             });
             Bolme("Əlaqəli texnikalar");
             Cedvel(new[] { 0.08, 0.42, 0.25, 0.25 }, new[] { "№", "Marka", "Zavod nömrəsi", "Status" }, s.Tex.Select((t, i) => new[] { (i + 1).ToString(), t.Marka, t.ZavodNo, Secimler.Ekran(t.Status) }));
@@ -168,7 +168,6 @@ namespace TexnikaReyestri.Services
                      .Append(new[] { "", "Cəmi", "", "", F(s.His.Sum(h => h.Teleb)), F(s.His.Sum(h => h.Qebul)), F(s.His.Sum(h => Math.Max(0, h.Teleb - h.Qebul))) }));
             if (y + 70 > page.Height.Point - 60) Yeni();
             y += 24;
-            g.DrawString($"Zavod üzrə məsul şəxs: {V("ZavodMesul")}   ______________", fN, XBrushes.Black, new XRect(L, y, W, 14), XStringFormats.TopLeft); y += 26;
             g.DrawString($"Təmin edən qurum üzrə icraçı: {V("TeminIcraci")}   ______________", fN, XBrushes.Black, new XRect(L, y, W, 14), XStringFormats.TopLeft);
             g.Dispose(); doc.Save(yol);
         }

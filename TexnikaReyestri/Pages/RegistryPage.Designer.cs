@@ -189,10 +189,9 @@
             // 
             // colBitme
             // 
-            this.colBitme.HeaderText = "Təmirin gözlənilən bitmə tarixi";
-            this.colBitme.Name = "colBitme";
-            this.colBitme.Width = 230;
-            this.colBitme.Visible = false;
+            this.colBitme.HeaderText = "Ehtiyat hissələrinin təminatı";
+            this.colBitme.Name = "StatusTeminat";
+            this.colBitme.Width = 260;
             // 
             // colDetail
             // 

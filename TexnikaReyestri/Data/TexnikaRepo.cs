@@ -15,10 +15,11 @@ namespace TexnikaReyestri.Data
         public static int Sari = 20;  // Admin → Sistem → IcraSari: (Yaxin+1)–Sari gün qalıb
         public string Icra;           // null, "sari", "yaxin", "late", "bos" — yalnız təmiri davam edənlərdən
         public string Mesul;          // MesulIcraci
-        public string TarixSahe;      // GozlenilenBitme, FaktikiBitme, DaxilolmaTarixi, BaslamaTarixi
+        public string Teminat;        // ehtiyat hissələrinin təminatı (Secimler.Teminat)
+        public string TarixSahe;      // GozlenilenBitme, FaktikiBitme, DaxilolmaTarixi, BaslamaTarixi, TehvilTarixi
         public string TarixDan, TarixDek;   // yyyy-MM-dd, null = sərhəd yoxdur
         public bool Gecikenler { get => Qrup == "late"; set => Qrup = value ? "late" : Qrup == "late" ? null : Qrup; }
-        public string Axtar;     // FTS: marka, zavod nömrəsi, lülə nömrəsi, qeyd
+        public string Axtar;     // FTS: marka, zavod nömrəsi, naryad, nasazlıqlar; həm də məktub nömrəsi
     }
 
     // Səhifənin sonuncu sətri: növbəti səhifə buradan davam edir (OFFSET yoxdur)
@@ -33,7 +34,7 @@ namespace TexnikaReyestri.Data
     public static partial class TexnikaRepo
     {
         public const int SehifeOlcusu = 200;
-        private static readonly string ReyestrSql = "Id, " + string.Join(", ", Saheler.Reyestr) + ", TemirZavodu, MesulIcraci";
+        private const string ReyestrSql = "Id, Nov, Marka, ZavodNo, Status, GozlenilenBitme, TemirZavodu, MesulIcraci, Teminat";
 
         // Reyestr səhifəsi: 1 mln sətirdə ölçülmüş müddət ~0.2–0.3 ms
         public static async Task<DataTable> SehifeAsync(ReyestrFiltr f, Kursor? sonra, CancellationToken ct = default)
@@ -68,7 +69,7 @@ namespace TexnikaReyestri.Data
             await using var con = await LocalDb.AcAsync(ct);
             using var cmd = con.CreateCommand();
             // Filtr yoxdursa (və ya yalnız zavod/status), icmal cədvəlindən dərhal oxu
-            if (string.IsNullOrEmpty(f.Axtar) && f.Qrup == null && f.Icra == null && f.Mesul == null && f.TarixDan == null && f.TarixDek == null)
+            if (string.IsNullOrEmpty(f.Axtar) && f.Qrup == null && f.Icra == null && f.Mesul == null && f.Teminat == null && f.TarixDan == null && f.TarixDek == null)
             {
                 cmd.CommandText = "SELECT IFNULL(SUM(Say),0) FROM Icmal WHERE ($z IS NULL OR Zavod=$z) AND ($s IS NULL OR Status=$s);";
                 cmd.Parameters.AddWithValue("$z", (object)f.Zavod ?? DBNull.Value);
@@ -171,7 +172,7 @@ namespace TexnikaReyestri.Data
         }
 
         // Kartların tərifi: davam + gözləyir + təhvil = cəmi ("Təmirə yararsız" daxil deyil); müddət kartları yalnız "davam"dan
-        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə','Hissə gözləyir','Qismən təmin edilib') AND IFNULL(FaktikiBitme,'')='')",
+        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə') AND IFNULL(FaktikiBitme,'')='')",
             GozlSql = "(IFNULL(FaktikiBitme,'')<>'' AND IFNULL(Status,'') NOT IN ('Təhvil verilib','Təmirə yararsız'))",
             TehvilSql = "(Status='Təhvil verilib')";
         internal static string QrupSql(string q) => q switch
@@ -231,7 +232,8 @@ GROUP BY 1;";
                 cmd.Parameters.AddWithValue("$sari", DateTime.Today.AddDays(Math.Max(f.YaxinGun + 1, ReyestrFiltr.Sari)).ToString("yyyy-MM-dd"));
             }
             if (f.Mesul != null) { w.Append(" AND MesulIcraci = $m"); cmd.Parameters.AddWithValue("$m", f.Mesul); }
-            if ((f.TarixDan != null || f.TarixDek != null) && f.TarixSahe is "GozlenilenBitme" or "FaktikiBitme" or "DaxilolmaTarixi" or "BaslamaTarixi")
+            if (f.Teminat != null) { w.Append(" AND Teminat = $tm"); cmd.Parameters.AddWithValue("$tm", f.Teminat); }
+            if ((f.TarixDan != null || f.TarixDek != null) && f.TarixSahe is "GozlenilenBitme" or "FaktikiBitme" or "DaxilolmaTarixi" or "BaslamaTarixi" or "TehvilTarixi")
             {
                 if (f.TarixDan != null) { w.Append($" AND {f.TarixSahe} >= $td"); cmd.Parameters.AddWithValue("$td", f.TarixDan); }
                 if (f.TarixDek != null) { w.Append($" AND {f.TarixSahe} <= $tk"); cmd.Parameters.AddWithValue("$tk", f.TarixDek); }
@@ -241,8 +243,9 @@ GROUP BY 1;";
                 // Hər sözü prefiks kimi axtar: "bmp 02" -> "bmp"* "02"*
                 var ifade = string.Join(" ", f.Axtar.Split(' ', StringSplitOptions.RemoveEmptyEntries)
                                                .Select(s => "\"" + s.Replace("\"", "") + "\"*"));
-                // Məktub nömrələri və texnikanın növü FTS-də yoxdur; marka söz ortasından da tapılsın (məs. "72")
-                w.Append(" AND (Id IN (SELECT rowid FROM TexnikaAxtar WHERE TexnikaAxtar MATCH $q) OR Mektublar LIKE $mk OR Nov LIKE $mk OR Marka LIKE $mk)");   // texnikanın adı (növ) da
+                // Məktub nömrələri (Sorgular) və texnikanın növü FTS-də yoxdur; marka söz ortasından da tapılsın (məs. "72")
+                w.Append(" AND (Id IN (SELECT rowid FROM TexnikaAxtar WHERE TexnikaAxtar MATCH $q) OR Nov LIKE $mk OR Marka LIKE $mk" +
+                         " OR Guid IN (SELECT json_extract(j.value,'$.Guid') FROM Sorgular s, json_each(s.Texnikalar) j WHERE s.Silinib=0 AND s.MektubNo LIKE $mk))");
                 cmd.Parameters.AddWithValue("$q", ifade); cmd.Parameters.AddWithValue("$mk", "%" + f.Axtar.Trim() + "%");
             }
             return w;
