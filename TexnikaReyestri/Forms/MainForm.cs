@@ -86,7 +86,7 @@ namespace TexnikaReyestri.Forms
         private async void nav_Click(object sender, EventArgs e)
         {
             if (sender is not NavButton b) return;
-            // "Texnika daxil et": əvvəlki redaktə açıq qalmışdısa, boş yeni forma aç
+            // "Texnika əlavə et": redaktə ayrıca səhifədədir ("red"); bu səhifədə yadda saxlanmış qeyd qalıbsa, boş forma aç
             if (b.PageKey == "add") await AcAsync("add", p => ((EditPage)p).YeniRejim ? Task.CompletedTask : ((EditPage)p).YukleAsync(null));
             else await AcAsync(b.PageKey);
         }
@@ -157,7 +157,7 @@ namespace TexnikaReyestri.Forms
             if (_pages.TryGetValue(key, out var page)) return page;
             page = key switch
             {
-                "home" => new HomePage(), "list" => new RegistryPage(), "add" => new EditPage(), "tech" => new TechizatPage(), "rep" => new HesabatPage(),
+                "home" => new HomePage(), "list" => new RegistryPage(), "add" or "red" => new EditPage(), "tech" => new TechizatPage(), "rep" => new HesabatPage(),
                 "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "set" => new TenzimlemePage(),
                 _ => throw new ArgumentException(key)
             };
@@ -188,7 +188,7 @@ namespace TexnikaReyestri.Forms
             if (key is "log" or "bak") { int t = key == "log" ? 1 : 0; key = "set"; hazirliq = p => ((TenzimlemePage)p).SecAsync(t); }
             var page = Sehife(key);
             if (_gozleyen.Remove(page)) page.ResumeLayout(true);
-            string navKey = key == "det" ? "list" : key;
+            string navKey = key is "det" or "red" ? "list" : key;   // baxış və redaktə reyestrin davamıdır
             foreach (Control c in pnlNav.Controls) if (c is NavButton nb && nb.PageKey.Length > 0) nb.Active = nb.PageKey == navKey;
             if (hazirliq != null) await hazirliq(page);
             if (_aktiv != page)
@@ -202,7 +202,8 @@ namespace TexnikaReyestri.Forms
         public Task ReyestrAcAsync(ReyestrFiltr f) => AcAsync("list", p => ((RegistryPage)p).FiltrTetbiqAsync(f));
         public Task DetalAcAsync(long id, IReadOnlyList<long> siyahi = null) => AcAsync("det", p => ((DetailPage)p).YukleAsync(id, siyahi));
         /// <param name="bolme">Açılacaq bölmə (0–4); məs. Təchizatdan gələndə 3 — "Ehtiyat hissələri və məktublar".</param>
-        public Task RedakteAcAsync(long? id, int bolme = 0) => AcAsync("add", p => ((EditPage)p).YukleAsync(id, bolme));
+        /// <summary>id = null — yeni texnika ("Texnika əlavə et"); əks halda redaktə ayrıca səhifədə açılır, əlavə etmə forması toxunulmaz qalır.</summary>
+        public Task RedakteAcAsync(long? id, int bolme = 0) => AcAsync(id == null ? "add" : "red", p => ((EditPage)p).YukleAsync(id, bolme));
 
         // ---------------- Bildiriş nişanı ----------------
         public async Task<int> BadgeYenileAsync()

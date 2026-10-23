@@ -113,6 +113,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 - Göstəricilər və ehtiyat hissələri texnikada JSON (`Gostericiler`, `Hisseler`, `TexnikaJson.cs`); `Teminat` avtomatik (Təminat gözlənilir / Qismən / Tam). Plan bitmə = diaqnostika + müddət (gün/ay), yeni plan yazılıbsa o.
 - Məktub = `Sorgular` sətri (texnikalar JSON-da); yeni sahələr `Telefon`, `Qeydler` (icra qeydləri). Məktubun hissələri və nəticəsi texnika yadda saxlananda texnikalardan yığılır. "Sorğu əlavə et" bölməsi ləğv edildi; Təchizat siyahısından texnika 4-cü bölmədə açılır.
 - Reyestr: "Ehtiyat hissələrinin təminatı" sütunu (çip) və filtri; Excel ixracında da var.
+- Redaktə ayrıca səhifədə açılır (`red`, menyuda Reyestr seçili qalır); "Texnika əlavə et" həmişə öz boş formasıdır (23.10).
 - Ekran şəkilləri ilə yoxlandı (nüsxə bazada): forma 5 bölmə, "Geniş bax", reyestr. **İstifadəçi testi gözlənilir.**
 
 ### Windows-da yoxlanılmalı (istifadəçi hələ təsdiqləməyib)
