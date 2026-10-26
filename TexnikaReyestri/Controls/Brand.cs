@@ -89,6 +89,9 @@ namespace TexnikaReyestri.Controls
         /// <summary>Səhifə göstəriləndə çağırılır (MainForm tərəfindən). Məlumatı burada yükləyin.</summary>
         public virtual Task OnShownAsync() => Task.CompletedTask;
 
+        /// <summary>Başqa səhifəyə keçməzdən əvvəl çağırılır; false — səhifədə qal (məs. yadda saxlanmamış dəyişiklik).</summary>
+        public virtual Task<bool> AyrilAsync() => Task.FromResult(true);
+
         public virtual void OnThemeChanged() { FonSil(); BackColor = Theme.Bg; Invalidate(); }
     }
 

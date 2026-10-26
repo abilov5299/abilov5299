@@ -8,11 +8,18 @@ namespace TexnikaReyestri.Forms
     {
         public ConfirmDialog() { InitializeComponent(); }
 
-        public ConfirmDialog(string basliq, string mesaj, string ok, bool tehlukeli, bool yalnizOk = false) : this()
+        public ConfirmDialog(string basliq, string mesaj, string ok, bool tehlukeli, bool yalnizOk = false, string xeyr = null) : this()
         {
             lblTitle.Text = basliq; lblMessage.Text = mesaj; btnOk.Text = ok;
             if (tehlukeli) btnOk.Kind = ButtonKind.Danger;
             if (yalnizOk) btnCancel.Visible = false;
+            if (xeyr != null)
+            {
+                // Üçüncü düymə (məs. "Saxlama") → DialogResult.No
+                var b = new FlatButton { Kind = ButtonKind.Secondary, Text = xeyr, Size = btnCancel.Size, Location = new Point(btnCancel.Left - btnCancel.Width - 10, btnCancel.Top), Anchor = btnCancel.Anchor };
+                b.Click += (_, _) => DialogResult = DialogResult.No;
+                pnlBody.Controls.Add(b);
+            }
             using var g = CreateGraphics();
             var h = TextRenderer.MeasureText(g, Lang.T(mesaj), lblMessage.Font, new Size(lblMessage.Width, 1000), TextFormatFlags.WordBreak).Height;
             if (h > lblMessage.Height) Height += h - lblMessage.Height;

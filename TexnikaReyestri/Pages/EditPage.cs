@@ -179,9 +179,7 @@ namespace TexnikaReyestri.Pages
             c.Items.AddRange(Secimler.Gosterici); c.SelectedIndex = Math.Max(0, Array.IndexOf(Secimler.Gosterici, nov));
             var m = new RoundTextBox { Font = F(10f), Width = 204, Height = 32, PlaceholderText = "Miqdar", Margin = new Padding(0, 2, 16, 4), Text = miqdar?.ToString("0.##", CultureInfo.InvariantCulture) ?? "" };
             var x = new FlatButton { Text = "", Glyph = Icons.Delete, Kind = ButtonKind.Ghost, Size = new Size(36, 32), Margin = new Padding(0, 2, 0, 4) };
-            // Miqdar: yalnız rəqəm və bir onluq ayırıcı
-            m.KeyPress += (_, e) => e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && !((e.KeyChar is ',' or '.') && !m.Text.Contains(',') && !m.Text.Contains('.'));
-            m.TextChanged += (_, _) => { var t = new string(m.Text.Where(ch => char.IsDigit(ch) || ch is ',' or '.').ToArray()); if (t != m.Text) { m.Text = t; m.SelectionStart = t.Length; } };
+            Ui.Reqemli(m, true);
             void Yoxla() { bool yox = Secimler.MiqdarsizGosterici(c.SelectedItem as string); m.Enabled = !yox; if (yox) m.Text = ""; }
             c.SelectedIndexChanged += (_, _) => Yoxla(); Yoxla();
             int r = tlpGost.RowCount++;
@@ -228,9 +226,7 @@ namespace TexnikaReyestri.Pages
             t.Controls.Add(Sahe(null, "Plan üzrə bitmə tarixi", txtPlan = Txt(ro: true), "Avtomatik hesablanır"), 2, 0);
             t.Controls.Add(Sahe(null, "Qalan / gecikən gün", txtQalan = Txt(ro: true), "Avtomatik"), 3, 0);
             var mud = (RoundTextBox)In("IcraMuddeti"); mud.PlaceholderText = "Məsələn: 10";
-            // Müddət: yalnız tam rəqəm
-            mud.KeyPress += (_, e) => e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar);
-            mud.TextChanged += (_, _) => { var r = new string(mud.Text.Where(char.IsDigit).ToArray()); if (r != mud.Text) { mud.Text = r; mud.SelectionStart = r.Length; } };
+            Ui.Reqemli(mud);
 
             t = Kart(s, "Gecikmə və plan dəyişikliyi", 4);
             var g = Sahe("GecikmeSebebi", "Gecikmənin və ya plan dəyişikliyinin səbəbi", Txt(true), "Yalnız dəyişiklik olduqda doldurulur. İlkin plan tarixçədə saxlanılır.", hundur: 60);
@@ -337,13 +333,13 @@ namespace TexnikaReyestri.Pages
             ht.Controls.Add(Sahe(null, "Adı", hAd = Txt(), mecburi: true), 0, 0);
             ht.Controls.Add(Sahe(null, "Kodu", hKod = Txt()), 1, 0);
             ht.Controls.Add(Sahe(null, "Ölçü vahidi", hVahid = Txt(), mecburi: true), 2, 0);
-            ht.Controls.Add(Sahe(null, "Tələb olunan", hTeleb = Txt(), mecburi: true), 3, 0);
+            ht.Controls.Add(Sahe(null, "Tələb olunan", hTeleb = Txt(), mecburi: true), 3, 0); Ui.Reqemli(hTeleb, true);
             var bHs = Btn("Yadda saxla", Icons.Save); bHs.Click += async (_, _) => await HisseElaveAsync(); ht.Controls.Add(bHs, 3, 1);
 
             pnlQebul = AltPanel(t, 4, "Ehtiyat hissəsinin qəbulu", out var qt);
             qt.Controls.Add(Sahe(null, "Ehtiyat hissəsi", qHisse = Cmb(Array.Empty<string>(), false), mecburi: true), 0, 0);
             qt.Controls.Add(Sahe(null, "Qəbul tarixi", qTarix = Dt(), mecburi: true), 1, 0);
-            qt.Controls.Add(Sahe(null, "Miqdar", qMiqdar = Txt(), mecburi: true), 2, 0);
+            qt.Controls.Add(Sahe(null, "Miqdar", qMiqdar = Txt(), mecburi: true), 2, 0); Ui.Reqemli(qMiqdar, true);
             var bQs = Btn("Yadda saxla", Icons.Save); bQs.Click += async (_, _) => await QebulElaveAsync(); qt.Controls.Add(bQs, 3, 0);
 
             // --- Məktubun icrası üzrə qeydlər ---
@@ -454,6 +450,29 @@ namespace TexnikaReyestri.Pages
             await MektublariYukleAsync();
             Ui.Hazirla(this);
             QebulInfo(); Hesabla(); StatusYoxla(); Duymeler();
+            _ilk = Iz();
+        }
+
+        // ===================================================== Yadda saxlanmamış dəyişiklik
+        private string _ilk;
+
+        /// <summary>Formanın cari məzmunu (müqayisə üçün). Mövcud texnikada hissələr dərhal yazıldığı üçün nəzərə alınmır.</summary>
+        private string Iz()
+        {
+            var d = Topla(out _);
+            if (_id != null) { d.Remove("Hisseler"); d.Remove("Teminat"); }
+            return System.Text.Json.JsonSerializer.Serialize(d) + "|" + string.Join(",", _bekleyenMektub);
+        }
+
+        public override async Task<bool> AyrilAsync()
+        {
+            if (_ilk == null || Iz() == _ilk) return true;
+            switch (Ui.Secim(FindForm(), Lang.T("Yadda saxlanmamış dəyişiklik"), Lang.T("Formada yadda saxlanmamış məlumat var. Yadda saxlansın?"), "Yadda saxla", "Saxlama"))
+            {
+                case DialogResult.OK: return await YazAsync() != null;
+                case DialogResult.No: if (_id == null) await YukleAsync(null); else _ilk = null; return true;   // yeni forma təmizlənir
+                default: return false;
+            }
         }
 
         public override Task OnShownAsync() => Task.CompletedTask;
@@ -695,13 +714,19 @@ namespace TexnikaReyestri.Pages
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
+            if (await YazAsync() is long id) await MainForm.Current.DetalAcAsync(id);
+        }
+
+        /// <summary>Yoxlayır və yadda saxlayır; uğursuz olsa null.</summary>
+        private async Task<long?> YazAsync()
+        {
             var d = Topla(out var x);
             if (x.Count > 0)
             {
                 // İlk xətalı sahənin bölməsinə keç və onu fokusla
                 Control c = x[0].kod == "Gostericiler" ? tlpGost : x[0].kod == "TehvilAlan" ? cmbTehvilAlan : In(x[0].kod);
                 if (c != null) { var tp = c.Parent; while (tp is not TabPage && tp != null) tp = tp.Parent; if (tp is TabPage t) tabs.SelectedTab = t; c.Focus(); }
-                Toast.Show(this, string.Join("\n", x.Take(3).Select(q => q.mesaj)), ToastKind.Error); return;
+                Toast.Show(this, string.Join("\n", x.Take(3).Select(q => q.mesaj)), ToastKind.Error); return null;
             }
             btnSave.Enabled = false;
             try
@@ -713,9 +738,10 @@ namespace TexnikaReyestri.Pages
                 if (yeni) await SistemRepo.BildirisAsync($"new:{id}", "new", "Yeni texnika qəbul edildi", $"{d["Marka"]} ({d["ZavodNo"]}) {d["TemirZavodu"]}-ə daxil oldu", d["TemirZavodu"] as string, id);
                 Toast.Show(this, yeni ? "Texnika reyestrə əlavə edildi" : "Dəyişikliklər yadda saxlanıldı");
                 await MainForm.Current.BadgeYenileAsync();
-                await MainForm.Current.DetalAcAsync(id);
+                _ilk = Iz();
+                return id;
             }
-            catch (Exception ex) { Toast.Show(this, ex.Message.Contains("UNIQUE") ? Lang.T("Bu zavod nömrəsi artıq bazada var.") : ex.Message, ToastKind.Error); }
+            catch (Exception ex) { Toast.Show(this, ex.Message.Contains("UNIQUE") ? Lang.T("Bu zavod nömrəsi artıq bazada var.") : ex.Message, ToastKind.Error); return null; }
             finally { btnSave.Enabled = true; }
         }
 

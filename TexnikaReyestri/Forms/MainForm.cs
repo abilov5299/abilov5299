@@ -187,6 +187,7 @@ namespace TexnikaReyestri.Forms
         {
             if (key is "log" or "bak") { int t = key == "log" ? 1 : 0; key = "set"; hazirliq = p => ((TenzimlemePage)p).SecAsync(t); }
             var page = Sehife(key);
+            if (_aktiv != null && _aktiv != page && !await _aktiv.AyrilAsync()) return;
             if (_gozleyen.Remove(page)) page.ResumeLayout(true);
             string navKey = key is "det" or "red" ? "list" : key;   // baxış və redaktə reyestrin davamıdır
             foreach (Control c in pnlNav.Controls) if (c is NavButton nb && nb.PageKey.Length > 0) nb.Active = nb.PageKey == navKey;

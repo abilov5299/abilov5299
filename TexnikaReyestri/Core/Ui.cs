@@ -16,6 +16,21 @@ namespace TexnikaReyestri.Core
             return d.ShowDialog(owner) == DialogResult.OK;
         }
 
+        /// <summary>Üç seçim: OK (ok), No (xeyr), Cancel (Ləğv et).</summary>
+        public static DialogResult Secim(IWin32Window owner, string basliq, string mesaj, string ok, string xeyr)
+        {
+            using var d = new ConfirmDialog(basliq, mesaj, ok, false, xeyr: xeyr);
+            return d.ShowDialog(owner);
+        }
+
+        /// <summary>Xanaya yalnız rəqəm yazılır (kesr: bir onluq ayırıcı da olar); yapışdırılan başqa simvollar silinir.</summary>
+        public static void Reqemli(TextBox t, bool kesr = false)
+        {
+            bool Olar(char ch) => char.IsDigit(ch) || kesr && ch is ',' or '.';
+            t.KeyPress += (_, e) => e.Handled = !char.IsControl(e.KeyChar) && !Olar(e.KeyChar) || e.KeyChar is ',' or '.' && (t.Text.Contains(',') || t.Text.Contains('.'));
+            t.TextChanged += (_, _) => { var r = new string(t.Text.Where(Olar).ToArray()); if (r != t.Text) { t.Text = r; t.SelectionStart = r.Length; } };
+        }
+
         public static void Melumat(IWin32Window owner, string basliq, string mesaj)
         {
             using var d = new ConfirmDialog(basliq, mesaj, "Bağla", false, yalnizOk: true);
