@@ -55,7 +55,7 @@ namespace TexnikaReyestri.Forms
             // Rola görə menyu: üst qurumlar texnika daxil etmir
             navAdd.Visible = Session.YazaBiler;
             int y = 64;
-            foreach (var n in new[] { navHome, navRegistry, navAdd, navTech, navRep, navNoti, navSync, navLogs }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
+            foreach (var n in new[] { navHome, navRegistry, navAdd, navTech, navRep, navNoti, navSync, navLogs, navHelp }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
             MenyuAc(false);   // menyu hər dəfə bağlı açılır
             Ui.Hazirla(this); YerlesdirBaslig();
             // Sınaq üçün: baza boşdursa bir dəfə 10 nümunə texnika yazılır
@@ -158,7 +158,7 @@ namespace TexnikaReyestri.Forms
             page = key switch
             {
                 "home" => new HomePage(), "list" => new RegistryPage(), "add" or "red" => new EditPage(), "tech" => new TechizatPage(), "rep" => new HesabatPage(),
-                "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "set" => new TenzimlemePage(),
+                "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "set" => new TenzimlemePage(), "help" => new TelimatPage(),
                 _ => throw new ArgumentException(key)
             };
             page.Dock = DockStyle.Fill; page.Visible = false; pnlContent.Controls.Add(page); Ui.Hazirla(page); _pages[key] = page;

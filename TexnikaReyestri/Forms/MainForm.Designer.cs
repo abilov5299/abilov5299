@@ -25,6 +25,7 @@
             this.navNoti = new TexnikaReyestri.Controls.NavButton();
             this.navSync = new TexnikaReyestri.Controls.NavButton();
             this.navLogs = new TexnikaReyestri.Controls.NavButton();
+            this.navHelp = new TexnikaReyestri.Controls.NavButton();
             this.navOut = new TexnikaReyestri.Controls.NavButton();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.lblQurum = new System.Windows.Forms.Label();
@@ -46,6 +47,7 @@
             // 
             this.pnlNav.Controls.Add(this.navOut);
             this.pnlNav.Controls.Add(this.navLogs);
+            this.pnlNav.Controls.Add(this.navHelp);
             this.pnlNav.Controls.Add(this.navSync);
             this.pnlNav.Controls.Add(this.navNoti);
             this.pnlNav.Controls.Add(this.navRep);
@@ -157,6 +159,16 @@
             this.navLogs.PageKey = "set";
             this.navLogs.Name = "navLogs";
             this.navLogs.Click += new System.EventHandler(this.nav_Click);
+            // 
+            // navHelp
+            // 
+            this.navHelp.Glyph = "";
+            this.navHelp.Location = new System.Drawing.Point(0, 430);
+            this.navHelp.Size = new System.Drawing.Size(64, 52);
+            this.navHelp.ToolTipText = "Təlimat";
+            this.navHelp.PageKey = "help";
+            this.navHelp.Name = "navHelp";
+            this.navHelp.Click += new System.EventHandler(this.nav_Click);
             // 
             // navOut
             // 
@@ -325,6 +337,7 @@
         private TexnikaReyestri.Controls.NavButton navNoti;
         private TexnikaReyestri.Controls.NavButton navSync;
         private TexnikaReyestri.Controls.NavButton navLogs;
+        private TexnikaReyestri.Controls.NavButton navHelp;
         private TexnikaReyestri.Controls.NavButton navOut;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label lblQurum;
