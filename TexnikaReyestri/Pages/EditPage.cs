@@ -29,7 +29,7 @@ namespace TexnikaReyestri.Pages
         private ModernGrid gridMek, gridHis, gridQeyd;
         private RoundPanel pnlMektub, pnlHisse, pnlQebul, pnlQeyd;
         private readonly Dictionary<string, Control> _mk = new();
-        private RoundTextBox hAd, hKod, hTeleb, qMiqdar, iNetice; private RoundComboBox hVahid, qHisse, iMektub; private RoundDatePicker qTarix, iTarix, iGozl;
+        private RoundTextBox hAd, hKod, hVahid, hTeleb, qMiqdar, iNetice; private RoundComboBox qHisse, iMektub; private RoundDatePicker qTarix, iTarix, iGozl;
         private StatusChip chipTeminat;
         // Bölmə 5
         private RoundComboBox cmbTehvilAlan; private RoundTextBox txtDigerQurum; private RoundTextBox txtGozleme;
@@ -336,8 +336,7 @@ namespace TexnikaReyestri.Pages
             pnlHisse = AltPanel(t, 3, "Ehtiyat hissəsi", out var ht);
             ht.Controls.Add(Sahe(null, "Adı", hAd = Txt(), mecburi: true), 0, 0);
             ht.Controls.Add(Sahe(null, "Kodu", hKod = Txt()), 1, 0);
-            hVahid = new RoundComboBox { DropDownStyle = ComboBoxStyle.DropDown }; hVahid.Items.AddRange(Secimler.Vahidler); hVahid.Text = "ədəd";
-            ht.Controls.Add(Sahe(null, "Ölçü vahidi", hVahid, mecburi: true), 2, 0);
+            ht.Controls.Add(Sahe(null, "Ölçü vahidi", hVahid = Txt(), mecburi: true), 2, 0);
             ht.Controls.Add(Sahe(null, "Tələb olunan", hTeleb = Txt(), mecburi: true), 3, 0);
             var bHs = Btn("Yadda saxla", Icons.Save); bHs.Click += async (_, _) => await HisseElaveAsync(); ht.Controls.Add(bHs, 3, 1);
 
@@ -507,7 +506,7 @@ namespace TexnikaReyestri.Pages
             if (string.IsNullOrWhiteSpace(hAd.Text) || string.IsNullOrWhiteSpace(hVahid.Text) || !Reqem(hTeleb.Text, out var t) || t <= 0)
             { Toast.Show(this, Lang.T("Adı, ölçü vahidini və tələb olunan miqdarı (rəqəm) yazın"), ToastKind.Error); return; }
             _hisseler.Add(new Hisse { Ad = hAd.Text.Trim(), Kod = string.IsNullOrWhiteSpace(hKod.Text) ? null : hKod.Text.Trim(), Vahid = hVahid.Text.Trim(), Teleb = t });
-            hAd.Text = hKod.Text = hTeleb.Text = ""; pnlHisse.Visible = false;
+            hAd.Text = hKod.Text = hVahid.Text = hTeleb.Text = ""; pnlHisse.Visible = false;
             await HisseYazAsync();
         }
 
@@ -583,6 +582,8 @@ namespace TexnikaReyestri.Pages
                 s.V[k] = v;
             }
             if (x.Count > 0) { Toast.Show(this, $"{Lang.T("Doldurun")}: {string.Join(", ", x.Take(3))}", ToastKind.Error); return; }
+            // Ehtiyat hissəsiz məktub olmur
+            if (s.Id == 0 && _hisseler.Count == 0) { Toast.Show(this, Lang.T("Yeni məktub üçün əvvəlcə ehtiyat hissəsini əlavə edin"), ToastKind.Error); return; }
             s.V["Zavod"] = Deyer((ComboBox)In("TemirZavodu")) ?? Session.ZavodFiltri;
             bool yeni = s.Id == 0;
             long id = await SorguRepo.SaxlaAsync(s);
