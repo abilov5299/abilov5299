@@ -389,7 +389,7 @@ namespace TexnikaReyestri.Pages
             var s = Scroll(tab5);
             var t = Kart(s, "Təmirin tamamlanması", 3);
             t.Controls.Add(Sahe("FaktikiBitme", "Təmirin faktiki tamamlanma tarixi", Dt(), "Saxlananda status: Təmir tamamlanıb, təhvil gözlənilir."), 0, 0);
-            var g = Sahe("GorulenIsler", "Yerinə yetirilmiş işlər haqqında qeyd", Txt(true), "Tamamlanma tarixi yazılıbsa, məcburidir.", hundur: 70);
+            var g = Sahe("GorulenIsler", "Yerinə yetirilmiş işlər haqqında qeyd", Txt(true), "Tamamlanma tarixi yazılıbsa, məcburidir.", mecburi: true, hundur: 70);
             t.Controls.Add(g, 1, 0); t.SetColumnSpan(g, 2);
 
             t = Kart(s, "Texnikanın təhvili", 4, "Faktiki təhvil tarixi yazılıbsa, bütün təhvil sahələri məcburidir. Saxlananda status: Təhvil verilib.");

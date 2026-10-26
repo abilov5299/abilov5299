@@ -57,7 +57,7 @@ namespace TexnikaReyestri.Data
                 case 0:
                     return Cedvel(new[] { "Zavod", "Təmiri davam edir", "Təmir tamamlanıb, təhvil gözlənilir", "Təhvil verilib", "Cəmi" },
                         await Say($"SELECT TemirZavodu, SUM({DavamSql}), SUM({GozlSql}), SUM({TehvilSql}) FROM Texnikalar WHERE {zw} GROUP BY 1;"), 3, true,
-                        "Cəmi = təmiri davam edən + təhvil gözlənilən + təhvil verilmiş");
+                        null);
                 case 1:
                     var q = await Say($"SELECT TemirZavodu, SUM(DaxilolmaTarixi BETWEEN $d1 AND $d2), SUM(FaktikiBitme BETWEEN $d1 AND $d2) FROM Texnikalar WHERE {zw} GROUP BY 1;");
                     // Təhvil tarixi: statusun "Təhvil verilib"ə dəyişdiyi an (tarixçə); tarixçəsi olmayanlar üçün faktiki bitmə
