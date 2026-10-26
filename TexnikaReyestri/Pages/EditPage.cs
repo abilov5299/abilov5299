@@ -227,7 +227,10 @@ namespace TexnikaReyestri.Pages
             t.Controls.Add(Sahe("MuddetVahidi", "Vahid", Cmb(Secimler.Sahe["MuddetVahidi"]), mecburi: true), 1, 0);
             t.Controls.Add(Sahe(null, "Plan üzrə bitmə tarixi", txtPlan = Txt(ro: true), "Avtomatik hesablanır"), 2, 0);
             t.Controls.Add(Sahe(null, "Qalan / gecikən gün", txtQalan = Txt(ro: true), "Avtomatik"), 3, 0);
-            ((RoundTextBox)In("IcraMuddeti")).PlaceholderText = "Məsələn: 10";
+            var mud = (RoundTextBox)In("IcraMuddeti"); mud.PlaceholderText = "Məsələn: 10";
+            // Müddət: yalnız tam rəqəm
+            mud.KeyPress += (_, e) => e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar);
+            mud.TextChanged += (_, _) => { var r = new string(mud.Text.Where(char.IsDigit).ToArray()); if (r != mud.Text) { mud.Text = r; mud.SelectionStart = r.Length; } };
 
             t = Kart(s, "Gecikmə və plan dəyişikliyi", 4);
             var g = Sahe("GecikmeSebebi", "Gecikmənin və ya plan dəyişikliyinin səbəbi", Txt(true), "Yalnız dəyişiklik olduqda doldurulur. İlkin plan tarixçədə saxlanılır.", hundur: 60);
@@ -284,7 +287,7 @@ namespace TexnikaReyestri.Pages
             pnlMektub = new RoundPanel { Fill = PanelFill.Alt, Dock = DockStyle.Fill, Margin = new Padding(0, 4, 18, 8), Padding = new Padding(14, 10, 14, 8), Visible = false };
             var mt = new TableLayoutPanel { Dock = DockStyle.Top, ColumnCount = 4, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, BackColor = Color.Transparent };
             for (int i = 0; i < 4; i++) mt.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25f));
-            Panel M(string kod, string ad, Control c) { var p = Sahe(null, ad, c, mecburi: kod != "Qeyd"); _mk[kod] = c; return p; }
+            Panel M(string kod, string ad, Control c) { var p = Sahe(null, ad, c, mecburi: kod is not ("Qeyd" or "Telefon")); _mk[kod] = c; return p; }
             mt.Controls.Add(M("MektubNo", "Məktubun nömrəsi", Txt()), 0, 0);
             mt.Controls.Add(M("QeydTarixi", "Məktubun tarixi", Dt()), 1, 0);
             mt.Controls.Add(M("TeminEden", "Təmin edən qurum", Txt()), 2, 0);
@@ -576,7 +579,7 @@ namespace TexnikaReyestri.Pages
             foreach (var (k, c) in _mk)
             {
                 string v = c switch { DateTimePicker { Checked: true } d => Vaxt.Iso(d.Value.Date), DateTimePicker => null, ComboBox cb => Deyer(cb), _ => c.Text.Trim() };
-                if (string.IsNullOrEmpty(v)) x.Add(((Label)c.Parent.Controls.OfType<Label>().First()).Text.TrimEnd(' ', '*'));
+                if (string.IsNullOrEmpty(v) && k != "Telefon") x.Add(((Label)c.Parent.Controls.OfType<Label>().First()).Text.TrimEnd(' ', '*'));
                 s.V[k] = v;
             }
             if (x.Count > 0) { Toast.Show(this, $"{Lang.T("Doldurun")}: {string.Join(", ", x.Take(3))}", ToastKind.Error); return; }
