@@ -299,7 +299,7 @@ namespace TexnikaReyestri.Pages
             mt.SizeChanged += (_, _) => pnlMektub.Height = mt.Height + pnlMektub.Padding.Vertical + 2;
             t.Controls.Add(pnlMektub, 0, 1); t.SetColumnSpan(pnlMektub, 4);
 
-            gridMek = Grid(("No", "Məktub №", 120), ("Tarix", "Tarix", 100), ("Temin", "Təmin edən qurum", 220), ("Mesul", "Məsul icraçı", 180), ("Tel", "Əlaqə nömrəsi", 130), ("Son", "Son tarix", 100), ("Status", "Vəziyyət", 150));
+            gridMek = Grid(("No", "Məktub №", 120), ("Tarix", "Tarix", 100), ("Temin", "Təmin edən qurum", 220), ("Mesul", "Məsul icraçı", 180), ("Tel", "Əlaqə nömrəsi", 130), ("Son", "İcra üçün son tarix", 140), ("Status", "Məktubun icra vəziyyəti", 190));
             gridMek.Columns.Add(new DataGridViewButtonColumn { Name = "Ayir", HeaderText = "", Text = "Ayır", UseColumnTextForButtonValue = true, Width = 90 });
             gridMek.Columns["Temin"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             gridMek.CellContentClick += async (_, e) => { if (e.RowIndex >= 0 && gridMek.Columns[e.ColumnIndex].Name == "Ayir") await MektubAyirAsync(e.RowIndex); };
@@ -397,11 +397,15 @@ namespace TexnikaReyestri.Pages
             t.Controls.Add(Sahe("TehvilSenedNo", "Təhvil sənədinin nömrəsi", Txt()), 1, 0);
             t.Controls.Add(Sahe("TehvilSenedTarixi", "Təhvil sənədinin tarixi", Dt()), 2, 0);
             cmbTehvilAlan = Cmb(new[] { "Göndərən qurum", "Digər qurum" }, false);
-            var pa = Sahe(null, "Təhvil alan qurum", cmbTehvilAlan, "Göndərən qurum təklif edilir; dəyişmək mümkündür.");
+            var pa = Sahe(null, "Təhvil alan qurum", cmbTehvilAlan, "Birinci bölmədəki göndərən qurum təklif edilir; dəyişmək mümkündür.");
             txtDigerQurum = new RoundTextBox { Dock = DockStyle.Top, Height = 32, Font = F(10f), PlaceholderText = "Qurumun adını yazın", Visible = false };
             pa.Controls.Add(txtDigerQurum); txtDigerQurum.BringToFront();
             cmbTehvilAlan.SelectedIndexChanged += (_, _) => { txtDigerQurum.Visible = cmbTehvilAlan.SelectedIndex == 1; pa.Height = 22 + 30 + 20 + 8 + (txtDigerQurum.Visible ? 36 : 0); };
             t.Controls.Add(pa, 3, 0);
+            // Birinci seçim göndərən qurumun öz adıdır (1-ci bölmədən)
+            var gq = In("GonderenQurum");
+            void GqAdi() { int i = cmbTehvilAlan.SelectedIndex; cmbTehvilAlan.Items[0] = gq.Text.Trim() is { Length: > 0 } a ? a : Lang.T("Göndərən qurum"); cmbTehvilAlan.SelectedIndex = i; }
+            gq.TextChanged += (_, _) => GqAdi(); GqAdi();
 
             t = Kart(s, "Təhvil gözləmə müddəti", 1, "Tamamlanmadan faktiki təhvilədək; təhvil verilməyibsə, bu günədək.");
             t.Controls.Add(Sahe(null, "Avtomatik hesablanır", txtGozleme = Txt(ro: true)), 0, 0);
