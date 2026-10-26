@@ -163,7 +163,7 @@
             // radFive
             // 
             this.radFive.AutoSize = true;
-            this.radFive.Text = "Yalnız 5 əsas sütun";
+            this.radFive.Text = "Yalnız reyestr sütunları";
             this.radFive.Location = new System.Drawing.Point(20, 150);
             this.radFive.Name = "radFive";
             // 
@@ -187,7 +187,7 @@
             // chkGroups
             // 
             this.chkGroups.AutoSize = true;
-            this.chkGroups.Text = "Qrup başlıqları (Pasport, Cari təmir...)";
+            this.chkGroups.Text = "Bölmə başlıqları (Qəbul və sənədlər, Təmirin icrası...)";
             this.chkGroups.Location = new System.Drawing.Point(370, 40);
             this.chkGroups.Checked = true;
             this.chkGroups.Name = "chkGroups";

@@ -99,8 +99,8 @@ namespace TexnikaReyestri.Data
                     return new Hesabat(HesabatAdlari[nov], new[] { "Zavod", "Sorğu sayı", "Tələb olunan", "Qəbul edilmiş", "Qalıq" }, hr, new[] { "Cəmi" }.Concat(hc.Select(F)).ToArray(),
                         "Təchizat sorğularındakı ehtiyat hissələrinin cəmi (ölçü vahidindən asılı olmayaraq)");
                 default:
-                    return Cedvel(new[] { "Zavod", "Cəmi məktub", "İcrası davam edir", "Cavab verilib", "İcra müddəti keçib" },
-                        await Say(@"SELECT Zavod, COUNT(*), SUM(IFNULL(CavabVez,'İcrası davam edir')='İcrası davam edir'), SUM(CavabVez='Cavab verilib'),
+                    return Cedvel(new[] { "Zavod", "Cəmi məktub", "İcrası davam edir", "İcra başa çatıb", "İcra müddəti keçib" },
+                        await Say(@"SELECT Zavod, COUNT(*), SUM(IFNULL(CavabVez,'İcrası davam edir')='İcrası davam edir'), SUM(CavabVez='İcra başa çatıb'),
   SUM(IFNULL(CavabVez,'İcrası davam edir')='İcrası davam edir' AND IcraMuddeti < $b) FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z) AND QeydTarixi BETWEEN $d1 AND $d2 GROUP BY 1;"), 4, false,
                         $"Dövr: məktubun qeydiyyat tarixi {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}");
             }
