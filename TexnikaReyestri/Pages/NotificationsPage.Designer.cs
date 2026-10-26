@@ -37,7 +37,7 @@
             this.pnlHead.Controls.Add(this.btnReadAll);
             this.pnlHead.Controls.Add(this.lblTitle);
             this.pnlHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlHead.Size = new System.Drawing.Size(1172, 44);
+            this.pnlHead.Size = new System.Drawing.Size(1172, 88);
             this.pnlHead.Name = "pnlHead";
             // 
             // lblTitle
@@ -62,17 +62,17 @@
             // 
             // segFilter
             // 
-            this.segFilter.Location = new System.Drawing.Point(350, 6);
-            this.segFilter.Size = new System.Drawing.Size(630, 30);
-            this.segFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.segFilter.Location = new System.Drawing.Point(0, 50);
+            this.segFilter.Size = new System.Drawing.Size(1166, 32);
+            this.segFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.segFilter.Items = new string[] {
         "Hamısı",
         "Oxunmamış",
-        "Gecikmə",
-        "Son tarix",
-        "Hissə",
-        "Paket",
-        "Yeni qəbul"};
+        "Təmiri gecikən",
+        "Son tarixi yaxınlaşan",
+        "Ehtiyat hissəsi gözlənilir",
+        "Məlumat paketi",
+        "Yeni qəbul edilən"};
             this.segFilter.SelectedIndex = 0;
             this.segFilter.Name = "segFilter";
             this.segFilter.SelectedIndexChanged += new System.EventHandler(this.segFilter_SelectedIndexChanged);
