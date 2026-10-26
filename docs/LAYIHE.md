@@ -135,7 +135,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 - [x] Ayrıca "Təhvil tarixi" sahəsi (20.10, `TehvilTarixi`)
 - [ ] Girişi kompüterin öz qurumu ilə məhdudlaşdırmaq; bir zavodda bir neçə kompüter
 - [ ] Excel idxal pəncərəsinin dizaynı
-- [x] İstifadə təlimatı (26.10): 3 təlimat (Zavod, Xidmət, İdarə) — `TexnikaReyestri/Telimat/*.html`, mənbə `docs/telimat/qur.py`, şəkillər `docs/telimat/sekil/`. Proqramda menyu → "Təlimat" (`TelimatPage`), brauzerdə açılır. Ekran dəyişəndə şəkillər yenidən çəkilib `python docs/telimat/qur.py` işə salınır
+- [x] İstifadə təlimatı (26.10): 3 təlimat (Zavod, Xidmət, İdarə) — `TexnikaReyestri/Telimat/*.html`, mənbə `docs/telimat/qur.py`, şəkillər `docs/telimat/sekil/`. Proqramda menyu → "Təlimat" (`TelimatPage`): istifadəçinin öz rolunun təlimatı proqramın içində açılır (WebView2; mühit yoxdursa brauzerdə). Ekran dəyişəndə şəkillər yenidən çəkilib `python docs/telimat/qur.py` işə salınır
 - [ ] Quraşdırma faylı (`dotnet publish -r win-x64 --self-contained` + Inno Setup)
 
 ### Texniki borc (kiçik)
