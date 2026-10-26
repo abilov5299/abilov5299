@@ -24,7 +24,7 @@ namespace TexnikaReyestri.Pages
         // Bölmə 2: göstəricilər
         private TableLayoutPanel tlpGost;
         // Bölmə 3: avtomatik xanalar
-        private RoundTextBox txtPlan, txtQalan, txtTeminat3;
+        private RoundTextBox txtPlan, txtQalan;
         // Bölmə 4
         private ModernGrid gridMek, gridHis, gridQeyd;
         private RoundPanel pnlMektub, pnlHisse, pnlQebul, pnlQeyd;
@@ -221,7 +221,6 @@ namespace TexnikaReyestri.Pages
             t = Kart(s, "Təmir məlumatları", 3);
             t.Controls.Add(Sahe("TemirNovu", "Təmirin / işin növü", Cmb(Secimler.Sahe["TemirNovu"]), "Hazırkı qəbul üzrə görüləcək iş seçilir.", true), 0, 0);
             t.Controls.Add(Sahe("Status", "İcra statusu", Cmb(Secimler.Status, false, Secimler.Ekran), "Tamamlanma və təhvil statusları tarixlərə əsasən yenilənir.", true), 1, 0);
-            t.Controls.Add(Sahe(null, "Ehtiyat hissələrinin təminatı:", txtTeminat3 = Txt(ro: true), "Təchizat məlumatlarından avtomatik göstərilir."), 2, 0);
 
             t = Kart(s, "İcra olunma müddəti", 4);
             t.Controls.Add(Sahe("IcraMuddeti", "Müddət", Txt(), "Hesablama diaqnostika tarixindən aparılır.", true), 0, 0);
@@ -234,7 +233,7 @@ namespace TexnikaReyestri.Pages
             var g = Sahe("GecikmeSebebi", "Gecikmənin və ya plan dəyişikliyinin səbəbi", Txt(true), "Yalnız dəyişiklik olduqda doldurulur. İlkin plan tarixçədə saxlanılır.", hundur: 60);
             t.Controls.Add(g, 0, 0); t.SetColumnSpan(g, 2);
             t.Controls.Add(Sahe("ProqnozBitme", "Gözlənilən bitmə tarixi", Dt()), 2, 0);
-            t.Controls.Add(Sahe("YeniPlanBitme", "Yeni plan üzrə bitmə tarixi", Dt(), "Yazılsa, plan bu tarixə dəyişir."), 3, 0);
+            t.Controls.Add(Sahe("YeniPlanBitme", "Yeni plan üzrə bitmə tarixi", Dt(), "Dəyişiklik yadda saxlandıqda plan bu tarixə yenilənir."), 3, 0);
             var b = Btn("Dəyişikliyi yadda saxla", Icons.Save); b.Click += btnSave_Click;
             t.Controls.Add(b, 3, 1);
 
@@ -483,7 +482,7 @@ namespace TexnikaReyestri.Pages
             string R(double d) => d.ToString("0.##", CultureInfo.InvariantCulture);
             foreach (var h in _hisseler) gridHis.Rows.Add(h.Ad, string.IsNullOrEmpty(h.Kod) ? "—" : h.Kod, h.Vahid, R(h.Teleb), R(h.Qebul), R(h.Qaliq));
             string tem = TexnikaJson.Teminat(_hisseler);
-            chipTeminat.Text = tem ?? "—"; txtTeminat3.Text = tem == null ? Lang.T("Ehtiyat hissəsi yazılmayıb") : Lang.T(tem);
+            chipTeminat.Text = tem ?? "—";
             qHisse.Items.Clear(); qHisse.Items.AddRange(_hisseler.Select(h => h.Ad + (string.IsNullOrEmpty(h.Kod) ? "" : " · " + h.Kod)).ToArray());
             if (qHisse.Items.Count > 0) qHisse.SelectedIndex = 0;
         }
