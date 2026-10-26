@@ -179,6 +179,9 @@ namespace TexnikaReyestri.Pages
             c.Items.AddRange(Secimler.Gosterici); c.SelectedIndex = Math.Max(0, Array.IndexOf(Secimler.Gosterici, nov));
             var m = new RoundTextBox { Font = F(10f), Width = 204, Height = 32, PlaceholderText = "Miqdar", Margin = new Padding(0, 2, 16, 4), Text = miqdar?.ToString("0.##", CultureInfo.InvariantCulture) ?? "" };
             var x = new FlatButton { Text = "", Glyph = Icons.Delete, Kind = ButtonKind.Ghost, Size = new Size(36, 32), Margin = new Padding(0, 2, 0, 4) };
+            // Miqdar: yalnız rəqəm və bir onluq ayırıcı
+            m.KeyPress += (_, e) => e.Handled = !char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && !((e.KeyChar is ',' or '.') && !m.Text.Contains(',') && !m.Text.Contains('.'));
+            m.TextChanged += (_, _) => { var t = new string(m.Text.Where(ch => char.IsDigit(ch) || ch is ',' or '.').ToArray()); if (t != m.Text) { m.Text = t; m.SelectionStart = t.Length; } };
             void Yoxla() { bool yox = Secimler.MiqdarsizGosterici(c.SelectedItem as string); m.Enabled = !yox; if (yox) m.Text = ""; }
             c.SelectedIndexChanged += (_, _) => Yoxla(); Yoxla();
             int r = tlpGost.RowCount++;
