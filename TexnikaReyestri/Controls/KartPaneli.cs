@@ -43,6 +43,13 @@ namespace TexnikaReyestri.Controls
 
         public void Goster(KartStat s, int yaxinGun)
         {
+            // "İcra müddətinə 0–N gün qalıb" kartı yalnız zavodlarda görünür
+            bool zavod = Session.Tip == QurumTip.Zavod;
+            if (_k[4].Visible != zavod)
+            {
+                _k[4].Visible = zavod;
+                for (int i = 0; i < 6; i++) ColumnStyles[i] = new ColumnStyle(SizeType.Percent, i == 4 && !zavod ? 0f : 100f / (zavod ? 6 : 5));
+            }
             _k[4].Title = string.Format(Tarif[4].ad, yaxinGun);
             long[] v = { s.Cemi, s.Davam, s.Gozlenilir, s.Tehvil, s.Yaxin, s.Kecmis };
             for (int i = 0; i < 6; i++) _k[i].Value = v[i].ToString("#,0").Replace(",", " ");
