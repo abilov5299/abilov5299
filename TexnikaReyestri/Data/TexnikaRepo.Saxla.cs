@@ -7,7 +7,7 @@ namespace TexnikaReyestri.Data
     public sealed record TarixceQeyd(long Tarix, string Istifadeci, string Sahe, string Kohne, string Yeni);
     public sealed record EvStat(long Cemi, long Temirde, long HisseGozleyir, long Geciken, double OrtaGun, double OrtaGunEvvel,
         (string, long)[] Statuslar, string[] Aylar, double[] Qebul, double[] Tehvil, (string, double)[] Novler, (string, double)[] OrtaUzre,
-        (string ad, int gun, string zavod, long id)[] Gecikenler, double[] Verilib = null);
+        (string ad, int gun, string zavod, long id)[] Gecikenler, double[] Verilib = null, double[] TemirAy = null);
 
     public static partial class TexnikaRepo
     {
@@ -115,6 +115,8 @@ namespace TexnikaReyestri.Data
             long G(string s) => st.GetValueOrDefault(s);
             long gec = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə') AND IFNULL(FaktikiBitme,'')='';"))[0][0]);
             var ayQ = (await Q($"SELECT substr(DaxilolmaTarixi,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND DaxilolmaTarixi>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
+            // Təmirdədir: diaqnostikanın (təmirə başlamanın) olduğu ay
+            var ayB = (await Q($"SELECT substr(BaslamaTarixi,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND BaslamaTarixi>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             var ayT = (await Q($"SELECT substr(FaktikiBitme,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND FaktikiBitme>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             // Təhvil verilib: statusun "Təhvil verilib"ə dəyişdiyi ay (tarixçədən); tarixçəsi olmayanlar (Excel, ilk qeyd) — faktiki bitmə ayı
             string tw = zavod == null ? "" : " AND t.TemirZavodu=$z";
@@ -144,7 +146,7 @@ namespace TexnikaReyestri.Data
                 sira.Select(s => (s, G(s))).ToArray(), aylar.Select(d => adlar[d.Month - 1]).ToArray(),
                 aylar.Select(d => ayQ.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(), aylar.Select(d => ayT.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(),
                 nov, uzre.Where(x => x[0] is string).Select(x => ((string)x[0], x[1] is DBNull ? 0 : Convert.ToDouble(x[1]))).ToArray(), gecList,
-                aylar.Select(d => ayV.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray());
+                aylar.Select(d => ayV.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(), aylar.Select(d => ayB.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray());
         }
 
         /// <summary>Təmiri tamamlanıb, təhvil gözlənilən texnikalar: say və ən uzun gözləmə (gün, faktiki bitmədən bu günə).</summary>

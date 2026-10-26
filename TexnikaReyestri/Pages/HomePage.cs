@@ -119,7 +119,7 @@ namespace TexnikaReyestri.Pages
             var s = _st;
             tlpTiles.Goster(KartStat.Cem(_ks.Values), _n);
             chartMonthly.SeriesBName = "təmir tamamlanıb";
-            chartMonthly.SetData(s.Aylar, s.Qebul, s.Tehvil, s.Verilib);
+            chartMonthly.SetData(s.Aylar, s.Qebul, s.Tehvil, s.Verilib, s.TemirAy);
             // Zavodlar üzrə icra vəziyyəti: sətir = zavod, sonda cəmi
             gridZav.Rows.Clear();
             string F(long v) => v.ToString("#,0").Replace(",", " ");

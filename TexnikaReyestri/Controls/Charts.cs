@@ -61,7 +61,7 @@ namespace TexnikaReyestri.Controls
     public class ColumnChart : Control, IThemed, ILocalizable
     {
         private string[] _labels = { "May", "İyn", "İyl", "Avq", "Sen", "Okt" };
-        private double[] _a = { 12, 9, 13, 11, 12, 4 }, _b = { 10, 11, 9, 12, 10, 3 }, _c;
+        private double[] _a = { 12, 9, 13, 11, 12, 4 }, _b = { 10, 11, 9, 12, 10, 3 }, _c, _m;
         private readonly ToolTip _tip = new();
         private int _hover = -1;
 
@@ -76,11 +76,18 @@ namespace TexnikaReyestri.Controls
         [Category("Məzmun")] public string SeriesCName { get; set; } = "təhvil verilib";
         /// <summary>Böyük görünüş: sütunların üstündə rəqəm, aşağıda dairəli əfsanə və sağda qeyd (Note).</summary>
         [Category("Görünüş"), DefaultValue(false)] public bool Genis { get; set; }
+        [Category("Məzmun")] public string SeriesMName { get; set; } = "təmirdədir";
         [Category("Məzmun")] public string[] LegendNames { get; set; } = { "Qəbul edilib", "Təmir tamamlanıb", "Təhvil verilib" };
+        [Category("Məzmun")] public string LegendMName { get; set; } = "Təmirdədir";
         [Category("Məzmun")] public string Note { get; set; } = "";
 
-        /// <summary>c verilərsə 3 sütun çəkilir (Theme.Chart3).</summary>
-        public void SetData(string[] labels, double[] a, double[] b, double[] c = null) { _labels = labels; _a = a; _b = b; _c = c; Invalidate(); }
+        /// <summary>c verilərsə 3 sütun çəkilir (Theme.Chart3); m verilərsə (c ilə) a ilə b arasında "Təmirdədir" sütunu.</summary>
+        public void SetData(string[] labels, double[] a, double[] b, double[] c = null, double[] m = null) { _labels = labels; _a = a; _b = b; _c = c; _m = c == null ? null : m; Invalidate(); }
+
+        /// <summary>3 və ya 4 seriya: dəyərlər, rəng, əfsanə adı (soldan sağa sıra ilə).</summary>
+        private (double[] v, Color r, string ad)[] Seriyalar() => _m == null
+            ? new[] { (_a, Theme.Chart1, LegendNames[0]), (_b, Theme.Chart2, LegendNames[1]), (_c, Theme.Chart3, LegendNames[2]) }
+            : new[] { (_a, Theme.Chart1, LegendNames[0]), (_m, Theme.Info, LegendMName), (_b, Theme.Chart2, LegendNames[1]), (_c, Theme.Chart3, LegendNames[2]) };
 
         private int PL = 30; private int PB => Genis ? 58 : 20; private int PT => Genis ? 26 : 8;   // PL: sol boşluq, ən uzun ox rəqəminə görə
         protected override void OnMouseMove(MouseEventArgs e)
@@ -88,7 +95,7 @@ namespace TexnikaReyestri.Controls
             int n = _labels.Length; if (n == 0) return;
             float cw = (Width - PL) / (float)n; int i = (int)((e.X - PL) / cw);
             if (e.X < PL || i >= n) i = -1;
-            if (i != _hover) { _hover = i; Invalidate(); _tip.SetToolTip(this, i < 0 ? "" : $"{Lang.T(_labels[i])}: {_a[i]} {Lang.T(SeriesAName)} · {_b[i]} {Lang.T(SeriesBName)}" + (_c != null ? $" · {_c[i]} {Lang.T(SeriesCName)}" : "")); }
+            if (i != _hover) { _hover = i; Invalidate(); _tip.SetToolTip(this, i < 0 ? "" : $"{Lang.T(_labels[i])}: {_a[i]} {Lang.T(SeriesAName)} · {_b[i]} {Lang.T(SeriesBName)}" + (_m != null ? $" · {_m[i]} {Lang.T(SeriesMName)}" : "") + (_c != null ? $" · {_c[i]} {Lang.T(SeriesCName)}" : "")); }
             base.OnMouseMove(e);
         }
         protected override void OnMouseLeave(EventArgs e) { _hover = -1; Invalidate(); base.OnMouseLeave(e); }
@@ -100,7 +107,7 @@ namespace TexnikaReyestri.Controls
             Gfx.Smooth(g);
             int n = _labels.Length; if (n == 0) return;
             var font = Genis ? new Font("Segoe UI", 10f) : Font;
-            double mx = Math.Max(1, Math.Max(_a.DefaultIfEmpty(0).Max(), Math.Max(_b.DefaultIfEmpty(0).Max(), (_c ?? new double[0]).DefaultIfEmpty(0).Max())));
+            double mx = Math.Max(1, Math.Max(_a.DefaultIfEmpty(0).Max(), Math.Max(_b.DefaultIfEmpty(0).Max(), Math.Max((_c ?? new double[0]).DefaultIfEmpty(0).Max(), (_m ?? new double[0]).DefaultIfEmpty(0).Max()))));
             // 4 bərabər, tam ədədli addım (1, 2, 5 × 10ⁿ) — oxda təkrarlanan rəqəm olmasın
             double raw = Math.Max(1, mx / 4), p10 = Math.Pow(10, Math.Floor(Math.Log10(raw))), st = new[] { 1, 2, 5, 10 }.Select(m => m * p10).First(x => x >= raw - 1e-9);
             double max = Math.Max(1, Math.Round(st)) * 4;
@@ -113,19 +120,20 @@ namespace TexnikaReyestri.Controls
                 g.DrawLine(gp, PL, y, Width, y);
                 TextRenderer.DrawText(g, Math.Round(v).ToString(), font, new Rectangle(0, (int)y - 8, PL - 6, 16), Theme.Muted, TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
             }
-            float cw = (Width - PL) / (float)n, bw = Math.Min(Genis ? 70 : _c != null ? 28 : 18, cw / (_c != null ? 4 : 3));
+            float cw = (Width - PL) / (float)n, ns = _m != null ? 4 : _c != null ? 3 : 2, bw = Math.Min(Genis ? (ns == 4 ? 56 : 70) : _c != null ? 28 : 18, cw / (ns + 1));
             for (int i = 0; i < n; i++)
             {
                 float cx = PL + cw * i + cw / 2;
                 if (i == _hover) using (var hb = new SolidBrush(Theme.Alt)) g.FillRectangle(hb, cx - cw / 2 + 4, PT, cw - 8, H);
                 if (_c != null)
                 {
-                    float[] xs = { cx - bw * 1.5f - 4, cx - bw / 2, cx + bw / 2 + 4 }; double[] vs = { _a[i], _b[i], _c[i] }; Color[] cs = { Theme.Chart1, Theme.Chart2, Theme.Chart3 };
-                    for (int j = 0; j < 3; j++)
+                    var sr = Seriyalar(); float x0 = cx - (bw * sr.Length + 4 * (sr.Length - 1)) / 2;
+                    for (int j = 0; j < sr.Length; j++)
                     {
-                        Bar(g, xs[j], bw, Y(vs[j]), H + PT, cs[j]);
+                        float[] xs = { x0 + j * (bw + 4) }; double[] vs = { sr[j].v[i] }; Color[] cs = { sr[j].r };
+                        Bar(g, xs[0], bw, Y(vs[0]), H + PT, cs[0]);
                         if (Genis) using (var vf = new Font("Segoe UI", 10.5f, FontStyle.Bold))
-                            TextRenderer.DrawText(g, vs[j].ToString("#,0").Replace(",", " "), vf, new Rectangle((int)xs[j] - 20, (int)Y(vs[j]) - 22, (int)bw + 40, 20), Theme.Ink, TextFormatFlags.HorizontalCenter | TextFormatFlags.Bottom);
+                            TextRenderer.DrawText(g, vs[0].ToString("#,0").Replace(",", " "), vf, new Rectangle((int)xs[0] - 20, (int)Y(vs[0]) - 22, (int)bw + 40, 20), Theme.Ink, TextFormatFlags.HorizontalCenter | TextFormatFlags.Bottom);
                     }
                 }
                 else
@@ -139,7 +147,8 @@ namespace TexnikaReyestri.Controls
             {
                 // Əfsanə: dairə + ad, mərkəzdə; sağda qeyd
                 using var lf = new Font("Segoe UI", 10f);
-                var adlar = LegendNames.Take(_c != null ? 3 : 2).Select(Lang.T).ToArray(); Color[] cs = { Theme.Chart1, Theme.Chart2, Theme.Chart3 };
+                var sr = _c != null ? Seriyalar() : new[] { (_a, Theme.Chart1, LegendNames[0]), (_b, Theme.Chart2, LegendNames[1]) };
+                var adlar = sr.Select(x => Lang.T(x.Item3)).ToArray(); var cs = sr.Select(x => x.Item2).ToArray();
                 int[] w = adlar.Select(a => TextRenderer.MeasureText(a, lf).Width + 34).ToArray();
                 int x = PL + (Width - PL - w.Sum()) / 2, ly = Height - 24;
                 for (int j = 0; j < adlar.Length; j++)
