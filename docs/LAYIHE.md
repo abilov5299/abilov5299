@@ -107,6 +107,8 @@ Konvensiyalar: Label rəngi `Tag` ilə (`title`, `muted`, `danger`, `white`, `na
 
 Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → tam dil tərcüməsi → İcmal bölməsi ləğv edildi (19.10) → Təchizat kartlarının sırası və adları dəyişdi → Reyestr cədvəli 4 sütun: Texnika / inventar kodu, Zavod, İcra statusu, Məsul icraçı (19.10). → **Yeni 5 bölməli "Texnika əlavə et" forması və baza quruluşu (20.10)** — tələblər: `docs/YENI_FORMA.md`, maket: `docs/maket/texnika_elave.html`.
 
+**27.10:** Mövcud texnikada yadda saxlanmış məktubu ayırmaq və ehtiyat hissəsini silmək olmaz (xəbərdarlıq çıxır); yeni texnikada saxlanana qədər mümkündür.
+
 **20.10 dəyişikliyi qısaca:**
 - `Saheler.cs` yeni sahələrlə; köhnə sahələr (pasport, silah sistemi, texniki vəziyyət, mərhələ...) bazadan silinir. Bir dəfəlik keçid `Data/Miqrasiya.cs`: əvvəlcə bazanın yanına `reyestr_kohne_<tarix>.db` nüsxəsi, sonra köçürmə (km/motosaat/atış → göstəricilər, V* sahələri → nasazlıqlar, köhnə sorğu hissələri → texnikanın hissələri), cədvəl yenidən qurulur, VACUUM. 85 804 sətirlik bazanın nüsxəsində ~9 s, `integrity_check` = ok.
 - Statuslar: Qəbul edilib · Təmirdə (ekranda "Təmirdədir") · Təmir tamamlanıb, təhvil gözlənilir · Təhvil verilib · Təmirə yararsız. "Hissə gözləyir"/"Qismən təmin edilib" → Təmirdə. Tamamlanma/təhvil statusu tarixlərdən avtomatik.

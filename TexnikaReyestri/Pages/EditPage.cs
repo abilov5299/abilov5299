@@ -319,6 +319,7 @@ namespace TexnikaReyestri.Pages
             gridHis.CellContentClick += async (_, e) =>
             {
                 if (e.RowIndex < 0 || gridHis.Columns[e.ColumnIndex].Name != "Sil" || e.RowIndex >= _hisseler.Count) return;
+                if (_id != null) { Toast.Show(this, Lang.T("Yadda saxlanmış ehtiyat hissəsini silmək olmaz"), ToastKind.Warn); return; }
                 if (!Ui.Tesdiq(FindForm(), Lang.T("Ehtiyat hissəsi"), $"{_hisseler[e.RowIndex].Ad} — {Lang.T("silinsin?")}", "Sil", true)) return;
                 _hisseler.RemoveAt(e.RowIndex); await HisseYazAsync();
             };
@@ -651,6 +652,7 @@ namespace TexnikaReyestri.Pages
         {
             if (i >= _mektublar.Count) return;
             var s = _mektublar[i];
+            if (!_bekleyenMektub.Contains(s.Id)) { Toast.Show(this, Lang.T("Yadda saxlanmış məktubu texnikadan ayırmaq olmaz"), ToastKind.Warn); return; }
             if (!Ui.Tesdiq(FindForm(), Lang.T("Məktub"), $"{s.V.GetValueOrDefault("MektubNo")} — {Lang.T("bu texnikadan ayrılsın?")}", "Ayır", true)) return;
             if (_guid != null) await SorguRepo.BaglaAsync(s.Id, _guid, TexnikaMelumat(), false); else _bekleyenMektub.Remove(s.Id);
             await MektublariYukleAsync();
