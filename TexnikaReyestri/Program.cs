@@ -10,7 +10,7 @@ namespace TexnikaReyestri
         [STAThread]
         static void Main()
         {
-            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += (_, e) => Xeta(e.Exception);

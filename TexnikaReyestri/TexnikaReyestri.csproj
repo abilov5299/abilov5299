@@ -8,7 +8,7 @@
     <RootNamespace>TexnikaReyestri</RootNamespace>
     <AssemblyName>TexnikaReyestri</AssemblyName>
     <ApplicationIcon>Assets\TexnikaReyestri.ico</ApplicationIcon>
-    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
     <Version>1.0.0</Version>
     <AssemblyTitle>Təmir Reyestri</AssemblyTitle>
     <Product>Təmir Reyestri</Product>
