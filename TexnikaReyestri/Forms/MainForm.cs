@@ -58,9 +58,6 @@ namespace TexnikaReyestri.Forms
             foreach (var n in new[] { navHome, navRegistry, navAdd, navTech, navRep, navNoti, navSync, navLogs, navHelp }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
             MenyuAc(false);   // menyu hər dəfə bağlı açılır
             Ui.Hazirla(this); YerlesdirBaslig();
-            // Sınaq üçün: baza boşdursa bir dəfə 10 nümunə texnika yazılır
-            if (await SistemRepo.ParamStrAsync("Numune10") == null && await TexnikaRepo.SayAsync(new ReyestrFiltr()) == 0)
-            { await DemoData.On10Async(Session.ZavodFiltri); await SistemRepo.ParamYazAsync("Numune10", "1"); }
             await AcAsync("home");
             _ = OnHazirlaAsync();
             _badge.Start(); _idle.Start();
