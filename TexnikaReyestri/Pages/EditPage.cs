@@ -426,7 +426,7 @@ namespace TexnikaReyestri.Pages
             if (id == null)
             {
                 r["TemirZavodu"] = Session.ZavodFiltri; r["Status"] = "Qəbul edilib"; r["MuddetVahidi"] = "Gün";
-                r["DaxilolmaTarixi"] = Vaxt.Iso(DateTime.Today); r["MesulIcraci"] = Session.AdSoyad;   // məsul icraçı: daxil edən istifadəçi (dəyişdirilə bilər)
+                r["DaxilolmaTarixi"] = r["BaslamaTarixi"] = Vaxt.Iso(DateTime.Today); r["MesulIcraci"] = Session.AdSoyad;   // məsul icraçı: daxil edən istifadəçi (dəyişdirilə bilər)
             }
             foreach (var s in Saheler.Hamisi)
             {
