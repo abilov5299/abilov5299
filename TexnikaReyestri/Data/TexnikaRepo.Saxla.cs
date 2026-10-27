@@ -39,8 +39,7 @@ namespace TexnikaReyestri.Data
             }
             var deyisen = Saheler.Hamisi.Where(s => deyerler.ContainsKey(s.Kod) && Str(kohne.GetValueOrDefault(s.Kod)) != Str(deyerler[s.Kod])).ToList();
             string tguid = kohne.GetValueOrDefault("Guid") as string;
-            if (tguid != null) await SorguRepo.TexnikaUzreYenileAsync(con, tr, tguid);   // məktubların hissə siyahısı və nəticəsi
-            if (deyisen.Count == 0) return id.Value;
+            if (deyisen.Count == 0) { if (tguid != null) await SorguRepo.TexnikaUzreYenileAsync(con, tr, tguid); return id.Value; }
             using (var upd = con.CreateCommand())
             {
                 upd.Transaction = tr;
@@ -52,6 +51,7 @@ namespace TexnikaReyestri.Data
             foreach (var s in deyisen)
                 if (Saheler.Json.Contains(s.Kod)) await Tarixce(con, tr, id.Value, s.Ad, TexnikaJson.Metn(s.Kod, kohne.GetValueOrDefault(s.Kod)), TexnikaJson.Metn(s.Kod, deyerler[s.Kod]));
                 else await Tarixce(con, tr, id.Value, s.Ad, Str(kohne.GetValueOrDefault(s.Kod)), Str(deyerler[s.Kod]));
+            if (tguid != null) await SorguRepo.TexnikaUzreYenileAsync(con, tr, tguid);   // məktubların hissə siyahısı, nəticəsi və təminat
             return id.Value;
         });
 

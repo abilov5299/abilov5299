@@ -159,6 +159,16 @@ FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z);";
                 u.Parameters.AddWithValue("$h", JsonSerializer.Serialize(his)); u.Parameters.AddWithValue("$n", netice); u.Parameters.AddWithValue("$d", Vaxt.Indi); u.Parameters.AddWithValue("$i", id);
                 await u.ExecuteNonQueryAsync();
             }
+            // Hissəsi yazılmamış texnika məktuba bağlıdırsa — "Təminat gözlənilir"; məktubu da yoxdursa — boş
+            using (var t = con.CreateCommand())
+            {
+                t.Transaction = tr;
+                t.CommandText = @"UPDATE Texnikalar SET Teminat=$tm, Versiya=Versiya+1, Deyisdi=$d
+ WHERE Guid=$tg AND IFNULL(Hisseler,'[]')='[]' AND IFNULL(Teminat,'')<>IFNULL($tm,'');";
+                t.Parameters.AddWithValue("$tm", sorgular.Count > 0 ? "Təminat gözlənilir" : DBNull.Value);
+                t.Parameters.AddWithValue("$tg", texGuid); t.Parameters.AddWithValue("$d", Vaxt.Indi);
+                await t.ExecuteNonQueryAsync();
+            }
         }
 
         /// <summary>Texnikanı məktubun texnika siyahısına əlavə edir (artıq varsa, dəyişmir).</summary>
