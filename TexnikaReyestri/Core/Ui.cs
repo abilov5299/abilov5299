@@ -1,4 +1,4 @@
-using TexnikaReyestri.Controls;
+﻿using TexnikaReyestri.Controls;
 using TexnikaReyestri.Data;
 using TexnikaReyestri.Forms;
 
@@ -29,6 +29,42 @@ namespace TexnikaReyestri.Core
             bool Olar(char ch) => char.IsDigit(ch) || kesr && ch is ',' or '.';
             t.KeyPress += (_, e) => e.Handled = !char.IsControl(e.KeyChar) && !Olar(e.KeyChar) || e.KeyChar is ',' or '.' && (t.Text.Contains(',') || t.Text.Contains('.'));
             t.TextChanged += (_, _) => { var r = new string(t.Text.Where(Olar).ToArray()); if (r != t.Text) { t.Text = r; t.SelectionStart = r.Length; } };
+        }
+
+        /// <summary>
+        /// Axtarışlı seçim pəncərəsi: yazılan mətn siyahıda (hərf böyüklüyündən asılı olmayaraq, sözün istənilən yerində) axtarılır.
+        /// Seçilmiş elementin ilkin siyahıdakı indeksi qaytarılır; imtina — -1.
+        /// </summary>
+        public static int SiyahidanSec(IWin32Window owner, string basliq, string ipucu, IReadOnlyList<string> items)
+        {
+            using var f = new Form { Text = Lang.T(basliq), Size = new Size(620, 500), StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog,
+                                     MinimizeBox = false, MaximizeBox = false, BackColor = Theme.Card, Font = new Font("Segoe UI", 10f), Padding = new Padding(12), KeyPreview = true };
+            var axt = new RoundTextBox { Dock = DockStyle.Top, Height = 32, PlaceholderText = Lang.T(ipucu) };
+            var lb = new ListBox { Dock = DockStyle.Fill, BorderStyle = BorderStyle.None, BackColor = Theme.Card, ForeColor = Theme.Ink, IntegralHeight = false, ItemHeight = 24 };
+            var ok = new FlatButton { Text = Lang.T("Seç"), Glyph = Icons.Check, Dock = DockStyle.Bottom, Height = 38 };
+            f.Controls.Add(lb); f.Controls.Add(new Panel { Dock = DockStyle.Top, Height = 8 }); f.Controls.Add(axt); f.Controls.Add(ok);
+            var idx = new List<int>();
+            void Doldur()
+            {
+                string q = axt.Text.Trim();
+                idx = Enumerable.Range(0, items.Count).Where(i => q.Length == 0 || items[i].Contains(q, StringComparison.CurrentCultureIgnoreCase)).ToList();
+                lb.BeginUpdate(); lb.Items.Clear(); lb.Items.AddRange(idx.Select(i => (object)items[i]).ToArray()); lb.EndUpdate();
+                if (lb.Items.Count > 0) lb.SelectedIndex = 0;
+                f.Text = $"{Lang.T(basliq)} ({idx.Count})";
+            }
+            axt.TextChanged += (_, _) => Doldur();
+            ok.Click += (_, _) => { if (lb.SelectedIndex >= 0) f.DialogResult = DialogResult.OK; };
+            lb.DoubleClick += (_, _) => { if (lb.SelectedIndex >= 0) f.DialogResult = DialogResult.OK; };
+            f.KeyDown += (_, e) =>
+            {
+                // Axtarış xanasından çıxmadan: ox düymələri siyahıda gəzir, Enter seçir, Esc bağlayır
+                if (e.KeyCode is Keys.Down or Keys.Up && lb.Items.Count > 0) { lb.SelectedIndex = Math.Clamp(lb.SelectedIndex + (e.KeyCode == Keys.Down ? 1 : -1), 0, lb.Items.Count - 1); e.Handled = true; }
+                else if (e.KeyCode == Keys.Enter && lb.SelectedIndex >= 0) { f.DialogResult = DialogResult.OK; e.Handled = true; }
+                else if (e.KeyCode == Keys.Escape) f.DialogResult = DialogResult.Cancel;
+            };
+            Doldur();
+            f.Shown += (_, _) => axt.Focus();
+            return f.ShowDialog(owner) == DialogResult.OK && lb.SelectedIndex >= 0 ? idx[lb.SelectedIndex] : -1;
         }
 
         public static void Melumat(IWin32Window owner, string basliq, string mesaj)

@@ -27,7 +27,9 @@ namespace TexnikaReyestri.Pages
         private readonly Panel pnlKecid = new() { Dock = DockStyle.Top, Height = 46, Visible = false };
         private bool _tam;
         // "Texnika üzrə faktiki material sərfi": texnika və material axtarışı (sərf tarixi — aşağıdakı dövr)
-        private readonly RoundTextBox txtTex = new() { PlaceholderText = "Texnika / zavod nömrəsi", Width = 260, Font = new Font("Segoe UI", 10f), Margin = new Padding(0, 6, 10, 0) };
+        private readonly FlatButton btnTex = new() { Text = "Texnika seç", Glyph = Icons.List, Kind = ButtonKind.Secondary, Size = new Size(150, 34), Margin = new Padding(0, 6, 8, 0) };
+        private readonly FlatButton btnTexHamisi = new() { Text = "Bütün texnikalar", Kind = ButtonKind.Ghost, Size = new Size(150, 34), Margin = new Padding(0, 6, 10, 0) };
+        private SorguTexnika _tex;   // seçilmiş texnika (null — hamısı)
         private readonly RoundTextBox txtMal = new() { PlaceholderText = "Material / ehtiyat hissəsi", Width = 260, Font = new Font("Segoe UI", 10f), Margin = new Padding(0, 6, 10, 0) };
         private readonly FlowLayoutPanel pnlSerf = new() { Dock = DockStyle.Top, Height = 48, Visible = false, WrapContents = false, BackColor = Color.Transparent };
         private readonly System.Windows.Forms.Timer _axtar = new() { Interval = 350 };
@@ -70,8 +72,10 @@ namespace TexnikaReyestri.Pages
             pnlKecid.Resize += (_, _) => fk.Left = Math.Max(0, (pnlKecid.Width - fk.Width) / 2);
             btnTeminsiz.Click += async (_, _) => { _tam = false; await GosterAsync(); };
             btnTam.Click += async (_, _) => { _tam = true; await GosterAsync(); };
-            pnlSerf.Controls.Add(txtTex); pnlSerf.Controls.Add(txtMal);
-            foreach (var x in new[] { txtTex, txtMal }) x.TextChanged += (_, _) => { _axtar.Stop(); _axtar.Start(); };
+            pnlSerf.Controls.Add(btnTex); pnlSerf.Controls.Add(btnTexHamisi); pnlSerf.Controls.Add(txtMal);
+            txtMal.TextChanged += (_, _) => { _axtar.Stop(); _axtar.Start(); };
+            btnTex.Click += async (_, _) => await TexnikaSecAsync();
+            btnTexHamisi.Click += async (_, _) => { _tex = null; await GosterAsync(); };
             _axtar.Tick += async (_, _) => { _axtar.Stop(); await GosterAsync(); };
             rpR.Controls.Add(grid); rpR.Controls.Add(new Panel { Dock = DockStyle.Top, Height = 8 }); rpR.Controls.Add(pnlSerf); rpR.Controls.Add(pnlKecid); rpR.Controls.Add(lblAlt); rpR.Controls.Add(lblAd);
             rpR.Controls.Add(lblQeyd); rpR.Controls.Add(lblXeber); grid.BringToFront();
@@ -118,11 +122,12 @@ namespace TexnikaReyestri.Pages
             DateTime d1 = dtBas.Value.Date, d2 = dtSon.Value.Date; if (d2 < d1) (d1, d2) = (d2, d1);
             string z = Zavod; DateTime t = dtTarix.Value.Date;
             pnlKecid.Visible = nov == 4; pnlSerf.Visible = nov == 5;
-            string tx = txtTex.Text, ml = txtMal.Text;
+            string tx = _tex?.Guid, ml = txtMal.Text; btnTexHamisi.Visible = _tex != null;
             btnTeminsiz.Kind = _tam ? ButtonKind.Ghost : ButtonKind.Primary; btnTam.Kind = _tam ? ButtonKind.Primary : ButtonKind.Ghost;
             bool tam = _tam;
             _h = await Task.Run(() => TexnikaRepo.HesabatAsync(nov, z, t, d1, d2, tam, tx, ml));
             _xeber = await TexnikaRepo.KohneMelumatAsync(z);
+            if (nov == 5 && _tex != null) _h = _h with { Ad = $"{_tex.Marka} ({_tex.ZavodNo}) — {Lang.T("texnikanın faktiki material sərfi")}" };   // seçilmiş texnikanın hesabatı
             lblAd.Text = Lang.T(_h.Ad).ToUpper(); lblAlt.Text = AltBasliq; lblQeyd.Text = Lang.T(_h.Qeyd);
             lblXeber.Text = _xeber.Count == 0 ? "" : "⚠  " + string.Join("   ", _xeber);
             lblXeber.Height = _xeber.Count == 0 ? 0 : 30; lblXeber.BackColor = Theme.Mix(Theme.Warn, Theme.Card, 0.82f); lblXeber.ForeColor = Theme.Ink;
@@ -141,6 +146,16 @@ namespace TexnikaReyestri.Pages
 
         /// <summary>Çap və Excel üçün: ehtiyat hissələri hesabatında hansı siyahı olduğu başlıqda yazılır.</summary>
         private Hesabat Cap => cmbNov.SelectedIndex == 4 ? _h with { Ad = $"{Lang.T(_h.Ad)} — {Lang.T(_tam ? "Tam təmin edilmiş ehtiyat hissələri" : "Təmin edilməmiş ehtiyat hissələri")}" } : _h;
+
+        /// <summary>Faktiki sərf hesabatı üçün texnika: zavodun bütün texnikaları arasında axtarış.</summary>
+        private async Task TexnikaSecAsync()
+        {
+            var l = await SorguRepo.TexnikaAxtarAsync("", Zavod, 0);
+            int i = Ui.SiyahidanSec(FindForm(), "Texnika seç", "Zavod nömrəsi, naryad nömrəsi və ya marka", l.Select(x => $"{x.Marka} · {x.ZavodNo} · {Lang.T(Secimler.Ekran(x.Status))}").ToList());
+            if (i < 0) return;
+            _tex = l[i];
+            await GosterAsync();
+        }
 
         private string FaylAdi(string ext) => $"Hesabat_{TexnikaRepo.HesabatNovleri[cmbNov.SelectedIndex].Replace(" ", "_").Replace(",", "")}{(cmbNov.SelectedIndex == 4 ? (_tam ? "_tam" : "_temin_edilmemis") : "")}_{dtTarix.Value:yyyyMMdd}.{ext}";
 

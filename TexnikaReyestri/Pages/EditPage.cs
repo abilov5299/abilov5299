@@ -290,6 +290,13 @@ namespace TexnikaReyestri.Pages
             var bS = Btn("Yadda saxla", Icons.Save); bS.Margin = new Padding(0, 26, 12, 6); bS.Click += async (_, _) => await SerfElaveAsync();
             st.Controls.Add(bS, 2, 1);
             sMal.SelectedIndexChanged += (_, _) => MalSecildi();
+            // Siyahı uzun olur: açılan siyahı əvəzinə axtarış pəncərəsi
+            sMal.DropDown += (_, _) => BeginInvoke(() =>
+            {
+                sMal.DroppedDown = false;
+                int i = Ui.SiyahidanSec(FindForm(), "Material / ehtiyat hissəsi", "Ad və ya kod üzrə axtarış", sMal.Items.Cast<object>().Select(x => x.ToString()).ToList());
+                if (i >= 0) sMal.SelectedIndex = i;
+            });
             var ip = Ipucu("Anbardan seçiləndə qalıqdan çox yazmaq olmaz. \"Yeni ad\" ilə yazılan material anbardan çıxılmır. Yadda saxlanmış qeyd silinmir.");
             st.Controls.Add(ip, 0, 2); st.SetColumnSpan(ip, 4);
             gridSerf = Grid(("Ad", "Materialın / ehtiyat hissəsinin adı", 260), ("Kod", "Kodu", 120), ("Vahid", "Ölçü vahidi", 110), ("Miqdar", "Sərf edilmiş miqdar", 150), ("Tarix", "Sərf tarixi", 120), ("Menbe", "Mənbə", 140));

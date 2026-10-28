@@ -18,7 +18,7 @@
         /// <summary>Dövr (Başlanğıc – Son) istifadə edən hesabatlar.</summary>
         public static bool DovrLazim(int nov) => nov is 1 or 5 or 6;
 
-        /// <summary>nov: HesabatNovleri indeksi. texnika, material: faktiki sərf hesabatında axtarış. tamTemin: ehtiyat hissələri hesabatında tam təmin edilmişlər (əks halda qalığı olanlar). zavod: null = bütün zavodlar. tarix: hesabat tarixi (müddət hesabı üçün). d1, d2: dövr.</summary>
+        /// <summary>nov: HesabatNovleri indeksi. texnika (Guid), material: faktiki sərf hesabatında seçim və axtarış. tamTemin: ehtiyat hissələri hesabatında tam təmin edilmişlər (əks halda qalığı olanlar). zavod: null = bütün zavodlar. tarix: hesabat tarixi (müddət hesabı üçün). d1, d2: dövr.</summary>
         public static async Task<Hesabat> HesabatAsync(int nov, string zavod, DateTime tarix, DateTime d1, DateTime d2, bool tamTemin = false, string texnika = null, string material = null)
         {
             await using var con = await LocalDb.AcAsync();
@@ -93,14 +93,15 @@
                         $"{Core.Lang.T(tamTemin ? "Tam təmin edilmiş ehtiyat hissələri" : "Təmin edilməmiş ehtiyat hissələri")}: {hr.Count}");
                 case 5:
                     // Texnika kartlarındakı "Faktiki sərfiyyat" qeydləri: sərf tarixi dövrdədir; texnika və material üzrə cəmlənir
-                    c.CommandText = $"SELECT IFNULL(Marka,''), IFNULL(ZavodNo,''), Serfiyyat FROM Texnikalar WHERE {zw} AND IFNULL(Serfiyyat,'')<>'' ORDER BY Marka, ZavodNo;";
+                    // texnika: seçilmiş texnikanın Guid-i (null — hamısı)
+                    c.CommandText = $"SELECT IFNULL(Marka,''), IFNULL(ZavodNo,''), Serfiyyat FROM Texnikalar WHERE {zw} AND IFNULL(Serfiyyat,'')<>'' AND ($tg IS NULL OR Guid=$tg) ORDER BY Marka, ZavodNo;";
+                    c.Parameters.AddWithValue("$tg", (object)texnika ?? DBNull.Value);
                     var sr = new List<string[]>();
-                    string tq = (texnika ?? "").Trim(), mq = (material ?? "").Trim();
+                    string mq = (material ?? "").Trim();
                     await using (var r = await c.ExecuteReaderAsync())
                         while (await r.ReadAsync())
                         {
                             string tex = $"{r.GetString(0)} ({r.GetString(1)})";
-                            if (tq.Length > 0 && !tex.Contains(tq, StringComparison.CurrentCultureIgnoreCase)) continue;
                             foreach (var g in TexnikaJson.Serfler(r.GetString(2))
                                          .Where(x => string.CompareOrdinal(x.Tarix ?? "", Vaxt.Iso(d1)) >= 0 && string.CompareOrdinal(x.Tarix ?? "", Vaxt.Iso(d2)) <= 0)
                                          .Where(x => mq.Length == 0 || (x.Ad ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase) || (x.Kod ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase))
