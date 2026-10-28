@@ -43,9 +43,11 @@
             new("GecikmeSebebi", "Gecikmənin və ya plan dəyişikliyinin səbəbi", SaheNov.Metn, "Təmirin icrası"),
             new("ProqnozBitme", "Gözlənilən bitmə tarixi", SaheNov.Tarix, "Təmirin icrası"),
             new("YeniPlanBitme", "Yeni plan üzrə bitmə tarixi", SaheNov.Tarix, "Təmirin icrası"),
-            // 4. Ehtiyat hissələri (məktublar Sorgular cədvəlindədir)
+            // Köhnə: texnikanın ehtiyat hissələri (indi hissələr məktubdadır — Sorgular.Hisseler; formada göstərilmir)
             new("Hisseler", "Ehtiyat hissələri", SaheNov.Metn, "Ehtiyat hissələri və məktublar"),
             new("Teminat", "Ehtiyat hissələrinin təminatı", SaheNov.Secim, "Ehtiyat hissələri və məktublar"),
+            // Faktiki sərfiyyat (formada 4-cü bölmə)
+            new("Serfiyyat", "Faktiki sərfiyyat", SaheNov.Metn, "Faktiki sərfiyyat"),
             // 5. Təmirin tamamlanması və təhvil
             new("FaktikiBitme", "Təmirin faktiki tamamlanma tarixi", SaheNov.Tarix, "Təmirin tamamlanması və təhvil"),
             new("GorulenIsler", "Yerinə yetirilmiş işlər haqqında qeyd", SaheNov.Metn, "Təmirin tamamlanması və təhvil"),
@@ -56,7 +58,7 @@
         };
 
         /// <summary>JSON siyahı saxlanılan sahələr (göstəricilər, ehtiyat hissələri): Excel idxalında seçilmir, ixracda mətnə çevrilir.</summary>
-        public static readonly HashSet<string> Json = new() { "Gostericiler", "Hisseler" };
+        public static readonly HashSet<string> Json = new() { "Gostericiler", "Hisseler", "Serfiyyat" };
 
         // Reyestrin Excel ixracında ("yalnız reyestr sütunları") olan sahələr
         public static readonly string[] Reyestr = { "Nov", "Marka", "ZavodNo", "TemirZavodu", "Status", "Teminat", "MesulIcraci", "GozlenilenBitme" };

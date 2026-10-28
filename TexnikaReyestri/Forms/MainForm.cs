@@ -154,7 +154,7 @@ namespace TexnikaReyestri.Forms
             if (_pages.TryGetValue(key, out var page)) return page;
             page = key switch
             {
-                "home" => new HomePage(), "list" => new RegistryPage(), "add" or "red" => new EditPage(), "tech" => new TechizatPage(), "sorgu" => new SorguYaratPage(), "rep" => new HesabatPage(),
+                "home" => new HomePage(), "list" => new RegistryPage(), "add" or "red" => new EditPage(), "tech" => new TeminatPage(), "sorgu" => new SorguYaratPage(), "rep" => new HesabatPage(),
                 "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "set" => new TenzimlemePage(), "help" => new TelimatPage(),
                 _ => throw new ArgumentException(key)
             };
@@ -202,7 +202,7 @@ namespace TexnikaReyestri.Forms
         /// <param name="bolme">Açılacaq bölmə (0–3).</param>
         /// <summary>id = null — yeni texnika ("Texnika əlavə et"); əks halda redaktə ayrıca səhifədə açılır, əlavə etmə forması toxunulmaz qalır.</summary>
         /// <summary>"Sorğu yarat" səhifəsində məktubu (və texnikanı) açır.</summary>
-        public Task SorguAcAsync(long sorguId, string texGuid = null) => AcAsync("sorgu", p => ((SorguYaratPage)p).YukleAsync(sorguId, texGuid));
+        public Task SorguAcAsync(long sorguId) => AcAsync("sorgu", p => ((SorguYaratPage)p).YukleAsync(sorguId));
         public Task RedakteAcAsync(long? id, int bolme = 0) => AcAsync(id == null ? "add" : "red", p => ((EditPage)p).YukleAsync(id, bolme));
 
         // ---------------- Bildiriş nişanı ----------------

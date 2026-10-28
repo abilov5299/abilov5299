@@ -128,7 +128,7 @@
             // 
             this.navTech.Glyph = "\uE719";
             this.navTech.Size = new System.Drawing.Size(64, 52);
-            this.navTech.ToolTipText = "Təchizat sorğuları";
+            this.navTech.ToolTipText = "Sorğular üzrə təminat";
             this.navTech.PageKey = "tech";
             this.navTech.Name = "navTech";
             this.navTech.Click += new System.EventHandler(this.nav_Click);

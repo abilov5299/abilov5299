@@ -26,6 +26,11 @@ namespace TexnikaReyestri.Pages
         private readonly FlatButton btnTam = new() { Text = "Tam təmin edilmiş ehtiyat hissələri", Size = new Size(260, 36), Kind = ButtonKind.Ghost, Margin = new Padding(0) };
         private readonly Panel pnlKecid = new() { Dock = DockStyle.Top, Height = 46, Visible = false };
         private bool _tam;
+        // "Texnika üzrə faktiki material sərfi": texnika və material axtarışı (sərf tarixi — aşağıdakı dövr)
+        private readonly RoundTextBox txtTex = new() { PlaceholderText = "Texnika / zavod nömrəsi", Width = 260, Font = new Font("Segoe UI", 10f), Margin = new Padding(0, 6, 10, 0) };
+        private readonly RoundTextBox txtMal = new() { PlaceholderText = "Material / ehtiyat hissəsi", Width = 260, Font = new Font("Segoe UI", 10f), Margin = new Padding(0, 6, 10, 0) };
+        private readonly FlowLayoutPanel pnlSerf = new() { Dock = DockStyle.Top, Height = 48, Visible = false, WrapContents = false, BackColor = Color.Transparent };
+        private readonly System.Windows.Forms.Timer _axtar = new() { Interval = 350 };
         private Label lblZavod; private Hesabat _h; private List<string> _xeber = new(); private bool _hazir;
 
         public HesabatPage()
@@ -65,7 +70,10 @@ namespace TexnikaReyestri.Pages
             pnlKecid.Resize += (_, _) => fk.Left = Math.Max(0, (pnlKecid.Width - fk.Width) / 2);
             btnTeminsiz.Click += async (_, _) => { _tam = false; await GosterAsync(); };
             btnTam.Click += async (_, _) => { _tam = true; await GosterAsync(); };
-            rpR.Controls.Add(grid); rpR.Controls.Add(new Panel { Dock = DockStyle.Top, Height = 8 }); rpR.Controls.Add(pnlKecid); rpR.Controls.Add(lblAlt); rpR.Controls.Add(lblAd);
+            pnlSerf.Controls.Add(txtTex); pnlSerf.Controls.Add(txtMal);
+            foreach (var x in new[] { txtTex, txtMal }) x.TextChanged += (_, _) => { _axtar.Stop(); _axtar.Start(); };
+            _axtar.Tick += async (_, _) => { _axtar.Stop(); await GosterAsync(); };
+            rpR.Controls.Add(grid); rpR.Controls.Add(new Panel { Dock = DockStyle.Top, Height = 8 }); rpR.Controls.Add(pnlSerf); rpR.Controls.Add(pnlKecid); rpR.Controls.Add(lblAlt); rpR.Controls.Add(lblAd);
             rpR.Controls.Add(lblQeyd); rpR.Controls.Add(lblXeber); grid.BringToFront();
             var orta = new Panel { Dock = DockStyle.Fill };
             orta.Controls.Add(rpR); orta.Controls.Add(new Panel { Dock = DockStyle.Left, Width = 12 }); orta.Controls.Add(rpL);
@@ -109,10 +117,11 @@ namespace TexnikaReyestri.Pages
             for (int i = 0; i < lst.Controls.Count; i++) ((FlatButton)lst.Controls[i]).Kind = i == nov ? ButtonKind.Secondary : ButtonKind.Ghost;
             DateTime d1 = dtBas.Value.Date, d2 = dtSon.Value.Date; if (d2 < d1) (d1, d2) = (d2, d1);
             string z = Zavod; DateTime t = dtTarix.Value.Date;
-            pnlKecid.Visible = nov == 4;
+            pnlKecid.Visible = nov == 4; pnlSerf.Visible = nov == 5;
+            string tx = txtTex.Text, ml = txtMal.Text;
             btnTeminsiz.Kind = _tam ? ButtonKind.Ghost : ButtonKind.Primary; btnTam.Kind = _tam ? ButtonKind.Primary : ButtonKind.Ghost;
             bool tam = _tam;
-            _h = await Task.Run(() => TexnikaRepo.HesabatAsync(nov, z, t, d1, d2, tam));
+            _h = await Task.Run(() => TexnikaRepo.HesabatAsync(nov, z, t, d1, d2, tam, tx, ml));
             _xeber = await TexnikaRepo.KohneMelumatAsync(z);
             lblAd.Text = Lang.T(_h.Ad).ToUpper(); lblAlt.Text = AltBasliq; lblQeyd.Text = Lang.T(_h.Qeyd);
             lblXeber.Text = _xeber.Count == 0 ? "" : "⚠  " + string.Join("   ", _xeber);

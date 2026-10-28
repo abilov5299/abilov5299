@@ -109,6 +109,15 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **28.10:** Proqramın adı "Təmir və Texniki Təminat Xidməti · Məlumat bazası". "Texnika əlavə et" formasının 4-cü bölməsi çıxarıldı (indi 4 bölmə). Menyuda yeni **"Sorğu yarat"** səhifəsi (`Pages/SorguYaratPage.cs`): 1) məktub yaradılır/seçilir → 2) texnikaya bağlanır → 3) seçilmiş texnikanın ehtiyat hissələri və qəbulu → 4) icra qeydləri; hər addım dərhal yazılır. Təchizat sorğularındakı "Sorğunu aç" düyməsi bu səhifəni açır. Nümunə: `docs/numune-sorgu-yarat.html`. "Texnika seç" pəncərəsi zavodun bütün texnikalarını göstərir (əvvəl 30 ilə məhdud idi), sayı başlıqdadır.
 
+**28.10 (təminat və sərfiyyat — yeni məntiq):** Nümunə: `docs/numune-teminat-serfiyyat.html`.
+- **Sorğu yarat:** məktub → hissələr **məktuba** yazılır (`Sorgular.Hisseler`: ad, kod, vahid, tələb, qəbullar, "hansı texnika üçün" — yalnız məlumat, texnika bağlanmır, statusu/təminatı dəyişmir) → qəbul (zavodun anbarına düşür) → icra qeydləri. Məktubun nəticəsi öz hissələrindən hesablanır.
+- **Sorğular üzrə təminat** (`Pages/TeminatPage.cs`, köhnə "Təchizat sorğuları" səhifəsini əvəz edir): hər sətir məktubun hissəsi — tələb, qəbul, texnikaya sərf, anbarda qalıq. Filtr: zavod, məktub, vəziyyət, tarix, təmin edən, axtarış; Excel/PDF, məktub sənədi.
+- **Anbar** zavod üzrə ümumidir (ad+kod+vahid); sərf ilk qəbul tarixinə görə paylanır (`SorguRepo.TeminatAsync/AnbarAsync`).
+- **Texnika forması 5 bölmə:** "4. Faktiki sərfiyyat" (`Texnikalar.Serfiyyat` JSON): anbardan seçim (qalıqdan çox olmaz) və ya "Yeni ad" (anbardan çıxılmır); yadda saxlanmış qeyd silinmir. Geniş baxışda "Faktiki sərfiyyat" kartı.
+- **Status "Təminat gözləyir"** (yeni bazadakı dəyər, əllə seçilir): aktiv statuslar siyahısına daxildir; ana səhifədə "hissə gözləyən" sayı bu statusdan.
+- **Hesabat "Texnika üzrə faktiki material sərfi"** (nov 5): texnika/material axtarışı, sərf tarixi = dövr. "Ehtiyat hissələri üzrə təminat" məktubun hissələrindən.
+- **Köçürmə** (`Miqrasiya.HisseMektuba`, bir dəfə, `Miqrasiyalar` cədvəli): texnikadakı köhnə hissələr ona bağlı ən son məktuba keçir; texnikadakı siyahı silinmir.
+
 **28.10 (hesabat):** "Ehtiyat hissələri üzrə təminat" hesabatı hər ehtiyat hissəsi üzrə sətirlərdir (məktub, texnika, ad/kod, vahid, tələb, qəbul, qalıq, təmin edən). İki keçid: "Təmin edilməmiş" (ilkin; qalığı > 0) və "Tam təmin edilmiş" (qalıq 0 olanda avtomatik keçir). Çap və Excel başlığında seçilmiş siyahının adı yazılır; PDF-də bu hesabatın sütun enləri genişdir.
 
 **27.10:** Mövcud texnikada yadda saxlanmış məktubu ayırmaq və ehtiyat hissəsini silmək olmaz (xəbərdarlıq çıxır); yeni texnikada saxlanana qədər mümkündür.

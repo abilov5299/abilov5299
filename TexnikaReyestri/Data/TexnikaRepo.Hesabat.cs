@@ -8,18 +8,18 @@
         public static readonly string[] HesabatNovleri =
         {
             "Ümumi icra vəziyyəti", "Qəbul, təmir və təhvil", "İcra müddəti üzrə nəzarət",
-            "Təhvil gözlənilən texnikalar", "Ehtiyat hissələri üzrə təminat", "Məktubların icra vəziyyəti"
+            "Təhvil gözlənilən texnikalar", "Ehtiyat hissələri üzrə təminat", "Texnika üzrə faktiki material sərfi", "Məktubların icra vəziyyəti"
         };
         public static readonly string[] HesabatAdlari =
         {
             "Zavodlar üzrə ümumi icra vəziyyəti", "Dövr ərzində qəbul, təmir və təhvil", "İcra müddəti üzrə nəzarət",
-            "Təmiri tamamlanıb, təhvil gözlənilən texnikalar", "Ehtiyat hissələri üzrə təminat", "Məktubların icra vəziyyəti"
+            "Təmiri tamamlanıb, təhvil gözlənilən texnikalar", "Ehtiyat hissələri üzrə təminat", "Texnika üzrə faktiki material sərfi", "Məktubların icra vəziyyəti"
         };
         /// <summary>Dövr (Başlanğıc – Son) istifadə edən hesabatlar.</summary>
-        public static bool DovrLazim(int nov) => nov is 1 or 5;
+        public static bool DovrLazim(int nov) => nov is 1 or 5 or 6;
 
-        /// <summary>nov: HesabatNovleri indeksi. tamTemin: ehtiyat hissələri hesabatında tam təmin edilmişlər (əks halda qalığı olanlar). zavod: null = bütün zavodlar. tarix: hesabat tarixi (müddət hesabı üçün). d1, d2: dövr.</summary>
-        public static async Task<Hesabat> HesabatAsync(int nov, string zavod, DateTime tarix, DateTime d1, DateTime d2, bool tamTemin = false)
+        /// <summary>nov: HesabatNovleri indeksi. texnika, material: faktiki sərf hesabatında axtarış. tamTemin: ehtiyat hissələri hesabatında tam təmin edilmişlər (əks halda qalığı olanlar). zavod: null = bütün zavodlar. tarix: hesabat tarixi (müddət hesabı üçün). d1, d2: dövr.</summary>
+        public static async Task<Hesabat> HesabatAsync(int nov, string zavod, DateTime tarix, DateTime d1, DateTime d2, bool tamTemin = false, string texnika = null, string material = null)
         {
             await using var con = await LocalDb.AcAsync();
             using var c = con.CreateCommand();
@@ -81,26 +81,34 @@
                     return new Hesabat(HesabatAdlari[nov], new[] { "Zavod", "Texnika", "Zavod nömrəsi", "Faktiki bitmə", "Gözləyir (gün)" }, l, new[] { "Cəmi", l.Count + " texnika", "", "", "" },
                         "Faktiki bitmə tarixi yazılıb, status hələ \"Təhvil verilib\" deyil");
                 case 4:
-                    // Bölgü hər ehtiyat hissəsi üzrədir: eyni məktubun hissələri hər iki siyahıda ola bilər. Qalıq = tələb olunan − qəbul edilmiş.
-                    var texHis = new Dictionary<string, List<Hisse>>();
-                    c.CommandText = "SELECT Guid, Hisseler FROM Texnikalar WHERE Silinib=0 AND IFNULL(Hisseler,'[]')<>'[]';";
-                    await using (var r = await c.ExecuteReaderAsync())
-                        while (await r.ReadAsync()) texHis[r.GetString(0)] = TexnikaJson.Hisseler(r.IsDBNull(1) ? null : r.GetString(1));
-                    c.CommandText = "SELECT MektubNo, QeydTarixi, TeminEden, Texnikalar FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z) ORDER BY QeydTarixi DESC, Id DESC;";
+                    // Bölgü hər ehtiyat hissəsi üzrədir (məktubun hissələri): eyni məktubun hissələri hər iki siyahıda ola bilər. Qalıq = tələb olunan − qəbul edilmiş.
                     var hr = new List<string[]>();
+                    foreach (var x in await SorguRepo.TeminatAsync(zavod))
+                    {
+                        double qal = Math.Max(0, x.Teleb - x.Qebul);
+                        if ((qal <= 0) != tamTemin) continue;
+                        hr.Add(new[] { $"{x.MektubNo} · {Vaxt.Tarix(x.MektubTarix)}", x.Texnika ?? "", x.Ad + (string.IsNullOrEmpty(x.Kod) ? "" : " / " + x.Kod), x.Vahid, F(x.Teleb), F(x.Qebul), F(qal), x.TeminEden });
+                    }
+                    return new Hesabat(HesabatAdlari[nov], new[] { "Məktubun nömrəsi və tarixi", "Hansı texnika üçün", "Ehtiyat hissəsinin adı / kodu", "Ölçü vahidi", "Tələb olunan", "Qəbul edilmiş", "Qalıq", "Təmin edən qurum" }, hr, null,
+                        $"{Core.Lang.T(tamTemin ? "Tam təmin edilmiş ehtiyat hissələri" : "Təmin edilməmiş ehtiyat hissələri")}: {hr.Count}");
+                case 5:
+                    // Texnika kartlarındakı "Faktiki sərfiyyat" qeydləri: sərf tarixi dövrdədir; texnika və material üzrə cəmlənir
+                    c.CommandText = $"SELECT IFNULL(Marka,''), IFNULL(ZavodNo,''), Serfiyyat FROM Texnikalar WHERE {zw} AND IFNULL(Serfiyyat,'')<>'' ORDER BY Marka, ZavodNo;";
+                    var sr = new List<string[]>();
+                    string tq = (texnika ?? "").Trim(), mq = (material ?? "").Trim();
                     await using (var r = await c.ExecuteReaderAsync())
                         while (await r.ReadAsync())
                         {
-                            string mek = $"{(r.IsDBNull(0) ? "" : r.GetString(0))} · {Vaxt.Tarix(r.IsDBNull(1) ? null : r.GetString(1))}", temin = r.IsDBNull(2) ? "" : r.GetString(2);
-                            foreach (var t in SorguRepo.TexnikaJson(r.IsDBNull(3) ? null : r.GetString(3)))
-                                foreach (var hs in texHis.GetValueOrDefault(t.Guid) ?? new())
-                                {
-                                    if ((hs.Qaliq <= 0) != tamTemin) continue;
-                                    hr.Add(new[] { mek, $"{t.Marka} ({t.ZavodNo})", hs.Ad + (string.IsNullOrEmpty(hs.Kod) ? "" : " / " + hs.Kod), hs.Vahid, F(hs.Teleb), F(hs.Qebul), F(hs.Qaliq), temin });
-                                }
+                            string tex = $"{r.GetString(0)} ({r.GetString(1)})";
+                            if (tq.Length > 0 && !tex.Contains(tq, StringComparison.CurrentCultureIgnoreCase)) continue;
+                            foreach (var g in TexnikaJson.Serfler(r.GetString(2))
+                                         .Where(x => string.CompareOrdinal(x.Tarix ?? "", Vaxt.Iso(d1)) >= 0 && string.CompareOrdinal(x.Tarix ?? "", Vaxt.Iso(d2)) <= 0)
+                                         .Where(x => mq.Length == 0 || (x.Ad ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase) || (x.Kod ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase))
+                                         .GroupBy(x => (Ad: (x.Ad ?? "").Trim(), Kod: (x.Kod ?? "").Trim(), Vahid: (x.Vahid ?? "").Trim())))
+                                sr.Add(new[] { tex, g.Key.Ad + (g.Key.Kod.Length == 0 ? "" : " / " + g.Key.Kod), g.Key.Vahid, F(g.Sum(x => x.Miqdar)) });
                         }
-                    return new Hesabat(HesabatAdlari[nov], new[] { "Məktubun nömrəsi və tarixi", "Əlaqəli texnika", "Ehtiyat hissəsinin adı / kodu", "Ölçü vahidi", "Tələb olunan", "Qəbul edilmiş", "Qalıq", "Təmin edən qurum" }, hr, null,
-                        $"{Core.Lang.T(tamTemin ? "Tam təmin edilmiş ehtiyat hissələri" : "Təmin edilməmiş ehtiyat hissələri")}: {hr.Count}");
+                    return new Hesabat(HesabatAdlari[nov], new[] { "Texnika / zavod nömrəsi", "Materialın və ya ehtiyat hissəsinin adı", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar" }, sr, null,
+                        $"{Core.Lang.T("Sərf tarixi")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}. {Core.Lang.T("Məlumat texnika kartındakı \"Faktiki sərfiyyat\" qeydlərindən avtomatik gəlir")}.");
                 default:
                     return Cedvel(new[] { "Zavod", "Cəmi məktub", "İcrası davam edir", "İcra başa çatıb", "İcra müddəti keçib" },
                         await Say(@"SELECT Zavod, COUNT(*), SUM(IFNULL(CavabVez,'İcrası davam edir')='İcrası davam edir'), SUM(CavabVez='İcra başa çatıb'),

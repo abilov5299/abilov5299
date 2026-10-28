@@ -104,6 +104,47 @@ INSERT INTO Icmal SELECT IFNULL(TemirZavodu,''), IFNULL(Status,''), COUNT(*) FRO
             return yeni.Keys.ToList();
         }
 
+        /// <summary>
+        /// Ehtiyat hissələri texnikadan məktuba keçir (bir dəfə). Texnikanın hissələri ona bağlı ən son məktuba yazılır
+        /// ("hansı texnika üçün" = həmin texnika); texnikadakı köhnə siyahı toxunulmaz qalır. Hər kompüterdə eyni nəticə verir.
+        /// </summary>
+        public static void HisseMektuba(SqliteConnection con)
+        {
+            LocalDb.Exec(con, "CREATE TABLE IF NOT EXISTS Miqrasiyalar (Ad TEXT PRIMARY KEY);");
+            using (var k = con.CreateCommand()) { k.CommandText = "SELECT COUNT(*) FROM Miqrasiyalar WHERE Ad='HisseMektuba';"; if ((long)k.ExecuteScalar() > 0) return; }
+            using var tr = con.BeginTransaction();
+            var mektub = new List<(long id, string tarix, List<SorguTexnika> tex)>();
+            using (var c = con.CreateCommand())
+            {
+                c.Transaction = tr; c.CommandText = "SELECT Id, IFNULL(QeydTarixi,''), Texnikalar FROM Sorgular WHERE Silinib=0 AND IFNULL(Texnikalar,'[]')<>'[]';";
+                using var r = c.ExecuteReader();
+                while (r.Read()) mektub.Add((r.GetInt64(0), r.GetString(1), SorguRepo.TexnikaJson(r.GetString(2))));
+            }
+            // texnika → ən son məktub
+            var sahib = new Dictionary<string, (long id, string tarix)>();
+            foreach (var m in mektub) foreach (var t in m.tex)
+                if (!sahib.TryGetValue(t.Guid, out var o) || string.CompareOrdinal(m.tarix, o.tarix) > 0 || (m.tarix == o.tarix && m.id > o.id)) sahib[t.Guid] = (m.id, m.tarix);
+            using var u = con.CreateCommand(); u.Transaction = tr;
+            u.CommandText = "UPDATE Sorgular SET Hisseler=$h, Netice=$n WHERE Id=$i;";
+            var ph = u.Parameters.Add("$h", SqliteType.Text); var pn = u.Parameters.Add("$n", SqliteType.Text); var pi = u.Parameters.Add("$i", SqliteType.Integer);
+            using var q = con.CreateCommand(); q.Transaction = tr; q.CommandText = "SELECT Hisseler FROM Texnikalar WHERE Guid=$g AND Silinib=0;";
+            var pg = q.Parameters.Add("$g", SqliteType.Text);
+            foreach (var m in mektub)
+            {
+                var his = new List<SorguHisse>();
+                foreach (var t in m.tex.Where(t => sahib[t.Guid].id == m.id))
+                {
+                    pg.Value = t.Guid;
+                    foreach (var h in TexnikaJson.Hisseler(q.ExecuteScalar()))
+                        his.Add(new SorguHisse { Ad = h.Ad, Kod = h.Kod, Vahid = h.Vahid, Teleb = h.Teleb, Qebul = h.Qebul, Qebullar = h.Qebullar, Texnika = $"{t.Marka} ({t.ZavodNo})", TexGuid = t.Guid });
+                }
+                ph.Value = JsonSerializer.Serialize(his); pn.Value = SorguRepo.Netice(his); pi.Value = m.id;
+                u.ExecuteNonQuery();
+            }
+            using (var k = con.CreateCommand()) { k.Transaction = tr; k.CommandText = "INSERT INTO Miqrasiyalar VALUES ('HisseMektuba');"; k.ExecuteNonQuery(); }
+            tr.Commit();
+        }
+
         public static bool SutunVar(SqliteConnection con, string cedvel, string sutun)
         {
             using var c = con.CreateCommand(); c.CommandText = $"SELECT COUNT(*) FROM pragma_table_info('{cedvel}') WHERE name=$n;";

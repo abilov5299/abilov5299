@@ -8,24 +8,24 @@ using static TexnikaReyestri.Pages.EditPage;
 namespace TexnikaReyestri.Pages
 {
     /// <summary>
-    /// "Sorğu yarat": 1) məktub yaradılır və ya qeydiyyatdakı məktub seçilir; 2) məktub texnikalara bağlanır;
-    /// 3) seçilmiş texnikanın ehtiyat hissələri və qəbulu; 4) məktubun icrası üzrə qeydlər. Hər addım dərhal yazılır.
+    /// "Sorğu yarat": 1) məktub yaradılır və ya qeydiyyatdakı məktub seçilir; 2) məktuba ehtiyat hissələri və materiallar əlavə olunur
+    /// ("hansı texnika üçün" yalnız məlumatdır: texnika bağlanmır, statusu dəyişmir), qəbulu qeyd olunur və zavodun anbarına düşür;
+    /// 3) məktubun icrası üzrə qeydlər. Hər addım dərhal yazılır.
     /// </summary>
     public class SorguYaratPage : PageBase
     {
         private Sorgu _s;                          // cari məktub (null — hələ yaradılmayıb/seçilməyib)
         private bool _redakte;                     // panel mövcud məktubu dəyişir
-        private long? _texId; private string _texGuid;
-        private List<Hisse> _hisseler = new();
+        private SorguTexnika _hTex;                // yeni hissə: hansı texnika üçün (null — göstərilməyib)
 
         private readonly Dictionary<string, Control> _mk = new();
         private readonly Dictionary<ComboBox, List<string>> _orig = new();
         private RoundPanel pnlMektub, pnlHisse, pnlQebul, pnlQeyd;
-        private Label lblMektub, lblHisse;
-        private ModernGrid gridTex, gridHis, gridQeyd;
+        private Label lblMektub, lblTex;
+        private ModernGrid gridHis, gridQeyd;
         private RoundTextBox hAd, hKod, hVahid, hTeleb, qMiqdar, iNetice; private RoundComboBox qHisse; private RoundDatePicker qTarix, iTarix, iGozl;
         private StatusChip chipTeminat;
-        private TableLayoutPanel kTex, kHis, kQeyd;
+        private TableLayoutPanel kHis, kQeyd;
 
         public SorguYaratPage()
         {
@@ -64,49 +64,43 @@ namespace TexnikaReyestri.Pages
             mt.SizeChanged += (_, _) => pnlMektub.Height = mt.Height + pnlMektub.Padding.Vertical + 2;
             t.Controls.Add(pnlMektub, 0, 2); t.SetColumnSpan(pnlMektub, 4);
 
-            // --- Addım 2: texnikalar ---
-            t = kTex = Kart(s, "Addım 2 · Texnikaya bağla", 4, "Məktub yadda saxlanandan sonra açılır. Bir məktub bir neçə texnikaya bağlana bilər.");
-            var bTex = Btn("Texnika seç və bağla", Icons.Add); bTex.Click += async (_, _) => await TexnikaBaglaAsync();
-            t.Controls.Add(bTex, 0, 0);
-            gridTex = Grid(("Marka", "Marka", 220), ("ZavodNo", "Zavod nömrəsi", 140), ("Status", "Status", 180));
-            gridTex.Columns["Marka"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            gridTex.SelectionChanged += async (_, _) => await TexnikaSecildiAsync();
-            var gt = GridQab(gridTex, 140); t.Controls.Add(gt, 0, 1); t.SetColumnSpan(gt, 4);
-            var it = Ipucu("Ehtiyat hissələri cədvəldə seçilmiş texnika üçün göstərilir. Yadda saxlanmış bağlantını ayırmaq olmaz.");
-            t.Controls.Add(it, 0, 2); t.SetColumnSpan(it, 4);
-
-            // --- Addım 3: ehtiyat hissələri ---
+            // --- Addım 2: ehtiyat hissələri və materiallar ---
             chipTeminat = new StatusChip { Text = "—", Size = new Size(200, 26) };
             var sag = new Panel { Size = new Size(420, 30), BackColor = Color.Transparent };
             sag.Controls.Add(new Label { Text = "Təminat vəziyyəti:", AutoSize = true, Font = F(10f, true), Location = new Point(0, 4) });
             sag.Controls.Add(chipTeminat); chipTeminat.Location = new Point(150, 2);
-            t = kHis = Kart(s, "Addım 3 · Ehtiyat hissələri", 4, null, sag);
-            lblHisse = new Label { AutoSize = true, Font = F(9.5f, true), Tag = "muted", Margin = new Padding(0, 0, 0, 4) };
-            t.Controls.Add(lblHisse, 0, 0); t.SetColumnSpan(lblHisse, 4);
-            gridHis = Grid(("Ad", "Adı", 220), ("Kod", "Kodu", 120), ("Vahid", "Ölçü vahidi", 110), ("Teleb", "Tələb olunan", 110), ("Qebul", "Qəbul edilmiş", 120), ("Qaliq", "Qalıq", 90));
+            t = kHis = Kart(s, "Addım 2 · Ehtiyat hissələri və materiallar", 4, "Hissələr məktuba yazılır. \"Hansı texnika üçün\" yalnız məlumatdır: texnika bağlanmır, statusu dəyişmir.", sag);
+            gridHis = Grid(("Ad", "Adı", 200), ("Kod", "Kodu", 110), ("Vahid", "Ölçü vahidi", 100), ("Tex", "Hansı texnika üçün", 200), ("Teleb", "Tələb olunan", 110), ("Qebul", "Qəbul edilmiş", 120), ("Qaliq", "Qalıq", 90));
             gridHis.Columns["Ad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            var gh = GridQab(gridHis, 170); t.Controls.Add(gh, 0, 1); t.SetColumnSpan(gh, 4);
-            var bH = Btn("Ehtiyat hissəsi əlavə et", Icons.Add); bH.Click += (_, _) => { if (TexnikaYoxla()) { pnlQebul.Visible = false; pnlHisse.Visible = !pnlHisse.Visible; } };
-            var bQ = Btn("Ehtiyat hissəsinin qəbulunu qeyd et", null, ButtonKind.Secondary); bQ.Click += (_, _) => { if (TexnikaYoxla()) { pnlHisse.Visible = false; QebulPaneli(); } };
+            var gh = GridQab(gridHis, 170); t.Controls.Add(gh, 0, 0); t.SetColumnSpan(gh, 4);
+            var bH = Btn("Ehtiyat hissəsi əlavə et", Icons.Add); bH.Click += (_, _) => { pnlQebul.Visible = false; pnlHisse.Visible = !pnlHisse.Visible; };
+            var bQ = Btn("Ehtiyat hissəsinin qəbulunu qeyd et", null, ButtonKind.Secondary); bQ.Click += (_, _) => { pnlHisse.Visible = false; QebulPaneli(); };
             var fh = new FlowLayoutPanel { AutoSize = true, BackColor = Color.Transparent, Margin = new Padding(0, 6, 0, 0) }; fh.Controls.AddRange(new Control[] { bH, bQ });
-            t.Controls.Add(fh, 0, 2); t.SetColumnSpan(fh, 4);
-            var ih = Ipucu("Qəbul edilmiş miqdar, qalıq və təminat vəziyyəti avtomatik hesablanır."); t.Controls.Add(ih, 0, 3); t.SetColumnSpan(ih, 4);
+            t.Controls.Add(fh, 0, 1); t.SetColumnSpan(fh, 4);
+            var ih = Ipucu("Qəbul edilən hissələr zavodun anbarına düşür. Qəbul edilmiş miqdar, qalıq və təminat vəziyyəti avtomatik hesablanır.");
+            t.Controls.Add(ih, 0, 2); t.SetColumnSpan(ih, 4);
 
-            pnlHisse = AltPanel(t, 4, "Ehtiyat hissəsi", out var ht);
+            pnlHisse = AltPanel(t, 3, "Ehtiyat hissəsi / material", out var ht);
             ht.Controls.Add(Sahe("Adı", hAd = Txt(), true), 0, 0);
             ht.Controls.Add(Sahe("Kodu", hKod = Txt()), 1, 0);
             ht.Controls.Add(Sahe("Ölçü vahidi", hVahid = Txt(), true), 2, 0);
             ht.Controls.Add(Sahe("Tələb olunan", hTeleb = Txt(), true), 3, 0); Ui.Reqemli(hTeleb, true);
+            lblTex = new Label { AutoSize = true, Font = F(10f, true), Margin = new Padding(0, 14, 0, 4) };
+            var bTex = Btn("Hansı texnika üçün", Icons.List, ButtonKind.Secondary); bTex.Click += async (_, _) => await TexnikaSecAsync();
+            var bTexSil = Btn("Təmizlə", null, ButtonKind.Ghost); bTexSil.Click += (_, _) => { _hTex = null; TexYaz(); };
+            var ft = new FlowLayoutPanel { AutoSize = true, BackColor = Color.Transparent, Margin = new Padding(0) }; ft.Controls.AddRange(new Control[] { bTex, bTexSil, lblTex });
+            ht.Controls.Add(ft, 0, 1); ht.SetColumnSpan(ft, 3);
             var bHs = Btn("Yadda saxla", Icons.Save); bHs.Click += async (_, _) => await HisseElaveAsync(); ht.Controls.Add(bHs, 3, 1);
+            TexYaz();
 
-            pnlQebul = AltPanel(t, 5, "Ehtiyat hissəsinin qəbulu", out var qt);
+            pnlQebul = AltPanel(t, 4, "Ehtiyat hissəsinin qəbulu", out var qt);
             qt.Controls.Add(Sahe("Ehtiyat hissəsi", qHisse = Cmb(Array.Empty<string>()), true), 0, 0);
             qt.Controls.Add(Sahe("Qəbul tarixi", qTarix = Dt(), true), 1, 0);
             qt.Controls.Add(Sahe("Miqdar", qMiqdar = Txt(), true), 2, 0); Ui.Reqemli(qMiqdar, true);
             var bQs = Btn("Yadda saxla", Icons.Save); bQs.Click += async (_, _) => await QebulElaveAsync(); qt.Controls.Add(bQs, 3, 0);
 
-            // --- Addım 4: icra qeydləri ---
-            t = kQeyd = Kart(s, "Addım 4 · Məktubun icrası üzrə qeydlər", 4, "Yeni qeyd əvvəlkini silmir. Son qeyd yuxarıda göstərilir.");
+            // --- Addım 3: icra qeydləri ---
+            t = kQeyd = Kart(s, "Addım 3 · Məktubun icrası üzrə qeydlər", 4, "Yeni qeyd əvvəlkini silmir. Son qeyd yuxarıda göstərilir.");
             var bI = Btn("İcra qeydi əlavə et", Icons.Add); bI.Click += (_, _) => pnlQeyd.Visible = !pnlQeyd.Visible;
             t.Controls.Add(bI, 0, 0);
             pnlQeyd = AltPanel(t, 1, "İcra qeydi", out var qq);
@@ -144,10 +138,10 @@ namespace TexnikaReyestri.Pages
         private string Deyer(ComboBox c) => _orig.TryGetValue(c, out var o) && c.SelectedIndex >= 0 && c.SelectedIndex < o.Count ? o[c.SelectedIndex] : null;
         private void Sec(ComboBox c, string v) { int i = _orig[c].IndexOf(v ?? ""); if (i < 0 && !string.IsNullOrEmpty(v)) { _orig[c].Add(v); c.Items.Add(v); i = c.Items.Count - 1; } c.SelectedIndex = Math.Max(0, i); }
 
-        /// <summary>Addım 2–4 yalnız məktub olanda aktivdir.</summary>
+        /// <summary>Addım 2–3 yalnız məktub olanda aktivdir.</summary>
         private void Goster()
         {
-            kTex.Enabled = kHis.Enabled = kQeyd.Enabled = _s != null;
+            kHis.Enabled = kQeyd.Enabled = _s != null;
             lblMektub.Text = _s == null ? Lang.T("Məktub seçilməyib")
                 : $"{Lang.T("Məktub")}: {_s.V.GetValueOrDefault("MektubNo")} · {Vaxt.Tarix(_s.V.GetValueOrDefault("QeydTarixi"))} · {_s.V.GetValueOrDefault("TeminEden")} · {Lang.T(_s.V.GetValueOrDefault("CavabVez") ?? "İcrası davam edir")}";
         }
@@ -155,36 +149,14 @@ namespace TexnikaReyestri.Pages
         // ===================================================== Yükləmə
         public override async Task OnShownAsync() { if (_s != null) await YukleAsync(_s.Id); }
 
-        /// <summary>Məktubu açır (null — boş səhifə). texGuid verilərsə həmin texnika seçilir.</summary>
-        public async Task YukleAsync(long? sorguId, string texGuid = null)
+        /// <summary>Məktubu açır (null — boş səhifə).</summary>
+        public async Task YukleAsync(long? sorguId)
         {
             pnlMektub.Visible = pnlHisse.Visible = pnlQebul.Visible = pnlQeyd.Visible = false;
             _s = sorguId is long id ? await SorguRepo.GetAsync(id) : null;
-            string evvel = texGuid ?? _texGuid;
-            gridTex.Rows.Clear();
-            if (_s != null) foreach (var x in _s.Tex) gridTex.Rows.Add(x.Marka, x.ZavodNo, Lang.T(x.Status));
-            int sec = _s?.Tex.FindIndex(x => x.Guid == evvel) ?? -1;
-            if (gridTex.Rows.Count > 0) { gridTex.ClearSelection(); gridTex.Rows[Math.Max(0, sec)].Selected = true; gridTex.CurrentCell = gridTex.Rows[Math.Max(0, sec)].Cells[0]; }
-            await TexnikaSecildiAsync();
+            HisseleriGoster();
             QeydleriGoster();
             Goster();
-        }
-
-        private async Task TexnikaSecildiAsync()
-        {
-            int i = gridTex.CurrentRow?.Index ?? -1;
-            var x = _s != null && i >= 0 && i < _s.Tex.Count ? _s.Tex[i] : null;
-            _texGuid = x?.Guid; _texId = x == null ? null : await TexnikaRepo.IdAsync(x.Guid);
-            var r = _texId is long tid ? await TexnikaRepo.TapAsync(tid) : null;
-            _hisseler = TexnikaJson.Hisseler(r?.GetValueOrDefault("Hisseler"));
-            lblHisse.Text = x == null ? Lang.T("Texnika seçilməyib") : $"{Lang.T("Texnika")}: {x.Marka} ({x.ZavodNo})";
-            HisseleriGoster();
-        }
-
-        private bool TexnikaYoxla()
-        {
-            if (_texId != null) return true;
-            Toast.Show(this, Lang.T("Əvvəlcə məktubu texnikaya bağlayın"), ToastKind.Warn); return false;
         }
 
         // ===================================================== Məktub
@@ -202,7 +174,7 @@ namespace TexnikaReyestri.Pages
                     case TextBox t: t.Text = v ?? ""; break;
                 }
             }
-            _mk["Zavod"].Enabled = Session.ZavodFiltri == null && (yeni || _s?.Tex.Count == 0);
+            _mk["Zavod"].Enabled = Session.ZavodFiltri == null && (yeni || _s?.His.Count == 0);
             pnlMektub.Visible = true;
         }
 
@@ -220,7 +192,6 @@ namespace TexnikaReyestri.Pages
             bool yeni = s.Id == 0;
             long id = await SorguRepo.SaxlaAsync(s);
             await SistemRepo.LogAsync(yeni ? "Əlavə" : "Redaktə", $"{Lang.T("Məktub")}: {s.V["MektubNo"]}");
-            _texGuid = null;
             await YukleAsync(id);
             Toast.Show(this, Lang.T("Məktub yadda saxlanıldı"));
         }
@@ -240,73 +211,78 @@ namespace TexnikaReyestri.Pages
             lb.DoubleClick += (_, _) => { if (lb.SelectedIndex >= 0) f.DialogResult = DialogResult.OK; };
             await Doldur();
             if (f.ShowDialog(FindForm()) != DialogResult.OK || lb.SelectedIndex < 0) return;
-            _texGuid = null;
             await YukleAsync(l[lb.SelectedIndex].id);
         }
 
-        // ===================================================== Texnika
-        private async Task TexnikaBaglaAsync()
+        // ===================================================== Hansı texnika üçün
+        private void TexYaz() => lblTex.Text = _hTex == null ? Lang.T("Texnika göstərilməyib") : $"{_hTex.Marka} ({_hTex.ZavodNo})";
+
+        private async Task TexnikaSecAsync()
         {
-            if (_s == null) return;
-            string zavod = _s.V.GetValueOrDefault("Zavod") ?? Session.ZavodFiltri;
+            string zavod = _s?.V.GetValueOrDefault("Zavod") ?? Session.ZavodFiltri;
             using var f = new Form { Text = Lang.T("Texnika seç"), Size = new Size(560, 460), StartPosition = FormStartPosition.CenterParent, FormBorderStyle = FormBorderStyle.FixedDialog, MinimizeBox = false, MaximizeBox = false, BackColor = Theme.Card, Font = F(10f) };
             var axt = new RoundTextBox { Dock = DockStyle.Top, Height = 32, PlaceholderText = Lang.T("Zavod nömrəsi, naryad nömrəsi və ya marka") };
             var lb = new ListBox { Dock = DockStyle.Fill, BorderStyle = BorderStyle.None, BackColor = Theme.Card, ForeColor = Theme.Ink, IntegralHeight = false, ItemHeight = 24 };
-            var ok = new FlatButton { Text = Lang.T("Bağla"), Glyph = Icons.Check, Dock = DockStyle.Bottom, Height = 38 };
+            var ok = new FlatButton { Text = Lang.T("Seç"), Glyph = Icons.Check, Dock = DockStyle.Bottom, Height = 38 };
             f.Controls.Add(lb); f.Controls.Add(new Panel { Dock = DockStyle.Top, Height = 8 }); f.Controls.Add(axt); f.Controls.Add(ok);
             f.Padding = new Padding(12);
             List<SorguTexnika> l = new();
-            async Task Doldur() { l = await SorguRepo.TexnikaAxtarAsync(axt.Text, zavod, 0); lb.BeginUpdate(); lb.Items.Clear(); lb.Items.AddRange(l.Select(x => (object)$"{x.Marka} · {x.ZavodNo} · {Lang.T(x.Status)}").ToArray()); lb.EndUpdate(); f.Text = $"{Lang.T("Texnika seç")} ({l.Count})"; }
+            async Task Doldur()
+            {
+                l = await SorguRepo.TexnikaAxtarAsync(axt.Text, zavod, 0);
+                lb.BeginUpdate(); lb.Items.Clear(); lb.Items.AddRange(l.Select(x => (object)$"{x.Marka} · {x.ZavodNo} · {Lang.T(Secimler.Ekran(x.Status))}").ToArray()); lb.EndUpdate();
+                f.Text = $"{Lang.T("Texnika seç")} ({l.Count})";
+            }
             axt.TextChanged += async (_, _) => await Doldur();
             ok.Click += (_, _) => { if (lb.SelectedIndex >= 0) f.DialogResult = DialogResult.OK; };
             lb.DoubleClick += (_, _) => { if (lb.SelectedIndex >= 0) f.DialogResult = DialogResult.OK; };
             await Doldur();
             if (f.ShowDialog(FindForm()) != DialogResult.OK || lb.SelectedIndex < 0) return;
-            await TexnikaBaglaAsync(l[lb.SelectedIndex]);
-        }
-
-        internal async Task TexnikaBaglaAsync(SorguTexnika t)
-        {
-            if (_s.Tex.Any(x => x.Guid == t.Guid)) { Toast.Show(this, Lang.T("Bu texnika artıq bağlıdır"), ToastKind.Warn); return; }
-            await SorguRepo.BaglaAsync(_s.Id, t.Guid, new() { ["Marka"] = t.Marka, ["ZavodNo"] = t.ZavodNo, ["Status"] = t.Status }, true);
-            await SistemRepo.LogAsync("Redaktə", $"{Lang.T("Məktub")}: {_s.V["MektubNo"]} → {t.Marka} ({t.ZavodNo})");
-            await YukleAsync(_s.Id, t.Guid);
-            Toast.Show(this, Lang.T("Məktub texnikaya bağlandı"));
+            _hTex = l[lb.SelectedIndex]; TexYaz();
         }
 
         // ===================================================== Ehtiyat hissələri
         private void HisseleriGoster()
         {
             gridHis.Rows.Clear();
+            var his = _s?.His ?? new();
             string R(double d) => d.ToString("0.##", CultureInfo.InvariantCulture);
-            foreach (var h in _hisseler) gridHis.Rows.Add(h.Ad, string.IsNullOrEmpty(h.Kod) ? "—" : h.Kod, h.Vahid, R(h.Teleb), R(h.Qebul), R(h.Qaliq));
-            chipTeminat.Text = TexnikaJson.Teminat(_hisseler) ?? "—";
+            foreach (var h in his) gridHis.Rows.Add(h.Ad, string.IsNullOrEmpty(h.Kod) ? "—" : h.Kod, h.Vahid, string.IsNullOrEmpty(h.Texnika) ? "—" : h.Texnika, R(h.Teleb), R(h.Qebul), R(h.Qaliq));
+            chipTeminat.Text = his.Count == 0 ? "—" : Lang.T(SorguRepo.Netice(his));
             qHisse.Items.Clear(); _orig[qHisse].Clear();
-            foreach (var h in _hisseler) { string a = h.Ad + (string.IsNullOrEmpty(h.Kod) ? "" : " · " + h.Kod); qHisse.Items.Add(a); _orig[qHisse].Add(a); }
+            foreach (var h in his)
+            {
+                string a = h.Ad + (string.IsNullOrEmpty(h.Kod) ? "" : " · " + h.Kod) + (string.IsNullOrEmpty(h.Texnika) ? "" : " — " + h.Texnika);
+                qHisse.Items.Add(a); _orig[qHisse].Add(a);
+            }
             if (qHisse.Items.Count > 0) qHisse.SelectedIndex = 0;
         }
 
-        /// <summary>Texnikanın hissələri dərhal yazılır; məktubun hissə siyahısı və nəticəsi TexnikaRepo-da yenilənir.</summary>
+        /// <summary>Məktub dərhal yazılır; nəticə (təminat) hissələrdən hesablanır.</summary>
         private async Task HisseYazAsync()
         {
-            if (_texId is not long id) return;
-            await TexnikaRepo.SaxlaAsync(id, new() { ["Hisseler"] = TexnikaJson.Yaz(_hisseler), ["Teminat"] = TexnikaJson.Teminat(_hisseler) });
+            await SorguRepo.SaxlaAsync(_s);
             await YukleAsync(_s.Id);
             Toast.Show(this, Lang.T("Ehtiyat hissələri yadda saxlanıldı"));
         }
 
         private async Task HisseElaveAsync()
         {
+            if (_s == null) return;
             if (string.IsNullOrWhiteSpace(hAd.Text) || string.IsNullOrWhiteSpace(hVahid.Text) || !Reqem(hTeleb.Text, out var t) || t <= 0)
             { Toast.Show(this, Lang.T("Adı, ölçü vahidini və tələb olunan miqdarı (rəqəm) yazın"), ToastKind.Error); return; }
-            _hisseler.Add(new Hisse { Ad = hAd.Text.Trim(), Kod = string.IsNullOrWhiteSpace(hKod.Text) ? null : hKod.Text.Trim(), Vahid = hVahid.Text.Trim(), Teleb = t });
+            _s.His.Add(new SorguHisse
+            {
+                Ad = hAd.Text.Trim(), Kod = string.IsNullOrWhiteSpace(hKod.Text) ? null : hKod.Text.Trim(), Vahid = hVahid.Text.Trim(), Teleb = t,
+                Texnika = _hTex == null ? null : $"{_hTex.Marka} ({_hTex.ZavodNo})", TexGuid = _hTex?.Guid
+            });
             hAd.Text = hKod.Text = hVahid.Text = hTeleb.Text = "";
             await HisseYazAsync();
         }
 
         private void QebulPaneli()
         {
-            if (_hisseler.Count == 0) { Toast.Show(this, Lang.T("Əvvəlcə ehtiyat hissəsini əlavə edin"), ToastKind.Warn); return; }
+            if ((_s?.His.Count ?? 0) == 0) { Toast.Show(this, Lang.T("Əvvəlcə ehtiyat hissəsini əlavə edin"), ToastKind.Warn); return; }
             qTarix.Value = DateTime.Today; qTarix.Checked = true; qMiqdar.Text = "";
             pnlQebul.Visible = !pnlQebul.Visible;
         }
@@ -315,9 +291,12 @@ namespace TexnikaReyestri.Pages
         {
             if (qHisse.SelectedIndex < 0 || !qTarix.Checked || !Reqem(qMiqdar.Text, out var m) || m <= 0)
             { Toast.Show(this, Lang.T("Ehtiyat hissəsini, qəbul tarixini və miqdarı (rəqəm) yazın"), ToastKind.Error); return; }
-            var h = _hisseler[qHisse.SelectedIndex];
+            var h = _s.His[qHisse.SelectedIndex];
             if (h.Qebul + m > h.Teleb && !Ui.Tesdiq(FindForm(), Lang.T("Qəbul"), Lang.T("Qəbul edilən miqdar tələb olunandan çoxdur. Davam edilsin?"))) return;
+            // köhnə qeyd: yalnız cəmi saxlanmış qəbul tarixçəyə keçir
+            if (h.Qebullar.Count == 0 && h.Qebul > 0) h.Qebullar.Add(new HisseQebul { Tarix = _s.V.GetValueOrDefault("QeydTarixi") ?? Vaxt.Iso(DateTime.Today), Miqdar = h.Qebul });
             h.Qebullar.Add(new HisseQebul { Tarix = Vaxt.Iso(qTarix.Value.Date), Miqdar = m });
+            pnlQebul.Visible = false;
             await HisseYazAsync();
         }
 

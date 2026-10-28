@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.Json;
 
 namespace TexnikaReyestri.Data
@@ -18,11 +18,19 @@ namespace TexnikaReyestri.Data
         public double Qaliq => Math.Max(0, Teleb - Qebul);
     }
 
+    /// <summary>Texnikaya faktiki sərf olunmuş material / ehtiyat hissəsi (Texnikalar.Serfiyyat). Anbar = true — zavodun anbarından (qəbul edilmişlərdən) çıxılır.</summary>
+    public sealed class Serf
+    {
+        public string Ad { get; set; } public string Kod { get; set; } public string Vahid { get; set; }
+        public double Miqdar { get; set; } public string Tarix { get; set; } public bool Anbar { get; set; }
+    }
+
     /// <summary>Texnikanın JSON sahələri: oxuma, yazma, təminatın hesablanması və mətnə çevirmə.</summary>
     public static class TexnikaJson
     {
         public static List<Gosterici> Gostericiler(object v) => Oxu<Gosterici>(v);
         public static List<Hisse> Hisseler(object v) => Oxu<Hisse>(v);
+        public static List<Serf> Serfler(object v) => Oxu<Serf>(v);
 
         private static List<T> Oxu<T>(object v)
         {
@@ -48,6 +56,7 @@ namespace TexnikaReyestri.Data
         {
             "Gostericiler" => string.Join("; ", Gostericiler(v).Select(g => g.Miqdar is double m ? $"{g.Nov}: {R(m)}" : g.Nov)),
             "Hisseler" => string.Join("; ", Hisseler(v).Select(h => $"{h.Ad}{(string.IsNullOrEmpty(h.Kod) ? "" : " (" + h.Kod + ")")} — {R(h.Teleb)} {h.Vahid}, qəbul {R(h.Qebul)}, qalıq {R(h.Qaliq)}")),
+            "Serfiyyat" => string.Join("; ", Serfler(v).Select(x => $"{x.Ad}{(string.IsNullOrEmpty(x.Kod) ? "" : " (" + x.Kod + ")")} — {R(x.Miqdar)} {x.Vahid}, {Vaxt.Tarix(x.Tarix)}")),
             _ => v as string
         };
     }

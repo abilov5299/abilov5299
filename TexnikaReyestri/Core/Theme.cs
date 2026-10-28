@@ -49,7 +49,7 @@ namespace TexnikaReyestri.Core
             return status switch
             {
                 "Təmirdə" => d ? (C("#17344A"), C("#8CC3EA")) : (C("#DCEBF6"), C("#1F5F8B")),
-                "Hissə gözləyir" or "Təminat gözlənilir" or "Təmir tamamlanıb, təhvil gözlənilir" => d ? (C("#3D2C12"), C("#F2B05E")) : (C("#FCE7D2"), C("#A65A10")),
+                "Hissə gözləyir" or "Təminat gözləyir" or "Təminat gözlənilir" or "Təmir tamamlanıb, təhvil gözlənilir" => d ? (C("#3D2C12"), C("#F2B05E")) : (C("#FCE7D2"), C("#A65A10")),
                 "Qismən təmin edilib" => d ? (C("#2E2440"), C("#C3A6F0")) : (C("#ECE3FA"), C("#5B3A99")),
                 "Təmin edilməyib" => d ? (C("#3D1A1A"), C("#F28E89")) : (C("#F8DCDB"), C("#A3302C")),
                 "Tam təmin edilib" or "Təhvil verilib" => d ? (C("#123A2A"), C("#6FD39A")) : (C("#DDF1E3"), C("#23703E")),
@@ -61,7 +61,7 @@ namespace TexnikaReyestri.Core
 
         public static Color StatusBar(string status) => status switch
         {
-            "Təmirdə" => Info, "Hissə gözləyir" or "Qismən təmin edilib" or "Təmir tamamlanıb, təhvil gözlənilir" => Warn, "Təhvil verilib" => Ok, "Təmirə yararsız" => Bad, _ => Gray
+            "Təmirdə" => Info, "Hissə gözləyir" or "Təminat gözləyir" or "Qismən təmin edilib" or "Təmir tamamlanıb, təhvil gözlənilir" => Warn, "Təhvil verilib" => Ok, "Təmirə yararsız" => Bad, _ => Gray
         };
 
         /// <summary>Standart kontrolları temaya uyğun rəngləyir. Xüsusi kontrollar (IThemed) özləri çəkilir.</summary>

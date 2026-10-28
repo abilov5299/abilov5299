@@ -6,7 +6,28 @@ namespace TexnikaReyestri.Data
 {
     public sealed record SorguTexnika(string Guid, string Marka, string ZavodNo, string Status);
     public sealed class SorguQeyd { public string Tarix { get; set; } public string Netice { get; set; } public string Gozlenilen { get; set; } }
-    public sealed class SorguHisse { public string Ad { get; set; } public string Texnika { get; set; } public string Vahid { get; set; } public double Teleb { get; set; } public double Qebul { get; set; } }
+    /// <summary>
+    /// Məktubun ehtiyat hissəsi / materialı. Texnika — "hansı texnika üçün" sifariş olunub ("Marka (ZavodNo)", yalnız məlumat; TexGuid ilə).
+    /// Qəbullar zavodun anbarına düşür; Qebul — qəbulların cəmi (köhnə paketlər üçün ayrıca da saxlanır).
+    /// </summary>
+    public sealed class SorguHisse
+    {
+        public string Ad { get; set; } public string Kod { get; set; } public string Texnika { get; set; } public string TexGuid { get; set; }
+        public string Vahid { get; set; } public double Teleb { get; set; } public double Qebul { get; set; }
+        public List<HisseQebul> Qebullar { get; set; } = new();
+        public double Qaliq => Math.Max(0, Teleb - Qebul);
+    }
+    /// <summary>"Sorğular üzrə təminat" cədvəlinin bir sətri: məktubun bir hissəsi, ona düşən sərf və anbar qalığı.</summary>
+    public sealed record TeminatSetir(long SorguId, string MektubNo, string MektubTarix, string TeminEden, string Texnika, string Ad, string Kod, string Vahid,
+        double Teleb, double Qebul, double Serf, string Netice, string IlkQebul)
+    {
+        public double Anbar => Math.Max(0, Qebul - Serf);
+    }
+    /// <summary>Anbardakı material (zavod üzrə; ad + kod + vahid üzrə cəmlənir).</summary>
+    public sealed record AnbarMal(string Ad, string Kod, string Vahid, double Qebul, double Serf)
+    {
+        public double Qaliq => Math.Max(0, Qebul - Serf);
+    }
     public readonly record struct SorguStat(long Cemi, long Edilmeyib, long Qismen, long Tam, long Davam);
 
     public sealed class Sorgu
@@ -95,6 +116,64 @@ FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z);";
             if (!r.IsDBNull(k)) s.Tex = JsonSerializer.Deserialize<List<SorguTexnika>>(r.GetString(k)) ?? new();
             if (!r.IsDBNull(k + 1)) s.His = JsonSerializer.Deserialize<List<SorguHisse>>(r.GetString(k + 1)) ?? new();
             return s;
+        }
+
+        /// <summary>Hissə yoxdur — "Təyin edilməyib"; heç nə qəbul olunmayıb — "Təmin edilməyib"; hamısı tam — "Tam təmin edilib"; qalanı — "Qismən təmin edilib".</summary>
+        public static string Netice(List<SorguHisse> his) =>
+            his.Count == 0 ? "Təyin edilməyib" : his.All(h => h.Qebul <= 0) ? "Təmin edilməyib" : his.All(h => h.Qebul >= h.Teleb) ? "Tam təmin edilib" : "Qismən təmin edilib";
+
+        private static string Acar(string ad, string kod, string vahid) => $"{(ad ?? "").Trim().ToLowerInvariant()}|{(kod ?? "").Trim().ToLowerInvariant()}|{(vahid ?? "").Trim().ToLowerInvariant()}";
+
+        /// <summary>Zavodun anbarı: məktublarda qəbul edilmiş hissələr − texnikalara anbardan sərf olunanlar.</summary>
+        public static async Task<List<AnbarMal>> AnbarAsync(string zavod)
+        {
+            var (setir, serf) = await TeminatMelumatAsync(zavod);
+            var l = setir.GroupBy(s => Acar(s.Ad, s.Kod, s.Vahid)).Select(g => { var f = g.First(); return new AnbarMal(f.Ad, f.Kod, f.Vahid, g.Sum(x => x.Qebul), serf.GetValueOrDefault(g.Key)); }).ToList();
+            return l.OrderBy(x => x.Ad).ToList();
+        }
+
+        /// <summary>
+        /// Məktubların bütün hissələri (zavod üzrə) və hər birinə düşən sərf. Anbar zavod üzrə ümumidir: eyni ad, kod və vahidli
+        /// hissələrin sərfi ilk qəbul tarixinə görə köhnədən yeniyə paylanır (hər sətrə ən çox onun qəbulu qədər).
+        /// </summary>
+        public static async Task<List<TeminatSetir>> TeminatAsync(string zavod) => (await TeminatMelumatAsync(zavod)).setir;
+
+        private static async Task<(List<TeminatSetir> setir, Dictionary<string, double> serf)> TeminatMelumatAsync(string zavod)
+        {
+            var xam = new List<(TeminatSetir s, string acar)>();
+            var serf = new Dictionary<string, double>();
+            await using var con = await LocalDb.AcAsync();
+            using (var c = con.CreateCommand())
+            {
+                c.CommandText = "SELECT Id, MektubNo, QeydTarixi, TeminEden, Hisseler FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z) ORDER BY QeydTarixi, Id;";
+                c.Parameters.AddWithValue("$z", (object)zavod ?? DBNull.Value);
+                await using var r = await c.ExecuteReaderAsync();
+                while (await r.ReadAsync())
+                    foreach (var h in HisseJson(r.IsDBNull(4) ? null : r.GetString(4)))
+                    {
+                        string ilk = h.Qebullar.Count > 0 ? h.Qebullar.Min(q => q.Tarix) : null;
+                        xam.Add((new TeminatSetir(r.GetInt64(0), r.IsDBNull(1) ? "" : r.GetString(1), r.IsDBNull(2) ? null : r.GetString(2), r.IsDBNull(3) ? "" : r.GetString(3),
+                            h.Texnika, h.Ad, h.Kod, h.Vahid, h.Teleb, h.Qebul, 0, h.Qebul <= 0 ? "Təmin edilməyib" : h.Qebul >= h.Teleb ? "Tam təmin edilib" : "Qismən təmin edilib", ilk), Acar(h.Ad, h.Kod, h.Vahid)));
+                    }
+            }
+            using (var c = con.CreateCommand())
+            {
+                c.CommandText = "SELECT Serfiyyat FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND IFNULL(Serfiyyat,'')<>'';";
+                c.Parameters.AddWithValue("$z", (object)zavod ?? DBNull.Value);
+                await using var r = await c.ExecuteReaderAsync();
+                while (await r.ReadAsync())
+                    foreach (var x in Data.TexnikaJson.Serfler(r.GetString(0)).Where(x => x.Anbar))
+                    { string k = Acar(x.Ad, x.Kod, x.Vahid); serf[k] = serf.GetValueOrDefault(k) + x.Miqdar; }
+            }
+            var qalan = new Dictionary<string, double>(serf);
+            var setir = new List<TeminatSetir>();
+            foreach (var (s, k) in xam.OrderBy(x => x.s.IlkQebul ?? "9999").ThenBy(x => x.s.SorguId))
+            {
+                double pay = Math.Min(s.Qebul, qalan.GetValueOrDefault(k));
+                if (pay > 0) qalan[k] -= pay;
+                setir.Add(s with { Serf = pay });
+            }
+            return (setir, serf);
         }
 
         public static List<SorguQeyd> QeydJson(string v) => string.IsNullOrEmpty(v) ? new() : JsonSerializer.Deserialize<List<SorguQeyd>>(v) ?? new();
@@ -216,7 +295,9 @@ FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z);";
                 : $"UPDATE Sorgular SET Versiya=$v, Deyisdi=$d, {string.Join(",", Sahe.Select(x => $"{x}=${x}"))}, Texnikalar=$tx, Hisseler=$hs WHERE Id=$i; SELECT $i;";
             c.Parameters.AddWithValue("$g", s.Guid); c.Parameters.AddWithValue("$v", s.Versiya); c.Parameters.AddWithValue("$d", Vaxt.Indi); c.Parameters.AddWithValue("$i", s.Id);
             foreach (var x in Sahe) c.Parameters.AddWithValue("$" + x, s.V.TryGetValue(x, out var v) && !string.IsNullOrWhiteSpace(v) ? v.Trim() : DBNull.Value);
+            foreach (var h in s.His) if (h.Qebullar.Count > 0) h.Qebul = h.Qebullar.Sum(q => q.Miqdar);
             c.Parameters.AddWithValue("$tx", JsonSerializer.Serialize(s.Tex)); c.Parameters.AddWithValue("$hs", JsonSerializer.Serialize(s.His));
+            c.Parameters["$Netice"].Value = Netice(s.His);   // məktubun nəticəsi öz hissələrindən hesablanır
             return s.Id = Convert.ToInt64(await c.ExecuteScalarAsync());
         });
 

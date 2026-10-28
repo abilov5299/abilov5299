@@ -162,12 +162,11 @@ namespace TexnikaReyestri.Services
                 new[] { "İcra üçün son tarix", T("IcraMuddeti") }, new[] { "Təmin edən qurum", V("TeminEden") }, new[] { "Təmin edən qurum üzrə məsul icraçı", V("TeminIcraci") },
                 new[] { "Əlaqə nömrəsi", V("Telefon") }, new[] { "Məktubun icra vəziyyəti", V("CavabVez") }, new[] { "Təminat nəticəsi", V("Netice") },
             });
-            Bolme("Əlaqəli texnikalar");
-            Cedvel(new[] { 0.08, 0.42, 0.25, 0.25 }, new[] { "№", "Marka", "Zavod nömrəsi", "Status" }, s.Tex.Select((t, i) => new[] { (i + 1).ToString(), t.Marka, t.ZavodNo, Secimler.Ekran(t.Status) }));
-            Bolme("Ehtiyat hissələri");
+            if (s.Tex.Count > 0) { Bolme("Əlaqəli texnikalar"); Cedvel(new[] { 0.08, 0.42, 0.25, 0.25 }, new[] { "№", "Marka", "Zavod nömrəsi", "Status" }, s.Tex.Select((t, i) => new[] { (i + 1).ToString(), t.Marka, t.ZavodNo, Secimler.Ekran(t.Status) })); }   // köhnə məktublar
+            Bolme("Ehtiyat hissələri və materiallar");
             string F(double v) => v.ToString("0.##");
-            Cedvel(new[] { 0.06, 0.28, 0.24, 0.1, 0.11, 0.11, 0.1 }, new[] { "№", "Ehtiyat hissəsi", "Texnika", "Ölçü vahidi", "Tələb olunan", "Qəbul edilmiş", "Qalıq" },
-                s.His.Select((h, i) => new[] { (i + 1).ToString(), h.Ad, h.Texnika, h.Vahid, F(h.Teleb), F(h.Qebul), F(Math.Max(0, h.Teleb - h.Qebul)) })
+            Cedvel(new[] { 0.06, 0.28, 0.24, 0.1, 0.11, 0.11, 0.1 }, new[] { "№", "Ehtiyat hissəsi / kodu", "Hansı texnika üçün", "Ölçü vahidi", "Tələb olunan", "Qəbul edilmiş", "Qalıq" },
+                s.His.Select((h, i) => new[] { (i + 1).ToString(), h.Ad + (string.IsNullOrEmpty(h.Kod) ? "" : " / " + h.Kod), h.Texnika ?? "—", h.Vahid, F(h.Teleb), F(h.Qebul), F(Math.Max(0, h.Teleb - h.Qebul)) })
                      .Append(new[] { "", "Cəmi", "", "", F(s.His.Sum(h => h.Teleb)), F(s.His.Sum(h => h.Qebul)), F(s.His.Sum(h => Math.Max(0, h.Teleb - h.Qebul))) }));
             if (y + 70 > page.Height.Point - 60) Yeni();
             y += 24;

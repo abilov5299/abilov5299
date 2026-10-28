@@ -7,8 +7,8 @@ using TexnikaReyestri.Forms;
 namespace TexnikaReyestri.Pages
 {
     /// <summary>
-    /// "Texnika əlavə et" / redaktə: 4 bölmə (Qəbul və sənədlər, İstismar göstəriciləri və son təmir, Təmirin icrası,
-    /// Tamamlanma və təhvil). Məktub və ehtiyat hissələri ayrıca "Sorğu yarat" səhifəsindədir. Sahə kontrolları "in_SaheKodu" adlıdır və kodla qurulur.
+    /// "Texnika əlavə et" / redaktə: 5 bölmə (Qəbul və sənədlər, İstismar göstəriciləri və son təmir, Təmirin icrası,
+    /// Faktiki sərfiyyat, Tamamlanma və təhvil). Məktub və ehtiyat hissələri ayrıca "Sorğu yarat" səhifəsindədir. Sahə kontrolları "in_SaheKodu" adlıdır və kodla qurulur.
     /// Statuslar "Təmir tamamlanıb..." və "Təhvil verilib", plan bitmə tarixi və təminat vəziyyəti avtomatik hesablanır.
     /// </summary>
     public partial class EditPage : PageBase
@@ -21,6 +21,10 @@ namespace TexnikaReyestri.Pages
         private TableLayoutPanel tlpGost;
         // Bölmə 3: avtomatik xanalar
         private RoundTextBox txtPlan, txtQalan;
+        // Bölmə 4: faktiki sərfiyyat (anbar — zavodun qəbul edilmiş hissələri)
+        private List<Serf> _serfler = new(); private List<AnbarMal> _anbar = new();
+        private ModernGrid gridSerf; private RoundPanel pnlSerf;
+        private RoundComboBox sMal; private RoundTextBox sAd, sKod, sVahid, sMiqdar; private RoundDatePicker sTarix; private FlatButton bYeniAd; private bool _yeniAd;
         // Bölmə 5
         private RoundComboBox cmbTehvilAlan; private RoundTextBox txtDigerQurum; private RoundTextBox txtGozleme;
         private Label lblQebulInfo;
@@ -28,7 +32,7 @@ namespace TexnikaReyestri.Pages
         public EditPage()
         {
             InitializeComponent();
-            Bolme1(); Bolme2(); Bolme3(); Bolme5();
+            Bolme1(); Bolme2(); Bolme3(); Bolme4(); Bolme5();
             pnlHead.Resize += (_, _) => { btnSave.Left = pnlHead.Width - btnSave.Width; btnNextG.Left = btnSave.Left - btnNextG.Width - 8; btnPrevG.Left = btnNextG.Left - btnPrevG.Width - 8; };
         }
 
@@ -259,6 +263,115 @@ namespace TexnikaReyestri.Pages
             else txtGozleme.Text = Lang.T("Təmir hələ tamamlanmayıb");
         }
 
+        // ===================================================== 4. Faktiki sərfiyyat
+        private void Bolme4()
+        {
+            var s = Scroll(tab4);
+            var t = Kart(s, "Faktiki sərfiyyat", 4, "Faktiki istifadə bu bölmədə qeyd edilir. Hesabatda məlumat daxil edilmir.");
+            var bE = Btn("Sərfiyyat əlavə et", Icons.Add); bE.Click += (_, _) => { if (!pnlSerf.Visible) SerfPaneli(); else pnlSerf.Visible = false; };
+            t.Controls.Add(bE, 0, 0);
+            pnlSerf = AltPanel(t, 1, "Sərfiyyat", out var st);
+            sMal = new RoundComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Height = 30 };
+            sAd = new RoundTextBox { PlaceholderText = Lang.T("Yeni materialın adı"), Visible = false };
+            var pm = Sahe(null, "Material / ehtiyat hissəsi", sMal, mecburi: true);
+            pm.Controls.Add(sAd); sAd.Dock = DockStyle.Top; sAd.Height = 32; sAd.Font = F(10f); sAd.BringToFront();
+            st.Controls.Add(pm, 0, 0);
+            st.Controls.Add(Sahe(null, "Kodu", sKod = Txt(ro: true)), 1, 0);
+            st.Controls.Add(Sahe(null, "Ölçü vahidi", sVahid = Txt(ro: true)), 2, 0);
+            bYeniAd = Btn("Yeni ad əlavə et", Icons.Add, ButtonKind.Secondary); bYeniAd.Margin = new Padding(0, 26, 12, 6);
+            bYeniAd.Click += (_, _) => YeniAdRejimi(!_yeniAd);
+            st.Controls.Add(bYeniAd, 3, 0);
+            st.Controls.Add(Sahe(null, "Sərf edilmiş miqdar", sMiqdar = Txt(), mecburi: true), 0, 1); Ui.Reqemli(sMiqdar, true);
+            st.Controls.Add(Sahe(null, "Sərf tarixi", sTarix = Dt(), mecburi: true), 1, 1);
+            var bS = Btn("Yadda saxla", Icons.Save); bS.Margin = new Padding(0, 26, 12, 6); bS.Click += async (_, _) => await SerfElaveAsync();
+            st.Controls.Add(bS, 2, 1);
+            sMal.SelectedIndexChanged += (_, _) => MalSecildi();
+            var ip = Ipucu("Anbardan seçiləndə qalıqdan çox yazmaq olmaz. \"Yeni ad\" ilə yazılan material anbardan çıxılmır. Yadda saxlanmış qeyd silinmir.");
+            st.Controls.Add(ip, 0, 2); st.SetColumnSpan(ip, 4);
+            gridSerf = Grid(("Ad", "Materialın / ehtiyat hissəsinin adı", 260), ("Kod", "Kodu", 120), ("Vahid", "Ölçü vahidi", 110), ("Miqdar", "Sərf edilmiş miqdar", 150), ("Tarix", "Sərf tarixi", 120), ("Menbe", "Mənbə", 140));
+            gridSerf.Columns["Ad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            var gs = GridQab(gridSerf, 220); t.Controls.Add(gs, 0, 2); t.SetColumnSpan(gs, 4);
+        }
+
+        private static string Rq(double d) => d.ToString("0.##", CultureInfo.InvariantCulture);
+
+        /// <summary>Anbar qalığı: bazadakı qalıq − bu formada hələ yazılmamış (yeni texnika) sərflər.</summary>
+        private double Qaliq(AnbarMal m) => m.Qaliq - (_id == null ? _serfler.Where(x => x.Anbar && Eyni(x, m)).Sum(x => x.Miqdar) : 0);
+        private static bool Eyni(Serf x, AnbarMal m) => string.Equals((x.Ad ?? "").Trim(), (m.Ad ?? "").Trim(), StringComparison.OrdinalIgnoreCase)
+            && string.Equals((x.Kod ?? "").Trim(), (m.Kod ?? "").Trim(), StringComparison.OrdinalIgnoreCase) && string.Equals((x.Vahid ?? "").Trim(), (m.Vahid ?? "").Trim(), StringComparison.OrdinalIgnoreCase);
+        private List<AnbarMal> AnbarSiyahi() => _anbar.Where(m => Qaliq(m) > 0).ToList();
+
+        private void SerfPaneli()
+        {
+            var l = AnbarSiyahi();
+            sMal.Items.Clear();
+            sMal.Items.AddRange(l.Select(m => (object)$"{m.Ad}{(string.IsNullOrEmpty(m.Kod) ? "" : " · " + m.Kod)} — {Lang.T("qalıq")}: {Rq(Qaliq(m))} {m.Vahid}").ToArray());
+            YeniAdRejimi(l.Count == 0);
+            if (sMal.Items.Count > 0) sMal.SelectedIndex = 0;
+            sMiqdar.Text = ""; sTarix.Value = DateTime.Today; sTarix.Checked = true;
+            pnlSerf.Visible = true;
+        }
+
+        private void YeniAdRejimi(bool yeni)
+        {
+            _yeniAd = yeni;
+            sMal.Visible = !yeni; sAd.Visible = yeni; sKod.ReadOnly = sVahid.ReadOnly = !yeni;
+            bYeniAd.Text = Lang.T(yeni ? "Anbardan seç" : "Yeni ad əlavə et");
+            if (yeni) { sAd.Text = sKod.Text = sVahid.Text = ""; } else MalSecildi();
+        }
+
+        private void MalSecildi()
+        {
+            if (_yeniAd) return;
+            var l = AnbarSiyahi();
+            var m = sMal.SelectedIndex >= 0 && sMal.SelectedIndex < l.Count ? l[sMal.SelectedIndex] : null;
+            sKod.Text = m?.Kod ?? ""; sVahid.Text = m?.Vahid ?? "";
+        }
+
+        private void SerfleriGoster()
+        {
+            gridSerf.Rows.Clear();
+            foreach (var x in _serfler.OrderByDescending(x => x.Tarix))
+                gridSerf.Rows.Add(x.Ad, string.IsNullOrEmpty(x.Kod) ? "—" : x.Kod, x.Vahid, Rq(x.Miqdar), Vaxt.Tarix(x.Tarix), Lang.T(x.Anbar ? "Anbar" : "Yeni ad"));
+        }
+
+        private async Task AnbarYukleAsync()
+        {
+            string zavod = Deyer((ComboBox)In("TemirZavodu")) ?? Session.ZavodFiltri;
+            _anbar = zavod == null ? new() : await SorguRepo.AnbarAsync(zavod);
+        }
+
+        private async Task SerfElaveAsync()
+        {
+            if (!Reqem(sMiqdar.Text, out var m) || m <= 0 || !sTarix.Checked)
+            { Toast.Show(this, Lang.T("Sərf edilmiş miqdarı (rəqəm) və sərf tarixini yazın"), ToastKind.Error); return; }
+            Serf x;
+            if (_yeniAd)
+            {
+                if (string.IsNullOrWhiteSpace(sAd.Text) || string.IsNullOrWhiteSpace(sVahid.Text)) { Toast.Show(this, Lang.T("Materialın adını və ölçü vahidini yazın"), ToastKind.Error); return; }
+                x = new Serf { Ad = sAd.Text.Trim(), Kod = string.IsNullOrWhiteSpace(sKod.Text) ? null : sKod.Text.Trim(), Vahid = sVahid.Text.Trim(), Anbar = false };
+            }
+            else
+            {
+                var l = AnbarSiyahi();
+                if (sMal.SelectedIndex < 0 || sMal.SelectedIndex >= l.Count) { Toast.Show(this, Lang.T("Materialı seçin"), ToastKind.Error); return; }
+                var a = l[sMal.SelectedIndex];
+                if (m > Qaliq(a) + 1e-9) { Toast.Show(this, $"{Lang.T("Anbarda qalıq")}: {Rq(Qaliq(a))} {a.Vahid}", ToastKind.Error); return; }
+                x = new Serf { Ad = a.Ad, Kod = a.Kod, Vahid = a.Vahid, Anbar = true };
+            }
+            x.Miqdar = m; x.Tarix = Vaxt.Iso(sTarix.Value.Date);
+            _serfler.Add(x);
+            pnlSerf.Visible = false;
+            if (_id is long id)
+            {
+                await TexnikaRepo.SaxlaAsync(id, new() { ["Serfiyyat"] = TexnikaJson.Yaz(_serfler) });
+                await AnbarYukleAsync();
+                Toast.Show(this, Lang.T("Sərfiyyat yadda saxlanıldı"));
+            }
+            else Toast.Show(this, Lang.T("Texnikanı yadda saxlayanda sərfiyyat da yazılacaq"), ToastKind.Info);
+            SerfleriGoster();
+        }
+
         internal static ModernGrid Grid(params (string ad, string basliq, int en)[] s)
         {
             var g = new ModernGrid { Dock = DockStyle.Fill };
@@ -344,6 +457,11 @@ namespace TexnikaReyestri.Pages
             string alan = r.GetValueOrDefault("TehvilAlan") as string;
             bool diger = !string.IsNullOrEmpty(alan) && alan != r.GetValueOrDefault("GonderenQurum") as string;
             cmbTehvilAlan.SelectedIndex = diger ? 1 : 0; txtDigerQurum.Text = diger ? alan : "";
+            // Faktiki sərfiyyat
+            pnlSerf.Visible = false;
+            _serfler = TexnikaJson.Serfler(r.GetValueOrDefault("Serfiyyat"));
+            SerfleriGoster();
+            await AnbarYukleAsync();
             Ui.Hazirla(this);
             QebulInfo(); Hesabla(); StatusYoxla(); Duymeler();
             _ilk = Iz();
@@ -352,10 +470,11 @@ namespace TexnikaReyestri.Pages
         // ===================================================== Yadda saxlanmamış dəyişiklik
         private string _ilk;
 
-        /// <summary>Formanın cari məzmunu (müqayisə üçün).</summary>
+        /// <summary>Formanın cari məzmunu (müqayisə üçün). Mövcud texnikada sərfiyyat dərhal yazıldığı üçün nəzərə alınmır.</summary>
         private string Iz()
         {
             var d = Topla(out _);
+            if (_id != null) d.Remove("Serfiyyat");
             return System.Text.Json.JsonSerializer.Serialize(d);
         }
 
@@ -420,6 +539,7 @@ namespace TexnikaReyestri.Pages
             var gx = new List<string>();
             d["Gostericiler"] = TexnikaJson.Yaz(Gostericiler(gx));
             foreach (var m in gx) X("Gostericiler", m);
+            d["Serfiyyat"] = TexnikaJson.Yaz(_serfler);
             // Tamamlanma və təhvil
             if (d["FaktikiBitme"] != null && d["GorulenIsler"] == null) X("GorulenIsler", $"{Lang.T("Yerinə yetirilmiş işlər haqqında qeyd")}: {Lang.T("Məcburi sahə boşdur")}");
             string alan = cmbTehvilAlan.SelectedIndex == 1 ? (txtDigerQurum.Text.Trim() is { Length: > 0 } q ? q : null) : d["GonderenQurum"] as string;

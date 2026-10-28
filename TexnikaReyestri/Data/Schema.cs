@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS Texnikalar (
 
             // Köhnə quruluşdan yeni 5 bölməyə keçid (bir dəfə; əvvəlcə ehtiyat nüsxə)
             Miqrasiya.BesBolme(con, () => cedvel);
+            // Ehtiyat hissələri texnikadan məktuba (bir dəfə)
+            Miqrasiya.HisseMektuba(con);
             // Köhnə statuslar: təminat artıq ayrıca sahədədir (USB ilə köhnə paket gələ bilər)
             using (var k = con.CreateCommand())
             {
@@ -42,7 +44,8 @@ CREATE TABLE IF NOT EXISTS Texnikalar (
             }
             using (var k = con.CreateCommand())
             {
-                k.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE name='IX_T_Gec' AND sql LIKE '%Hissə gözləyir%';";
+                // İndeksin statusları dəyişibsə (köhnə "Hissə gözləyir" və ya yeni "Təminat gözləyir" yoxdur) yenidən qurulur
+                k.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE name='IX_T_Gec' AND (sql LIKE '%Hissə gözləyir%' OR sql NOT LIKE '%Təminat gözləyir%');";
                 if ((long)k.ExecuteScalar() > 0) LocalDb.Exec(con, "DROP INDEX IX_T_Gec;");
             }
 
@@ -59,7 +62,7 @@ CREATE INDEX IF NOT EXISTS IX_T_Fakt    ON Texnikalar(TemirZavodu, FaktikiBitme)
 CREATE INDEX IF NOT EXISTS IX_T_DaxilG  ON Texnikalar(DaxilolmaTarixi) WHERE Silinib=0;
 CREATE INDEX IF NOT EXISTS IX_T_FaktG   ON Texnikalar(FaktikiBitme, BaslamaTarixi, TemirZavodu, TemirNovu) WHERE Silinib=0;
 CREATE INDEX IF NOT EXISTS IX_T_Nov     ON Texnikalar(Nov) WHERE Silinib=0;
-CREATE INDEX IF NOT EXISTS IX_T_Gec     ON Texnikalar(GozlenilenBitme, TemirZavodu) WHERE Silinib=0 AND Status IN ('Qəbul edilib','Təmirdə');
+CREATE INDEX IF NOT EXISTS IX_T_Gec     ON Texnikalar(GozlenilenBitme, TemirZavodu) WHERE Silinib=0 AND Status IN ('Qəbul edilib','Təmirdə','Təminat gözləyir');
 
 -- Mətn axtarışı: LIKE '%..%' əvəzinə (1 mln sətirdə ~6 ms)
 CREATE VIRTUAL TABLE IF NOT EXISTS TexnikaAxtar USING fts5(
