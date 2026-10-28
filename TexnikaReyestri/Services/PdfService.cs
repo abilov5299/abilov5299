@@ -81,7 +81,10 @@ namespace TexnikaReyestri.Services
             {
                 g?.Dispose(); page = doc.AddPage(); page.Size = PdfSharp.PageSize.A4; if (genis) page.Orientation = PdfSharp.PageOrientation.Landscape;
                 g = XGraphics.FromPdfPage(page); y = 40;
-                double w = W(); en = h.Sutun.Select((_, i) => i == 0 ? w * 0.28 : w * 0.72 / (h.Sutun.Length - 1)).ToArray();
+                double w = W();
+                // 8 sütunlu (ehtiyat hissələri) hesabatda texnika və hissə adı uzundur — onlara geniş yer
+                double[] ag = h.Sutun.Length == 8 ? new[] { 1.2, 1.7, 1.6, 0.7, 0.8, 0.8, 0.7, 1.1 } : null;
+                en = ag != null ? ag.Select(a => w * a / ag.Sum()).ToArray() : h.Sutun.Select((_, i) => i == 0 ? w * 0.28 : w * 0.72 / (h.Sutun.Length - 1)).ToArray();
                 g.DrawString($"Təmir və Texniki Təminat Xidməti · Məlumat bazası · Çap tarixi: {DateTime.Now:dd.MM.yyyy HH:mm}", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 30, w, 12), XStringFormats.TopLeft);
             }
             void Setir(string[] v, XFont f, XBrush fon)
