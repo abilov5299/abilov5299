@@ -1,0 +1,12410 @@
+﻿{
+  "zavod/01_ana.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#HomePage": [
+      52.2,
+      52.7
+    ],
+    "#tlpBody": [
+      52.2,
+      60.6
+    ],
+    "#rpMonthly": [
+      52.2,
+      51.7
+    ],
+    "#segPeriod": [
+      88.4,
+      25.8
+    ],
+    "#chartMonthly": [
+      52.2,
+      53.9
+    ],
+    "Aylar üzrə qəbul, təmir və təhvil": [
+      52.2,
+      26.1
+    ],
+    "#lblMonthlyTitle": [
+      52.2,
+      26.1
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      17.6,
+      85
+    ],
+    "0 texnika • Ən uzun gözləmə: 0 gün": [
+      41.1,
+      85
+    ],
+    "Siyahını aç →": [
+      89.1,
+      85
+    ],
+    "Məlumat mübadiləsi": [
+      17.6,
+      93.3
+    ],
+    "Son köçürmə faylı hazırlanıb —": [
+      41.1,
+      93.3
+    ],
+    "Son ixracdan sonra dəyişiklik Var • 14337 qeyd": [
+      67.5,
+      93.3
+    ],
+    "Məlumatları köçürməyə →": [
+      89.1,
+      93.3
+    ],
+    "#tlpTiles": [
+      52.2,
+      17.4
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Ana səhifə · 939 nömrəli hərbi hissə": [
+      19.7,
+      9.3
+    ],
+    "#lblTitle": [
+      19.7,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/02_menyu.png": {
+    "#pnlNav": [
+      8.3,
+      50
+    ],
+    "menyu:": [
+      8.3,
+      96.3
+    ],
+    "menyu:set": [
+      8.3,
+      52.6
+    ],
+    "menyu:help": [
+      8.3,
+      57.9
+    ],
+    "menyu:sync": [
+      8.3,
+      47.2
+    ],
+    "menyu:noti": [
+      8.3,
+      41.9
+    ],
+    "menyu:rep": [
+      8.3,
+      36.6
+    ],
+    "menyu:tech": [
+      8.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      8.3,
+      25.9
+    ],
+    "menyu:add": [
+      8.3,
+      20.6
+    ],
+    "menyu:list": [
+      8.3,
+      15.2
+    ],
+    "menyu:home": [
+      8.3,
+      9.9
+    ],
+    "Təmir və Texniki Təminat Xidməti Məlumat bazası": [
+      10.2,
+      3.8
+    ],
+    "#lblApp": [
+      10.2,
+      3.8
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      58.2,
+      52.7
+    ],
+    "#HomePage": [
+      58.2,
+      52.7
+    ],
+    "#tlpBody": [
+      58.2,
+      60.6
+    ],
+    "#rpMonthly": [
+      58.2,
+      51.7
+    ],
+    "#segPeriod": [
+      88.4,
+      25.8
+    ],
+    "#chartMonthly": [
+      58.2,
+      53.9
+    ],
+    "Aylar üzrə qəbul, təmir və təhvil": [
+      58.2,
+      26.1
+    ],
+    "#lblMonthlyTitle": [
+      58.2,
+      26.1
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      29.5,
+      85
+    ],
+    "0 texnika • Ən uzun gözləmə: 0 gün": [
+      50.1,
+      85
+    ],
+    "Siyahını aç →": [
+      89.1,
+      85
+    ],
+    "Məlumat mübadiləsi": [
+      29.5,
+      93.3
+    ],
+    "Son köçürmə faylı hazırlanıb —": [
+      50.1,
+      93.3
+    ],
+    "Son ixracdan sonra dəyişiklik Var • 14337 qeyd": [
+      70.5,
+      93.3
+    ],
+    "Məlumatları köçürməyə →": [
+      89.1,
+      93.3
+    ],
+    "#tlpTiles": [
+      58.2,
+      17.4
+    ],
+    "#pnlHead": [
+      58.2,
+      9.7
+    ],
+    "Ana səhifə · 939 nömrəli hərbi hissə": [
+      31.6,
+      9.3
+    ],
+    "#lblTitle": [
+      31.6,
+      9.3
+    ],
+    "#pnlTop": [
+      58.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      37.8,
+      2.8
+    ],
+    "#lblUser": [
+      37.8,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      24,
+      2.6
+    ],
+    "#lblQurum": [
+      24,
+      2.6
+    ]
+  },
+  "zavod/03_reyestr.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#RegistryPage": [
+      52.2,
+      52.7
+    ],
+    "#rpGrid": [
+      52.2,
+      70
+    ],
+    "#grid": [
+      52.2,
+      70
+    ],
+    "Status:": [
+      40.8,
+      24.8
+    ],
+    "İcra müddəti:": [
+      63.5,
+      24.8
+    ],
+    "Məsul icraçı:": [
+      86.4,
+      24.8
+    ],
+    "Hamısı": [
+      40.8,
+      27.7
+    ],
+    "#cmbStatus": [
+      40.8,
+      27.7
+    ],
+    "Tarix növü:": [
+      40.8,
+      31.4
+    ],
+    "Tarixdən:": [
+      63.5,
+      31.4
+    ],
+    "Tarixədək:": [
+      86.4,
+      31.4
+    ],
+    "#txtSearch": [
+      18.6,
+      36
+    ],
+    "Plan üzrə bitmə tarixi": [
+      40.8,
+      34.6
+    ],
+    "28.10.2026": [
+      63.5,
+      34.4
+    ],
+    "Təminat gözləyir": [
+      11.4,
+      40.9
+    ],
+    "#pnlFoot": [
+      52.2,
+      96.9
+    ],
+    "Ctrl+F axtarış · Ctrl+N yeni · F5 yenilə": [
+      91.1,
+      96.9
+    ],
+    "#lblHint": [
+      91.1,
+      96.9
+    ],
+    "Göstərilir: 200 / 14 335": [
+      10.3,
+      96.9
+    ],
+    "#lblCount": [
+      10.3,
+      96.9
+    ],
+    "#tlpTiles": [
+      52.2,
+      17.4
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Excel-dən idxal": [
+      82.8,
+      9.6
+    ],
+    "#btnImport": [
+      82.8,
+      9.6
+    ],
+    "Excel-ə çıxar": [
+      93.1,
+      9.6
+    ],
+    "#btnExport": [
+      93.1,
+      9.6
+    ],
+    "Təmir reyestri · 939 nömrəli hərbi hissə": [
+      21,
+      9.3
+    ],
+    "#lblTitle": [
+      21,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/04_genis_bax.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#DetailPage": [
+      52.2,
+      52.7
+    ],
+    "#scroll": [
+      52.2,
+      61.8
+    ],
+    "#rpHist": [
+      21.1,
+      38.6
+    ],
+    "#flHist": [
+      21.1,
+      39.7
+    ],
+    "28.10.2026 12:44 Sistem": [
+      10.4,
+      30.7
+    ],
+    "28.10.2026 08:26 Husnu Murselov": [
+      10.4,
+      38
+    ],
+    "Ehtiyat hissələrinin təminatı Təminat gözlənilir → Qismən təmin edilib": [
+      22.8,
+      38.2
+    ],
+    "Ehtiyat hissələri qa (qa) — 11 qa, qəbul 0, qalıq 11 → qa (qa) — 11 qa, qəbul 3, qalıq 8": [
+      24.3,
+      43.1
+    ],
+    "28.10.2026 08:23 Husnu Murselov": [
+      10.4,
+      47.7
+    ],
+    "Ehtiyat hissələri boş → qa (qa) — 11 qa, qəbul 0, qalıq 11": [
+      22.5,
+      47.9
+    ],
+    "Dəyişiklik tarixçəsi": [
+      21.1,
+      27.8
+    ],
+    "#lblHistTitle": [
+      21.1,
+      27.8
+    ],
+    "Texnikanın növü": [
+      10.2,
+      58.8
+    ],
+    "#cap_Nov": [
+      10.2,
+      58.8
+    ],
+    "Zirehli texnika": [
+      32.5,
+      58.8
+    ],
+    "#val_Nov": [
+      32.5,
+      58.8
+    ],
+    "Texnikanın markası": [
+      10.7,
+      61.8
+    ],
+    "#cap_Marka": [
+      10.7,
+      61.8
+    ],
+    "2S1": [
+      34.4,
+      61.8
+    ],
+    "#val_Marka": [
+      34.4,
+      61.8
+    ],
+    "Zavod nömrəsi": [
+      10,
+      64.8
+    ],
+    "#cap_ZavodNo": [
+      10,
+      64.8
+    ],
+    "NÜMUNƏ-6194761": [
+      31.5,
+      64.8
+    ],
+    "#val_ZavodNo": [
+      31.5,
+      64.8
+    ],
+    "Kateqoriyası — faktiki": [
+      11.2,
+      67.8
+    ],
+    "#cap_Kateqoriya": [
+      11.2,
+      67.8
+    ],
+    "I": [
+      34.9,
+      67.8
+    ],
+    "#val_Kateqoriya": [
+      34.9,
+      67.8
+    ],
+    "Naryadın nömrəsi": [
+      10.5,
+      70.8
+    ],
+    "#cap_NaryadNo": [
+      10.5,
+      70.8
+    ],
+    "—": [
+      34.6,
+      70.8
+    ],
+    "#val_NaryadNo": [
+      34.6,
+      70.8
+    ],
+    "Sənədin tarixi (naryadın tarixi)": [
+      12.6,
+      73.8
+    ],
+    "#cap_NaryadTarixi": [
+      12.6,
+      73.8
+    ],
+    "#val_NaryadTarixi": [
+      34.6,
+      73.8
+    ],
+    "Zavoda faktiki daxilolma tarixi": [
+      12.7,
+      76.8
+    ],
+    "#cap_DaxilolmaTarixi": [
+      12.7,
+      76.8
+    ],
+    "12.05.2026": [
+      33,
+      76.8
+    ],
+    "#val_DaxilolmaTarixi": [
+      33,
+      76.8
+    ],
+    "Təhvil verən (göndərən)": [
+      11.6,
+      79.8
+    ],
+    "#cap_GonderenQurum": [
+      11.6,
+      79.8
+    ],
+    "#val_GonderenQurum": [
+      34.6,
+      79.8
+    ],
+    "Aktın forması": [
+      9.7,
+      82.8
+    ],
+    "#cap_AktForma": [
+      9.7,
+      82.8
+    ],
+    "#val_AktForma": [
+      34.6,
+      82.8
+    ],
+    "Aktın nömrəsi": [
+      9.8,
+      85.8
+    ],
+    "#cap_AktNo": [
+      9.8,
+      85.8
+    ],
+    "#val_AktNo": [
+      34.6,
+      85.8
+    ],
+    "Aktın tarixi": [
+      9.2,
+      88.8
+    ],
+    "#cap_AktTarixi": [
+      9.2,
+      88.8
+    ],
+    "#val_AktTarixi": [
+      34.6,
+      88.8
+    ],
+    "Qəbul edən təmir müəssisəsi": [
+      12.5,
+      91.8
+    ],
+    "#cap_TemirZavodu": [
+      12.5,
+      91.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      30.7,
+      91.8
+    ],
+    "#val_TemirZavodu": [
+      30.7,
+      91.8
+    ],
+    "Zavodda məsul icraçı": [
+      11.1,
+      94.8
+    ],
+    "#cap_MesulIcraci": [
+      11.1,
+      94.8
+    ],
+    "#val_MesulIcraci": [
+      34.6,
+      94.8
+    ],
+    "Qəbul və sənədlər": [
+      21.1,
+      55.9
+    ],
+    "İstehsal ili": [
+      40.1,
+      30.7
+    ],
+    "#cap_IstehsalIli": [
+      40.1,
+      30.7
+    ],
+    "1986": [
+      65.2,
+      30.7
+    ],
+    "#val_IstehsalIli": [
+      65.2,
+      30.7
+    ],
+    "İstismara verilib (tarix)": [
+      42.3,
+      33.7
+    ],
+    "#cap_IstismarTarixi": [
+      42.3,
+      33.7
+    ],
+    "#val_IstismarTarixi": [
+      65.7,
+      33.7
+    ],
+    "İstismarın əvvəlindən işləyib": [
+      43.4,
+      37.5
+    ],
+    "#cap_Gostericiler": [
+      43.4,
+      37.5
+    ],
+    "Gediş, km: 8201 Motosaat: 3540": [
+      63.2,
+      37.6
+    ],
+    "#val_Gostericiler": [
+      63.2,
+      37.6
+    ],
+    "Son təmirin növü": [
+      41.5,
+      41.4
+    ],
+    "#cap_SonTemirNovu": [
+      41.5,
+      41.4
+    ],
+    "#val_SonTemirNovu": [
+      65.7,
+      41.4
+    ],
+    "Son təmirin tamamlanma tarixi": [
+      44,
+      44.4
+    ],
+    "#cap_SonTemirTarixi": [
+      44,
+      44.4
+    ],
+    "#val_SonTemirTarixi": [
+      65.7,
+      44.4
+    ],
+    "Təmiri aparmış hərbi hissə və ya müəssisə": [
+      44.2,
+      48.2
+    ],
+    "#cap_SonTemirIcraci": [
+      44.2,
+      48.2
+    ],
+    "#val_SonTemirIcraci": [
+      65.7,
+      48.2
+    ],
+    "Son təmirdə yerinə yetirilmiş işlər": [
+      44.3,
+      52.1
+    ],
+    "#cap_SonTemirQeyd": [
+      44.3,
+      52.1
+    ],
+    "#val_SonTemirQeyd": [
+      65.7,
+      52.1
+    ],
+    "İstismar göstəriciləri və son təmir": [
+      52.2,
+      27.8
+    ],
+    "Aşkar edilmiş nasazlıqların qısa təsviri": [
+      44,
+      63
+    ],
+    "#cap_Nasazliqlar": [
+      44,
+      63
+    ],
+    "Qeyd: Nümunə məlumat (sürət sınağı)": [
+      60.3,
+      63
+    ],
+    "#val_Nasazliqlar": [
+      60.3,
+      63
+    ],
+    "Diaqnostika tarixi": [
+      41.4,
+      66.8
+    ],
+    "#cap_BaslamaTarixi": [
+      41.4,
+      66.8
+    ],
+    "15.05.2026": [
+      64,
+      66.8
+    ],
+    "#val_BaslamaTarixi": [
+      64,
+      66.8
+    ],
+    "Təmirin / işin növü": [
+      41.8,
+      69.8
+    ],
+    "#cap_TemirNovu": [
+      41.8,
+      69.8
+    ],
+    "Əsaslı təmir": [
+      63.9,
+      69.8
+    ],
+    "#val_TemirNovu": [
+      63.9,
+      69.8
+    ],
+    "İcra statusu": [
+      40.4,
+      72.8
+    ],
+    "#cap_Status": [
+      40.4,
+      72.8
+    ],
+    "Təmirdədir": [
+      64.1,
+      72.8
+    ],
+    "#val_Status": [
+      64.1,
+      72.8
+    ],
+    "İcra müddəti": [
+      40.6,
+      75.8
+    ],
+    "#cap_IcraMuddeti": [
+      40.6,
+      75.8
+    ],
+    "#val_IcraMuddeti": [
+      65.7,
+      75.8
+    ],
+    "Müddətin vahidi": [
+      41.3,
+      78.8
+    ],
+    "#cap_MuddetVahidi": [
+      41.3,
+      78.8
+    ],
+    "#val_MuddetVahidi": [
+      65.7,
+      78.8
+    ],
+    "Plan üzrə bitmə tarixi": [
+      42.1,
+      81.8
+    ],
+    "#cap_GozlenilenBitme": [
+      42.1,
+      81.8
+    ],
+    "11.09.2026": [
+      64.1,
+      81.8
+    ],
+    "#val_GozlenilenBitme": [
+      64.1,
+      81.8
+    ],
+    "Gecikmənin və ya plan dəyişikliyinin səbəbi": [
+      42.5,
+      85.7
+    ],
+    "#cap_GecikmeSebebi": [
+      42.5,
+      85.7
+    ],
+    "#val_GecikmeSebebi": [
+      65.7,
+      85.6
+    ],
+    "Ehtiyat hissələrinin təminatı": [
+      43.3,
+      89.5
+    ],
+    "#cap_Teminat": [
+      43.3,
+      89.5
+    ],
+    "#val_Teminat": [
+      65.7,
+      89.5
+    ],
+    "Gözlənilən bitmə tarixi": [
+      42.4,
+      92.5
+    ],
+    "#cap_ProqnozBitme": [
+      42.4,
+      92.5
+    ],
+    "#val_ProqnozBitme": [
+      65.7,
+      92.5
+    ],
+    "Yeni plan üzrə bitmə tarixi": [
+      43,
+      95.5
+    ],
+    "#cap_YeniPlanBitme": [
+      43,
+      95.5
+    ],
+    "#val_YeniPlanBitme": [
+      65.7,
+      95.5
+    ],
+    "Təmirin icrası": [
+      52.2,
+      59.2
+    ],
+    "Faktiki sərfiyyat": [
+      72.2,
+      34.1
+    ],
+    "#cap_Serfiyyat": [
+      72.2,
+      34.1
+    ],
+    "#val_Serfiyyat": [
+      90.8,
+      34.1
+    ],
+    "Təmirin faktiki tamamlanma tarixi": [
+      75.5,
+      47.5
+    ],
+    "#cap_FaktikiBitme": [
+      75.5,
+      47.5
+    ],
+    "#val_FaktikiBitme": [
+      96.7,
+      47.5
+    ],
+    "Yerinə yetirilmiş işlər haqqında qeyd": [
+      75,
+      51.3
+    ],
+    "#cap_GorulenIsler": [
+      75,
+      51.3
+    ],
+    "#val_GorulenIsler": [
+      96.7,
+      51.3
+    ],
+    "Faktiki təhvil tarixi": [
+      72.6,
+      55.2
+    ],
+    "#cap_TehvilTarixi": [
+      72.6,
+      55.2
+    ],
+    "#val_TehvilTarixi": [
+      96.7,
+      55.2
+    ],
+    "Təhvil sənədinin nömrəsi": [
+      73.9,
+      58.2
+    ],
+    "#cap_TehvilSenedNo": [
+      73.9,
+      58.2
+    ],
+    "#val_TehvilSenedNo": [
+      96.7,
+      58.2
+    ],
+    "Təhvil sənədinin tarixi": [
+      73.3,
+      61.2
+    ],
+    "#cap_TehvilSenedTarixi": [
+      73.3,
+      61.2
+    ],
+    "#val_TehvilSenedTarixi": [
+      96.7,
+      61.2
+    ],
+    "Təhvil alan qurum": [
+      72.7,
+      64.2
+    ],
+    "#cap_TehvilAlan": [
+      72.7,
+      64.2
+    ],
+    "#val_TehvilAlan": [
+      96.7,
+      64.2
+    ],
+    "Təmirin tamamlanması və təhvil": [
+      83.2,
+      44.6
+    ],
+    "#pnlGap": [
+      52.2,
+      24.9
+    ],
+    "#rpStep": [
+      52.2,
+      20.2
+    ],
+    "#stepper": [
+      52.2,
+      20.4
+    ],
+    "#rpHead": [
+      52.2,
+      11.6
+    ],
+    "Əvvəlki": [
+      69.7,
+      11.3
+    ],
+    "#btnPrev": [
+      69.7,
+      11.3
+    ],
+    "Növbəti": [
+      76.9,
+      11.3
+    ],
+    "#btnNext": [
+      76.9,
+      11.3
+    ],
+    "PDF pasport": [
+      85,
+      11.3
+    ],
+    "#btnPdf": [
+      85,
+      11.3
+    ],
+    "Redaktə": [
+      93.5,
+      11.3
+    ],
+    "#btnEdit": [
+      93.5,
+      11.3
+    ],
+    "Gecikir": [
+      44.1,
+      11.1
+    ],
+    "#chipLate": [
+      44.1,
+      11.1
+    ],
+    "Təmirdə": [
+      38.9,
+      11.1
+    ],
+    "#chipStatus": [
+      38.9,
+      11.1
+    ],
+    "Zirehli texnika · 939 nömrəli hərbi hissə · daxil olub 12.05.2026": [
+      29.9,
+      13.2
+    ],
+    "#lblSub": [
+      29.9,
+      13.2
+    ],
+    "2S1 · NÜMUNƏ-6194761": [
+      26.8,
+      10.3
+    ],
+    "#lblName": [
+      26.8,
+      10.3
+    ],
+    "Reyestrə qayıt": [
+      12.2,
+      11.3
+    ],
+    "#btnBack": [
+      12.2,
+      11.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/05_elave_1.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#EditPage": [
+      52.2,
+      52.7
+    ],
+    "#tabs": [
+      52.2,
+      56.3
+    ],
+    "1. Qəbul və sənədlər": [
+      52.2,
+      56.3
+    ],
+    "#tab1": [
+      52.2,
+      56.3
+    ],
+    "#in_AktForma": [
+      21.5,
+      62.8
+    ],
+    "Aktın forması": [
+      21.5,
+      60
+    ],
+    "#in_AktNo": [
+      51.6,
+      63.8
+    ],
+    "Aktın nömrəsi": [
+      51.2,
+      60
+    ],
+    "28.10.2026": [
+      81,
+      62.6
+    ],
+    "#in_AktTarixi": [
+      81,
+      62.6
+    ],
+    "Aktın tarixi": [
+      81,
+      60
+    ],
+    "Məmmədov Rauf": [
+      21.8,
+      71.3
+    ],
+    "#in_MesulIcraci": [
+      21.8,
+      71.3
+    ],
+    "Zavodda məsul icraçı": [
+      21.5,
+      67.6
+    ],
+    "939 nömrəli hərbi hissə": [
+      51.2,
+      70.3
+    ],
+    "#in_TemirZavodu": [
+      51.2,
+      70.3
+    ],
+    "Qəbul edən təmir müəssisəsi *": [
+      51.2,
+      67.6
+    ],
+    "Qəbul edən təmir müəssisəsi: 939 nömrəli hərbi hissə   •   İlkin status: Qəbul edilib": [
+      51.3,
+      76.7
+    ],
+    "Texniki vəziyyət aktı": [
+      13.9,
+      56.1
+    ],
+    "Bir naryadla bir neçə texnika gələ bilər": [
+      17.8,
+      47.7
+    ],
+    "818/26": [
+      18.1,
+      45.6
+    ],
+    "#in_NaryadNo": [
+      18.1,
+      45.6
+    ],
+    "Naryadın nömrəsi *": [
+      17.8,
+      41.8
+    ],
+    "#in_NaryadTarixi": [
+      40.1,
+      44.4
+    ],
+    "Sənədin tarixi (naryadın tarixi) *": [
+      40.1,
+      41.8
+    ],
+    "#in_DaxilolmaTarixi": [
+      62.4,
+      44.4
+    ],
+    "Zavoda faktiki daxilolma tarixi *": [
+      62.4,
+      41.8
+    ],
+    "444 nömrəli hərbi hissə": [
+      85.1,
+      45.6
+    ],
+    "#in_GonderenQurum": [
+      85.1,
+      45.6
+    ],
+    "Təhvil verən (göndərən) *": [
+      84.8,
+      41.8
+    ],
+    "Naryad və qəbul məlumatları": [
+      16.8,
+      37.9
+    ],
+    "Zirehli texnika": [
+      17.8,
+      26.8
+    ],
+    "#in_Nov": [
+      17.8,
+      26.8
+    ],
+    "Texnikanın növü *": [
+      17.8,
+      24
+    ],
+    "BMP-2": [
+      40.4,
+      27.8
+    ],
+    "#in_Marka": [
+      40.4,
+      27.8
+    ],
+    "Texnikanın markası *": [
+      40.1,
+      24
+    ],
+    "KD-688774": [
+      62.7,
+      27.8
+    ],
+    "#in_ZavodNo": [
+      62.7,
+      27.8
+    ],
+    "Zavod nömrəsi *": [
+      62.4,
+      24
+    ],
+    "Aktda göstərildiyi kimi": [
+      84.8,
+      29.4
+    ],
+    "#in_Kateqoriya": [
+      84.8,
+      26.8
+    ],
+    "Kateqoriyası — faktiki": [
+      84.8,
+      24
+    ],
+    "Texnika haqqında məlumat": [
+      16,
+      20.1
+    ],
+    "#chipTabs": [
+      52.2,
+      14.4
+    ],
+    "* məcburi sahələr. Tarix xanasında işarəni götürsəniz, tarix boş qalır.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Əvvəlki bölmə": [
+      72.2,
+      9.6
+    ],
+    "#btnPrevG": [
+      72.2,
+      9.6
+    ],
+    "Növbəti bölmə": [
+      83.5,
+      9.6
+    ],
+    "#btnNextG": [
+      83.5,
+      9.6
+    ],
+    "Yadda saxla": [
+      93.9,
+      9.6
+    ],
+    "#btnSave": [
+      93.9,
+      9.6
+    ],
+    "Texnika əlavə et": [
+      12.5,
+      9.3
+    ],
+    "#lblTitle": [
+      12.5,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/05_elave_2.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#EditPage": [
+      52.2,
+      52.7
+    ],
+    "#tabs": [
+      52.2,
+      56.3
+    ],
+    "2. İstismar göstəriciləri və son təmir": [
+      52.2,
+      56.3
+    ],
+    "#tab2": [
+      52.2,
+      56.3
+    ],
+    "#in_SonTemirNovu": [
+      21.5,
+      60.9
+    ],
+    "Təmirin növü": [
+      21.5,
+      58.1
+    ],
+    "28.10.2026": [
+      51.2,
+      60.7
+    ],
+    "#in_SonTemirTarixi": [
+      51.2,
+      60.7
+    ],
+    "Tamamlanma tarixi": [
+      51.2,
+      58.1
+    ],
+    "#in_SonTemirIcraci": [
+      81.4,
+      61.9
+    ],
+    "Təmiri aparmış hərbi hissə və ya müəssisə": [
+      81,
+      58.1
+    ],
+    "#in_SonTemirQeyd": [
+      51.6,
+      71.6
+    ],
+    "Yerinə yetirilmiş işlər haqqında qeyd": [
+      51.3,
+      65.7
+    ],
+    "Zavoda daxilolmadan əvvəlki son təmir": [
+      19.8,
+      52
+    ],
+    "Yalnız ən son aparılmış təmir qeyd olunur.": [
+      15.2,
+      55.1
+    ],
+    "#in_IstehsalIli": [
+      18.1,
+      27.8
+    ],
+    "İstehsal ili": [
+      17.8,
+      24
+    ],
+    "#in_IstismarTarixi": [
+      40.1,
+      26.6
+    ],
+    "İstismara verilib (tarix)": [
+      40.1,
+      24
+    ],
+    "İstismarın əvvəlindən işləyib": [
+      14.2,
+      32.3
+    ],
+    "Gediş, km": [
+      17.2,
+      38.2
+    ],
+    "Digər istismar göstəricisini əlavə et": [
+      16.8,
+      43.6
+    ],
+    "Texniki-istismar göstəriciləri": [
+      16.7,
+      20.1
+    ],
+    "#chipTabs": [
+      52.2,
+      14.4
+    ],
+    "* məcburi sahələr. Tarix xanasında işarəni götürsəniz, tarix boş qalır.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Əvvəlki bölmə": [
+      72.2,
+      9.6
+    ],
+    "#btnPrevG": [
+      72.2,
+      9.6
+    ],
+    "Növbəti bölmə": [
+      83.5,
+      9.6
+    ],
+    "#btnNextG": [
+      83.5,
+      9.6
+    ],
+    "Yadda saxla": [
+      93.9,
+      9.6
+    ],
+    "#btnSave": [
+      93.9,
+      9.6
+    ],
+    "Texnika əlavə et": [
+      12.5,
+      9.3
+    ],
+    "#lblTitle": [
+      12.5,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/05_elave_3.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#EditPage": [
+      52.2,
+      52.7
+    ],
+    "#tabs": [
+      52.2,
+      56.3
+    ],
+    "3. Təmirin icrası": [
+      52.2,
+      56.3
+    ],
+    "#tab3": [
+      52.2,
+      56.3
+    ],
+    "Yalnız dəyişiklik olduqda doldurulur. İlkin plan tarixçədə saxlanılır.": [
+      28.7,
+      89.2
+    ],
+    "#in_GecikmeSebebi": [
+      29,
+      85.6
+    ],
+    "Gecikmənin və ya plan dəyişikliyinin səbəbi": [
+      28.7,
+      80.2
+    ],
+    "28.10.2026": [
+      61.7,
+      82.8
+    ],
+    "#in_ProqnozBitme": [
+      61.7,
+      82.8
+    ],
+    "Gözlənilən bitmə tarixi": [
+      61.7,
+      80.2
+    ],
+    "Dəyişiklik yadda saxlandıqda plan bu tarixə yenilənir.": [
+      83.8,
+      85.3
+    ],
+    "#in_YeniPlanBitme": [
+      83.8,
+      82.8
+    ],
+    "Yeni plan üzrə bitmə tarixi": [
+      83.8,
+      80.2
+    ],
+    "Dəyişikliyi yadda saxla": [
+      80.2,
+      94.1
+    ],
+    "Gecikmə və plan dəyişikliyi": [
+      16,
+      76.3
+    ],
+    "Hesablama diaqnostika tarixindən aparılır.": [
+      17.7,
+      67.9
+    ],
+    "45": [
+      18,
+      65.8
+    ],
+    "#in_IcraMuddeti": [
+      18,
+      65.8
+    ],
+    "Müddət *": [
+      17.7,
+      62
+    ],
+    "Gün": [
+      39.7,
+      64.8
+    ],
+    "#in_MuddetVahidi": [
+      39.7,
+      64.8
+    ],
+    "Vahid *": [
+      39.7,
+      62
+    ],
+    "Avtomatik hesablanır": [
+      61.7,
+      67.9
+    ],
+    "12.12.2026": [
+      62,
+      65.8
+    ],
+    "Plan üzrə bitmə tarixi": [
+      61.7,
+      62
+    ],
+    "Avtomatik": [
+      83.8,
+      67.9
+    ],
+    "45 gün qalıb": [
+      84.1,
+      65.8
+    ],
+    "Qalan / gecikən gün": [
+      83.8,
+      62
+    ],
+    "İcra olunma müddəti": [
+      14.1,
+      58.1
+    ],
+    "Hazırkı qəbul üzrə görüləcək iş seçilir.": [
+      21.4,
+      49.7
+    ],
+    "#in_TemirNovu": [
+      21.4,
+      47
+    ],
+    "Təmirin / işin növü *": [
+      21.4,
+      44.2
+    ],
+    "Tamamlanma və təhvil statusları tarixlərə əsasən yenilənir.": [
+      50.7,
+      49.7
+    ],
+    "Qəbul edilib": [
+      50.7,
+      47
+    ],
+    "#in_Status": [
+      50.7,
+      47
+    ],
+    "İcra statusu *": [
+      50.7,
+      44.2
+    ],
+    "Təminat gözləyir": [
+      70.7,
+      47.6
+    ],
+    "Təmir məlumatları": [
+      13.4,
+      40.3
+    ],
+    "Transmissiyada kənar səs, sürət qutusu nasazdır": [
+      40,
+      29.9
+    ],
+    "#in_Nasazliqlar": [
+      40,
+      29.9
+    ],
+    "Aşkar edilmiş nasazlıqların qısa təsviri *": [
+      39.7,
+      24
+    ],
+    "#in_BaslamaTarixi": [
+      83.8,
+      26.6
+    ],
+    "Diaqnostika tarixi *": [
+      83.8,
+      24
+    ],
+    "Texniki vəziyyəti": [
+      12.7,
+      20.1
+    ],
+    "#chipTabs": [
+      52.2,
+      14.4
+    ],
+    "* məcburi sahələr. Tarix xanasında işarəni götürsəniz, tarix boş qalır.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Əvvəlki bölmə": [
+      72.2,
+      9.6
+    ],
+    "#btnPrevG": [
+      72.2,
+      9.6
+    ],
+    "Növbəti bölmə": [
+      83.5,
+      9.6
+    ],
+    "#btnNextG": [
+      83.5,
+      9.6
+    ],
+    "Yadda saxla": [
+      93.9,
+      9.6
+    ],
+    "#btnSave": [
+      93.9,
+      9.6
+    ],
+    "Texnika əlavə et": [
+      12.5,
+      9.3
+    ],
+    "#lblTitle": [
+      12.5,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/05_elave_4.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#EditPage": [
+      52.2,
+      52.7
+    ],
+    "#tabs": [
+      52.2,
+      56.3
+    ],
+    "4. Faktiki sərfiyyat": [
+      52.2,
+      56.3
+    ],
+    "#tab4": [
+      52.2,
+      56.3
+    ],
+    "Sərfiyyat əlavə et": [
+      13.2,
+      27.4
+    ],
+    "Faktiki sərfiyyat": [
+      12.7,
+      20.1
+    ],
+    "Faktiki istifadə bu bölmədə qeyd edilir. Hesabatda məlumat daxil edilmir.": [
+      20.9,
+      23.2
+    ],
+    "#chipTabs": [
+      52.2,
+      14.4
+    ],
+    "* məcburi sahələr. Tarix xanasında işarəni götürsəniz, tarix boş qalır.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Əvvəlki bölmə": [
+      72.2,
+      9.6
+    ],
+    "#btnPrevG": [
+      72.2,
+      9.6
+    ],
+    "Növbəti bölmə": [
+      83.5,
+      9.6
+    ],
+    "#btnNextG": [
+      83.5,
+      9.6
+    ],
+    "Yadda saxla": [
+      93.9,
+      9.6
+    ],
+    "#btnSave": [
+      93.9,
+      9.6
+    ],
+    "Texnika əlavə et": [
+      12.5,
+      9.3
+    ],
+    "#lblTitle": [
+      12.5,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/05_elave_5.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#EditPage": [
+      52.2,
+      52.7
+    ],
+    "#tabs": [
+      52.2,
+      56.3
+    ],
+    "5. Təmirin tamamlanması və təhvil": [
+      52.2,
+      56.3
+    ],
+    "#tab5": [
+      52.2,
+      56.3
+    ],
+    "Təmir hələ tamamlanmayıb": [
+      51.6,
+      72.7
+    ],
+    "Avtomatik hesablanır": [
+      51.3,
+      68.9
+    ],
+    "Təhvil gözləmə müddəti": [
+      15,
+      62.8
+    ],
+    "Tamamlanmadan faktiki təhvilədək; təhvil verilməyibsə, bu günədək.": [
+      20.1,
+      65.8
+    ],
+    "28.10.2026": [
+      17.8,
+      51.3
+    ],
+    "#in_TehvilTarixi": [
+      17.8,
+      51.3
+    ],
+    "Faktiki təhvil tarixi": [
+      17.8,
+      48.7
+    ],
+    "#in_TehvilSenedNo": [
+      40.4,
+      52.4
+    ],
+    "Təhvil sənədinin nömrəsi": [
+      40.1,
+      48.7
+    ],
+    "#in_TehvilSenedTarixi": [
+      62.4,
+      51.3
+    ],
+    "Təhvil sənədinin tarixi": [
+      62.4,
+      48.7
+    ],
+    "Birinci bölmədəki göndərən qurum təklif edilir; dəyişmək mümkündür.": [
+      84.8,
+      54.1
+    ],
+    "444 nömrəli hərbi hissə": [
+      84.8,
+      51.4
+    ],
+    "Təhvil alan qurum": [
+      84.8,
+      48.7
+    ],
+    "Texnikanın təhvili": [
+      13,
+      42.6
+    ],
+    "Saxlananda status: Təmir tamamlanıb, təhvil gözlənilir.": [
+      21.5,
+      29.1
+    ],
+    "#in_FaktikiBitme": [
+      21.5,
+      26.6
+    ],
+    "Təmirin faktiki tamamlanma tarixi": [
+      21.5,
+      24
+    ],
+    "Tamamlanma tarixi yazılıbsa, məcburidir.": [
+      66.2,
+      34.1
+    ],
+    "#in_GorulenIsler": [
+      66.5,
+      29.9
+    ],
+    "Yerinə yetirilmiş işlər haqqında qeyd *": [
+      66.2,
+      24
+    ],
+    "Təmirin tamamlanması": [
+      14.8,
+      20.1
+    ],
+    "#chipTabs": [
+      52.2,
+      14.4
+    ],
+    "* məcburi sahələr. Tarix xanasında işarəni götürsəniz, tarix boş qalır.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Əvvəlki bölmə": [
+      72.2,
+      9.6
+    ],
+    "#btnPrevG": [
+      72.2,
+      9.6
+    ],
+    "Növbəti bölmə": [
+      83.5,
+      9.6
+    ],
+    "#btnNextG": [
+      83.5,
+      9.6
+    ],
+    "Yadda saxla": [
+      93.9,
+      9.6
+    ],
+    "#btnSave": [
+      93.9,
+      9.6
+    ],
+    "Texnika əlavə et": [
+      12.5,
+      9.3
+    ],
+    "#lblTitle": [
+      12.5,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/05_elave_4_serf.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#EditPage": [
+      52.2,
+      52.7
+    ],
+    "#tabs": [
+      52.2,
+      56.3
+    ],
+    "4. Faktiki sərfiyyat": [
+      52.2,
+      56.3
+    ],
+    "#tab4": [
+      52.2,
+      56.3
+    ],
+    "Sərfiyyat əlavə et": [
+      13.2,
+      27.4
+    ],
+    "Hava filtri · 740-1109 — qalıq: 1 ədəd": [
+      18.7,
+      39.3
+    ],
+    "Material / ehtiyat hissəsi *": [
+      18.4,
+      35.6
+    ],
+    "740-1109": [
+      40.2,
+      39.3
+    ],
+    "Kodu": [
+      39.9,
+      35.6
+    ],
+    "ədəd": [
+      61.8,
+      39.3
+    ],
+    "Ölçü vahidi": [
+      61.5,
+      35.6
+    ],
+    "Yeni ad əlavə et": [
+      78.4,
+      39.2
+    ],
+    "1": [
+      18.7,
+      46.9
+    ],
+    "Sərf edilmiş miqdar *": [
+      18.4,
+      43.1
+    ],
+    "28.10.2026": [
+      39.9,
+      45.7
+    ],
+    "Sərf tarixi *": [
+      39.9,
+      43.1
+    ],
+    "Yadda saxla": [
+      56.1,
+      46.8
+    ],
+    "Sərfiyyat": [
+      51.3,
+      32.9
+    ],
+    "Faktiki sərfiyyat": [
+      12.7,
+      20.1
+    ],
+    "Faktiki istifadə bu bölmədə qeyd edilir. Hesabatda məlumat daxil edilmir.": [
+      20.9,
+      23.2
+    ],
+    "#chipTabs": [
+      52.2,
+      14.4
+    ],
+    "* məcburi sahələr. Tarix xanasında işarəni götürsəniz, tarix boş qalır.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Əvvəlki bölmə": [
+      72.2,
+      9.6
+    ],
+    "#btnPrevG": [
+      72.2,
+      9.6
+    ],
+    "Növbəti bölmə": [
+      83.5,
+      9.6
+    ],
+    "#btnNextG": [
+      83.5,
+      9.6
+    ],
+    "#btnSave": [
+      93.9,
+      9.6
+    ],
+    "Redaktə: 2S1 · NÜMUNƏ-6194761": [
+      18.3,
+      9.3
+    ],
+    "#lblTitle": [
+      18.3,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/05_elave_3_teminat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#EditPage": [
+      52.2,
+      52.7
+    ],
+    "#tabs": [
+      52.2,
+      56.3
+    ],
+    "3. Təmirin icrası": [
+      52.2,
+      56.3
+    ],
+    "#tab3": [
+      52.2,
+      56.3
+    ],
+    "Yalnız dəyişiklik olduqda doldurulur. İlkin plan tarixçədə saxlanılır.": [
+      28.7,
+      89.2
+    ],
+    "#in_GecikmeSebebi": [
+      29,
+      85.6
+    ],
+    "Gecikmənin və ya plan dəyişikliyinin səbəbi": [
+      28.7,
+      80.2
+    ],
+    "28.10.2026": [
+      61.7,
+      82.8
+    ],
+    "#in_ProqnozBitme": [
+      61.7,
+      82.8
+    ],
+    "Gözlənilən bitmə tarixi": [
+      61.7,
+      80.2
+    ],
+    "Dəyişiklik yadda saxlandıqda plan bu tarixə yenilənir.": [
+      83.8,
+      85.3
+    ],
+    "#in_YeniPlanBitme": [
+      83.8,
+      82.8
+    ],
+    "Yeni plan üzrə bitmə tarixi": [
+      83.8,
+      80.2
+    ],
+    "Dəyişikliyi yadda saxla": [
+      80.2,
+      94.1
+    ],
+    "Gecikmə və plan dəyişikliyi": [
+      16,
+      76.3
+    ],
+    "Hesablama diaqnostika tarixindən aparılır.": [
+      17.7,
+      67.9
+    ],
+    "#in_IcraMuddeti": [
+      18,
+      65.8
+    ],
+    "Müddət *": [
+      17.7,
+      62
+    ],
+    "#in_MuddetVahidi": [
+      39.7,
+      64.8
+    ],
+    "Vahid *": [
+      39.7,
+      62
+    ],
+    "Avtomatik hesablanır": [
+      61.7,
+      67.9
+    ],
+    "Plan üzrə bitmə tarixi": [
+      61.7,
+      62
+    ],
+    "Avtomatik": [
+      83.8,
+      67.9
+    ],
+    "Qalan / gecikən gün": [
+      83.8,
+      62
+    ],
+    "İcra olunma müddəti": [
+      14.1,
+      58.1
+    ],
+    "Hazırkı qəbul üzrə görüləcək iş seçilir.": [
+      21.4,
+      49.7
+    ],
+    "Əsaslı təmir": [
+      21.4,
+      47
+    ],
+    "#in_TemirNovu": [
+      21.4,
+      47
+    ],
+    "Təmirin / işin növü *": [
+      21.4,
+      44.2
+    ],
+    "Tamamlanma və təhvil statusları tarixlərə əsasən yenilənir.": [
+      50.7,
+      49.7
+    ],
+    "Təmirdədir": [
+      50.7,
+      47
+    ],
+    "#in_Status": [
+      50.7,
+      47
+    ],
+    "İcra statusu *": [
+      50.7,
+      44.2
+    ],
+    "Təminat gözləyir": [
+      70.7,
+      47.6
+    ],
+    "Təmir məlumatları": [
+      13.4,
+      40.3
+    ],
+    "Qeyd: Nümunə məlumat (sürət sınağı)": [
+      40,
+      29.9
+    ],
+    "#in_Nasazliqlar": [
+      40,
+      29.9
+    ],
+    "Aşkar edilmiş nasazlıqların qısa təsviri *": [
+      39.7,
+      24
+    ],
+    "30.08.2026": [
+      83.8,
+      26.6
+    ],
+    "#in_BaslamaTarixi": [
+      83.8,
+      26.6
+    ],
+    "Diaqnostika tarixi *": [
+      83.8,
+      24
+    ],
+    "Texniki vəziyyəti": [
+      12.7,
+      20.1
+    ],
+    "#chipTabs": [
+      52.2,
+      14.4
+    ],
+    "* məcburi sahələr. Tarix xanasında işarəni götürsəniz, tarix boş qalır.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Əvvəlki bölmə": [
+      72.2,
+      9.6
+    ],
+    "#btnPrevG": [
+      72.2,
+      9.6
+    ],
+    "Növbəti bölmə": [
+      83.5,
+      9.6
+    ],
+    "#btnNextG": [
+      83.5,
+      9.6
+    ],
+    "Yadda saxla": [
+      93.9,
+      9.6
+    ],
+    "#btnSave": [
+      93.9,
+      9.6
+    ],
+    "Redaktə: 2S1 · NÜMUNƏ-791799140": [
+      19.2,
+      9.3
+    ],
+    "#lblTitle": [
+      19.2,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/05_material_axtar.png": {
+    "Mühərrik yağı · M-10 — qalıq: 7 litr": [
+      48.7,
+      46.3
+    ],
+    "Mühərrik": [
+      50.2,
+      7
+    ],
+    "Seç": [
+      48.7,
+      86
+    ]
+  },
+  "zavod/06_sorgu.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "İcra qeydi əlavə et": [
+      13.4,
+      79.9
+    ],
+    "Addım 3 · Məktubun icrası üzrə qeydlər": [
+      19.8,
+      72.6
+    ],
+    "Yeni qeyd əvvəlkini silmir. Son qeyd yuxarıda göstərilir.": [
+      17.5,
+      75.6
+    ],
+    "Ehtiyat hissəsi əlavə et": [
+      14.3,
+      61.6
+    ],
+    "Ehtiyat hissəsinin qəbulunu qeyd et": [
+      31.2,
+      61.6
+    ],
+    "Addım 2 · Ehtiyat hissələri və materiallar": [
+      20.3,
+      33.8
+    ],
+    "Təminat vəziyyəti:": [
+      70.5,
+      33.9
+    ],
+    "Qismən təmin edilib": [
+      80.9,
+      34.1
+    ],
+    "Yeni məktub qeyd et": [
+      14,
+      22.1
+    ],
+    "Qeydiyyatdakı məktubu seç": [
+      29.6,
+      22.1
+    ],
+    "Məktubu dəyiş": [
+      43.2,
+      22.1
+    ],
+    "Məktub: 190/26 · 08.10.2026 · Təchizat idarəsi · İcrası davam edir": [
+      21.6,
+      26.3
+    ],
+    "Addım 1 · Təchizat məktubu": [
+      16,
+      14.8
+    ],
+    "Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin.": [
+      19.5,
+      17.8
+    ],
+    "Sorğu yarat": [
+      10.9,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/06_sorgu_mektub.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Addım 3 · Məktubun icrası üzrə qeydlər": [
+      19.8,
+      96.8
+    ],
+    "Ehtiyat hissəsi əlavə et": [
+      14.3,
+      85.8
+    ],
+    "Ehtiyat hissəsinin qəbulunu qeyd et": [
+      31.2,
+      85.8
+    ],
+    "Addım 2 · Ehtiyat hissələri və materiallar": [
+      20.3,
+      58
+    ],
+    "Təminat vəziyyəti:": [
+      70.5,
+      58.2
+    ],
+    "Qismən təmin edilib": [
+      80.9,
+      58.3
+    ],
+    "Yeni məktub qeyd et": [
+      14,
+      22.1
+    ],
+    "Qeydiyyatdakı məktubu seç": [
+      29.6,
+      22.1
+    ],
+    "Məktubu dəyiş": [
+      43.2,
+      22.1
+    ],
+    "Məktub: 190/26 · 08.10.2026 · Təchizat idarəsi · İcrası davam edir": [
+      21.6,
+      26.3
+    ],
+    "190/26": [
+      18.5,
+      34.6
+    ],
+    "Məktubun nömrəsi *": [
+      18.2,
+      30.8
+    ],
+    "08.10.2026": [
+      39.4,
+      33.4
+    ],
+    "Məktubun tarixi *": [
+      39.4,
+      30.8
+    ],
+    "Təchizat idarəsi": [
+      60.9,
+      34.6
+    ],
+    "Təmin edən qurum *": [
+      60.6,
+      30.8
+    ],
+    "mayor Səfərov N.": [
+      82.2,
+      34.6
+    ],
+    "Təmin edən qurum üzrə məsul icraçı *": [
+      81.9,
+      30.8
+    ],
+    "(012) 498-67-35": [
+      18.5,
+      42.1
+    ],
+    "Əlaqə nömrəsi": [
+      18.2,
+      38.3
+    ],
+    "07.11.2026": [
+      39.4,
+      40.9
+    ],
+    "İcra üçün son tarix *": [
+      39.4,
+      38.3
+    ],
+    "İcrası davam edir": [
+      60.6,
+      41.1
+    ],
+    "Məktubun icra vəziyyəti *": [
+      60.6,
+      38.3
+    ],
+    "939 nömrəli hərbi hissə": [
+      81.9,
+      41.1
+    ],
+    "Təmir zavodu": [
+      81.9,
+      38.3
+    ],
+    "Məktubu yadda saxla": [
+      15.1,
+      47.6
+    ],
+    "Bağla": [
+      25.4,
+      47.6
+    ],
+    "Addım 1 · Təchizat məktubu": [
+      16,
+      14.8
+    ],
+    "Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin.": [
+      19.5,
+      17.8
+    ],
+    "Sorğu yarat": [
+      10.9,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/06_sorgu_hisse.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "İcra qeydi əlavə et": [
+      13.4,
+      97.6
+    ],
+    "Addım 3 · Məktubun icrası üzrə qeydlər": [
+      19.8,
+      91.4
+    ],
+    "Yeni qeyd əvvəlkini silmir. Son qeyd yuxarıda göstərilir.": [
+      17.5,
+      94.5
+    ],
+    "Ehtiyat hissəsi əlavə et": [
+      14.3,
+      61.6
+    ],
+    "Ehtiyat hissəsinin qəbulunu qeyd et": [
+      31.2,
+      61.6
+    ],
+    "Hava filtri": [
+      18.5,
+      76
+    ],
+    "Adı *": [
+      18.2,
+      72.2
+    ],
+    "740-1109": [
+      39.7,
+      76
+    ],
+    "Kodu": [
+      39.4,
+      72.2
+    ],
+    "ədəd": [
+      60.9,
+      76
+    ],
+    "Ölçü vahidi *": [
+      60.6,
+      72.2
+    ],
+    "3": [
+      82.2,
+      76
+    ],
+    "Tələb olunan *": [
+      81.9,
+      72.2
+    ],
+    "Hansı texnika üçün": [
+      14.6,
+      81
+    ],
+    "Təmizlə": [
+      24.8,
+      81
+    ],
+    "2S1 (NÜMUNƏ-6194761)": [
+      34.6,
+      81.2
+    ],
+    "Yadda saxla": [
+      76.6,
+      81
+    ],
+    "Ehtiyat hissəsi / material": [
+      50.7,
+      69.6
+    ],
+    "Addım 2 · Ehtiyat hissələri və materiallar": [
+      20.3,
+      33.8
+    ],
+    "Təminat vəziyyəti:": [
+      70.5,
+      33.9
+    ],
+    "Qismən təmin edilib": [
+      80.9,
+      34.1
+    ],
+    "Yeni məktub qeyd et": [
+      14,
+      22.1
+    ],
+    "Qeydiyyatdakı məktubu seç": [
+      29.6,
+      22.1
+    ],
+    "Məktubu dəyiş": [
+      43.2,
+      22.1
+    ],
+    "Məktub: 190/26 · 08.10.2026 · Təchizat idarəsi · İcrası davam edir": [
+      21.6,
+      26.3
+    ],
+    "Addım 1 · Təchizat məktubu": [
+      16,
+      14.8
+    ],
+    "Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin.": [
+      19.5,
+      17.8
+    ],
+    "Sorğu yarat": [
+      10.9,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/06_sorgu_qebul.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "İcra qeydi əlavə et": [
+      13.4,
+      93.7
+    ],
+    "Addım 3 · Məktubun icrası üzrə qeydlər": [
+      19.8,
+      86.3
+    ],
+    "Yeni qeyd əvvəlkini silmir. Son qeyd yuxarıda göstərilir.": [
+      17.5,
+      89.4
+    ],
+    "Ehtiyat hissəsi əlavə et": [
+      14.3,
+      61.6
+    ],
+    "Ehtiyat hissəsinin qəbulunu qeyd et": [
+      31.2,
+      61.6
+    ],
+    "Yanacaq filtri · 740-1117 — 2S1 (NÜMUNƏ-6194761)": [
+      18.2,
+      75
+    ],
+    "Ehtiyat hissəsi *": [
+      18.2,
+      72.2
+    ],
+    "28.10.2026": [
+      39.4,
+      74.8
+    ],
+    "Qəbul tarixi *": [
+      39.4,
+      72.2
+    ],
+    "10": [
+      60.9,
+      76
+    ],
+    "Miqdar *": [
+      60.6,
+      72.2
+    ],
+    "Yadda saxla": [
+      76.6,
+      73.4
+    ],
+    "Ehtiyat hissəsinin qəbulu": [
+      50.7,
+      69.6
+    ],
+    "Addım 2 · Ehtiyat hissələri və materiallar": [
+      20.3,
+      33.8
+    ],
+    "Təminat vəziyyəti:": [
+      70.5,
+      33.9
+    ],
+    "Qismən təmin edilib": [
+      80.9,
+      34.1
+    ],
+    "Yeni məktub qeyd et": [
+      14,
+      22.1
+    ],
+    "Qeydiyyatdakı məktubu seç": [
+      29.6,
+      22.1
+    ],
+    "Məktubu dəyiş": [
+      43.2,
+      22.1
+    ],
+    "Məktub: 190/26 · 08.10.2026 · Təchizat idarəsi · İcrası davam edir": [
+      21.6,
+      26.3
+    ],
+    "Addım 1 · Təchizat məktubu": [
+      16,
+      14.8
+    ],
+    "Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin.": [
+      19.5,
+      17.8
+    ],
+    "Sorğu yarat": [
+      10.9,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/06_sorgu_icra.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "İcra qeydi əlavə et": [
+      13.4,
+      54.6
+    ],
+    "28.10.2026": [
+      18.2,
+      65.3
+    ],
+    "Əlaqə tarixi *": [
+      18.2,
+      62.7
+    ],
+    "Danışığın nəticəsi və ya alınmış məlumat *": [
+      50,
+      62.7
+    ],
+    "Bildirildiyi üzrə gözlənilən təminat tarixi": [
+      81.9,
+      62.7
+    ],
+    "Qeydi yadda saxla": [
+      77.9,
+      74.1
+    ],
+    "İcra qeydi": [
+      50.7,
+      60
+    ],
+    "Addım 3 · Məktubun icrası üzrə qeydlər": [
+      19.8,
+      47.2
+    ],
+    "Yeni qeyd əvvəlkini silmir. Son qeyd yuxarıda göstərilir.": [
+      17.5,
+      50.3
+    ],
+    "Ehtiyat hissəsi əlavə et": [
+      14.3,
+      36.2
+    ],
+    "Ehtiyat hissəsinin qəbulunu qeyd et": [
+      31.2,
+      36.2
+    ],
+    "Sorğu yarat": [
+      10.9,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/07_teminat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Sətir sayı: 5": [
+      52.2,
+      89.4
+    ],
+    "Məktub sənədi (PDF)": [
+      91.1,
+      95.6
+    ],
+    "Məktub:": [
+      40.8,
+      16.3
+    ],
+    "Təminat vəziyyəti:": [
+      63.5,
+      16.3
+    ],
+    "Təmin edən qurum:": [
+      86.4,
+      16.3
+    ],
+    "Hamısı": [
+      40.8,
+      19.2
+    ],
+    "Məktubun tarixi (başlanğıc):": [
+      18,
+      23
+    ],
+    "Son:": [
+      40.8,
+      23
+    ],
+    "Axtarış:": [
+      63.5,
+      23
+    ],
+    "28.10.2026": [
+      18,
+      25.9
+    ],
+    "Excel": [
+      79.2,
+      26.4
+    ],
+    "Çap et (PDF)": [
+      88.4,
+      26.4
+    ],
+    "Sorğular üzrə təminat": [
+      14.7,
+      9.3
+    ],
+    "Təchizat sorğuları əsasında qəbul edilmiş ehtiyat hissələri və materiallar": [
+      20.9,
+      12.6
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/08_hesabat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "939 nömrəli hərbi hissə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "ZAVODLAR ÜZRƏ ÜMUMI ICRA VƏZIYYƏTI": [
+      61.3,
+      30.4
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "01.10.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Zavodlar üzrə ümumi icra vəziyyəti": [
+      26.9,
+      17
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/08_hesabat_teminat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Təmin edilməmiş ehtiyat hissələri": [
+      52.1,
+      37.2
+    ],
+    "Tam təmin edilmiş ehtiyat hissələri": [
+      70.6,
+      37.2
+    ],
+    "939 nömrəli hərbi hissə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "ZAVODLAR ÜZRƏ ÜMUMI ICRA VƏZIYYƏTI": [
+      61.3,
+      30.4
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "28.09.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/08_hesabat_serf.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Texnika seç": [
+      30.6,
+      37.1
+    ],
+    "939 nömrəli hərbi hissə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "TEXNIKA ÜZRƏ FAKTIKI MATERIAL SƏRFI": [
+      61.3,
+      30.4
+    ],
+    "Sərf tarixi: 28.09.2026 – 28.10.2026.": [
+      61.3,
+      87.8
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "28.09.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/08_hesabat_serf_tex.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Texnika seç": [
+      30.6,
+      37.1
+    ],
+    "Bütün texnikalar": [
+      41.5,
+      37.1
+    ],
+    "939 nömrəli hərbi hissə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "2S1 (NÜMUNƏ-6194761) — TEXNIKANIN FAKTIKI MATERIAL SƏRFI": [
+      61.3,
+      30.4
+    ],
+    "Sərf tarixi: 28.09.2026 – 28.10.2026.": [
+      61.3,
+      87.8
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "28.09.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/09_bildiris.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#NotificationsPage": [
+      52.2,
+      52.7
+    ],
+    "#rpList": [
+      52.2,
+      56.4
+    ],
+    "#grid": [
+      52.2,
+      56.4
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      12.1
+    ],
+    "#segFilter": [
+      52,
+      14.6
+    ],
+    "Hamısını oxunmuş et": [
+      91.9,
+      9.6
+    ],
+    "#btnReadAll": [
+      91.9,
+      9.6
+    ],
+    "Bildirişlər": [
+      10.1,
+      9.3
+    ],
+    "#lblTitle": [
+      10.1,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/10_usb.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#SyncPage": [
+      52.2,
+      52.7
+    ],
+    "#tlp": [
+      52.2,
+      57.6
+    ],
+    "#pnlLeft": [
+      28.8,
+      39.1
+    ],
+    "#rpExport": [
+      28.8,
+      39.1
+    ],
+    "USB-yə ixrac et": [
+      14.7,
+      45.7
+    ],
+    "#btnExport": [
+      14.7,
+      45.7
+    ],
+    "#btnDrives": [
+      39,
+      39.6
+    ],
+    "Başqa qovluq seç...": [
+      28.6,
+      39.7
+    ],
+    "#cmbDrive": [
+      28.6,
+      39.7
+    ],
+    "USB yaddaş": [
+      9.4,
+      39.4
+    ],
+    "#kDrive": [
+      9.4,
+      39.4
+    ],
+    "hələ olmayıb": [
+      22.5,
+      35.2
+    ],
+    "#vLast": [
+      22.5,
+      35.2
+    ],
+    "Son ixrac": [
+      8.9,
+      35.2
+    ],
+    "#kLast": [
+      8.9,
+      35.2
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      26.3,
+      32.3
+    ],
+    "#vRec": [
+      26.3,
+      32.3
+    ],
+    "Alıcı": [
+      8.1,
+      32.3
+    ],
+    "#kRec": [
+      8.1,
+      32.3
+    ],
+    "14 335": [
+      21.4,
+      29.4
+    ],
+    "#vCnt": [
+      21.4,
+      29.4
+    ],
+    "Dəyişiklik": [
+      9,
+      29.4
+    ],
+    "#kCnt": [
+      9,
+      29.4
+    ],
+    "TQX-Z1-000001": [
+      23.1,
+      26.5
+    ],
+    "#vPkg": [
+      23.1,
+      26.5
+    ],
+    "Paket nömrəsi": [
+      9.9,
+      26.5
+    ],
+    "#kPkg": [
+      9.9,
+      26.5
+    ],
+    "Son ixracdan bəri dəyişənlər paketə düşür. Paketi yalnız üst qurum aça bilər.": [
+      21,
+      22.1
+    ],
+    "#lblExpDesc": [
+      21,
+      22.1
+    ],
+    "Yeni paket": [
+      28.8,
+      19.3
+    ],
+    "#lblExportTitle": [
+      28.8,
+      19.3
+    ],
+    "#rpProc": [
+      75,
+      39.1
+    ],
+    "#steps": [
+      74.7,
+      29.8
+    ],
+    "Proses": [
+      75,
+      19.3
+    ],
+    "#lblProcTitle": [
+      75,
+      19.3
+    ],
+    "#rpHist": [
+      51.9,
+      79.8
+    ],
+    "#gridHist": [
+      51.9,
+      81.3
+    ],
+    "Sinxronizasiya tarixçəsi": [
+      51.9,
+      65
+    ],
+    "#lblHistTitle": [
+      51.9,
+      65
+    ],
+    "#pnlGap": [
+      52.2,
+      16.3
+    ],
+    "⚠ Hələ heç vaxt ixrac edilməyib.": [
+      52.2,
+      14
+    ],
+    "#lblWarn": [
+      52.2,
+      14
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "İxrac (USB-yə)": [
+      12,
+      9.3
+    ],
+    "#lblTitle": [
+      12,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/11_ehtiyat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#BackupPage": [
+      52.2,
+      55.4
+    ],
+    "#tlp": [
+      52.2,
+      58
+    ],
+    "#rpAuto": [
+      25.1,
+      57.4
+    ],
+    "Qovluğu aç": [
+      11.9,
+      56.2
+    ],
+    "#btnOpenFolder": [
+      11.9,
+      56.2
+    ],
+    "#lblTip": [
+      21.7,
+      47.8
+    ],
+    "1 / 30": [
+      19.1,
+      42.1
+    ],
+    "#vKept": [
+      19.1,
+      42.1
+    ],
+    "Saxlanılan": [
+      9.1,
+      42.1
+    ],
+    "#kKept": [
+      9.1,
+      42.1
+    ],
+    "70.8 MB": [
+      19.6,
+      39.2
+    ],
+    "#vSize": [
+      19.6,
+      39.2
+    ],
+    "Bazanın ölçüsü": [
+      10,
+      39.2
+    ],
+    "#kSize": [
+      10,
+      39.2
+    ],
+    "28.10.2026 12:45": [
+      21.3,
+      36.3
+    ],
+    "#vLast": [
+      21.3,
+      36.3
+    ],
+    "Son nüsxə": [
+      9.1,
+      36.3
+    ],
+    "#kLast": [
+      9.1,
+      36.3
+    ],
+    "C:\\Users\\ISMET ETI\\AppData\\Local\\Temp\\TelimatSekil\\Backup": [
+      26.8,
+      32.9
+    ],
+    "#vFolder": [
+      26.8,
+      32.9
+    ],
+    "Qovluq": [
+      8.6,
+      32.1
+    ],
+    "#kFolder": [
+      8.6,
+      32.1
+    ],
+    "● Aktivdir": [
+      19.9,
+      29.2
+    ],
+    "#vState": [
+      19.9,
+      29.2
+    ],
+    "Vəziyyət": [
+      8.8,
+      29.2
+    ],
+    "#kState": [
+      8.8,
+      29.2
+    ],
+    "#lblAutoDesc": [
+      21.8,
+      23.8
+    ],
+    "Avtomatik nüsxə": [
+      25.1,
+      20.2
+    ],
+    "#lblAutoTitle": [
+      25.1,
+      20.2
+    ],
+    "#rpList": [
+      71.2,
+      57.4
+    ],
+    "#grid": [
+      71.2,
+      58.9
+    ],
+    "Nüsxələr": [
+      71.2,
+      20.2
+    ],
+    "#lblListTitle": [
+      71.2,
+      20.2
+    ],
+    "#pnlHead": [
+      52.2,
+      15.2
+    ],
+    "İndi nüsxə al": [
+      92.8,
+      15.1
+    ],
+    "#btnNow": [
+      92.8,
+      15.1
+    ],
+    "Ehtiyat nüsxə": [
+      11.5,
+      14.8
+    ],
+    "#lblTitle": [
+      11.5,
+      14.8
+    ],
+    "Loglar": [
+      24.3,
+      8.8
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "zavod/12_loglar.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      52.6
+    ],
+    "menyu:help": [
+      2.3,
+      57.9
+    ],
+    "menyu:sync": [
+      2.3,
+      47.2
+    ],
+    "menyu:noti": [
+      2.3,
+      41.9
+    ],
+    "menyu:rep": [
+      2.3,
+      36.6
+    ],
+    "menyu:tech": [
+      2.3,
+      31.2
+    ],
+    "menyu:sorgu": [
+      2.3,
+      25.9
+    ],
+    "menyu:add": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#LogsPage": [
+      52.2,
+      55.4
+    ],
+    "#rpGrid": [
+      52.2,
+      56.8
+    ],
+    "#grid": [
+      52.2,
+      56.8
+    ],
+    "Son 1000 qeyd göstərilir. Zavod istifadəçisi yalnız öz zavodunun loglarını görür.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      15.2
+    ],
+    "Axtar": [
+      93.5,
+      15.1
+    ],
+    "#btnSearch": [
+      93.5,
+      15.1
+    ],
+    "Növ: Hamısı": [
+      82.7,
+      15.2
+    ],
+    "#cmbType": [
+      82.7,
+      15.2
+    ],
+    "28.10.2026": [
+      72.4,
+      15.1
+    ],
+    "#dtTo": [
+      72.4,
+      15.1
+    ],
+    "—": [
+      67.4,
+      14.8
+    ],
+    "#lblDash": [
+      67.4,
+      14.8
+    ],
+    "21.10.2026": [
+      62.2,
+      15.1
+    ],
+    "#dtFrom": [
+      62.2,
+      15.1
+    ],
+    "Loglar": [
+      8.9,
+      14.8
+    ],
+    "#lblTitle": [
+      8.9,
+      14.8
+    ],
+    "Ehtiyat nüsxə": [
+      11.9,
+      8.8
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "26": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Məmmədov Rauf · Zavod istifadəçisi": [
+      25.9,
+      2.8
+    ],
+    "#lblUser": [
+      25.9,
+      2.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      12.1,
+      2.6
+    ],
+    "#lblQurum": [
+      12.1,
+      2.6
+    ]
+  },
+  "xidmet/01_ana.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#HomePage": [
+      52.2,
+      52.7
+    ],
+    "#tlpBody": [
+      52.2,
+      60.6
+    ],
+    "#rpAvg": [
+      29.6,
+      60
+    ],
+    "#gridZav": [
+      29.6,
+      60.2
+    ],
+    "Zavodlar üzrə icra vəziyyəti": [
+      29.6,
+      26.1
+    ],
+    "#lblAvgTitle": [
+      29.6,
+      26.1
+    ],
+    "#rpMonthly": [
+      76.2,
+      60
+    ],
+    "#segPeriod": [
+      88.4,
+      25.8
+    ],
+    "#chartMonthly": [
+      76.2,
+      62.2
+    ],
+    "Aylar üzrə qəbul, təmir və təhvil": [
+      76.2,
+      26.1
+    ],
+    "#lblMonthlyTitle": [
+      76.2,
+      26.1
+    ],
+    "#tlpTiles": [
+      52.2,
+      17.4
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Ana səhifə · bütün zavodlar": [
+      16.5,
+      9.3
+    ],
+    "#lblTitle": [
+      16.5,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/02_menyu.png": {
+    "#pnlNav": [
+      8.3,
+      50
+    ],
+    "menyu:": [
+      8.3,
+      96.3
+    ],
+    "menyu:set": [
+      8.3,
+      41.9
+    ],
+    "menyu:help": [
+      8.3,
+      47.2
+    ],
+    "menyu:sync": [
+      8.3,
+      36.6
+    ],
+    "menyu:noti": [
+      8.3,
+      31.2
+    ],
+    "menyu:rep": [
+      8.3,
+      25.9
+    ],
+    "menyu:tech": [
+      8.3,
+      20.6
+    ],
+    "menyu:list": [
+      8.3,
+      15.2
+    ],
+    "menyu:home": [
+      8.3,
+      9.9
+    ],
+    "Təmir və Texniki Təminat Xidməti Məlumat bazası": [
+      10.2,
+      3.8
+    ],
+    "#lblApp": [
+      10.2,
+      3.8
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      58.2,
+      52.7
+    ],
+    "#HomePage": [
+      58.2,
+      52.7
+    ],
+    "#tlpBody": [
+      58.2,
+      60.6
+    ],
+    "#rpAvg": [
+      38.5,
+      60
+    ],
+    "#gridZav": [
+      38.5,
+      60.2
+    ],
+    "Zavodlar üzrə icra vəziyyəti": [
+      38.5,
+      26.1
+    ],
+    "#lblAvgTitle": [
+      38.5,
+      26.1
+    ],
+    "#rpMonthly": [
+      79.1,
+      60
+    ],
+    "#segPeriod": [
+      88.4,
+      25.8
+    ],
+    "#chartMonthly": [
+      79.1,
+      62.2
+    ],
+    "Aylar üzrə qəbul, təmir və təhvil": [
+      79.1,
+      26.1
+    ],
+    "#lblMonthlyTitle": [
+      79.1,
+      26.1
+    ],
+    "#tlpTiles": [
+      58.2,
+      17.4
+    ],
+    "#pnlHead": [
+      58.2,
+      9.7
+    ],
+    "Ana səhifə · bütün zavodlar": [
+      28.5,
+      9.3
+    ],
+    "#lblTitle": [
+      28.5,
+      9.3
+    ],
+    "#pnlTop": [
+      58.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      40.6,
+      2.8
+    ],
+    "#lblUser": [
+      40.6,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      26.2,
+      2.6
+    ],
+    "#lblQurum": [
+      26.2,
+      2.6
+    ]
+  },
+  "xidmet/03_reyestr.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#RegistryPage": [
+      52.2,
+      52.7
+    ],
+    "#rpGrid": [
+      52.2,
+      70
+    ],
+    "#grid": [
+      52.2,
+      70
+    ],
+    "Zavod:": [
+      18,
+      24.8
+    ],
+    "Status:": [
+      40.8,
+      24.8
+    ],
+    "İcra müddəti:": [
+      63.5,
+      24.8
+    ],
+    "Məsul icraçı:": [
+      86.4,
+      24.8
+    ],
+    "Hamısı": [
+      18,
+      27.7
+    ],
+    "#cmbZavod": [
+      18,
+      27.7
+    ],
+    "#cmbStatus": [
+      40.8,
+      27.7
+    ],
+    "Tarix növü:": [
+      40.8,
+      31.4
+    ],
+    "Tarixdən:": [
+      63.5,
+      31.4
+    ],
+    "Tarixədək:": [
+      86.4,
+      31.4
+    ],
+    "#txtSearch": [
+      18.6,
+      36
+    ],
+    "Plan üzrə bitmə tarixi": [
+      40.8,
+      34.6
+    ],
+    "28.10.2026": [
+      63.5,
+      34.4
+    ],
+    "Təminat gözləyir": [
+      11.4,
+      40.9
+    ],
+    "#pnlFoot": [
+      52.2,
+      96.9
+    ],
+    "Ctrl+F axtarış · Ctrl+N yeni · F5 yenilə": [
+      91.1,
+      96.9
+    ],
+    "#lblHint": [
+      91.1,
+      96.9
+    ],
+    "Göstərilir: 200 / 85 805": [
+      10.3,
+      96.9
+    ],
+    "#lblCount": [
+      10.3,
+      96.9
+    ],
+    "#tlpTiles": [
+      52.2,
+      17.4
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Excel-ə çıxar": [
+      93.1,
+      9.6
+    ],
+    "#btnExport": [
+      93.1,
+      9.6
+    ],
+    "Təmir reyestri · bütün zavodlar": [
+      17.8,
+      9.3
+    ],
+    "#lblTitle": [
+      17.8,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/04_genis_bax.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#DetailPage": [
+      52.2,
+      52.7
+    ],
+    "#scroll": [
+      52.2,
+      61.8
+    ],
+    "#rpHist": [
+      21.1,
+      38.6
+    ],
+    "#flHist": [
+      21.1,
+      39.7
+    ],
+    "28.10.2026 12:44 Sistem": [
+      10.4,
+      30.7
+    ],
+    "28.10.2026 08:26 Husnu Murselov": [
+      10.4,
+      38
+    ],
+    "Ehtiyat hissələrinin təminatı Təminat gözlənilir → Qismən təmin edilib": [
+      22.8,
+      38.2
+    ],
+    "Ehtiyat hissələri qa (qa) — 11 qa, qəbul 0, qalıq 11 → qa (qa) — 11 qa, qəbul 3, qalıq 8": [
+      24.3,
+      43.1
+    ],
+    "28.10.2026 08:23 Husnu Murselov": [
+      10.4,
+      47.7
+    ],
+    "Ehtiyat hissələri boş → qa (qa) — 11 qa, qəbul 0, qalıq 11": [
+      22.5,
+      47.9
+    ],
+    "Dəyişiklik tarixçəsi": [
+      21.1,
+      27.8
+    ],
+    "#lblHistTitle": [
+      21.1,
+      27.8
+    ],
+    "Texnikanın növü": [
+      10.2,
+      58.8
+    ],
+    "#cap_Nov": [
+      10.2,
+      58.8
+    ],
+    "Zirehli texnika": [
+      32.5,
+      58.8
+    ],
+    "#val_Nov": [
+      32.5,
+      58.8
+    ],
+    "Texnikanın markası": [
+      10.7,
+      61.8
+    ],
+    "#cap_Marka": [
+      10.7,
+      61.8
+    ],
+    "2S1": [
+      34.4,
+      61.8
+    ],
+    "#val_Marka": [
+      34.4,
+      61.8
+    ],
+    "Zavod nömrəsi": [
+      10,
+      64.8
+    ],
+    "#cap_ZavodNo": [
+      10,
+      64.8
+    ],
+    "NÜMUNƏ-6194761": [
+      31.5,
+      64.8
+    ],
+    "#val_ZavodNo": [
+      31.5,
+      64.8
+    ],
+    "Kateqoriyası — faktiki": [
+      11.2,
+      67.8
+    ],
+    "#cap_Kateqoriya": [
+      11.2,
+      67.8
+    ],
+    "I": [
+      34.9,
+      67.8
+    ],
+    "#val_Kateqoriya": [
+      34.9,
+      67.8
+    ],
+    "Naryadın nömrəsi": [
+      10.5,
+      70.8
+    ],
+    "#cap_NaryadNo": [
+      10.5,
+      70.8
+    ],
+    "—": [
+      34.6,
+      70.8
+    ],
+    "#val_NaryadNo": [
+      34.6,
+      70.8
+    ],
+    "Sənədin tarixi (naryadın tarixi)": [
+      12.6,
+      73.8
+    ],
+    "#cap_NaryadTarixi": [
+      12.6,
+      73.8
+    ],
+    "#val_NaryadTarixi": [
+      34.6,
+      73.8
+    ],
+    "Zavoda faktiki daxilolma tarixi": [
+      12.7,
+      76.8
+    ],
+    "#cap_DaxilolmaTarixi": [
+      12.7,
+      76.8
+    ],
+    "12.05.2026": [
+      33,
+      76.8
+    ],
+    "#val_DaxilolmaTarixi": [
+      33,
+      76.8
+    ],
+    "Təhvil verən (göndərən)": [
+      11.6,
+      79.8
+    ],
+    "#cap_GonderenQurum": [
+      11.6,
+      79.8
+    ],
+    "#val_GonderenQurum": [
+      34.6,
+      79.8
+    ],
+    "Aktın forması": [
+      9.7,
+      82.8
+    ],
+    "#cap_AktForma": [
+      9.7,
+      82.8
+    ],
+    "#val_AktForma": [
+      34.6,
+      82.8
+    ],
+    "Aktın nömrəsi": [
+      9.8,
+      85.8
+    ],
+    "#cap_AktNo": [
+      9.8,
+      85.8
+    ],
+    "#val_AktNo": [
+      34.6,
+      85.8
+    ],
+    "Aktın tarixi": [
+      9.2,
+      88.8
+    ],
+    "#cap_AktTarixi": [
+      9.2,
+      88.8
+    ],
+    "#val_AktTarixi": [
+      34.6,
+      88.8
+    ],
+    "Qəbul edən təmir müəssisəsi": [
+      12.5,
+      91.8
+    ],
+    "#cap_TemirZavodu": [
+      12.5,
+      91.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      30.7,
+      91.8
+    ],
+    "#val_TemirZavodu": [
+      30.7,
+      91.8
+    ],
+    "Zavodda məsul icraçı": [
+      11.1,
+      94.8
+    ],
+    "#cap_MesulIcraci": [
+      11.1,
+      94.8
+    ],
+    "#val_MesulIcraci": [
+      34.6,
+      94.8
+    ],
+    "Qəbul və sənədlər": [
+      21.1,
+      55.9
+    ],
+    "İstehsal ili": [
+      40.1,
+      30.7
+    ],
+    "#cap_IstehsalIli": [
+      40.1,
+      30.7
+    ],
+    "1986": [
+      65.2,
+      30.7
+    ],
+    "#val_IstehsalIli": [
+      65.2,
+      30.7
+    ],
+    "İstismara verilib (tarix)": [
+      42.3,
+      33.7
+    ],
+    "#cap_IstismarTarixi": [
+      42.3,
+      33.7
+    ],
+    "#val_IstismarTarixi": [
+      65.7,
+      33.7
+    ],
+    "İstismarın əvvəlindən işləyib": [
+      43.4,
+      37.5
+    ],
+    "#cap_Gostericiler": [
+      43.4,
+      37.5
+    ],
+    "Gediş, km: 8201 Motosaat: 3540": [
+      63.2,
+      37.6
+    ],
+    "#val_Gostericiler": [
+      63.2,
+      37.6
+    ],
+    "Son təmirin növü": [
+      41.5,
+      41.4
+    ],
+    "#cap_SonTemirNovu": [
+      41.5,
+      41.4
+    ],
+    "#val_SonTemirNovu": [
+      65.7,
+      41.4
+    ],
+    "Son təmirin tamamlanma tarixi": [
+      44,
+      44.4
+    ],
+    "#cap_SonTemirTarixi": [
+      44,
+      44.4
+    ],
+    "#val_SonTemirTarixi": [
+      65.7,
+      44.4
+    ],
+    "Təmiri aparmış hərbi hissə və ya müəssisə": [
+      44.2,
+      48.2
+    ],
+    "#cap_SonTemirIcraci": [
+      44.2,
+      48.2
+    ],
+    "#val_SonTemirIcraci": [
+      65.7,
+      48.2
+    ],
+    "Son təmirdə yerinə yetirilmiş işlər": [
+      44.3,
+      52.1
+    ],
+    "#cap_SonTemirQeyd": [
+      44.3,
+      52.1
+    ],
+    "#val_SonTemirQeyd": [
+      65.7,
+      52.1
+    ],
+    "İstismar göstəriciləri və son təmir": [
+      52.2,
+      27.8
+    ],
+    "Aşkar edilmiş nasazlıqların qısa təsviri": [
+      44,
+      63
+    ],
+    "#cap_Nasazliqlar": [
+      44,
+      63
+    ],
+    "Qeyd: Nümunə məlumat (sürət sınağı)": [
+      60.3,
+      63
+    ],
+    "#val_Nasazliqlar": [
+      60.3,
+      63
+    ],
+    "Diaqnostika tarixi": [
+      41.4,
+      66.8
+    ],
+    "#cap_BaslamaTarixi": [
+      41.4,
+      66.8
+    ],
+    "15.05.2026": [
+      64,
+      66.8
+    ],
+    "#val_BaslamaTarixi": [
+      64,
+      66.8
+    ],
+    "Təmirin / işin növü": [
+      41.8,
+      69.8
+    ],
+    "#cap_TemirNovu": [
+      41.8,
+      69.8
+    ],
+    "Əsaslı təmir": [
+      63.9,
+      69.8
+    ],
+    "#val_TemirNovu": [
+      63.9,
+      69.8
+    ],
+    "İcra statusu": [
+      40.4,
+      72.8
+    ],
+    "#cap_Status": [
+      40.4,
+      72.8
+    ],
+    "Təmirdədir": [
+      64.1,
+      72.8
+    ],
+    "#val_Status": [
+      64.1,
+      72.8
+    ],
+    "İcra müddəti": [
+      40.6,
+      75.8
+    ],
+    "#cap_IcraMuddeti": [
+      40.6,
+      75.8
+    ],
+    "#val_IcraMuddeti": [
+      65.7,
+      75.8
+    ],
+    "Müddətin vahidi": [
+      41.3,
+      78.8
+    ],
+    "#cap_MuddetVahidi": [
+      41.3,
+      78.8
+    ],
+    "#val_MuddetVahidi": [
+      65.7,
+      78.8
+    ],
+    "Plan üzrə bitmə tarixi": [
+      42.1,
+      81.8
+    ],
+    "#cap_GozlenilenBitme": [
+      42.1,
+      81.8
+    ],
+    "11.09.2026": [
+      64.1,
+      81.8
+    ],
+    "#val_GozlenilenBitme": [
+      64.1,
+      81.8
+    ],
+    "Gecikmənin və ya plan dəyişikliyinin səbəbi": [
+      42.5,
+      85.7
+    ],
+    "#cap_GecikmeSebebi": [
+      42.5,
+      85.7
+    ],
+    "#val_GecikmeSebebi": [
+      65.7,
+      85.6
+    ],
+    "Ehtiyat hissələrinin təminatı": [
+      43.3,
+      89.5
+    ],
+    "#cap_Teminat": [
+      43.3,
+      89.5
+    ],
+    "#val_Teminat": [
+      65.7,
+      89.5
+    ],
+    "Gözlənilən bitmə tarixi": [
+      42.4,
+      92.5
+    ],
+    "#cap_ProqnozBitme": [
+      42.4,
+      92.5
+    ],
+    "#val_ProqnozBitme": [
+      65.7,
+      92.5
+    ],
+    "Yeni plan üzrə bitmə tarixi": [
+      43,
+      95.5
+    ],
+    "#cap_YeniPlanBitme": [
+      43,
+      95.5
+    ],
+    "#val_YeniPlanBitme": [
+      65.7,
+      95.5
+    ],
+    "Təmirin icrası": [
+      52.2,
+      59.2
+    ],
+    "Faktiki sərfiyyat": [
+      72.2,
+      34.1
+    ],
+    "#cap_Serfiyyat": [
+      72.2,
+      34.1
+    ],
+    "#val_Serfiyyat": [
+      90.8,
+      34.1
+    ],
+    "Təmirin faktiki tamamlanma tarixi": [
+      75.5,
+      47.5
+    ],
+    "#cap_FaktikiBitme": [
+      75.5,
+      47.5
+    ],
+    "#val_FaktikiBitme": [
+      96.7,
+      47.5
+    ],
+    "Yerinə yetirilmiş işlər haqqında qeyd": [
+      75,
+      51.3
+    ],
+    "#cap_GorulenIsler": [
+      75,
+      51.3
+    ],
+    "#val_GorulenIsler": [
+      96.7,
+      51.3
+    ],
+    "Faktiki təhvil tarixi": [
+      72.6,
+      55.2
+    ],
+    "#cap_TehvilTarixi": [
+      72.6,
+      55.2
+    ],
+    "#val_TehvilTarixi": [
+      96.7,
+      55.2
+    ],
+    "Təhvil sənədinin nömrəsi": [
+      73.9,
+      58.2
+    ],
+    "#cap_TehvilSenedNo": [
+      73.9,
+      58.2
+    ],
+    "#val_TehvilSenedNo": [
+      96.7,
+      58.2
+    ],
+    "Təhvil sənədinin tarixi": [
+      73.3,
+      61.2
+    ],
+    "#cap_TehvilSenedTarixi": [
+      73.3,
+      61.2
+    ],
+    "#val_TehvilSenedTarixi": [
+      96.7,
+      61.2
+    ],
+    "Təhvil alan qurum": [
+      72.7,
+      64.2
+    ],
+    "#cap_TehvilAlan": [
+      72.7,
+      64.2
+    ],
+    "#val_TehvilAlan": [
+      96.7,
+      64.2
+    ],
+    "Təmirin tamamlanması və təhvil": [
+      83.2,
+      44.6
+    ],
+    "#pnlGap": [
+      52.2,
+      24.9
+    ],
+    "#rpStep": [
+      52.2,
+      20.2
+    ],
+    "#stepper": [
+      52.2,
+      20.4
+    ],
+    "#rpHead": [
+      52.2,
+      11.6
+    ],
+    "Əvvəlki": [
+      69.7,
+      11.3
+    ],
+    "#btnPrev": [
+      69.7,
+      11.3
+    ],
+    "Növbəti": [
+      76.9,
+      11.3
+    ],
+    "#btnNext": [
+      76.9,
+      11.3
+    ],
+    "PDF pasport": [
+      85,
+      11.3
+    ],
+    "#btnPdf": [
+      85,
+      11.3
+    ],
+    "Gecikir": [
+      44.1,
+      11.1
+    ],
+    "#chipLate": [
+      44.1,
+      11.1
+    ],
+    "Təmirdə": [
+      38.9,
+      11.1
+    ],
+    "#chipStatus": [
+      38.9,
+      11.1
+    ],
+    "Zirehli texnika · 939 nömrəli hərbi hissə · daxil olub 12.05.2026": [
+      29.9,
+      13.2
+    ],
+    "#lblSub": [
+      29.9,
+      13.2
+    ],
+    "2S1 · NÜMUNƏ-6194761": [
+      26.8,
+      10.3
+    ],
+    "#lblName": [
+      26.8,
+      10.3
+    ],
+    "Reyestrə qayıt": [
+      12.2,
+      11.3
+    ],
+    "#btnBack": [
+      12.2,
+      11.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/07_teminat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Sətir sayı: 5": [
+      52.2,
+      89.4
+    ],
+    "Məktub sənədi (PDF)": [
+      91.1,
+      95.6
+    ],
+    "Zavod:": [
+      18,
+      16.3
+    ],
+    "Məktub:": [
+      40.8,
+      16.3
+    ],
+    "Təminat vəziyyəti:": [
+      63.5,
+      16.3
+    ],
+    "Təmin edən qurum:": [
+      86.4,
+      16.3
+    ],
+    "Hamısı": [
+      18,
+      19.2
+    ],
+    "Məktubun tarixi (başlanğıc):": [
+      18,
+      23
+    ],
+    "Son:": [
+      40.8,
+      23
+    ],
+    "Axtarış:": [
+      63.5,
+      23
+    ],
+    "28.10.2026": [
+      18,
+      25.9
+    ],
+    "Excel": [
+      79.2,
+      26.4
+    ],
+    "Çap et (PDF)": [
+      88.4,
+      26.4
+    ],
+    "Sorğular üzrə təminat": [
+      14.7,
+      9.3
+    ],
+    "Təchizat sorğuları əsasında qəbul edilmiş ehtiyat hissələri və materiallar": [
+      20.9,
+      12.6
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/08_hesabat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "6 zavod üzrə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "ZAVODLAR ÜZRƏ ÜMUMI ICRA VƏZIYYƏTI": [
+      61.3,
+      30.4
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "01.10.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Zavod:": [
+      63,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Zavodlar üzrə ümumi icra vəziyyəti": [
+      26.9,
+      17
+    ],
+    "Hamısı": [
+      63,
+      17
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/08_hesabat_teminat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Təmin edilməmiş ehtiyat hissələri": [
+      52.1,
+      37.2
+    ],
+    "Tam təmin edilmiş ehtiyat hissələri": [
+      70.6,
+      37.2
+    ],
+    "6 zavod üzrə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "ZAVODLAR ÜZRƏ ÜMUMI ICRA VƏZIYYƏTI": [
+      61.3,
+      30.4
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "28.09.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Zavod:": [
+      63,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Hamısı": [
+      63,
+      17
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/08_hesabat_serf.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Texnika seç": [
+      30.6,
+      37.1
+    ],
+    "6 zavod üzrə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "TEXNIKA ÜZRƏ FAKTIKI MATERIAL SƏRFI": [
+      61.3,
+      30.4
+    ],
+    "Sərf tarixi: 28.09.2026 – 28.10.2026.": [
+      61.3,
+      84.4
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "28.09.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Zavod:": [
+      63,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Hamısı": [
+      63,
+      17
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/09_bildiris.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#NotificationsPage": [
+      52.2,
+      52.7
+    ],
+    "#rpList": [
+      52.2,
+      56.4
+    ],
+    "#grid": [
+      52.2,
+      56.4
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      12.1
+    ],
+    "#segFilter": [
+      52,
+      14.6
+    ],
+    "Hamısını oxunmuş et": [
+      91.9,
+      9.6
+    ],
+    "#btnReadAll": [
+      91.9,
+      9.6
+    ],
+    "Bildirişlər": [
+      10.1,
+      9.3
+    ],
+    "#lblTitle": [
+      10.1,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/10_usb.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#SyncPage": [
+      52.2,
+      52.7
+    ],
+    "#tlp": [
+      52.2,
+      57.6
+    ],
+    "#pnlLeft": [
+      28.8,
+      42.3
+    ],
+    "#rpExport": [
+      28.8,
+      42.3
+    ],
+    "USB-yə ixrac et": [
+      14.7,
+      45.7
+    ],
+    "#btnExport": [
+      14.7,
+      45.7
+    ],
+    "#btnDrives": [
+      39,
+      39.6
+    ],
+    "Başqa qovluq seç...": [
+      28.6,
+      39.7
+    ],
+    "#cmbDrive": [
+      28.6,
+      39.7
+    ],
+    "USB yaddaş": [
+      9.4,
+      39.4
+    ],
+    "#kDrive": [
+      9.4,
+      39.4
+    ],
+    "hələ olmayıb": [
+      22.5,
+      35.2
+    ],
+    "#vLast": [
+      22.5,
+      35.2
+    ],
+    "Son ixrac": [
+      8.9,
+      35.2
+    ],
+    "#kLast": [
+      8.9,
+      35.2
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      24.7,
+      32.3
+    ],
+    "#vRec": [
+      24.7,
+      32.3
+    ],
+    "Alıcı": [
+      8.1,
+      32.3
+    ],
+    "#kRec": [
+      8.1,
+      32.3
+    ],
+    "85 805": [
+      21.5,
+      29.4
+    ],
+    "#vCnt": [
+      21.5,
+      29.4
+    ],
+    "Dəyişiklik": [
+      9,
+      29.4
+    ],
+    "#kCnt": [
+      9,
+      29.4
+    ],
+    "TQX-UST-000001": [
+      23.5,
+      26.5
+    ],
+    "#vPkg": [
+      23.5,
+      26.5
+    ],
+    "Paket nömrəsi": [
+      9.9,
+      26.5
+    ],
+    "#kPkg": [
+      9.9,
+      26.5
+    ],
+    "Son ixracdan bəri dəyişənlər paketə düşür. Paketi yalnız üst qurum aça bilər.": [
+      21,
+      22.1
+    ],
+    "#lblExpDesc": [
+      21,
+      22.1
+    ],
+    "Yeni paket": [
+      28.8,
+      19.3
+    ],
+    "#lblExportTitle": [
+      28.8,
+      19.3
+    ],
+    "#rpHist": [
+      51.9,
+      83.1
+    ],
+    "#gridHist": [
+      51.9,
+      84.6
+    ],
+    "Sinxronizasiya tarixçəsi": [
+      51.9,
+      71.6
+    ],
+    "#lblHistTitle": [
+      51.9,
+      71.6
+    ],
+    "#rpProc": [
+      75,
+      54.8
+    ],
+    "#steps": [
+      75,
+      54
+    ],
+    "#lblResult": [
+      75,
+      64.6
+    ],
+    "Proses": [
+      75,
+      44.2
+    ],
+    "#lblProcTitle": [
+      75,
+      44.2
+    ],
+    "#rpImport": [
+      75,
+      28.7
+    ],
+    "Seçilmiş paketi idxal et": [
+      71.5,
+      36.8
+    ],
+    "#btnImport": [
+      71.5,
+      36.8
+    ],
+    "Fayl seç...": [
+      58.1,
+      36.8
+    ],
+    "#btnPick": [
+      58.1,
+      36.8
+    ],
+    "#lstPackages": [
+      75.5,
+      27.7
+    ],
+    "USB-dəki paketlər": [
+      75,
+      19.3
+    ],
+    "#lblImportTitle": [
+      75,
+      19.3
+    ],
+    "#pnlGap": [
+      52.2,
+      16.3
+    ],
+    "⚠ Hələ heç vaxt ixrac edilməyib.": [
+      52.2,
+      14
+    ],
+    "#lblWarn": [
+      52.2,
+      14
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "İxrac / İdxal": [
+      10.9,
+      9.3
+    ],
+    "#lblTitle": [
+      10.9,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/11_ehtiyat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#BackupPage": [
+      52.2,
+      55.4
+    ],
+    "#tlp": [
+      52.2,
+      58
+    ],
+    "#rpAuto": [
+      25.1,
+      57.4
+    ],
+    "Qovluğu aç": [
+      11.9,
+      56.2
+    ],
+    "#btnOpenFolder": [
+      11.9,
+      56.2
+    ],
+    "#lblTip": [
+      21.7,
+      47.8
+    ],
+    "1 / 30": [
+      19.1,
+      42.1
+    ],
+    "#vKept": [
+      19.1,
+      42.1
+    ],
+    "Saxlanılan": [
+      9.1,
+      42.1
+    ],
+    "#kKept": [
+      9.1,
+      42.1
+    ],
+    "70.8 MB": [
+      19.6,
+      39.2
+    ],
+    "#vSize": [
+      19.6,
+      39.2
+    ],
+    "Bazanın ölçüsü": [
+      10,
+      39.2
+    ],
+    "#kSize": [
+      10,
+      39.2
+    ],
+    "28.10.2026 12:45": [
+      21.3,
+      36.3
+    ],
+    "#vLast": [
+      21.3,
+      36.3
+    ],
+    "Son nüsxə": [
+      9.1,
+      36.3
+    ],
+    "#kLast": [
+      9.1,
+      36.3
+    ],
+    "C:\\Users\\ISMET ETI\\AppData\\Local\\Temp\\TelimatSekil\\Backup": [
+      26.8,
+      32.9
+    ],
+    "#vFolder": [
+      26.8,
+      32.9
+    ],
+    "Qovluq": [
+      8.6,
+      32.1
+    ],
+    "#kFolder": [
+      8.6,
+      32.1
+    ],
+    "● Aktivdir": [
+      19.9,
+      29.2
+    ],
+    "#vState": [
+      19.9,
+      29.2
+    ],
+    "Vəziyyət": [
+      8.8,
+      29.2
+    ],
+    "#kState": [
+      8.8,
+      29.2
+    ],
+    "#lblAutoDesc": [
+      21.8,
+      23.8
+    ],
+    "Avtomatik nüsxə": [
+      25.1,
+      20.2
+    ],
+    "#lblAutoTitle": [
+      25.1,
+      20.2
+    ],
+    "#rpList": [
+      71.2,
+      57.4
+    ],
+    "#grid": [
+      71.2,
+      58.9
+    ],
+    "Nüsxələr": [
+      71.2,
+      20.2
+    ],
+    "#lblListTitle": [
+      71.2,
+      20.2
+    ],
+    "#pnlHead": [
+      52.2,
+      15.2
+    ],
+    "İndi nüsxə al": [
+      92.8,
+      15.1
+    ],
+    "#btnNow": [
+      92.8,
+      15.1
+    ],
+    "Ehtiyat nüsxə": [
+      11.5,
+      14.8
+    ],
+    "#lblTitle": [
+      11.5,
+      14.8
+    ],
+    "Loglar": [
+      24.3,
+      8.8
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "xidmet/12_loglar.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#LogsPage": [
+      52.2,
+      55.4
+    ],
+    "#rpGrid": [
+      52.2,
+      56.8
+    ],
+    "#grid": [
+      52.2,
+      56.8
+    ],
+    "Son 1000 qeyd göstərilir. Zavod istifadəçisi yalnız öz zavodunun loglarını görür.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      15.2
+    ],
+    "Axtar": [
+      93.5,
+      15.1
+    ],
+    "#btnSearch": [
+      93.5,
+      15.1
+    ],
+    "Növ: Hamısı": [
+      82.7,
+      15.2
+    ],
+    "#cmbType": [
+      82.7,
+      15.2
+    ],
+    "28.10.2026": [
+      72.4,
+      15.1
+    ],
+    "#dtTo": [
+      72.4,
+      15.1
+    ],
+    "—": [
+      67.4,
+      14.8
+    ],
+    "#lblDash": [
+      67.4,
+      14.8
+    ],
+    "21.10.2026": [
+      62.2,
+      15.1
+    ],
+    "#dtFrom": [
+      62.2,
+      15.1
+    ],
+    "Loglar": [
+      8.9,
+      14.8
+    ],
+    "#lblTitle": [
+      8.9,
+      14.8
+    ],
+    "Ehtiyat nüsxə": [
+      11.9,
+      8.8
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Əliyev Kamran · Yalnız baxış": [
+      28.7,
+      2.8
+    ],
+    "#lblUser": [
+      28.7,
+      2.8
+    ],
+    "Təmir və Texniki Təminat xidməti": [
+      14.3,
+      2.6
+    ],
+    "#lblQurum": [
+      14.3,
+      2.6
+    ]
+  },
+  "idare/01_ana.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#HomePage": [
+      52.2,
+      52.7
+    ],
+    "#tlpBody": [
+      52.2,
+      60.6
+    ],
+    "#rpAvg": [
+      29.6,
+      60
+    ],
+    "#gridZav": [
+      29.6,
+      60.2
+    ],
+    "Zavodlar üzrə icra vəziyyəti": [
+      29.6,
+      26.1
+    ],
+    "#lblAvgTitle": [
+      29.6,
+      26.1
+    ],
+    "#rpMonthly": [
+      76.2,
+      60
+    ],
+    "#segPeriod": [
+      88.4,
+      25.8
+    ],
+    "#chartMonthly": [
+      76.2,
+      62.2
+    ],
+    "Aylar üzrə qəbul, təmir və təhvil": [
+      76.2,
+      26.1
+    ],
+    "#lblMonthlyTitle": [
+      76.2,
+      26.1
+    ],
+    "#tlpTiles": [
+      52.2,
+      17.4
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Ana səhifə · bütün zavodlar": [
+      16.5,
+      9.3
+    ],
+    "#lblTitle": [
+      16.5,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/02_menyu.png": {
+    "#pnlNav": [
+      8.3,
+      50
+    ],
+    "menyu:": [
+      8.3,
+      96.3
+    ],
+    "menyu:set": [
+      8.3,
+      41.9
+    ],
+    "menyu:help": [
+      8.3,
+      47.2
+    ],
+    "menyu:sync": [
+      8.3,
+      36.6
+    ],
+    "menyu:noti": [
+      8.3,
+      31.2
+    ],
+    "menyu:rep": [
+      8.3,
+      25.9
+    ],
+    "menyu:tech": [
+      8.3,
+      20.6
+    ],
+    "menyu:list": [
+      8.3,
+      15.2
+    ],
+    "menyu:home": [
+      8.3,
+      9.9
+    ],
+    "Təmir və Texniki Təminat Xidməti Məlumat bazası": [
+      10.2,
+      3.8
+    ],
+    "#lblApp": [
+      10.2,
+      3.8
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      58.2,
+      52.7
+    ],
+    "#HomePage": [
+      58.2,
+      52.7
+    ],
+    "#tlpBody": [
+      58.2,
+      60.6
+    ],
+    "#rpAvg": [
+      38.5,
+      60
+    ],
+    "#gridZav": [
+      38.5,
+      60.2
+    ],
+    "Zavodlar üzrə icra vəziyyəti": [
+      38.5,
+      26.1
+    ],
+    "#lblAvgTitle": [
+      38.5,
+      26.1
+    ],
+    "#rpMonthly": [
+      79.1,
+      60
+    ],
+    "#segPeriod": [
+      88.4,
+      25.8
+    ],
+    "#chartMonthly": [
+      79.1,
+      62.2
+    ],
+    "Aylar üzrə qəbul, təmir və təhvil": [
+      79.1,
+      26.1
+    ],
+    "#lblMonthlyTitle": [
+      79.1,
+      26.1
+    ],
+    "#tlpTiles": [
+      58.2,
+      17.4
+    ],
+    "#pnlHead": [
+      58.2,
+      9.7
+    ],
+    "Ana səhifə · bütün zavodlar": [
+      28.5,
+      9.3
+    ],
+    "#lblTitle": [
+      28.5,
+      9.3
+    ],
+    "#pnlTop": [
+      58.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      36.9,
+      2.8
+    ],
+    "#lblUser": [
+      36.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      24.4,
+      2.6
+    ],
+    "#lblQurum": [
+      24.4,
+      2.6
+    ]
+  },
+  "idare/03_reyestr.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#RegistryPage": [
+      52.2,
+      52.7
+    ],
+    "#rpGrid": [
+      52.2,
+      70
+    ],
+    "#grid": [
+      52.2,
+      70
+    ],
+    "Zavod:": [
+      18,
+      24.8
+    ],
+    "Status:": [
+      40.8,
+      24.8
+    ],
+    "İcra müddəti:": [
+      63.5,
+      24.8
+    ],
+    "Məsul icraçı:": [
+      86.4,
+      24.8
+    ],
+    "Hamısı": [
+      18,
+      27.7
+    ],
+    "#cmbZavod": [
+      18,
+      27.7
+    ],
+    "#cmbStatus": [
+      40.8,
+      27.7
+    ],
+    "Tarix növü:": [
+      40.8,
+      31.4
+    ],
+    "Tarixdən:": [
+      63.5,
+      31.4
+    ],
+    "Tarixədək:": [
+      86.4,
+      31.4
+    ],
+    "#txtSearch": [
+      18.6,
+      36
+    ],
+    "Plan üzrə bitmə tarixi": [
+      40.8,
+      34.6
+    ],
+    "28.10.2026": [
+      63.5,
+      34.4
+    ],
+    "Təminat gözləyir": [
+      11.4,
+      40.9
+    ],
+    "#pnlFoot": [
+      52.2,
+      96.9
+    ],
+    "Ctrl+F axtarış · Ctrl+N yeni · F5 yenilə": [
+      91.1,
+      96.9
+    ],
+    "#lblHint": [
+      91.1,
+      96.9
+    ],
+    "Göstərilir: 200 / 85 805": [
+      10.3,
+      96.9
+    ],
+    "#lblCount": [
+      10.3,
+      96.9
+    ],
+    "#tlpTiles": [
+      52.2,
+      17.4
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "Excel-ə çıxar": [
+      93.1,
+      9.6
+    ],
+    "#btnExport": [
+      93.1,
+      9.6
+    ],
+    "Təmir reyestri · bütün zavodlar": [
+      17.8,
+      9.3
+    ],
+    "#lblTitle": [
+      17.8,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/04_genis_bax.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#DetailPage": [
+      52.2,
+      52.7
+    ],
+    "#scroll": [
+      52.2,
+      61.8
+    ],
+    "#rpHist": [
+      21.1,
+      38.6
+    ],
+    "#flHist": [
+      21.1,
+      39.7
+    ],
+    "28.10.2026 12:44 Sistem": [
+      10.4,
+      30.7
+    ],
+    "28.10.2026 08:26 Husnu Murselov": [
+      10.4,
+      38
+    ],
+    "Ehtiyat hissələrinin təminatı Təminat gözlənilir → Qismən təmin edilib": [
+      22.8,
+      38.2
+    ],
+    "Ehtiyat hissələri qa (qa) — 11 qa, qəbul 0, qalıq 11 → qa (qa) — 11 qa, qəbul 3, qalıq 8": [
+      24.3,
+      43.1
+    ],
+    "28.10.2026 08:23 Husnu Murselov": [
+      10.4,
+      47.7
+    ],
+    "Ehtiyat hissələri boş → qa (qa) — 11 qa, qəbul 0, qalıq 11": [
+      22.5,
+      47.9
+    ],
+    "Dəyişiklik tarixçəsi": [
+      21.1,
+      27.8
+    ],
+    "#lblHistTitle": [
+      21.1,
+      27.8
+    ],
+    "Texnikanın növü": [
+      10.2,
+      58.8
+    ],
+    "#cap_Nov": [
+      10.2,
+      58.8
+    ],
+    "Zirehli texnika": [
+      32.5,
+      58.8
+    ],
+    "#val_Nov": [
+      32.5,
+      58.8
+    ],
+    "Texnikanın markası": [
+      10.7,
+      61.8
+    ],
+    "#cap_Marka": [
+      10.7,
+      61.8
+    ],
+    "2S1": [
+      34.4,
+      61.8
+    ],
+    "#val_Marka": [
+      34.4,
+      61.8
+    ],
+    "Zavod nömrəsi": [
+      10,
+      64.8
+    ],
+    "#cap_ZavodNo": [
+      10,
+      64.8
+    ],
+    "NÜMUNƏ-6194761": [
+      31.5,
+      64.8
+    ],
+    "#val_ZavodNo": [
+      31.5,
+      64.8
+    ],
+    "Kateqoriyası — faktiki": [
+      11.2,
+      67.8
+    ],
+    "#cap_Kateqoriya": [
+      11.2,
+      67.8
+    ],
+    "I": [
+      34.9,
+      67.8
+    ],
+    "#val_Kateqoriya": [
+      34.9,
+      67.8
+    ],
+    "Naryadın nömrəsi": [
+      10.5,
+      70.8
+    ],
+    "#cap_NaryadNo": [
+      10.5,
+      70.8
+    ],
+    "—": [
+      34.6,
+      70.8
+    ],
+    "#val_NaryadNo": [
+      34.6,
+      70.8
+    ],
+    "Sənədin tarixi (naryadın tarixi)": [
+      12.6,
+      73.8
+    ],
+    "#cap_NaryadTarixi": [
+      12.6,
+      73.8
+    ],
+    "#val_NaryadTarixi": [
+      34.6,
+      73.8
+    ],
+    "Zavoda faktiki daxilolma tarixi": [
+      12.7,
+      76.8
+    ],
+    "#cap_DaxilolmaTarixi": [
+      12.7,
+      76.8
+    ],
+    "12.05.2026": [
+      33,
+      76.8
+    ],
+    "#val_DaxilolmaTarixi": [
+      33,
+      76.8
+    ],
+    "Təhvil verən (göndərən)": [
+      11.6,
+      79.8
+    ],
+    "#cap_GonderenQurum": [
+      11.6,
+      79.8
+    ],
+    "#val_GonderenQurum": [
+      34.6,
+      79.8
+    ],
+    "Aktın forması": [
+      9.7,
+      82.8
+    ],
+    "#cap_AktForma": [
+      9.7,
+      82.8
+    ],
+    "#val_AktForma": [
+      34.6,
+      82.8
+    ],
+    "Aktın nömrəsi": [
+      9.8,
+      85.8
+    ],
+    "#cap_AktNo": [
+      9.8,
+      85.8
+    ],
+    "#val_AktNo": [
+      34.6,
+      85.8
+    ],
+    "Aktın tarixi": [
+      9.2,
+      88.8
+    ],
+    "#cap_AktTarixi": [
+      9.2,
+      88.8
+    ],
+    "#val_AktTarixi": [
+      34.6,
+      88.8
+    ],
+    "Qəbul edən təmir müəssisəsi": [
+      12.5,
+      91.8
+    ],
+    "#cap_TemirZavodu": [
+      12.5,
+      91.8
+    ],
+    "939 nömrəli hərbi hissə": [
+      30.7,
+      91.8
+    ],
+    "#val_TemirZavodu": [
+      30.7,
+      91.8
+    ],
+    "Zavodda məsul icraçı": [
+      11.1,
+      94.8
+    ],
+    "#cap_MesulIcraci": [
+      11.1,
+      94.8
+    ],
+    "#val_MesulIcraci": [
+      34.6,
+      94.8
+    ],
+    "Qəbul və sənədlər": [
+      21.1,
+      55.9
+    ],
+    "İstehsal ili": [
+      40.1,
+      30.7
+    ],
+    "#cap_IstehsalIli": [
+      40.1,
+      30.7
+    ],
+    "1986": [
+      65.2,
+      30.7
+    ],
+    "#val_IstehsalIli": [
+      65.2,
+      30.7
+    ],
+    "İstismara verilib (tarix)": [
+      42.3,
+      33.7
+    ],
+    "#cap_IstismarTarixi": [
+      42.3,
+      33.7
+    ],
+    "#val_IstismarTarixi": [
+      65.7,
+      33.7
+    ],
+    "İstismarın əvvəlindən işləyib": [
+      43.4,
+      37.5
+    ],
+    "#cap_Gostericiler": [
+      43.4,
+      37.5
+    ],
+    "Gediş, km: 8201 Motosaat: 3540": [
+      63.2,
+      37.6
+    ],
+    "#val_Gostericiler": [
+      63.2,
+      37.6
+    ],
+    "Son təmirin növü": [
+      41.5,
+      41.4
+    ],
+    "#cap_SonTemirNovu": [
+      41.5,
+      41.4
+    ],
+    "#val_SonTemirNovu": [
+      65.7,
+      41.4
+    ],
+    "Son təmirin tamamlanma tarixi": [
+      44,
+      44.4
+    ],
+    "#cap_SonTemirTarixi": [
+      44,
+      44.4
+    ],
+    "#val_SonTemirTarixi": [
+      65.7,
+      44.4
+    ],
+    "Təmiri aparmış hərbi hissə və ya müəssisə": [
+      44.2,
+      48.2
+    ],
+    "#cap_SonTemirIcraci": [
+      44.2,
+      48.2
+    ],
+    "#val_SonTemirIcraci": [
+      65.7,
+      48.2
+    ],
+    "Son təmirdə yerinə yetirilmiş işlər": [
+      44.3,
+      52.1
+    ],
+    "#cap_SonTemirQeyd": [
+      44.3,
+      52.1
+    ],
+    "#val_SonTemirQeyd": [
+      65.7,
+      52.1
+    ],
+    "İstismar göstəriciləri və son təmir": [
+      52.2,
+      27.8
+    ],
+    "Aşkar edilmiş nasazlıqların qısa təsviri": [
+      44,
+      63
+    ],
+    "#cap_Nasazliqlar": [
+      44,
+      63
+    ],
+    "Qeyd: Nümunə məlumat (sürət sınağı)": [
+      60.3,
+      63
+    ],
+    "#val_Nasazliqlar": [
+      60.3,
+      63
+    ],
+    "Diaqnostika tarixi": [
+      41.4,
+      66.8
+    ],
+    "#cap_BaslamaTarixi": [
+      41.4,
+      66.8
+    ],
+    "15.05.2026": [
+      64,
+      66.8
+    ],
+    "#val_BaslamaTarixi": [
+      64,
+      66.8
+    ],
+    "Təmirin / işin növü": [
+      41.8,
+      69.8
+    ],
+    "#cap_TemirNovu": [
+      41.8,
+      69.8
+    ],
+    "Əsaslı təmir": [
+      63.9,
+      69.8
+    ],
+    "#val_TemirNovu": [
+      63.9,
+      69.8
+    ],
+    "İcra statusu": [
+      40.4,
+      72.8
+    ],
+    "#cap_Status": [
+      40.4,
+      72.8
+    ],
+    "Təmirdədir": [
+      64.1,
+      72.8
+    ],
+    "#val_Status": [
+      64.1,
+      72.8
+    ],
+    "İcra müddəti": [
+      40.6,
+      75.8
+    ],
+    "#cap_IcraMuddeti": [
+      40.6,
+      75.8
+    ],
+    "#val_IcraMuddeti": [
+      65.7,
+      75.8
+    ],
+    "Müddətin vahidi": [
+      41.3,
+      78.8
+    ],
+    "#cap_MuddetVahidi": [
+      41.3,
+      78.8
+    ],
+    "#val_MuddetVahidi": [
+      65.7,
+      78.8
+    ],
+    "Plan üzrə bitmə tarixi": [
+      42.1,
+      81.8
+    ],
+    "#cap_GozlenilenBitme": [
+      42.1,
+      81.8
+    ],
+    "11.09.2026": [
+      64.1,
+      81.8
+    ],
+    "#val_GozlenilenBitme": [
+      64.1,
+      81.8
+    ],
+    "Gecikmənin və ya plan dəyişikliyinin səbəbi": [
+      42.5,
+      85.7
+    ],
+    "#cap_GecikmeSebebi": [
+      42.5,
+      85.7
+    ],
+    "#val_GecikmeSebebi": [
+      65.7,
+      85.6
+    ],
+    "Ehtiyat hissələrinin təminatı": [
+      43.3,
+      89.5
+    ],
+    "#cap_Teminat": [
+      43.3,
+      89.5
+    ],
+    "#val_Teminat": [
+      65.7,
+      89.5
+    ],
+    "Gözlənilən bitmə tarixi": [
+      42.4,
+      92.5
+    ],
+    "#cap_ProqnozBitme": [
+      42.4,
+      92.5
+    ],
+    "#val_ProqnozBitme": [
+      65.7,
+      92.5
+    ],
+    "Yeni plan üzrə bitmə tarixi": [
+      43,
+      95.5
+    ],
+    "#cap_YeniPlanBitme": [
+      43,
+      95.5
+    ],
+    "#val_YeniPlanBitme": [
+      65.7,
+      95.5
+    ],
+    "Təmirin icrası": [
+      52.2,
+      59.2
+    ],
+    "Faktiki sərfiyyat": [
+      72.2,
+      34.1
+    ],
+    "#cap_Serfiyyat": [
+      72.2,
+      34.1
+    ],
+    "#val_Serfiyyat": [
+      90.8,
+      34.1
+    ],
+    "Təmirin faktiki tamamlanma tarixi": [
+      75.5,
+      47.5
+    ],
+    "#cap_FaktikiBitme": [
+      75.5,
+      47.5
+    ],
+    "#val_FaktikiBitme": [
+      96.7,
+      47.5
+    ],
+    "Yerinə yetirilmiş işlər haqqında qeyd": [
+      75,
+      51.3
+    ],
+    "#cap_GorulenIsler": [
+      75,
+      51.3
+    ],
+    "#val_GorulenIsler": [
+      96.7,
+      51.3
+    ],
+    "Faktiki təhvil tarixi": [
+      72.6,
+      55.2
+    ],
+    "#cap_TehvilTarixi": [
+      72.6,
+      55.2
+    ],
+    "#val_TehvilTarixi": [
+      96.7,
+      55.2
+    ],
+    "Təhvil sənədinin nömrəsi": [
+      73.9,
+      58.2
+    ],
+    "#cap_TehvilSenedNo": [
+      73.9,
+      58.2
+    ],
+    "#val_TehvilSenedNo": [
+      96.7,
+      58.2
+    ],
+    "Təhvil sənədinin tarixi": [
+      73.3,
+      61.2
+    ],
+    "#cap_TehvilSenedTarixi": [
+      73.3,
+      61.2
+    ],
+    "#val_TehvilSenedTarixi": [
+      96.7,
+      61.2
+    ],
+    "Təhvil alan qurum": [
+      72.7,
+      64.2
+    ],
+    "#cap_TehvilAlan": [
+      72.7,
+      64.2
+    ],
+    "#val_TehvilAlan": [
+      96.7,
+      64.2
+    ],
+    "Təmirin tamamlanması və təhvil": [
+      83.2,
+      44.6
+    ],
+    "#pnlGap": [
+      52.2,
+      24.9
+    ],
+    "#rpStep": [
+      52.2,
+      20.2
+    ],
+    "#stepper": [
+      52.2,
+      20.4
+    ],
+    "#rpHead": [
+      52.2,
+      11.6
+    ],
+    "Əvvəlki": [
+      69.7,
+      11.3
+    ],
+    "#btnPrev": [
+      69.7,
+      11.3
+    ],
+    "Növbəti": [
+      76.9,
+      11.3
+    ],
+    "#btnNext": [
+      76.9,
+      11.3
+    ],
+    "PDF pasport": [
+      85,
+      11.3
+    ],
+    "#btnPdf": [
+      85,
+      11.3
+    ],
+    "Gecikir": [
+      44.1,
+      11.1
+    ],
+    "#chipLate": [
+      44.1,
+      11.1
+    ],
+    "Təmirdə": [
+      38.9,
+      11.1
+    ],
+    "#chipStatus": [
+      38.9,
+      11.1
+    ],
+    "Zirehli texnika · 939 nömrəli hərbi hissə · daxil olub 12.05.2026": [
+      29.9,
+      13.2
+    ],
+    "#lblSub": [
+      29.9,
+      13.2
+    ],
+    "2S1 · NÜMUNƏ-6194761": [
+      26.8,
+      10.3
+    ],
+    "#lblName": [
+      26.8,
+      10.3
+    ],
+    "Reyestrə qayıt": [
+      12.2,
+      11.3
+    ],
+    "#btnBack": [
+      12.2,
+      11.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/07_teminat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Sətir sayı: 5": [
+      52.2,
+      89.4
+    ],
+    "Məktub sənədi (PDF)": [
+      91.1,
+      95.6
+    ],
+    "Zavod:": [
+      18,
+      16.3
+    ],
+    "Məktub:": [
+      40.8,
+      16.3
+    ],
+    "Təminat vəziyyəti:": [
+      63.5,
+      16.3
+    ],
+    "Təmin edən qurum:": [
+      86.4,
+      16.3
+    ],
+    "Hamısı": [
+      18,
+      19.2
+    ],
+    "Məktubun tarixi (başlanğıc):": [
+      18,
+      23
+    ],
+    "Son:": [
+      40.8,
+      23
+    ],
+    "Axtarış:": [
+      63.5,
+      23
+    ],
+    "28.10.2026": [
+      18,
+      25.9
+    ],
+    "Excel": [
+      79.2,
+      26.4
+    ],
+    "Çap et (PDF)": [
+      88.4,
+      26.4
+    ],
+    "Sorğular üzrə təminat": [
+      14.7,
+      9.3
+    ],
+    "Təchizat sorğuları əsasında qəbul edilmiş ehtiyat hissələri və materiallar": [
+      20.9,
+      12.6
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/08_hesabat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "6 zavod üzrə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "ZAVODLAR ÜZRƏ ÜMUMI ICRA VƏZIYYƏTI": [
+      61.3,
+      30.4
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "01.10.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Zavod:": [
+      63,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Zavodlar üzrə ümumi icra vəziyyəti": [
+      26.9,
+      17
+    ],
+    "Hamısı": [
+      63,
+      17
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/08_hesabat_teminat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Təmin edilməmiş ehtiyat hissələri": [
+      52.1,
+      37.2
+    ],
+    "Tam təmin edilmiş ehtiyat hissələri": [
+      70.6,
+      37.2
+    ],
+    "6 zavod üzrə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "ZAVODLAR ÜZRƏ ÜMUMI ICRA VƏZIYYƏTI": [
+      61.3,
+      30.4
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "28.09.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Zavod:": [
+      63,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Hamısı": [
+      63,
+      17
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "0": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/08_hesabat_serf.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "Texnika seç": [
+      30.6,
+      37.1
+    ],
+    "6 zavod üzrə • 28.10.2026 tarixinə": [
+      61.3,
+      33.3
+    ],
+    "TEXNIKA ÜZRƏ FAKTIKI MATERIAL SƏRFI": [
+      61.3,
+      30.4
+    ],
+    "Sərf tarixi: 28.09.2026 – 28.10.2026.": [
+      61.3,
+      84.4
+    ],
+    "Ümumi icra vəziyyəti": [
+      14.5,
+      31.2
+    ],
+    "Qəbul, təmir və təhvil": [
+      14.5,
+      36.1
+    ],
+    "İcra müddəti üzrə nəzarət": [
+      14.5,
+      41
+    ],
+    "Təhvil gözlənilən texnikalar": [
+      14.5,
+      45.9
+    ],
+    "Ehtiyat hissələri üzrə təminat": [
+      14.5,
+      50.8
+    ],
+    "Texnika üzrə faktiki material sərfi": [
+      14.5,
+      55.7
+    ],
+    "Məktubların icra vəziyyəti": [
+      14.5,
+      60.6
+    ],
+    "Dövr üzrə hesabatlar": [
+      11.7,
+      94.4
+    ],
+    "Başlanğıc tarixi:": [
+      22.2,
+      94.4
+    ],
+    "28.09.2026": [
+      31.5,
+      94.2
+    ],
+    "Son tarix:": [
+      40,
+      94.4
+    ],
+    "28.10.2026": [
+      48.1,
+      94.2
+    ],
+    "Qəbul, tamamlanma, təhvil və məktublar üzrə tarix aralığı seçilir.": [
+      68.1,
+      94.4
+    ],
+    "Hesabatı göstər": [
+      12.6,
+      22.4
+    ],
+    "Excel-ə çıxar": [
+      24,
+      22.4
+    ],
+    "Çap et (PDF)": [
+      35.1,
+      22.4
+    ],
+    "Hesabat növü:": [
+      26.9,
+      14.1
+    ],
+    "Zavod:": [
+      63,
+      14.1
+    ],
+    "Hesabat tarixi:": [
+      87.9,
+      14.1
+    ],
+    "Hamısı": [
+      63,
+      17
+    ],
+    "Hesabatlar": [
+      10.6,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/09_bildiris.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#NotificationsPage": [
+      52.2,
+      52.7
+    ],
+    "#rpList": [
+      52.2,
+      56.4
+    ],
+    "#grid": [
+      52.2,
+      56.4
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      12.1
+    ],
+    "#segFilter": [
+      52,
+      14.6
+    ],
+    "Hamısını oxunmuş et": [
+      91.9,
+      9.6
+    ],
+    "#btnReadAll": [
+      91.9,
+      9.6
+    ],
+    "Bildirişlər": [
+      10.1,
+      9.3
+    ],
+    "#lblTitle": [
+      10.1,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/10_usb.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#SyncPage": [
+      52.2,
+      52.7
+    ],
+    "#tlp": [
+      52.2,
+      55.7
+    ],
+    "#pnlLeft": [
+      28.8,
+      36.3
+    ],
+    "#rpImport": [
+      28.8,
+      36.3
+    ],
+    "Seçilmiş paketi idxal et": [
+      25.3,
+      37.7
+    ],
+    "#btnImport": [
+      25.3,
+      37.7
+    ],
+    "Fayl seç...": [
+      11.9,
+      37.7
+    ],
+    "#btnPick": [
+      11.9,
+      37.7
+    ],
+    "#lstPackages": [
+      29.3,
+      26.1
+    ],
+    "USB-dəki paketlər": [
+      28.8,
+      15.6
+    ],
+    "#lblImportTitle": [
+      28.8,
+      15.6
+    ],
+    "#rpProc": [
+      75,
+      36.3
+    ],
+    "#steps": [
+      74.7,
+      26
+    ],
+    "Proses": [
+      75,
+      15.6
+    ],
+    "#lblProcTitle": [
+      75,
+      15.6
+    ],
+    "#rpHist": [
+      51.9,
+      79
+    ],
+    "#gridHist": [
+      51.9,
+      80.4
+    ],
+    "Sinxronizasiya tarixçəsi": [
+      51.9,
+      63.3
+    ],
+    "#lblHistTitle": [
+      51.9,
+      63.3
+    ],
+    "#pnlGap": [
+      52.2,
+      12.6
+    ],
+    "#pnlHead": [
+      52.2,
+      9.7
+    ],
+    "İdxal (USB-dən)": [
+      12.4,
+      9.3
+    ],
+    "#lblTitle": [
+      12.4,
+      9.3
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/11_ehtiyat.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#BackupPage": [
+      52.2,
+      55.4
+    ],
+    "#tlp": [
+      52.2,
+      58
+    ],
+    "#rpAuto": [
+      25.1,
+      57.4
+    ],
+    "Qovluğu aç": [
+      11.9,
+      56.2
+    ],
+    "#btnOpenFolder": [
+      11.9,
+      56.2
+    ],
+    "#lblTip": [
+      21.7,
+      47.8
+    ],
+    "1 / 30": [
+      19.1,
+      42.1
+    ],
+    "#vKept": [
+      19.1,
+      42.1
+    ],
+    "Saxlanılan": [
+      9.1,
+      42.1
+    ],
+    "#kKept": [
+      9.1,
+      42.1
+    ],
+    "70.8 MB": [
+      19.6,
+      39.2
+    ],
+    "#vSize": [
+      19.6,
+      39.2
+    ],
+    "Bazanın ölçüsü": [
+      10,
+      39.2
+    ],
+    "#kSize": [
+      10,
+      39.2
+    ],
+    "28.10.2026 12:45": [
+      21.3,
+      36.3
+    ],
+    "#vLast": [
+      21.3,
+      36.3
+    ],
+    "Son nüsxə": [
+      9.1,
+      36.3
+    ],
+    "#kLast": [
+      9.1,
+      36.3
+    ],
+    "C:\\Users\\ISMET ETI\\AppData\\Local\\Temp\\TelimatSekil\\Backup": [
+      26.8,
+      32.9
+    ],
+    "#vFolder": [
+      26.8,
+      32.9
+    ],
+    "Qovluq": [
+      8.6,
+      32.1
+    ],
+    "#kFolder": [
+      8.6,
+      32.1
+    ],
+    "● Aktivdir": [
+      19.9,
+      29.2
+    ],
+    "#vState": [
+      19.9,
+      29.2
+    ],
+    "Vəziyyət": [
+      8.8,
+      29.2
+    ],
+    "#kState": [
+      8.8,
+      29.2
+    ],
+    "#lblAutoDesc": [
+      21.8,
+      23.8
+    ],
+    "Avtomatik nüsxə": [
+      25.1,
+      20.2
+    ],
+    "#lblAutoTitle": [
+      25.1,
+      20.2
+    ],
+    "#rpList": [
+      71.2,
+      57.4
+    ],
+    "#grid": [
+      71.2,
+      58.9
+    ],
+    "Nüsxələr": [
+      71.2,
+      20.2
+    ],
+    "#lblListTitle": [
+      71.2,
+      20.2
+    ],
+    "#pnlHead": [
+      52.2,
+      15.2
+    ],
+    "İndi nüsxə al": [
+      92.8,
+      15.1
+    ],
+    "#btnNow": [
+      92.8,
+      15.1
+    ],
+    "Ehtiyat nüsxə": [
+      11.5,
+      14.8
+    ],
+    "#lblTitle": [
+      11.5,
+      14.8
+    ],
+    "Loglar": [
+      24.3,
+      8.8
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "idare/12_loglar.png": {
+    "#pnlNav": [
+      2.3,
+      50
+    ],
+    "menyu:": [
+      2.3,
+      96.3
+    ],
+    "menyu:set": [
+      2.3,
+      41.9
+    ],
+    "menyu:help": [
+      2.3,
+      47.2
+    ],
+    "menyu:sync": [
+      2.3,
+      36.6
+    ],
+    "menyu:noti": [
+      2.3,
+      31.2
+    ],
+    "menyu:rep": [
+      2.3,
+      25.9
+    ],
+    "menyu:tech": [
+      2.3,
+      20.6
+    ],
+    "menyu:list": [
+      2.3,
+      15.2
+    ],
+    "menyu:home": [
+      2.3,
+      9.9
+    ],
+    "#logo": [
+      2.3,
+      3.7
+    ],
+    "#pnlContent": [
+      52.2,
+      52.7
+    ],
+    "#LogsPage": [
+      52.2,
+      55.4
+    ],
+    "#rpGrid": [
+      52.2,
+      56.8
+    ],
+    "#grid": [
+      52.2,
+      56.8
+    ],
+    "Son 1000 qeyd göstərilir. Zavod istifadəçisi yalnız öz zavodunun loglarını görür.": [
+      52.2,
+      97.1
+    ],
+    "#lblFoot": [
+      52.2,
+      97.1
+    ],
+    "#pnlHead": [
+      52.2,
+      15.2
+    ],
+    "Axtar": [
+      93.5,
+      15.1
+    ],
+    "#btnSearch": [
+      93.5,
+      15.1
+    ],
+    "Növ: Hamısı": [
+      82.7,
+      15.2
+    ],
+    "#cmbType": [
+      82.7,
+      15.2
+    ],
+    "28.10.2026": [
+      72.4,
+      15.1
+    ],
+    "#dtTo": [
+      72.4,
+      15.1
+    ],
+    "—": [
+      67.4,
+      14.8
+    ],
+    "#lblDash": [
+      67.4,
+      14.8
+    ],
+    "21.10.2026": [
+      62.2,
+      15.1
+    ],
+    "#dtFrom": [
+      62.2,
+      15.1
+    ],
+    "Loglar": [
+      8.9,
+      14.8
+    ],
+    "#lblTitle": [
+      8.9,
+      14.8
+    ],
+    "Ehtiyat nüsxə": [
+      11.9,
+      8.8
+    ],
+    "#pnlTop": [
+      52.2,
+      2.8
+    ],
+    "#btnClose": [
+      96.1,
+      2.7
+    ],
+    "#btnMax": [
+      92.9,
+      2.7
+    ],
+    "#btnMin": [
+      89.7,
+      2.7
+    ],
+    "94": [
+      86.2,
+      1.2
+    ],
+    "#lblBadge": [
+      86.2,
+      1.2
+    ],
+    "#btnBell": [
+      85.3,
+      2.8
+    ],
+    "AZ": [
+      81.5,
+      2.9
+    ],
+    "#cmbLang": [
+      81.5,
+      2.9
+    ],
+    "#btnTheme": [
+      77.8,
+      2.8
+    ],
+    "Quliyev Samir · Yalnız baxış": [
+      24.9,
+      2.8
+    ],
+    "#lblUser": [
+      24.9,
+      2.8
+    ],
+    "Müdafiə Sənayesi İdarəsi": [
+      12.5,
+      2.6
+    ],
+    "#lblQurum": [
+      12.5,
+      2.6
+    ]
+  },
+  "forms/00_giris.png": {
+    "#pnlForm": [
+      71.9,
+      50
+    ],
+    "#lblError": [
+      71.9,
+      78.9
+    ],
+    "DAXİL OL": [
+      71.9,
+      68.7
+    ],
+    "#btnLogin": [
+      71.9,
+      68.7
+    ],
+    "#txtPass": [
+      72.8,
+      56
+    ],
+    "\uE7B3": [
+      85.2,
+      55.5
+    ],
+    "Parol": [
+      58,
+      50.6
+    ],
+    "#lblPass": [
+      58,
+      50.6
+    ],
+    "zavod": [
+      72.8,
+      44.5
+    ],
+    "#txtUser": [
+      72.8,
+      44.5
+    ],
+    "İstifadəçi adı": [
+      60.1,
+      39.2
+    ],
+    "#lblUser": [
+      60.1,
+      39.2
+    ],
+    "Sistemə giriş": [
+      65.2,
+      30.5
+    ],
+    "#lblHeader": [
+      65.2,
+      30.5
+    ],
+    "AZ": [
+      91.5,
+      4.6
+    ],
+    "#cmbLang": [
+      91.5,
+      4.6
+    ],
+    "#btnTheme": [
+      85.8,
+      4.6
+    ],
+    "#btnClose": [
+      97.1,
+      4.6
+    ],
+    "Bu kompüterdə məni xatırla": [
+      65.2,
+      61.2
+    ],
+    "Unut": [
+      76.9,
+      61.2
+    ],
+    "#pnlBrand": [
+      21.9,
+      50
+    ],
+    "v1.0 · Lokal baza · 6 zavod": [
+      11.5,
+      94.4
+    ],
+    "#lblVersion": [
+      11.5,
+      94.4
+    ],
+    "Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu": [
+      20.2,
+      70.2
+    ],
+    "#lblBrandSub": [
+      20.2,
+      70.2
+    ],
+    "MƏLUMAT BAZASI": [
+      13.2,
+      61.9
+    ],
+    "#lblBrandDb": [
+      13.2,
+      61.9
+    ],
+    "TƏMİR VƏ TEXNİKİ TƏMİNAT XİDMƏTİ": [
+      17.6,
+      47.1
+    ],
+    "#lblBrand": [
+      17.6,
+      47.1
+    ],
+    "#logo": [
+      11,
+      19.6
+    ]
+  },
+  "forms/21_admin.png": {
+    "#pnlContent": [
+      59.3,
+      50
+    ],
+    "#AdmUsersPage": [
+      59.3,
+      50
+    ],
+    "#rpGrid": [
+      59.3,
+      51.7
+    ],
+    "#grid": [
+      59.3,
+      51.7
+    ],
+    "#lblFoot": [
+      59.3,
+      96.3
+    ],
+    "#pnlHead": [
+      59.3,
+      5.6
+    ],
+    "#txtFilter": [
+      62.5,
+      5.8
+    ],
+    "Qurum: Hamısı": [
+      77.4,
+      5.6
+    ],
+    "#cmbOrg": [
+      77.4,
+      5.6
+    ],
+    "Yeni istifadəçi": [
+      91.2,
+      5.4
+    ],
+    "#btnAdd": [
+      91.2,
+      5.4
+    ],
+    "İstifadəçilər": [
+      26.6,
+      5.1
+    ],
+    "#lblTitle": [
+      26.6,
+      5.1
+    ],
+    "#pnlAside": [
+      9.4,
+      50
+    ],
+    "Admindən çıx": [
+      9.4,
+      94.3
+    ],
+    "#btnExit": [
+      9.4,
+      94.3
+    ],
+    "\uD83D\uDCDC Admin jurnalı": [
+      9.4,
+      47.6
+    ],
+    "#radLog": [
+      9.4,
+      47.6
+    ],
+    "⚙ Sistem": [
+      9.4,
+      41.6
+    ],
+    "#radSys": [
+      9.4,
+      41.6
+    ],
+    "\uD83D\uDD11 USB açarları": [
+      9.4,
+      35.6
+    ],
+    "#radKeys": [
+      9.4,
+      35.6
+    ],
+    "\uD83D\uDEE1 Təhlükəsizlik": [
+      9.4,
+      29.6
+    ],
+    "#radSec": [
+      9.4,
+      29.6
+    ],
+    "\uD83D\uDDA5 Bu kompüter": [
+      9.4,
+      23.6
+    ],
+    "#radPc": [
+      9.4,
+      23.6
+    ],
+    "\uD83C\uDFED Qurumlar": [
+      9.4,
+      17.6
+    ],
+    "#radOrgs": [
+      9.4,
+      17.6
+    ],
+    "\uD83D\uDC64 İstifadəçilər": [
+      9.4,
+      11.6
+    ],
+    "#radUsers": [
+      9.4,
+      11.6
+    ],
+    "\uD83D\uDD12 Admin paneli": [
+      7.9,
+      3.8
+    ],
+    "#lblAside": [
+      7.9,
+      3.8
+    ],
+    "Proqram tərtibatçısı": [
+      6,
+      85.8
+    ],
+    "İsmət Əbilov": [
+      5.1,
+      88.6
+    ]
+  }
+}

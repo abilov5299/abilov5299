@@ -123,7 +123,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **28.10 (növ):** "Texnikanın növü" siyahısına 7 seçim əlavə olundu (Rabitə vasitəsi, Silah, Avadanlıq, Cihazlar, Qurğular, Qoşqu, Mebel); formada xana yazıla biləndir — siyahıda olmayan növ əl ilə yazılır. Menyudakı proqram adı ağ (Tag "white").
 
-**28.10 (təlimat):** `docs/telimat/qur.py` yeni quruluşa görə yeniləndi (Sorğu yarat, Sorğular üzrə təminat, Faktiki sərfiyyat, "Təminat gözləyir" işarəsi, 7 hesabat, yeni ad); mündəricat paneli açıq fonda. Köhnə ekran şəkilləri (ehtiyat hissələri bölməsi, təchizat sorğuları) çıxarıldı — yeni şəkillər hələ əlavə edilməyib.
+**28.10 (təlimat):** `docs/telimat/qur.py` yeni quruluşa görə yeniləndi (Sorğu yarat, Sorğular üzrə təminat, Faktiki sərfiyyat, "Təminat gözləyir" işarəsi, 7 hesabat, yeni ad); mündəricat paneli açıq fonda. Bütün ekran şəkilləri yenidən çəkildi: `tools/TelimatSekil` (bazanın surətində nümunə məlumat, 3 rol, PrintWindow; `sekil/ikon/` — düymələrin kiçik şəkilləri, `sekil/yer.json` — nömrələrin avtomatik yerləri). Təlimatda düymə/menyu adının yanında kiçik şəkli göstərilir. Yeniləmək: `dotnet run --project tools/TelimatSekil` → `python docs/telimat/qur.py` → build.
 
 **27.10:** Mövcud texnikada yadda saxlanmış məktubu ayırmaq və ehtiyat hissəsini silmək olmaz (xəbərdarlıq çıxır); yeni texnikada saxlanana qədər mümkündür.
 
