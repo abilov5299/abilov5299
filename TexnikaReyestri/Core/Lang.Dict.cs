@@ -571,6 +571,7 @@
             ["Qurğular"] = ("Installations", "Установки"),
             ["Qoşqu"] = ("Trailer", "Прицеп"),
             ["Mebel"] = ("Furniture", "Мебель"),
+            ["Proqram tərtibatçısı"] = ("Developer", "Разработчик"),
             ["Sorğu yarat"] = ("Create request", "Создать запрос"),
             ["Addım 1 · Təchizat məktubu"] = ("Step 1 · Supply letter", "Шаг 1 · Письмо снабжения"),
             ["Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin."] = ("First create a new letter or select a registered one.", "Сначала создайте новое письмо или выберите зарегистрированное."),

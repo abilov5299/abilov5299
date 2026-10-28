@@ -1,4 +1,4 @@
-using TexnikaReyestri.Controls;
+﻿using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Pages.Admin;
 
@@ -8,7 +8,18 @@ namespace TexnikaReyestri.Forms
     public partial class AdminForm : Form
     {
         private readonly Dictionary<RadioButton, PageBase> _p = new();
-        public AdminForm() { InitializeComponent(); pnlAside.MouseDown += (_, e) => { if (e.Button == MouseButtons.Left) Win32.DragWindow(this); }; }
+        /// <summary>Proqram tərtibatçısı: kodda sabitdir, paneldən dəyişdirilmir; yalnız admin panelində göstərilir.</summary>
+        private const string Tertibatci = "İsmət Əbilov";
+
+        public AdminForm()
+        {
+            InitializeComponent();
+            pnlAside.MouseDown += (_, e) => { if (e.Button == MouseButtons.Left) Win32.DragWindow(this); };
+            // Sol panelin aşağısında, "Çıxış" düyməsinin üstündə
+            var lt = new Label { Text = "Proqram tərtibatçısı", AutoSize = true, Font = new Font("Segoe UI", 8.5F), Tag = "navtext", Location = new Point(14, btnExit.Top - 48), Anchor = AnchorStyles.Bottom | AnchorStyles.Left };
+            var la = new Label { Text = Tertibatci, AutoSize = true, Font = new Font("Bahnschrift SemiBold", 11F), Tag = "white", Location = new Point(14, btnExit.Top - 30), Anchor = AnchorStyles.Bottom | AnchorStyles.Left };
+            pnlAside.Controls.Add(lt); pnlAside.Controls.Add(la);
+        }
 
         private async void AdminForm_Load(object sender, EventArgs e)
         {
