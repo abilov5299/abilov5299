@@ -125,6 +125,8 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **28.10 (təlimat):** `docs/telimat/qur.py` yeni quruluşa görə yeniləndi (Sorğu yarat, Sorğular üzrə təminat, Faktiki sərfiyyat, "Təminat gözləyir" işarəsi, 7 hesabat, yeni ad); mündəricat paneli açıq fonda. Bütün ekran şəkilləri yenidən çəkildi: `tools/TelimatSekil` (bazanın surətində nümunə məlumat, 3 rol, PrintWindow; `sekil/ikon/` — düymələrin kiçik şəkilləri, `sekil/yer.json` — nömrələrin avtomatik yerləri). Təlimatda düymə/menyu adının yanında kiçik şəkli göstərilir. Yeniləmək: `dotnet run --project tools/TelimatSekil` → `python docs/telimat/qur.py` → build.
 
+**28.10 (detallar):** Detal səhifəsində kartların yeri: 1-ci sütun Qəbul və sənədlər → Dəyişiklik tarixçəsi; 3-cü sütun Təmirin tamamlanması və təhvil → Faktiki sərfiyyat.
+
 **28.10 (səslər):** `Core/Sesler.cs` — açılış səsi (proqram açılanda bir dəfə, giriş pəncərəsində) və klik səsi (düymə, mətn sahəsi, siyahı, tarix və s. üzərində sol klik; `Sesler.KlikFiltr` mesaj filtri). Windows MCI ilə mp3/wav, əlavə paket yoxdur. Standart fayllar `Assets/Sesler` (klik WAV-a çevrildi: çox qısa mp3-ü MCI açmır). Admin → Sistem: "Açılış səsi", "Klik səsi" aktiv/passiv (`GirisSes`, `KlikSes`) + Dinlə / Dəyiş… / Standart; seçilən fayl `ProgramData\TexnikaReyestri\Sesler`-ə köçürülür, açılmayan fayl qəbul edilmir. MCI uzun yolu açmadığı üçün qısa (8.3) yol verilir.
 
 **27.10:** Mövcud texnikada yadda saxlanmış məktubu ayırmaq və ehtiyat hissəsini silmək olmaz (xəbərdarlıq çıxır); yeni texnikada saxlanana qədər mümkündür.

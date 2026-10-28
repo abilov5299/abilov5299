@@ -17,9 +17,9 @@ namespace TexnikaReyestri.Pages
         private RoundPanel rpMektub; private TableLayoutPanel tlpMektub;
         private RoundPanel[][] Sutunlar => new[]
         {
-            new[] { rpHist, _kart["Qəbul və sənədlər"] },
+            new[] { _kart["Qəbul və sənədlər"], rpHist },
             new[] { _kart["İstismar göstəriciləri və son təmir"], _kart["Təmirin icrası"] },
-            new[] { _kart["Faktiki sərfiyyat"], _kart["Təmirin tamamlanması və təhvil"] }
+            new[] { _kart["Təmirin tamamlanması və təhvil"], _kart["Faktiki sərfiyyat"] }
         };
         private static readonly string[] Merhele = { "Qəbul edilib", "Təmirdədir", "Təmir tamamlanıb", "Təhvil verilib" };
 
