@@ -176,6 +176,44 @@ FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z);";
             return (setir, serf);
         }
 
+        /// <summary>
+        /// Hər anbar sərfinin hansı məktubun qəbulundan çıxdığı (anbarın qaydası ilə: ilk qəbul edilən ilk sərf olunur).
+        /// Açar: (texnikanın Guid-i, sərfin texnikanın siyahısındakı indeksi); dəyər: məktub nömrələri ("1122, 14").
+        /// </summary>
+        public static async Task<Dictionary<(string guid, int i), string>> SerfMektublariAsync(string zavod)
+        {
+            var novbe = (await TeminatAsync(zavod)).Where(x => x.Qebul > 0).OrderBy(x => x.IlkQebul ?? "9999").ThenBy(x => x.SorguId)
+                        .GroupBy(x => Acar(x.Ad, x.Kod, x.Vahid)).ToDictionary(g => g.Key, g => g.Select(x => (no: x.MektubNo, qalan: x.Qebul)).ToList());
+            var serfler = new List<(string guid, int i, Data.Serf s)>();
+            await using (var con = await LocalDb.AcAsync())
+            using (var c = con.CreateCommand())
+            {
+                c.CommandText = "SELECT Guid, Serfiyyat FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) AND IFNULL(Serfiyyat,'')<>'';";
+                c.Parameters.AddWithValue("$z", (object)zavod ?? DBNull.Value);
+                await using var r = await c.ExecuteReaderAsync();
+                while (await r.ReadAsync())
+                {
+                    var l = Data.TexnikaJson.Serfler(r.GetString(1));
+                    for (int i = 0; i < l.Count; i++) if (l[i].Anbar) serfler.Add((r.GetString(0), i, l[i]));
+                }
+            }
+            var netice = new Dictionary<(string, int), string>();
+            foreach (var (g, i, s) in serfler.OrderBy(x => x.s.Tarix).ThenBy(x => x.guid).ThenBy(x => x.i))
+            {
+                if (!novbe.TryGetValue(Acar(s.Ad, s.Kod, s.Vahid), out var q)) continue;
+                double lazim = s.Miqdar; var nolar = new List<string>();
+                for (int k = 0; k < q.Count && lazim > 1e-9; k++)
+                {
+                    if (q[k].qalan <= 1e-9) continue;
+                    double pay = Math.Min(lazim, q[k].qalan);
+                    q[k] = (q[k].no, q[k].qalan - pay); lazim -= pay;
+                    if (!nolar.Contains(q[k].no)) nolar.Add(q[k].no);
+                }
+                if (nolar.Count > 0) netice[(g, i)] = string.Join(", ", nolar);
+            }
+            return netice;
+        }
+
         public static List<SorguQeyd> QeydJson(string v) => string.IsNullOrEmpty(v) ? new() : JsonSerializer.Deserialize<List<SorguQeyd>>(v) ?? new();
 
         private const string TexnikaSert = "EXISTS (SELECT 1 FROM json_each(Sorgular.Texnikalar) j WHERE json_extract(j.value,'$.Guid')=$tg)";

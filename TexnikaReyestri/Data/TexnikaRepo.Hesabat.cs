@@ -94,7 +94,8 @@
                 case 5:
                     // Texnika kartlarındakı "Faktiki sərfiyyat" qeydləri: sərf tarixi dövrdədir; texnika və material üzrə cəmlənir
                     // texnika: seçilmiş texnikanın Guid-i (null — hamısı)
-                    c.CommandText = $"SELECT IFNULL(Marka,''), IFNULL(ZavodNo,''), Serfiyyat FROM Texnikalar WHERE {zw} AND IFNULL(Serfiyyat,'')<>'' AND ($tg IS NULL OR Guid=$tg) ORDER BY Marka, ZavodNo;";
+                    var mektub = await SorguRepo.SerfMektublariAsync(zavod);   // hər anbar sərfinin məktubu
+                    c.CommandText = $"SELECT IFNULL(Marka,''), IFNULL(ZavodNo,''), Serfiyyat, Guid FROM Texnikalar WHERE {zw} AND IFNULL(Serfiyyat,'')<>'' AND ($tg IS NULL OR Guid=$tg) ORDER BY Marka, ZavodNo;";
                     c.Parameters.AddWithValue("$tg", (object)texnika ?? DBNull.Value);
                     var sr = new List<string[]>();
                     string mq = (material ?? "").Trim();
@@ -102,18 +103,20 @@
                         while (await r.ReadAsync())
                         {
                             string tex = $"{r.GetString(0)} ({r.GetString(1)})";
-                            var serf = TexnikaJson.Serfler(r.GetString(2))
+                            string guid = r.GetString(3);
+                            var serf = TexnikaJson.Serfler(r.GetString(2)).Select((x, i) => (x, mk: mektub.GetValueOrDefault((guid, i)) ?? "—")).ToList();
+                            var sec = serf.Select(t => t.x)
                                          .Where(x => string.CompareOrdinal(x.Tarix ?? "", Vaxt.Iso(d1)) >= 0 && string.CompareOrdinal(x.Tarix ?? "", Vaxt.Iso(d2)) <= 0)
                                          .Where(x => mq.Length == 0 || (x.Ad ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase) || (x.Kod ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase));
                             string Ad(string ad, string kod) => (ad ?? "").Trim() + (string.IsNullOrWhiteSpace(kod) ? "" : " / " + kod.Trim());
                             if (texnika != null)   // bir texnika: hər sərf ayrıca sətir, tarixi ilə
-                                foreach (var x in serf.OrderBy(x => x.Tarix)) sr.Add(new[] { Ad(x.Ad, x.Kod), x.Vahid, F(x.Miqdar), Vaxt.Tarix(x.Tarix) });
+                                foreach (var (x, mk) in serf.Where(t => sec.Contains(t.x)).OrderBy(t => t.x.Tarix)) sr.Add(new[] { Ad(x.Ad, x.Kod), mk, x.Vahid, F(x.Miqdar), Vaxt.Tarix(x.Tarix) });
                             else                   // ümumi: texnika və material üzrə cəm
-                                foreach (var g in serf.GroupBy(x => (Ad: (x.Ad ?? "").Trim(), Kod: (x.Kod ?? "").Trim(), Vahid: (x.Vahid ?? "").Trim())))
-                                    sr.Add(new[] { tex, Ad(g.Key.Ad, g.Key.Kod), g.Key.Vahid, F(g.Sum(x => x.Miqdar)) });
+                                foreach (var g in serf.Where(t => sec.Contains(t.x)).GroupBy(t => (Ad: (t.x.Ad ?? "").Trim(), Kod: (t.x.Kod ?? "").Trim(), Vahid: (t.x.Vahid ?? "").Trim())))
+                                    sr.Add(new[] { tex, Ad(g.Key.Ad, g.Key.Kod), string.Join(", ", g.SelectMany(t => t.mk.Split(", ")).Distinct().Where(n => n != "—").DefaultIfEmpty("—")), g.Key.Vahid, F(g.Sum(t => t.x.Miqdar)) });
                         }
-                    var sutun = texnika != null ? new[] { "Materialın və ya ehtiyat hissəsinin adı", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar", "Sərf tarixi" }
-                                                : new[] { "Texnika / zavod nömrəsi", "Materialın və ya ehtiyat hissəsinin adı", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar" };
+                    var sutun = texnika != null ? new[] { "Materialın və ya ehtiyat hissəsinin adı", "Məktub №", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar", "Sərf tarixi" }
+                                                : new[] { "Texnika / zavod nömrəsi", "Materialın və ya ehtiyat hissəsinin adı", "Məktub №", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar" };
                     return new Hesabat(HesabatAdlari[nov], sutun, sr, null,
                         $"{Core.Lang.T("Sərf tarixi")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}.");
                 default:
