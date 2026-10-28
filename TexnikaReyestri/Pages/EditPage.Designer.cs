@@ -23,7 +23,6 @@
             this.tab1 = new System.Windows.Forms.TabPage();
             this.tab2 = new System.Windows.Forms.TabPage();
             this.tab3 = new System.Windows.Forms.TabPage();
-            this.tab4 = new System.Windows.Forms.TabPage();
             this.tab5 = new System.Windows.Forms.TabPage();
             this.chipTabs = new TexnikaReyestri.Controls.ChipTabBar();
             this.lblFoot = new System.Windows.Forms.Label();
@@ -88,7 +87,6 @@
             this.tabs.Controls.Add(this.tab1);
             this.tabs.Controls.Add(this.tab2);
             this.tabs.Controls.Add(this.tab3);
-            this.tabs.Controls.Add(this.tab4);
             this.tabs.Controls.Add(this.tab5);
             this.tabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabs.Size = new System.Drawing.Size(1172, 516);
@@ -96,13 +94,12 @@
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndexChanged += new System.EventHandler(this.tabs_SelectedIndexChanged);
             //
-            // tab1..tab5 (məzmun EditPage.cs-də qurulur)
+            // tab1, tab2, tab3, tab5 (məzmun EditPage.cs-də qurulur)
             //
             this.tab1.Text = "1. Qəbul və sənədlər"; this.tab1.Name = "tab1"; this.tab1.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
             this.tab2.Text = "2. İstismar göstəriciləri və son təmir"; this.tab2.Name = "tab2"; this.tab2.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
             this.tab3.Text = "3. Təmirin icrası"; this.tab3.Name = "tab3"; this.tab3.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
-            this.tab4.Text = "4. Ehtiyat hissələri və məktublar"; this.tab4.Name = "tab4"; this.tab4.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
-            this.tab5.Text = "5. Təmirin tamamlanması və təhvil"; this.tab5.Name = "tab5"; this.tab5.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.tab5.Text = "4. Təmirin tamamlanması və təhvil"; this.tab5.Name = "tab5"; this.tab5.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
             //
             // chipTabs
             //
@@ -147,7 +144,7 @@
         private TexnikaReyestri.Controls.FlatButton btnNextG;
         private TexnikaReyestri.Controls.FlatButton btnPrevG;
         private TexnikaReyestri.Controls.PageTabs tabs;
-        private System.Windows.Forms.TabPage tab1, tab2, tab3, tab4, tab5;
+        private System.Windows.Forms.TabPage tab1, tab2, tab3, tab5;
         private TexnikaReyestri.Controls.ChipTabBar chipTabs;
         private System.Windows.Forms.Label lblFoot;
     }

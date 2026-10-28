@@ -20,6 +20,7 @@
             this.navRegistry = new TexnikaReyestri.Controls.NavButton();
             this.navAdd = new TexnikaReyestri.Controls.NavButton();
             this.navTech = new TexnikaReyestri.Controls.NavButton();
+            this.navSorgu = new TexnikaReyestri.Controls.NavButton();
             this.navRep = new TexnikaReyestri.Controls.NavButton();
             this.lblApp = new System.Windows.Forms.Label();
             this.navNoti = new TexnikaReyestri.Controls.NavButton();
@@ -52,6 +53,7 @@
             this.pnlNav.Controls.Add(this.navNoti);
             this.pnlNav.Controls.Add(this.navRep);
             this.pnlNav.Controls.Add(this.navTech);
+            this.pnlNav.Controls.Add(this.navSorgu);
             this.pnlNav.Controls.Add(this.navAdd);
             this.pnlNav.Controls.Add(this.navRegistry);
             this.pnlNav.Controls.Add(this.navHome);
@@ -72,11 +74,12 @@
             // 
             // lblApp
             // 
-            this.lblApp.AutoSize = true;
-            this.lblApp.Font = new System.Drawing.Font("Bahnschrift SemiBold", 12.0F);
+            this.lblApp.AutoSize = false;
+            this.lblApp.Font = new System.Drawing.Font("Bahnschrift SemiBold", 9.5F);
             this.lblApp.ForeColor = System.Drawing.Color.White;
-            this.lblApp.Location = new System.Drawing.Point(62, 21);
-            this.lblApp.Text = "Təmir Reyestri";
+            this.lblApp.Location = new System.Drawing.Point(62, 8);
+            this.lblApp.Size = new System.Drawing.Size(168, 50);
+            this.lblApp.Text = "Təmir və Texniki Təminat Xidməti" + System.Environment.NewLine + "Məlumat bazası";
             this.lblApp.Visible = false;
             this.lblApp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblApp.Name = "lblApp";
@@ -111,6 +114,15 @@
             this.navAdd.PageKey = "add";
             this.navAdd.Name = "navAdd";
             this.navAdd.Click += new System.EventHandler(this.nav_Click);
+            // 
+            // navSorgu
+            // 
+            this.navSorgu.Glyph = "";
+            this.navSorgu.Size = new System.Drawing.Size(64, 52);
+            this.navSorgu.ToolTipText = "Sorğu yarat";
+            this.navSorgu.PageKey = "sorgu";
+            this.navSorgu.Name = "navSorgu";
+            this.navSorgu.Click += new System.EventHandler(this.nav_Click);
             // 
             // navTech
             // 
@@ -304,7 +316,7 @@
             this.MinimumSize = new System.Drawing.Size(1100, 680);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Təmir Reyestri";
+            this.Text = "Təmir və Texniki Təminat Xidməti · Məlumat bazası";
             this.KeyPreview = true;
             this.Padding = new System.Windows.Forms.Padding(1);
             this.Controls.Add(this.pnlContent);
@@ -332,6 +344,7 @@
         private TexnikaReyestri.Controls.NavButton navRegistry;
         private TexnikaReyestri.Controls.NavButton navAdd;
         private TexnikaReyestri.Controls.NavButton navTech;
+        private TexnikaReyestri.Controls.NavButton navSorgu;
         private TexnikaReyestri.Controls.NavButton navRep;
         private System.Windows.Forms.Label lblApp;
         private TexnikaReyestri.Controls.NavButton navNoti;

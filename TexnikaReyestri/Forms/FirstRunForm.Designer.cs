@@ -239,7 +239,7 @@
             this.ShowInTaskbar = true;
             this.Padding = new System.Windows.Forms.Padding(1);
             this.AcceptButton = this.btnOk;
-            this.Text = "Təmir Reyestri";
+            this.Text = "Təmir və Texniki Təminat Xidməti · Məlumat bazası";
             this.Controls.Add(this.pnlBody);
             this.Name = "FirstRunForm";
             this.pnlBody.ResumeLayout(false);

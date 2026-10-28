@@ -107,6 +107,8 @@ Konvensiyalar: Label rəngi `Tag` ilə (`title`, `muted`, `danger`, `white`, `na
 
 Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr filtr paneli → Təchizat sorğuları + Sorğu əlavə et → Hesabatlar → yeni Ana səhifə (diaqram 3 sütun, zolaqlar, zavodlar cədvəli) → ad "Təmir Reyestri" → Tənzimləmə bölməsi → giriş ekranı (animasiya, səs, məni xatırla, parol gözü, proqramçı loqosu) → sorğu PDF sənədi → tam dil tərcüməsi → İcmal bölməsi ləğv edildi (19.10) → Təchizat kartlarının sırası və adları dəyişdi → Reyestr cədvəli 4 sütun: Texnika / inventar kodu, Zavod, İcra statusu, Məsul icraçı (19.10). → **Yeni 5 bölməli "Texnika əlavə et" forması və baza quruluşu (20.10)** — tələblər: `docs/YENI_FORMA.md`, maket: `docs/maket/texnika_elave.html`.
 
+**28.10:** Proqramın adı "Təmir və Texniki Təminat Xidməti · Məlumat bazası". "Texnika əlavə et" formasının 4-cü bölməsi çıxarıldı (indi 4 bölmə). Menyuda yeni **"Sorğu yarat"** səhifəsi (`Pages/SorguYaratPage.cs`): 1) məktub yaradılır/seçilir → 2) texnikaya bağlanır → 3) seçilmiş texnikanın ehtiyat hissələri və qəbulu → 4) icra qeydləri; hər addım dərhal yazılır. Təchizat sorğularındakı "Sorğunu aç" düyməsi bu səhifəni açır. Nümunə: `docs/numune-sorgu-yarat.html`.
+
 **27.10:** Mövcud texnikada yadda saxlanmış məktubu ayırmaq və ehtiyat hissəsini silmək olmaz (xəbərdarlıq çıxır); yeni texnikada saxlanana qədər mümkündür.
 
 **20.10 dəyişikliyi qısaca:**

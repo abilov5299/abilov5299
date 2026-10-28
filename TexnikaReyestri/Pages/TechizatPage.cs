@@ -17,7 +17,7 @@ namespace TexnikaReyestri.Pages
         private readonly ModernGrid grid = new() { Dock = DockStyle.Fill }, gridHis = new() { Dock = DockStyle.Fill };
         private readonly Label lblDet = new() { AutoSize = true, Font = new Font("Segoe UI Semibold", 11f), Location = new Point(4, 8) };
         private readonly Label lblMesul = new() { Dock = DockStyle.Bottom, Height = 24, Tag = "muted", TextAlign = ContentAlignment.MiddleLeft };
-        private readonly FlatButton btnQebul = new() { Text = "Texnikanı aç (ehtiyat hissələri)", Size = new Size(250, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+        private readonly FlatButton btnQebul = new() { Text = "Sorğunu aç (ehtiyat hissələri)", Size = new Size(250, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
         private readonly FlatButton btnPdf = new() { Text = "PDF sənəd", Glyph = Icons.Print, Kind = ButtonKind.Secondary, Size = new Size(130, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right };
         private readonly System.Windows.Forms.Timer _axtar = new() { Interval = 300 };
         private DataTable _dt; private bool _hazir;
@@ -161,14 +161,15 @@ namespace TexnikaReyestri.Pages
                             (q == null ? "" : $"   •   {Lang.T("Son icra qeydi")} ({Vaxt.Tarix(q.Tarix)}): {q.Netice}");
         }
 
-        /// <summary>Seçilmiş məktubun (ilk) texnikasını "Ehtiyat hissələri və məktublar" bölməsində açır: hissələr və qəbul orada qeyd olunur.</summary>
+        /// <summary>Seçilmiş məktubu "Sorğu yarat" səhifəsində açır: hissələr və qəbul orada qeyd olunur. Yazma hüququ yoxdursa, ilk texnikanın detalı.</summary>
         private async Task TexnikaAcAsync()
         {
             if (SecilmisId is not long id || await SorguRepo.GetAsync(id) is not { } s) return;
+            if (Session.YazaBiler) { await MainForm.Current.SorguAcAsync(id); return; }
             if (s.Tex.Count == 0) { Toast.Show(this, Lang.T("Bu məktuba texnika bağlanmayıb"), ToastKind.Warn); return; }
             long? tid = await TexnikaRepo.IdAsync(s.Tex[0].Guid);
             if (tid == null) { Toast.Show(this, Lang.T("Texnika tapılmadı"), ToastKind.Warn); return; }
-            if (Session.YazaBiler) await MainForm.Current.RedakteAcAsync(tid, 3); else await MainForm.Current.DetalAcAsync(tid.Value);
+            await MainForm.Current.DetalAcAsync(tid.Value);
         }
 
         private async Task PdfAsync()

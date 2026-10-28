@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -10,8 +10,8 @@
     <ApplicationIcon>Assets\TexnikaReyestri.ico</ApplicationIcon>
     <ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
     <Version>1.0.0</Version>
-    <AssemblyTitle>Təmir Reyestri</AssemblyTitle>
-    <Product>Təmir Reyestri</Product>
+    <AssemblyTitle>Təmir və Texniki Təminat Xidməti · Məlumat bazası</AssemblyTitle>
+    <Product>Təmir və Texniki Təminat Xidməti · Məlumat bazası</Product>
     <Description>Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu</Description>
     <!-- Linux/CI-da yalnız kompilyasiya yoxlaması üçün; Windows-da təsiri yoxdur -->
     <EnableWindowsTargeting>true</EnableWindowsTargeting>

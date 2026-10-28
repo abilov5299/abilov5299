@@ -242,7 +242,7 @@
             KeyPreview = true;
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Təmir Reyestri";
+            Text = "Təmir və Texniki Təminat Xidməti · Məlumat bazası";
             Load += LoginForm_Load;
             KeyDown += LoginForm_KeyDown;
             pnlBrand.ResumeLayout(false);

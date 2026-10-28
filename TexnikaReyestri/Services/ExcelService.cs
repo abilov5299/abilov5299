@@ -239,7 +239,7 @@ namespace TexnikaReyestri.Services
                     ic.Columns().AdjustToContents();
                 }
                 var info = wb.AddWorksheet("Məlumat");
-                info.Cell(1, 1).Value = "Təmir Reyestri"; info.Cell(1, 1).Style.Font.Bold = true;
+                info.Cell(1, 1).Value = "Təmir və Texniki Təminat Xidməti · Məlumat bazası"; info.Cell(1, 1).Style.Font.Bold = true;
                 info.Cell(2, 1).Value = "İxrac edən"; info.Cell(2, 2).Value = $"{Session.AdSoyad} ({Session.QurumAd})";
                 info.Cell(3, 1).Value = "Tarix"; info.Cell(3, 2).Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
                 info.Cell(4, 1).Value = "Filtr"; info.Cell(4, 2).Value = $"Zavod: {s.Filtr.Zavod ?? "Hamısı"}, Status: {s.Filtr.Status ?? "Hamısı"}{(s.Filtr.Gecikenler ? ", yalnız gecikənlər" : "")}{(string.IsNullOrEmpty(s.Filtr.Axtar) ? "" : ", axtarış: " + s.Filtr.Axtar)}";

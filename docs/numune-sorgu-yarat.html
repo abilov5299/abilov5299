@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="az"><head><meta charset="utf-8"><title>Sorğu yarat — nümunə</title>
+<style>
+:root{--bg:#F4F6FA;--card:#fff;--alt:#F0F3F8;--line:#E2E7EF;--txt:#1C2433;--mut:#6B7587;--acc:#2F6FEB;--side:#16213A}
+body{margin:0;background:var(--bg);font:14px "Segoe UI",sans-serif;color:var(--txt)}
+.app{display:flex;min-height:100vh}
+.side{width:230px;background:var(--side);color:#C9D3E6;padding:16px 10px}
+.brand{color:#fff;font:600 15px Bahnschrift,sans-serif;line-height:1.25;padding:4px 8px 18px}
+.brand small{display:block;color:#8FA0BF;font:12px "Segoe UI";margin-top:3px}
+.nav{padding:9px 12px;border-radius:8px;margin:2px 0}
+.nav.on{background:#2A3A5E;color:#fff}.nav.new{outline:2px dashed #F2B05E}
+main{flex:1;padding:22px 28px}
+h1{font:600 22px Bahnschrift,sans-serif;margin:0 0 4px}
+.note{background:#FFF6E5;border:1px solid #F2D29A;border-radius:8px;padding:10px 14px;margin:0 0 18px;font-size:13px}
+.tabs{display:flex;gap:6px;margin:14px 0}
+.tab{padding:7px 14px;border-radius:8px;background:var(--card);border:1px solid var(--line);font-size:13px}
+.tab.off{text-decoration:line-through;color:#B44;opacity:.7}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:14px}
+.card h3{margin:0 0 4px;font:600 15px Bahnschrift,sans-serif}.mut{color:var(--mut);font-size:12px}
+.row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.f{flex:1;min-width:160px}.f label{display:block;font-size:12px;color:var(--mut);margin-bottom:3px}
+.in{border:1px solid var(--line);border-radius:7px;padding:7px 9px;background:#fff;color:var(--mut)}
+.btn{display:inline-block;background:var(--acc);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;margin-top:10px}
+.btn.s{background:var(--alt);color:var(--txt);border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+th{text-align:left;color:var(--mut);font-weight:600;border-bottom:1px solid var(--line);padding:6px}
+td{padding:6px;border-bottom:1px solid var(--line)}
+.sec{font:600 13px "Segoe UI";color:var(--mut);margin:26px 0 8px;text-transform:uppercase;letter-spacing:.04em}
+</style></head><body><div class="app">
+<aside class="side">
+ <div class="brand">Təmir və Texniki Təminat Xidməti<small>Məlumat bazası</small></div>
+ <div class="nav">Ana səhifə</div><div class="nav">Təmir reyestri</div><div class="nav">Texnika daxil et</div>
+ <div class="nav on new">Sorğu yarat</div>
+ <div class="nav">Təchizat sorğuları</div><div class="nav">Hesabatlar</div><div class="nav">Bildirişlər</div>
+</aside>
+<main>
+<div class="note">Dəyişiklik: proqramın adı yenilənir; "Texnika əlavə et" formasının 4-cü bölməsi (məktub, ehtiyat hissələri, icra qeydləri) formadan çıxır və menyuda ayrıca <b>"Sorğu yarat"</b> səhifəsi olur. Kartların dizaynı olduğu kimi qalır.</div>
+
+<div class="sec">1. Texnika əlavə et — bölmələr (4 qalır)</div>
+<div class="tabs"><span class="tab">1. Qəbul və sənədlər</span><span class="tab">2. İstismar göstəriciləri və son təmir</span><span class="tab">3. Təmirin icrası</span><span class="tab off">4. Ehtiyat hissələri və məktublar</span><span class="tab">4. Təmirin tamamlanması və təhvil</span></div>
+
+<div class="sec">2. Yeni səhifə: Sorğu yarat</div>
+<h1>Sorğu yarat</h1>
+<div class="card"><h3>Addım 1 · Təchizat məktubu</h3><div class="mut">Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin.</div>
+ <span class="btn">Yeni məktub qeyd et</span> <span class="btn s">Qeydiyyatdakı məktubu seç</span>
+ <div class="row"><div class="f"><label>Məktubun nömrəsi *</label><div class="in">14/522</div></div><div class="f"><label>Məktubun tarixi *</label><div class="in">12.10.2026</div></div><div class="f"><label>Təmin edən qurum *</label><div class="in">Mərkəzi anbar</div></div><div class="f"><label>Məsul icraçı *</label><div class="in">Əliyev R.</div></div></div>
+ <div class="row"><div class="f"><label>Əlaqə nömrəsi</label><div class="in">050 000 00 00</div></div><div class="f"><label>İcra üçün son tarix *</label><div class="in">30.10.2026</div></div><div class="f"><label>İcra vəziyyəti *</label><div class="in">İcradadır ▾</div></div><div class="f"><span class="btn">Məktubu yadda saxla</span></div></div></div>
+<div class="card"><h3>Addım 2 · Texnikaya bağla</h3><div class="mut">Məktub saxlanandan sonra açılır. Bir məktub bir neçə texnikaya bağlana bilər.</div>
+ <div class="row"><div class="f"><label>Texnika axtar (zavod №, naryad №, marka)</label><div class="in">2145 ▾</div></div><div class="f" style="flex:0"><span class="btn">Bağla</span></div></div>
+ <table><tr><th>Marka</th><th>Zavod №</th><th>Naryad №</th><th>Təminat</th><th></th></tr>
+ <tr style="background:#EAF1FF"><td>КамАЗ 43118</td><td>2145</td><td>118</td><td>Qismən təmin edilib</td><td class="mut">seçilib</td></tr>
+ <tr><td>ЗИЛ 131</td><td>2190</td><td>121</td><td>Təminat gözlənilir</td><td></td></tr></table>
+ <div class="mut" style="margin-top:6px">Yadda saxlanmış bağlantını ayırmaq olmaz (indiki qayda qalır).</div></div>
+<div class="card"><h3>Addım 3 · Ehtiyat hissələri — КамАЗ 43118 (2145) <span class="mut" style="float:right">Təminat vəziyyəti: Qismən təmin edilib</span></h3><div class="mut">Yuxarıda seçilmiş texnikanın hissələri.</div>
+ <table><tr><th>Adı</th><th>Kodu</th><th>Ölçü vahidi</th><th>Tələb olunan</th><th>Qəbul edilmiş</th><th>Qalıq</th></tr>
+ <tr><td>Yanacaq filtri</td><td>740-1117</td><td>ədəd</td><td>4</td><td>2</td><td>2</td></tr></table>
+ <span class="btn">Ehtiyat hissəsi əlavə et</span> <span class="btn s">Ehtiyat hissəsinin qəbulunu qeyd et</span></div>
+<div class="card"><h3>Addım 4 · Məktubun icrası üzrə qeydlər</h3><div class="mut">Yeni qeyd əvvəlkini silmir. Son qeyd yuxarıda göstərilir.</div><span class="btn">İcra qeydi əlavə et</span></div>
+</main></div></body></html>

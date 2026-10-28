@@ -53,9 +53,9 @@ namespace TexnikaReyestri.Forms
             lblQurum.Text = Session.QurumAd;
             lblUser.Text = $"{Session.AdSoyad} · {Lang.T(Session.RolMetni)}";
             // Rola görə menyu: üst qurumlar texnika daxil etmir
-            navAdd.Visible = Session.YazaBiler;
+            navAdd.Visible = navSorgu.Visible = Session.YazaBiler;
             int y = 64;
-            foreach (var n in new[] { navHome, navRegistry, navAdd, navTech, navRep, navNoti, navSync, navLogs, navHelp }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
+            foreach (var n in new[] { navHome, navRegistry, navAdd, navSorgu, navTech, navRep, navNoti, navSync, navLogs, navHelp }.Where(n => n.Visible)) { n.Top = y; n.Height = 48; y += 48; }
             MenyuAc(false);   // menyu hər dəfə bağlı açılır
             Ui.Hazirla(this); YerlesdirBaslig();
             await AcAsync("home");
@@ -154,7 +154,7 @@ namespace TexnikaReyestri.Forms
             if (_pages.TryGetValue(key, out var page)) return page;
             page = key switch
             {
-                "home" => new HomePage(), "list" => new RegistryPage(), "add" or "red" => new EditPage(), "tech" => new TechizatPage(), "rep" => new HesabatPage(),
+                "home" => new HomePage(), "list" => new RegistryPage(), "add" or "red" => new EditPage(), "tech" => new TechizatPage(), "sorgu" => new SorguYaratPage(), "rep" => new HesabatPage(),
                 "det" => new DetailPage(), "noti" => new NotificationsPage(), "sync" => new SyncPage(), "set" => new TenzimlemePage(), "help" => new TelimatPage(),
                 _ => throw new ArgumentException(key)
             };
@@ -169,7 +169,7 @@ namespace TexnikaReyestri.Forms
         private async Task OnHazirlaAsync()
         {
             var keys = new List<string> { "list", "det", "tech", "rep", "noti", "sync", "set" };
-            if (Session.YazaBiler) keys.Insert(2, "add");
+            if (Session.YazaBiler) keys.InsertRange(2, new[] { "add", "sorgu" });
             foreach (var k in keys)
             {
                 await Task.Delay(120);                       // UI-yə nəfəs: istifadəçinin klikləri arada işlənir
@@ -199,8 +199,10 @@ namespace TexnikaReyestri.Forms
 
         public Task ReyestrAcAsync(ReyestrFiltr f) => AcAsync("list", p => ((RegistryPage)p).FiltrTetbiqAsync(f));
         public Task DetalAcAsync(long id, IReadOnlyList<long> siyahi = null) => AcAsync("det", p => ((DetailPage)p).YukleAsync(id, siyahi));
-        /// <param name="bolme">Açılacaq bölmə (0–4); məs. Təchizatdan gələndə 3 — "Ehtiyat hissələri və məktublar".</param>
+        /// <param name="bolme">Açılacaq bölmə (0–3).</param>
         /// <summary>id = null — yeni texnika ("Texnika əlavə et"); əks halda redaktə ayrıca səhifədə açılır, əlavə etmə forması toxunulmaz qalır.</summary>
+        /// <summary>"Sorğu yarat" səhifəsində məktubu (və texnikanı) açır.</summary>
+        public Task SorguAcAsync(long sorguId, string texGuid = null) => AcAsync("sorgu", p => ((SorguYaratPage)p).YukleAsync(sorguId, texGuid));
         public Task RedakteAcAsync(long? id, int bolme = 0) => AcAsync(id == null ? "add" : "red", p => ((EditPage)p).YukleAsync(id, bolme));
 
         // ---------------- Bildiriş nişanı ----------------
