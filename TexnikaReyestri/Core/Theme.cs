@@ -92,7 +92,7 @@ namespace TexnikaReyestri.Core
                     break;
                 case Label l:
                     l.BackColor = Color.Transparent;
-                    l.ForeColor = role switch { "title" => Title, "muted" => Muted, "navtext" => NavText, "danger" => Bad, "white" => Color.White, _ => Ink };
+                    l.ForeColor = role switch { "title" => Title, "muted" => Muted, "navtext" => NavText, "danger" => Bad, "white" => Color.White, "accent" => Accent, _ => Ink };
                     break;
                 case TabPage tp: tp.BackColor = Card; tp.ForeColor = Ink; break;
                 default:

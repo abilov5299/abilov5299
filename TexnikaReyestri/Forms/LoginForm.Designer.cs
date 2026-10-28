@@ -17,6 +17,7 @@
             pnlBrand = new TexnikaReyestri.Controls.BrandPanel();
             lblVersion = new Label();
             lblBrandSub = new Label();
+            lblBrandDb = new Label();
             lblBrand = new Label();
             logo = new TexnikaReyestri.Controls.LogoMark();
             pnlForm = new Panel();
@@ -39,6 +40,7 @@
             pnlBrand.BackColor = Color.FromArgb(15, 76, 74);
             pnlBrand.Controls.Add(lblVersion);
             pnlBrand.Controls.Add(lblBrandSub);
+            pnlBrand.Controls.Add(lblBrandDb);
             pnlBrand.Controls.Add(lblBrand);
             pnlBrand.Controls.Add(logo);
             pnlBrand.Dock = DockStyle.Left;
@@ -60,17 +62,26 @@
             lblVersion.Tag = "navtext";
             lblVersion.Text = "v1.0 · Lokal baza · 6 zavod";
             // 
+            // lblBrandDb
+            // 
+            lblBrandDb.AutoSize = true;
+            lblBrandDb.Font = new Font("Bahnschrift SemiBold", 15F);
+            lblBrandDb.Location = new Point(40, 322);
+            lblBrandDb.Name = "lblBrandDb";
+            lblBrandDb.Tag = "accent";
+            lblBrandDb.Text = "MƏLUMAT BAZASI";
+            // 
             // lblBrandSub
             // 
             lblBrandSub.AutoSize = true;
             lblBrandSub.Font = new Font("Segoe UI", 10F);
-            lblBrandSub.Location = new Point(40, 326);
+            lblBrandSub.Location = new Point(40, 360);
             lblBrandSub.MaximumSize = new Size(330, 0);
             lblBrandSub.Name = "lblBrandSub";
             lblBrandSub.Size = new Size(307, 38);
             lblBrandSub.TabIndex = 1;
             lblBrandSub.Tag = "navtext";
-            lblBrandSub.Text = "Məlumat bazası\r\nTəmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu";
+            lblBrandSub.Text = "Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu";
             // 
             // lblBrand
             // 
@@ -258,6 +269,7 @@
         private TexnikaReyestri.Controls.LogoMark logo;
         private System.Windows.Forms.Label lblBrand;
         private System.Windows.Forms.Label lblBrandSub;
+        private System.Windows.Forms.Label lblBrandDb;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Panel pnlForm;
         private TexnikaReyestri.Controls.FlatButton btnClose;
