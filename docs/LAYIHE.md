@@ -121,6 +121,8 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **28.10 (hesabat):** "Ehtiyat hissələri üzrə təminat" hesabatı hər ehtiyat hissəsi üzrə sətirlərdir (məktub, texnika, ad/kod, vahid, tələb, qəbul, qalıq, təmin edən). İki keçid: "Təmin edilməmiş" (ilkin; qalığı > 0) və "Tam təmin edilmiş" (qalıq 0 olanda avtomatik keçir). Çap və Excel başlığında seçilmiş siyahının adı yazılır; PDF-də bu hesabatın sütun enləri genişdir.
 
+**28.10 (təlimat):** `docs/telimat/qur.py` yeni quruluşa görə yeniləndi (Sorğu yarat, Sorğular üzrə təminat, Faktiki sərfiyyat, "Təminat gözləyir" işarəsi, 7 hesabat, yeni ad); mündəricat paneli açıq fonda. Köhnə ekran şəkilləri (ehtiyat hissələri bölməsi, təchizat sorğuları) çıxarıldı — yeni şəkillər hələ əlavə edilməyib.
+
 **27.10:** Mövcud texnikada yadda saxlanmış məktubu ayırmaq və ehtiyat hissəsini silmək olmaz (xəbərdarlıq çıxır); yeni texnikada saxlanana qədər mümkündür.
 
 **20.10 dəyişikliyi qısaca:**

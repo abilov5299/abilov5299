@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Təmir Reyestri — istifadəçi təlimatlarının qurulması.
+Təmir və Texniki Təminat Xidməti · Məlumat bazası — istifadəçi təlimatlarının qurulması.
 Bir mənbədən üç təlimat yaranır: Zavod, Xidmət, İdarə. Şəkillər HTML-in içinə yerləşdirilir (tək fayl).
 İşə salmaq:  python docs/telimat/qur.py
 Nəticə:      TexnikaReyestri/Telimat/Zavod.html, Xidmet.html, Idare.html
@@ -80,12 +80,13 @@ def fesiller(r):
 
     # ---------------------------------------------------- 1
     def umumi():
-        s = '<p><b>Təmir Reyestri</b> proqramı təmir zavodlarına daxil olan texnikanın qəbulunu, təmirini, ehtiyat hissələri ilə təminatını və təhvilini vahid qaydada uçota almaq üçün nəzərdə tutulub. Proqram hər kompüterdə öz lokal bazası ilə işləyir; qurumlar arasında məlumat <b>USB yaddaş vasitəsilə şifrələnmiş paketlərlə</b> ötürülür. Şəbəkə və internet bağlantısı tələb olunmur.</p>'
+        s = '<p><b>Təmir və Texniki Təminat Xidməti · Məlumat bazası</b> proqramı təmir zavodlarına daxil olan texnikanın qəbulunu, təmirini, ehtiyat hissələri ilə təminatını və təhvilini vahid qaydada uçota almaq üçün nəzərdə tutulub. Proqram hər kompüterdə öz lokal bazası ilə işləyir; qurumlar arasında məlumat <b>USB yaddaş vasitəsilə şifrələnmiş paketlərlə</b> ötürülür. Şəbəkə və internet bağlantısı tələb olunmur.</p>'
         s += '<h3>Məlumatın hərəkəti</h3><div class="axin"><div><b>Təmir zavodları</b><small>texnikanı qeyd edir, təmiri aparır</small></div><i>USB →</i><div><b>Təmir və Texniki Təminat xidməti</b><small>bütün zavodlara nəzarət edir</small></div><i>USB →</i><div><b>Müdafiə Sənayesi İdarəsi</b><small>ümumi vəziyyəti izləyir</small></div></div>'
         s += '<p>Texnika barədə məlumatı yalnız təmir zavodu daxil edir və dəyişdirir. Xidmət və İdarə məlumatı USB paketlərindən alır və <b>yalnız baxış</b> rejimində işləyir: siyahılara, hesabatlara, bildirişlərə baxır, Excel və PDF sənədləri hazırlayır.</p>'
         s += '<h3>Rollar və imkanlar</h3>' + cedvel(['İmkan', 'Zavod istifadəçisi', 'Zavod (yalnız baxış)', 'Xidmət', 'İdarə'], [
             ['Texnikanın əlavə edilməsi və redaktəsi', '✔', '—', '—', '—'],
-            ['Ehtiyat hissələri, məktublar, icra qeydləri', '✔', '—', '—', '—'],
+            ['Sorğu yarat: məktub, ehtiyat hissələri, qəbul, icra qeydləri', '✔', '—', '—', '—'],
+            ['Faktiki sərfiyyat (texnikaya sərf olunan material)', '✔', '—', '—', '—'],
             ['Reyestr, geniş baxış, hesabatlar', 'öz zavodu', 'öz zavodu', 'bütün zavodlar', 'bütün zavodlar'],
             ['Excel-dən idxal', '✔', '—', '—', '—'],
             ['Excel-ə və PDF-ə çıxarış', '✔', '✔', '✔', '✔'],
@@ -103,7 +104,7 @@ def fesiller(r):
 
     # ---------------------------------------------------- 2
     def giris():
-        s = '<p>Proqram masaüstündəki <b>Təmir Reyestri</b> nişanı ilə açılır. Açılışda giriş pəncərəsi göstərilir.</p>'
+        s = '<p>Proqram masaüstündəki <b>Təmir və Texniki Təminat Xidməti</b> nişanı ilə açılır. Açılışda giriş pəncərəsi göstərilir.</p>'
         s += sekil('forms/00_giris.png', 'Giriş pəncərəsi', [(1, 54.5, 44.5), (2, 54.5, 55.5), (3, 87.5, 55.5), (4, 54.5, 61), (5, 54.5, 68.6), (6, 86, 4.5), (7, 91.5, 4.5), (8, 97.2, 4.5)], [
             (1, 'İstifadəçi adı', 'Administratorun sizə verdiyi login. Enter düyməsi kursoru parol xanasına keçirir.'),
             (2, 'Parol', 'Şəxsi parolunuz. Simvollar gizli göstərilir.'),
@@ -139,9 +140,10 @@ def fesiller(r):
         s += sekil(f'{sq}/02_menyu.png', 'Genişləndirilmiş menyu')
         rows = [['Ana səhifə', 'Ümumi göstəricilər, aylar üzrə diaqram, diqqət tələb edən məsələlər.'],
                 ['Təmir reyestri', 'Bütün texnikanın siyahısı, filtrlər, axtarış, Excel ilə iş.']]
-        if Z: rows.append(['Texnika əlavə et', 'Zavoda daxil olan yeni texnikanın qeydiyyatı (5 bölməli forma).'])
-        rows += [['Təchizat sorğuları', 'Ehtiyat hissələri üzrə məktublar və onların icrası.'],
-                 ['Hesabatlar', 'Altı növ hazır hesabat; ekranda, Excel və PDF formatında.'],
+        if Z: rows += [['Texnika əlavə et', 'Zavoda daxil olan yeni texnikanın qeydiyyatı (5 bölməli forma).'],
+                       ['Sorğu yarat', 'Təchizat məktubu, ehtiyat hissələri və materiallar, onların qəbulu və icra qeydləri.']]
+        rows += [['Sorğular üzrə təminat', 'Təchizat sorğuları əsasında qəbul edilmiş ehtiyat hissələri və materiallar: tələb, qəbul, sərf, anbar qalığı.'],
+                 ['Hesabatlar', 'Yeddi növ hazır hesabat; ekranda, Excel və PDF formatında.'],
                  ['Bildirişlər', 'Gecikmə, son tarix, ehtiyat hissəsi, paket və yeni qəbul xəbərdarlıqları.'],
                  ['İxrac / İdxal', 'USB yaddaş ilə məlumat mübadiləsi.'],
                  ['Tənzimləmə', 'Ehtiyat nüsxə və loglar (əməliyyat jurnalı).']]
@@ -185,8 +187,8 @@ def fesiller(r):
             (7, 'Məsul icraçı', 'Zavodda məsul şəxsə görə süzgəc.'),
             (8, 'Tarix növü', 'Tarix aralığı hansı tarixə tətbiq olunsun: plan üzrə bitmə, faktiki tamamlanma, zavoda daxilolma, diaqnostika, faktiki təhvil.'),
             (9, 'Tarixdən / Tarixədək', 'Xananın solundakı işarə qoyulduqda tarix aralığı tətbiq olunur.'),
-            (10, 'Ehtiyat hissələrinin təminatı', 'Təminat gözlənilir / Qismən təmin edilib / Tam təmin edilib.'),
-            (11, 'Cədvəl', 'Texnika / inventar kodu, zavod, icra statusu, ehtiyat hissələrinin təminatı, məsul icraçı.'),
+            (10, 'Təminat gözləyir', 'İşarələndikdə yalnız ehtiyat hissəsi gözləyən texnika göstərilir.'),
+            (11, 'Cədvəl', 'Texnika / inventar kodu, zavod, icra statusu, ehtiyat hissələrinin təminatı (“Təminat gözləyir” işarəsi), məsul icraçı.'),
             (12, 'Geniş bax', 'Texnikanın bütün məlumatlarını açır (bölmə 6). Sətrə iki dəfə klik də eyni işi görür.'),
             (13, 'Sayğac', 'Göstərilən / filtrə uyğun qeydlərin sayı.')])
         if not Z:
@@ -198,6 +200,7 @@ def fesiller(r):
             ['<span class="cip o">Təmir tamamlanıb, təhvil gözlənilir</span>', 'Təmir bitib, texnika təhvil verilməyib', 'Faktiki tamamlanma tarixi yazılanda avtomatik'],
             ['<span class="cip y">Təhvil verilib</span>', 'Texnika təhvil verilib', 'Faktiki təhvil tarixi yazılanda avtomatik'],
             ['<span class="cip r">Təmirə yararsız</span>', 'Texnika bərpa oluna bilmir', 'İstifadəçi seçir']])
+        s += qeyd('<span class="cip o">Təminat gözləyir</span> status deyil, ayrıca işarədir: texnika “Qəbul edilib” və ya “Təmirdədir” statusunda qalır, işarə isə “Ehtiyat hissələrinin təminatı” sütununda görünür. Formada bölmə 3-dəki çek qutusu ilə qoyulur.')
         s += '<h3>5.3. Excel-ə çıxarış</h3>' + sekil('forms/13_excel_ixrac.png', 'Excel-ə ixrac pəncərəsi', en=730) + cedvel(['Seçim', 'Təyinatı'], [
             ['Ekrandakı filtrlənmiş siyahı', 'Yalnız hazırda filtrə uyğun texnika'], ['Bütün reyestr', 'Bütün texnika (zavod istifadəçisində — öz zavodu)'],
             ['Yalnız seçilmiş sətir', 'Cədvəldə seçilmiş bir texnika'], ['Yalnız reyestr sütunları / Bütün sütunlar', 'Qısa siyahı və ya bütün sahələr'],
@@ -227,7 +230,7 @@ def fesiller(r):
             (5, 'PDF pasport', 'Texnikanın bütün məlumatlarını çap üçün PDF faylına çıxarır.'),
             *([(6, 'Redaktə', 'Texnikanın məlumatlarını dəyişmək (bölmə 9).')] if Z else []),
             (7, 'Mərhələ xətti', 'Qəbul edilib → Təmirdədir → Təmir tamamlanıb → Təhvil verilib.')])
-        s += '<p>Aşağıdakı kartlar formanın bölmələrinə uyğundur: Qəbul və sənədlər, İstismar göstəriciləri və son təmir, Təmirin icrası, Ehtiyat hissələri və məktublar, Təchizat məktubları, Təmirin tamamlanması və təhvil. Boş sahələrdə “—” işarəsi göstərilir.</p>'
+        s += '<p>Aşağıdakı kartlar formanın bölmələrinə uyğundur: Qəbul və sənədlər, İstismar göstəriciləri və son təmir, Təmirin icrası (o cümlədən “Təminat gözləyir” işarəsi), Faktiki sərfiyyat, Təmirin tamamlanması və təhvil. Boş sahələrdə “—” işarəsi göstərilir.</p>'
         s += '<h3>Dəyişiklik tarixçəsi</h3><p>Sol yuxarı kartda texnika üzrə edilmiş hər dəyişiklik göstərilir: tarix və vaxt, istifadəçi, sahənin adı, köhnə və yeni dəyər (“köhnə → yeni”). Tarixçə silinmir və redaktə edilmir; USB paketi ilə üst qurumlara da ötürülür.</p>'
         return s
     fesil('genis', 'Texnikanın geniş baxışı', genis)
@@ -265,7 +268,7 @@ def fesiller(r):
                 ['Diaqnostika tarixi *', 'Diaqnostikanın aparıldığı gün. İcra müddəti bu tarixdən hesablanır', '24.10.2026'],
                 ['Təmirin / işin növü *', 'Cari, Orta, Əsaslı təmir və ya Nasazlıqların aradan qaldırılması', 'Orta təmir'],
                 ['İcra statusu *', 'Qəbul edilib, Təmirdədir, Təmirə yararsız. Tamamlanma və təhvil statusları tarixlərə görə avtomatik qoyulur', 'Təmirdədir'],
-                ['Ehtiyat hissələrinin təminatı', 'Avtomatik — bölmə 4-dəki hissələrdən hesablanır', 'Qismən təmin edilib'],
+                ['Təminat gözləyir (çek qutusu)', 'Texnika ehtiyat hissəsi gözləyirsə işarələnir. Status dəyişmir; yalnız “Qəbul edilib” və “Təmirdədir” statusunda qoyula bilər', '✔'],
                 ['Müddət * və Vahid *', 'Təmirin icra müddəti; vahid — Gün və ya Ay', '45, Gün'],
                 ['Plan üzrə bitmə tarixi', 'Avtomatik: diaqnostika tarixi + müddət', '08.12.2026'],
                 ['Qalan / gecikən gün', 'Avtomatik: plan tarixinə qalan və ya keçən gün', '43 gün qalıb'],
@@ -273,7 +276,12 @@ def fesiller(r):
                 ['Gözlənilən bitmə tarixi', 'Təmirin real olaraq nə vaxt bitəcəyi barədə proqnoz. Planı dəyişmir', '20.12.2026'],
                 ['Yeni plan üzrə bitmə tarixi', 'Planın rəsmi dəyişdirilmiş tarixi. Yazıldıqda plan bu tarixə keçir; ilkin plan tarixçədə qalır', '25.12.2026']])
             s += qeyd('“Gözlənilən bitmə” yalnız məlumat xarakterlidir; gecikmə hesablaması, kartlar və bildirişlər “Plan üzrə bitmə tarixi”nə əsasən aparılır.')
-            s += '<h3>7.4. Bölmə 4 — Ehtiyat hissələri və məktublar</h3><p>Bu bölmə ayrıca fəsildə izah olunur (bölmə 8).</p>' + sekil('zavod/05_elave_4.png', 'Ehtiyat hissələri və məktublar (yeni texnika)')
+            s += '<h3>7.4. Bölmə 4 — Faktiki sərfiyyat</h3><p>Texnikanın təmirinə faktiki sərf olunan material və ehtiyat hissələri burada qeyd edilir. Hesabatlarda bu məlumat daxil edilmir — oradan avtomatik götürülür.</p>'
+            s += addimlar(f'{btn("+ Sərfiyyat əlavə et")} basın.',
+                          '<b>Material / ehtiyat hissəsi</b> xanasına klikləyin — axtarış pəncərəsi açılır. Adın və ya kodun bir hissəsini yazın, siyahıdan seçin. Siyahıda zavodun anbarındakı (sorğular üzrə qəbul edilmiş) materiallar qalığı ilə göstərilir; kodu və ölçü vahidi avtomatik gəlir.',
+                          f'Material anbarda yoxdursa, {btn("Yeni ad əlavə et")} basın və adı, kodu, ölçü vahidini əl ilə yazın.',
+                          'Sərf edilmiş miqdarı və sərf tarixini yazın, ' + btn('Yadda saxla') + ' basın.')
+            s += qeyd('Anbardan seçilən materialda qalıqdan çox miqdar yazmaq olmaz. “Yeni ad” ilə yazılan material anbardan çıxılmır. Yadda saxlanmış sərfiyyat qeydi silinmir. Mövcud texnikada qeyd dərhal yazılır, yeni texnikada — texnika yadda saxlananda.', 'diqqet')
             s += '<h3>7.5. Bölmə 5 — Təmirin tamamlanması və təhvil</h3>' + sekil('zavod/05_elave_5.png', 'Tamamlanma və təhvil')
             s += cedvel(['Sahə', 'Nə yazılır', 'Nəticə'], [
                 ['Təmirin faktiki tamamlanma tarixi', 'Təmirin faktiki bitdiyi gün', 'Status: <b>Təmir tamamlanıb, təhvil gözlənilir</b>'],
@@ -288,60 +296,56 @@ def fesiller(r):
         fesil('elave', 'Texnikanın əlavə edilməsi', elave)
 
         def hisse():
-            s = '<p>Ehtiyat hissələri hər texnikanın öz siyahısında aparılır. Hissələrin tələbi üçün göndərilən <b>təchizat məktubları</b> texnikaya bağlanır; bir məktub bir neçə texnikaya aid ola bilər.</p>'
-            s += sekil('zavod/06_redakte_4.png', 'Ehtiyat hissələri və məktublar', [(1, 15.5, 27.4), (2, 31.5, 27.4), (3, 50, 52), (4, 92, 55.5), (5, 81, 75), (6, 50, 87)], [
-                (1, 'Qeydiyyatdakı məktubu seç', 'Proqramda artıq qeyd edilmiş məktubu bu texnikaya bağlayır.'),
-                (2, 'Yeni məktub qeyd et', 'Yeni məktubun qeydiyyat panelini açır.'),
-                (3, 'Bağlı məktublar', 'Bu texnikaya bağlı məktublar. Sətrə iki dəfə klik — məktubu dəyişmək.'),
-                (4, 'Ayır', 'Məktubu bu texnikadan ayırır (məktubun özü silinmir).'),
-                (5, 'Təminat vəziyyəti', 'Avtomatik hesablanır.'),
-                (6, 'Ehtiyat hissələri cədvəli', 'Tələb olunan, qəbul edilmiş, qalıq.')])
-            s += '<h3>8.1. Yeni məktubun qeydiyyatı</h3>' + sekil('zavod/06_redakte_4_mektub.png', 'Yeni məktub paneli')
+            s = f'<p>{menyu("Sorğu yarat")} — ehtiyat hissələri və materiallar üçün təchizat sorğusunun aparıldığı səhifədir. İş üç addımdan ibarətdir; hər addım dərhal yazılır.</p>'
+            s += '<h3>8.1. Addım 1 — Təchizat məktubu</h3>'
+            s += addimlar(f'{btn("+ Yeni məktub qeyd et")} basın və ya {btn("Qeydiyyatdakı məktubu seç")} ilə artıq qeyd edilmiş məktubu açın.',
+                          'Məktubun sahələrini doldurun və ' + btn('Məktubu yadda saxla') + ' basın. Seçilmiş məktub yuxarıda göstərilir; ' + btn('Məktubu dəyiş') + ' ilə onu redaktə etmək olar.')
             s += cedvel(['Sahə', 'Nümunə'], [['Məktubun nömrəsi *', '190/26'], ['Məktubun tarixi *', '24.09.2026'], ['Təmin edən qurum *', 'Təchizat idarəsi'],
-                ['Təmin edən qurum üzrə məsul icraçı *', 'mayor Səfərov N.'], ['Əlaqə nömrəsi *', '(012) 498-67-35'], ['İcra üçün son tarix *', '04.11.2026'],
+                ['Təmin edən qurum üzrə məsul icraçı *', 'mayor Səfərov N.'], ['Əlaqə nömrəsi', '(012) 498-67-35'], ['İcra üçün son tarix *', '04.11.2026'],
                 ['Məktubun icra vəziyyəti *', 'İcrası davam edir / İcra başa çatıb']])
-            s += addimlar(f'{btn("Yeni məktub qeyd et")} düyməsini basın.', 'Bütün sahələri doldurun.', f'{btn("Məktubu yadda saxla")} basın. Məktub texnikaya bağlanır və siyahıda görünür.')
-            s += qeyd('Yeni (hələ yadda saxlanmamış) texnikada məktub və hissələr texnika yadda saxlananda bağlanır. Mövcud texnikada isə dərhal yazılır.')
-            s += '<h3>8.2. Ehtiyat hissəsinin əlavə edilməsi</h3>' + sekil('zavod/06_redakte_4_hisse.png', 'Ehtiyat hissəsi paneli')
-            s += addimlar(f'{btn("+ Ehtiyat hissəsi əlavə et")} basın.', 'Adı (məs. <i>Yanacaq nasosu</i>), kodu (varsa), ölçü vahidini (ədəd, dəst, litr, kq, metr) və tələb olunan miqdarı yazın.', f'{btn("Yadda saxla")} basın.')
-            s += '<h3>8.3. Hissələrin qəbulu</h3>' + sekil('zavod/06_redakte_4_qebul.png', 'Ehtiyat hissəsinin qəbulu')
-            s += addimlar(f'{btn("Ehtiyat hissəsinin qəbulunu qeyd et")} basın.', 'Siyahıdan hissəni seçin, qəbul tarixini və gələn miqdarı yazın.', f'{btn("Yadda saxla")} basın. Qəbul edilmiş miqdar, qalıq və təminat vəziyyəti avtomatik yenilənir.')
-            s += '<p>Hissə bir neçə dəfəyə gələ bilər — hər gəlişi ayrıca qeyd edin. Tələb olunandan çox miqdar yazıldıqda proqram təsdiq istəyir.</p>'
-            s += '<h3>8.4. Təminat vəziyyətinin hesablanması</h3>' + cedvel(['Vəziyyət', 'Göstərilən'], [
-                ['Ehtiyat hissəsi yazılmayıb', '—'], ['Heç bir hissə qəbul olunmayıb', '<span class="cip o">Təminat gözlənilir</span>'],
+            s += '<p>Addım 2 və 3 yalnız məktub yaradıldıqdan və ya seçildikdən sonra açılır.</p>'
+            s += '<h3>8.2. Addım 2 — Ehtiyat hissələri və materiallar</h3>'
+            s += addimlar(f'{btn("+ Ehtiyat hissəsi əlavə et")} basın.',
+                          'Adı, kodu (varsa), ölçü vahidini və tələb olunan miqdarı yazın.',
+                          f'{btn("Hansı texnika üçün")} ilə hissənin hansı texnika üçün sifariş edildiyini seçin (məcburi deyil).',
+                          btn('Yadda saxla') + ' basın.')
+            s += qeyd('“Hansı texnika üçün” yalnız məlumatdır: texnika məktuba bağlanmır, onun statusu və təminat işarəsi dəyişmir. Texnika hissə gözləyirsə, “Təminat gözləyir” işarəsini texnikanın formasında (bölmə 3) özünüz qoyun.')
+            s += '<h3>8.3. Qəbul</h3>'
+            s += addimlar(f'{btn("Ehtiyat hissəsinin qəbulunu qeyd et")} basın.', 'Siyahıdan hissəni seçin, qəbul tarixini və gələn miqdarı yazın.',
+                          btn('Yadda saxla') + ' basın. Qəbul edilmiş miqdar, qalıq və məktubun təminat vəziyyəti avtomatik yenilənir.')
+            s += '<p>Hissə bir neçə dəfəyə gələ bilər — hər gəlişi ayrıca qeyd edin. Tələb olunandan çox miqdar yazıldıqda proqram təsdiq istəyir. Qəbul edilən hissələr <b>zavodun anbarına</b> düşür və texnikanın “Faktiki sərfiyyat” bölməsində seçilə bilər.</p>'
+            s += '<h3>8.4. Məktubun təminat vəziyyəti</h3>' + cedvel(['Vəziyyət', 'Göstərilən'], [
+                ['Hissə yazılmayıb', 'Təyin edilməyib'], ['Heç bir hissə qəbul olunmayıb', '<span class="cip o">Təmin edilməyib</span>'],
                 ['Hissələrin bir qismi qəbul olunub', '<span class="cip p">Qismən təmin edilib</span>'], ['Bütün hissələr tam qəbul olunub', '<span class="cip y">Tam təmin edilib</span>']])
-            s += '<p>Təminat vəziyyəti icra statusundan asılı deyil: texnika “Təmirdədir” statusunda olub hissələri “Qismən təmin edilib” ola bilər. Hər ikisi reyestrdə ayrı sütunda göstərilir və ayrıca süzülür.</p>'
-            s += '<h3>8.5. Məktubun icrası üzrə qeydlər</h3>' + sekil('zavod/06_redakte_4_icra.png', 'İcra qeydləri')
-            s += '<p>Təmin edən qurumla hər əlaqə (zəng, yazışma) qeyd olunur: siyahıdan məktubu seçin, ' + btn('+ İcra qeydi əlavə et') + ' basın, əlaqə tarixini, danışığın nəticəsini və bildirilmiş gözlənilən təminat tarixini yazın. Yeni qeyd əvvəlkini silmir; son qeyd yuxarıda göstərilir.</p>'
+            s += '<h3>8.5. Addım 3 — Məktubun icrası üzrə qeydlər</h3>'
+            s += '<p>Təmin edən qurumla hər əlaqə (zəng, yazışma) qeyd olunur: ' + btn('+ İcra qeydi əlavə et') + ' basın, əlaqə tarixini, danışığın nəticəsini və bildirilmiş gözlənilən təminat tarixini yazın. Yeni qeyd əvvəlkini silmir; son qeyd yuxarıda göstərilir.</p>'
             s += '<div class="ornek"><b>Nümunə qeyd:</b> 03.10.2026 — “Hissələr anbardadır, 10 gün ərzində göndəriləcək”, gözlənilən təminat tarixi 13.10.2026.</div>'
+            s += '<h3>8.6. Anbar</h3><p>Anbar zavod üzrə ümumidir: eyni ad, kod və ölçü vahidli hissələr bir yerdə cəmlənir. <b>Anbarda qalıq = qəbul edilmiş − texnikalara sərf olunan.</b> Sərf əvvəlcə ən tez qəbul edilmiş məktubun hissələrindən çıxılır.</p>'
             return s
-        fesil('hisse', 'Ehtiyat hissələri və təchizat məktubları', hisse)
+        fesil('hisse', 'Sorğu yarat — təchizat məktubu və ehtiyat hissələri', hisse)
 
         def redakte():
             s = f'<p>Texnikanın məlumatını dəyişmək üçün geniş baxışda {btn("Redaktə")} basın. Redaktə ayrıca səhifədə açılır (menyuda “Təmir reyestri” seçili qalır) və əlavə etmə formasına təsir etmir. Dəyişikliyi edib {btn("Yadda saxla")} basın.</p>'
-            s += '<ul><li>Hər dəyişən sahə tarixçəyə “köhnə → yeni” kimi yazılır.</li><li>Plan tarixi dəyişəndə ilkin plan tarixçədə qalır.</li><li>Ehtiyat hissələri, qəbullar, məktublar və icra qeydləri öz düymələri ilə dərhal yazılır.</li></ul>'
+            s += '<ul><li>Hər dəyişən sahə tarixçəyə “köhnə → yeni” kimi yazılır.</li><li>Plan tarixi dəyişəndə ilkin plan tarixçədə qalır.</li><li>Faktiki sərfiyyat qeydləri öz düyməsi ilə dərhal yazılır. Məktublar, hissələr və qəbullar “Sorğu yarat” səhifəsində aparılır.</li></ul>'
             s += qeyd('Üst qurumlar dəyişikliyi yalnız növbəti USB ixracından sonra görür.', 'meslehet')
             return s
         fesil('redakte', 'Məlumatın dəyişdirilməsi', redakte)
 
     # ---------------------------------------------------- Təchizat
     def techizat():
-        s = f'<p>{menyu("Təchizat sorğuları")} bütün təchizat məktublarını bir yerdə göstərir. {"Məktublar texnikanın 4-cü bölməsində yaradılır; bu səhifə nəzarət üçündür." if Z else "Məktublar zavodlarda yaradılır və USB paketi ilə gəlir."}</p>'
-        s += sekil(f'{sq}/07_techizat.png', 'Təchizat sorğuları', [(1, 15, 17), (2, 33, 17), (3, 51.5, 17), (4, 70, 17), (5, 88.5, 17), (6, 50, 31), (7, 50, 52), (8, 50, 82)] + ([(9, 88.5, 73.5)] if Z else []), [
-            (1, 'Cəmi sorğu', 'Bütün məktublar.'), (2, 'İcrası davam edən', 'İcra vəziyyəti “İcrası davam edir”.'),
-            (3, 'Qismən təmin edilmiş', 'Hissələrin bir qismi gəlib.'), (4, 'Tam təmin edilmiş', 'Bütün hissələr gəlib.'), (5, 'Təmin edilməmiş', 'Heç bir hissə gəlməyib.'),
-            (6, 'Filtrlər', 'Təminat nəticəsi, məktubun icra vəziyyəti (müddəti keçmiş daxil), məktub nömrəsi, tarix aralığı.'),
-            (7, 'Məktublar cədvəli', 'Son tarixi keçmiş, icrası davam edən məktubun tarixi qırmızı göstərilir.'),
-            (8, 'Seçilmiş məktubun hissələri', 'Məktuba bağlı texnikaların ehtiyat hissələri, məsul icraçı və son icra qeydi.'),
-            *([(9, 'Texnikanı aç', 'Məktubun texnikasını “Ehtiyat hissələri və məktublar” bölməsində açır.')] if Z else [])])
-        s += f'<p>{btn("PDF sənəd")} seçilmiş məktub üzrə rəsmi sənəd hazırlayır (məktub məlumatları, texnikalar, hissələr cədvəli). {btn("Excel hesabatı")} cədvəli Excel faylına çıxarır.</p>'
-        s += qeyd('Məktubun təminat nəticəsi avtomatik hesablanır — bağlı texnikaların hissələrinə görə.')
+        s = f'<p>{menyu("Sorğular üzrə təminat")} — təchizat sorğuları əsasında qəbul edilmiş ehtiyat hissələri və materialların siyahısıdır. {"Məktublar və hissələr “Sorğu yarat” səhifəsində yaradılır; bu səhifə nəzarət üçündür." if Z else "Məktublar zavodlarda yaradılır və USB paketi ilə gəlir."} Hər sətir məktubun bir hissəsidir.</p>'
+        s += cedvel(['Sütun', 'Mənası'], [['Məktub №', 'Məktubun nömrəsi və tarixi'], ['Hansı texnika üçün', 'Hissənin sifariş edildiyi texnika (məlumat üçün)'],
+            ['Adı, Kodu, Ölçü vahidi', 'Ehtiyat hissəsi və ya material'], ['Tələb olunan', 'Məktubla tələb olunan miqdar'], ['Qəbul edilmiş', 'Qəbulların cəmi'],
+            ['Texnikaya sərf olunub', 'Bu qəbuldan texnikalara faktiki sərf olunan miqdar'], ['Anbarda qalıq', 'Qəbul edilmiş − texnikaya sərf olunan'],
+            ['Vəziyyət', 'Təmin edilməyib / Qismən təmin edilib / Tam təmin edilib']])
+        s += '<p>Filtrlər: ' + ('' if Z else 'zavod, ') + 'məktub (və ya hamısı), təminat vəziyyəti, məktubun tarixi (başlanğıc – son), təmin edən qurum və axtarış (hissə, kod, texnika).</p>'
+        s += f'<p>{btn("Excel")} və {btn("Çap et (PDF)")} göstərilən siyahını çıxarır. {btn("Məktub sənədi (PDF)")} seçilmiş sətrin məktubu üzrə rəsmi sənəd hazırlayır.' + (' Sətrə iki dəfə klik məktubu “Sorğu yarat” səhifəsində açır.' if Z else '') + '</p>'
         return s
-    fesil('techizat', 'Təchizat sorğuları', techizat)
+    fesil('techizat', 'Sorğular üzrə təminat', techizat)
 
     # ---------------------------------------------------- Hesabat
     def hesabat():
-        s = f'<p>{menyu("Hesabatlar")} hazır formada altı hesabat verir.</p>' + sekil(f'{sq}/08_hesabat.png', 'Hesabatlar', [(1, 27, 17), (2, 12.5, 22.5), (3, 25, 22.5), (4, 35, 22.5), (5, 14.5, 45), (6, 66, 45), (7, 50, 94)], [
+        s = f'<p>{menyu("Hesabatlar")} hazır formada yeddi hesabat verir.</p>' + sekil(f'{sq}/08_hesabat.png', 'Hesabatlar', [(1, 27, 17), (2, 12.5, 22.5), (3, 25, 22.5), (4, 35, 22.5), (5, 14.5, 45), (6, 66, 45), (7, 50, 94)], [
             (1, 'Hesabat növü', 'Hesabatın seçimi (soldakı siyahı ilə eyni).'), (2, 'Hesabatı göstər', 'Ekranda qurur.'),
             (3, 'Excel-ə çıxar', 'Excel faylı.'), (4, 'Çap et (PDF)', 'Rəsmi formada A4 PDF.'),
             (5, 'Hesabatlar siyahısı', 'Tez keçid.'), (6, 'Hesabat', 'Başlıq, qurum, tarix, cədvəl, cəmi və izah.'),
@@ -351,7 +355,8 @@ def fesiller(r):
             ['Dövr ərzində qəbul, təmir və təhvil', 'Dövrdə qəbul edilmiş, təmiri tamamlanmış, təhvil verilmiş texnika'],
             ['İcra müddəti üzrə nəzarət', 'Plan tarixinə qalan günə görə bölgü, müddəti keçmiş və müəyyən edilməmiş'],
             ['Təmiri tamamlanıb, təhvil gözlənilən texnikalar', 'Siyahı və gözləmə günləri'],
-            ['Ehtiyat hissələri üzrə təminat', 'Tələb olunan, qəbul edilmiş, qalıq'],
+            ['Ehtiyat hissələri üzrə təminat', 'Məktubların hər ehtiyat hissəsi üzrə: tələb olunan, qəbul edilmiş, qalıq. İki keçid: “Təmin edilməmiş” (qalığı olanlar) və “Tam təmin edilmiş”'],
+            ['Texnika üzrə faktiki material sərfi', 'Texnikalara sərf olunan material (sərf tarixi — dövr üzrə). ' + btn('Texnika seç') + ' ilə bir texnika seçildikdə hesabat yalnız onun üçün qurulur: material, məktub №, vahid, miqdar və sərf tarixi'],
             ['Məktubların icra vəziyyəti', 'Məktubların sayı, icrası davam edən, başa çatmış, müddəti keçmiş']])
         if not Z: s += '<p>Zavod seçimi ilə hesabat bir zavod və ya bütün zavodlar üzrə qurulur.</p>'
         return s
@@ -362,7 +367,7 @@ def fesiller(r):
         s = f'<p>Proqram açılanda və hər saat bildiriş qaydalarını yoxlayır. Yeni bildirişlərin sayı başlıq zolağında zəng nişanının üstündə görünür; {menyu("Bildirişlər")} bölməsində hamısı siyahı şəklindədir.</p>'
         s += sekil(f'{sq}/09_bildiris.png', 'Bildirişlər')
         rows = [['Gecikmə', 'Plan tarixi keçmiş, təmiri davam edən texnika'], ['Son tarix', 'Plan tarixinə 3 gün və az qalıb'],
-                ['Hissə', 'Ehtiyat hissələri diaqnostikadan bəri uzun müddət (standart 30 gün) tam təmin edilməyib'],
+                ['Hissə', 'Texnika “Təminat gözləyir” işarəlidir və diaqnostikadan bəri uzun müddət (standart 30 gün) keçib'],
                 ['Yeni qəbul', 'Yeni texnika qeydə alınıb']]
         if not Z: rows.append(['Paket', 'Zavod müəyyən müddət (standart 7 gün) USB paketi göndərməyib'])
         s += cedvel(['Növ', 'Nə vaxt yaranır'], rows)
@@ -412,8 +417,9 @@ def fesiller(r):
             s = '<h3>Texnikanın qəbulundan təhvilinə qədər</h3>' + addimlar(
                 '<b>Qəbul.</b> Texnika naryadla gəlir → ' + menyu('Texnika əlavə et') + ' → bölmə 1 (növ, marka, zavod nömrəsi, naryad, daxilolma tarixi, göndərən) və bölmə 2 (göstəricilər) doldurulur → bölmə 3-də diaqnostika tarixi, nasazlıqlar, təmir növü, müddət yazılır → ' + btn('Yadda saxla') + '.',
                 '<b>Təmirə başlanması.</b> Redaktədə icra statusu “Təmirdədir” seçilir.',
-                '<b>Ehtiyat hissələri.</b> Bölmə 4-də lazımi hissələr əlavə edilir, təchizat məktubu qeyd olunur (və ya qeydiyyatdakı məktub seçilir). Hər zəng və cavab icra qeydi kimi yazılır.',
-                '<b>Hissələrin gəlməsi.</b> Hər gəliş “Ehtiyat hissəsinin qəbulu” ilə qeyd olunur. Təminat vəziyyəti özü yenilənir.',
+                '<b>Ehtiyat hissələri.</b> ' + menyu('Sorğu yarat') + ' → məktub qeyd olunur (və ya qeydiyyatdakı seçilir) → lazımi hissələr “hansı texnika üçün” göstərilərək əlavə edilir. Texnikanın formasında “Təminat gözləyir” işarələnir. Hər zəng və cavab icra qeydi kimi yazılır.',
+                '<b>Hissələrin gəlməsi.</b> Hər gəliş “Sorğu yarat”da “Ehtiyat hissəsinin qəbulu” ilə qeyd olunur — hissə anbara düşür. Hamısı gəldikdə “Təminat gözləyir” işarəsi götürülür.',
+                '<b>Sərf.</b> Texnikanın formasında bölmə 4 “Faktiki sərfiyyat”da anbardan götürülən material və miqdarı yazılır.',
                 '<b>Gecikmə.</b> Plan pozulursa, bölmə 3-də səbəb və yeni plan tarixi yazılır.',
                 '<b>Tamamlanma.</b> Bölmə 5-də faktiki tamamlanma tarixi və görülən işlər yazılır — status avtomatik “Təmir tamamlanıb, təhvil gözlənilir”.',
                 '<b>Təhvil.</b> Faktiki təhvil tarixi, təhvil sənədi və təhvil alan qurum yazılır — status “Təhvil verilib”.',
@@ -422,7 +428,7 @@ def fesiller(r):
             s = '<h3>Həftəlik nəzarət</h3>' + addimlar('Gələn USB paketlərini ' + menyu('İxrac / İdxal') + ' bölməsində sıra ilə idxal edin.',
                 ('Paketi göndərməyən zavodları <b>Bildirişlər</b>də (“Paket”) və ana səhifədə yoxlayın.'),
                 'Ana səhifədə “İcra müddəti keçmiş” kartına klik edin, gecikənləri zavodlar üzrə nəzərdən keçirin.',
-                'Ehtiyat hissələri üzrə vəziyyəti reyestrdə “Ehtiyat hissələrinin təminatı” filtri və ' + menyu('Təchizat sorğuları') + ' bölməsi ilə yoxlayın.',
+                'Ehtiyat hissələri üzrə vəziyyəti reyestrdə “Təminat gözləyir” filtri və ' + menyu('Sorğular üzrə təminat') + ' bölməsi ilə yoxlayın.',
                 'Lazımi hesabatı ' + menyu('Hesabatlar') + ' bölməsində qurub PDF və ya Excel kimi saxlayın.' + (' Sonra USB-yə ixrac edib paketi İdarəyə çatdırın.' if X else ''))
         return s
     fesil('ssenari', 'İş ardıcıllığı — nümunə', ssenari)
@@ -435,7 +441,8 @@ def fesiller(r):
         if Z:
             l += [('“Bu zavod nömrəsi artıq bazada var” xətası çıxır.', 'Bu nömrə ilə texnika artıq qeydə alınıb. Axtarışla tapın və redaktə edin.'),
                   ('Yadda saxlamır, bölmə dəyişir.', 'Məcburi (*) sahə boş qalıb. Açılan bölmədə kursorun olduğu sahəni doldurun; xəta mətni ekranın aşağısında göstərilir.'),
-                  ('Statusu “Təhvil verilib” seçə bilmirəm.', 'Bu status avtomatikdir — bölmə 5-də faktiki təhvil tarixini yazın.')]
+                  ('Statusu “Təhvil verilib” seçə bilmirəm.', 'Bu status avtomatikdir — bölmə 5-də faktiki təhvil tarixini yazın.'),
+                  ('Sərfiyyatda material siyahıda yoxdur.', 'Material hələ heç bir sorğu üzrə qəbul edilməyib və ya anbarda qalığı bitib. Qəbulu “Sorğu yarat”da qeyd edin, ya da “Yeni ad əlavə et” ilə yazın.')]
         if not Z:
             l += [('Zavodun son dəyişikliklərini görmürəm.', 'Məlumat yalnız USB paketi idxal edildikdən sonra görünür. Zavoddan yeni paket tələb edin.'),
                   ('Paket “imza tanınmır” xətası ilə rədd edildi.', 'Göndərən kompüterin açıq açarı bu kompüterə idxal edilməyib. Administratora müraciət edin.')]
@@ -469,7 +476,9 @@ def elaveler(r):
         return cedvel(['Termin', 'İzah'], [
             ['Naryad', 'Texnikanın təmirə göndərilməsi barədə sənəd'], ['Zavod nömrəsi (inventar kodu)', 'Texnikanın unikal nömrəsi; reyestrdə təkrarlana bilməz'],
             ['Diaqnostika tarixi', 'İcra müddətinin başlanğıcı'], ['Plan üzrə bitmə tarixi', 'Diaqnostika tarixi + icra müddəti, və ya yeni plan tarixi'],
-            ['Gözlənilən bitmə tarixi', 'Real bitmə proqnozu; planı dəyişmir'], ['Təminat vəziyyəti', 'Ehtiyat hissələrinin qəbul vəziyyəti — avtomatik'],
+            ['Gözlənilən bitmə tarixi', 'Real bitmə proqnozu; planı dəyişmir'], ['Təminat gözləyir', 'Texnikanın ehtiyat hissəsi gözlədiyini bildirən işarə; status deyil'],
+            ['Məktubun təminat vəziyyəti', 'Məktubun hissələrinin qəbul vəziyyəti — avtomatik'], ['Anbar', 'Zavodda sorğular üzrə qəbul edilmiş, hələ sərf olunmamış hissələr'],
+            ['Faktiki sərfiyyat', 'Texnikanın təmirinə faktiki sərf olunan material və ehtiyat hissələri'],
             ['Təchizat məktubu', 'Ehtiyat hissələrinin tələbi üzrə rəsmi məktub'], ['İcra qeydi', 'Məktub üzrə təmin edən qurumla əlaqənin nəticəsi'],
             ['Paket', 'USB ilə ötürülən şifrələnmiş və imzalanmış məlumat faylı'], ['Ehtiyat nüsxə', 'Bazanın sıxılmış surəti']])
     _bolme[0] = 'A'; a = admin()
@@ -482,12 +491,12 @@ CSS = """
 :root{--t:#0F4C4A;--t2:#1C6B68;--ac:#E08A00;--ink:#1B2B2A;--mut:#5D7472;--line:#D4E2E0;--alt:#F4F8F7;--bg:#fff}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font:15px/1.6 "Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg)}
-aside{position:fixed;top:0;left:0;bottom:0;width:290px;overflow:auto;background:var(--t);color:#DCEFEC;padding:22px 16px}
-aside h1{font:600 18px "Bahnschrift","Segoe UI";margin:0 0 2px;color:#fff;letter-spacing:.3px}
-aside .alt{font-size:12px;color:#A9C9C6;margin-bottom:18px}
-aside a{display:block;color:#DCEFEC;text-decoration:none;padding:6px 10px;border-radius:6px;font-size:14px}
-aside a:hover{background:#1C6B68}
-aside input{width:100%;padding:8px 10px;border-radius:6px;border:0;margin:0 0 14px;font:inherit}
+aside{position:fixed;top:0;left:0;bottom:0;width:290px;overflow:auto;background:var(--alt);color:var(--ink);padding:22px 16px;border-right:1px solid var(--line);border-left:4px solid var(--ac)}
+aside h1{font:600 17px "Bahnschrift","Segoe UI";margin:0 0 2px;color:var(--t);letter-spacing:.3px;line-height:1.25}
+aside .alt{font-size:12px;color:var(--ac);font-weight:600;margin-bottom:18px}
+aside a{display:block;color:var(--ink);text-decoration:none;padding:6px 10px;border-radius:6px;font-size:14px;border-left:3px solid transparent}
+aside a:hover{background:#E3EEEC;color:var(--t);border-left-color:var(--t)}
+aside input{width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--line);background:#fff;margin:0 0 14px;font:inherit}
 main{margin-left:290px;padding:34px 48px 80px;max-width:1240px}
 .uz{border-bottom:3px solid var(--t);padding-bottom:18px;margin-bottom:26px}
 .uz .k{font:600 13px "Segoe UI";color:var(--ac);letter-spacing:1px;text-transform:uppercase}
@@ -548,12 +557,12 @@ def qur(r):
     nav = ''.join(f'<a href="#{i}">{a}</a>' for i, a, _ in F)
     body = ''.join(f'<details class="fs" id="{i}"{" open" if k == 0 else ""}><summary>{a}</summary><div class="ic">{m}</div></details>' for k, (i, a, m) in enumerate(F))
     return f"""<!doctype html><html lang="az"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Təmir Reyestri — İstifadəçi təlimatı ({R['ad']})</title><style>{CSS}</style></head><body>
-<aside><h1>TƏMİR REYESTRİ</h1><div class="alt">İstifadəçi təlimatı · {R['ad']}</div><input id="axt" placeholder="Təlimatda axtar...">{nav}</aside>
-<main><div class="uz"><div class="k">İstifadəçi təlimatı · versiya {VERSIYA}</div><h1>Təmir Reyestri</h1>
-<p>Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu proqramı. {R['tam']}.</p></div>
+<title>Təmir və Texniki Təminat Xidməti — İstifadəçi təlimatı ({R['ad']})</title><style>{CSS}</style></head><body>
+<aside><h1>TƏMİR VƏ TEXNİKİ TƏMİNAT XİDMƏTİ</h1><div class="alt">İstifadəçi təlimatı · {R['ad']}</div><input id="axt" placeholder="Təlimatda axtar...">{nav}</aside>
+<main><div class="uz"><div class="k">İstifadəçi təlimatı · versiya {VERSIYA}</div><h1>Təmir və Texniki Təminat Xidməti</h1>
+<p>Məlumat bazası — təmir zavodları üzrə texnikanın qəbulu, təmiri, ehtiyat hissələri ilə təminatı və təhvilinin uçotu. {R['tam']}.</p></div>
 <div class="ust"><button onclick="ac(true)">Hamısını aç</button><button onclick="ac(false)">Hamısını yığ</button><button onclick="ac(true);print()">Çap et</button></div>
-{body}<footer>Təmir Reyestri · İstifadəçi təlimatı ({R['ad']}) · versiya {VERSIYA}</footer></main><script>{JS}</script></body></html>"""
+{body}<footer>Təmir və Texniki Təminat Xidməti · Məlumat bazası · İstifadəçi təlimatı ({R['ad']}) · versiya {VERSIYA}</footer></main><script>{JS}</script></body></html>"""
 
 
 if __name__ == '__main__':
