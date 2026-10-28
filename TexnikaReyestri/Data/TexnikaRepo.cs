@@ -15,7 +15,7 @@ namespace TexnikaReyestri.Data
         public static int Sari = 20;  // Admin → Sistem → IcraSari: (Yaxin+1)–Sari gün qalıb
         public string Icra;           // null, "sari", "yaxin", "late", "bos" — yalnız təmiri davam edənlərdən
         public string Mesul;          // MesulIcraci
-        public string Teminat;        // ehtiyat hissələrinin təminatı (Secimler.Teminat)
+        public bool TeminatGozleyir;  // yalnız "Təminat gözləyir" statuslu texnikalar
         public string TarixSahe;      // GozlenilenBitme, FaktikiBitme, DaxilolmaTarixi, BaslamaTarixi, TehvilTarixi
         public string TarixDan, TarixDek;   // yyyy-MM-dd, null = sərhəd yoxdur
         public bool Gecikenler { get => Qrup == "late"; set => Qrup = value ? "late" : Qrup == "late" ? null : Qrup; }
@@ -69,7 +69,7 @@ namespace TexnikaReyestri.Data
             await using var con = await LocalDb.AcAsync(ct);
             using var cmd = con.CreateCommand();
             // Filtr yoxdursa (və ya yalnız zavod/status), icmal cədvəlindən dərhal oxu
-            if (string.IsNullOrEmpty(f.Axtar) && f.Qrup == null && f.Icra == null && f.Mesul == null && f.Teminat == null && f.TarixDan == null && f.TarixDek == null)
+            if (string.IsNullOrEmpty(f.Axtar) && f.Qrup == null && f.Icra == null && f.Mesul == null && !f.TeminatGozleyir && f.TarixDan == null && f.TarixDek == null)
             {
                 cmd.CommandText = "SELECT IFNULL(SUM(Say),0) FROM Icmal WHERE ($z IS NULL OR Zavod=$z) AND ($s IS NULL OR Status=$s);";
                 cmd.Parameters.AddWithValue("$z", (object)f.Zavod ?? DBNull.Value);
@@ -232,7 +232,7 @@ GROUP BY 1;";
                 cmd.Parameters.AddWithValue("$sari", DateTime.Today.AddDays(Math.Max(f.YaxinGun + 1, ReyestrFiltr.Sari)).ToString("yyyy-MM-dd"));
             }
             if (f.Mesul != null) { w.Append(" AND MesulIcraci = $m"); cmd.Parameters.AddWithValue("$m", f.Mesul); }
-            if (f.Teminat != null) { w.Append(" AND Teminat = $tm"); cmd.Parameters.AddWithValue("$tm", f.Teminat); }
+            if (f.TeminatGozleyir) w.Append(" AND Status='Təminat gözləyir'");
             if ((f.TarixDan != null || f.TarixDek != null) && f.TarixSahe is "GozlenilenBitme" or "FaktikiBitme" or "DaxilolmaTarixi" or "BaslamaTarixi" or "TehvilTarixi")
             {
                 if (f.TarixDan != null) { w.Append($" AND {f.TarixSahe} >= $td"); cmd.Parameters.AddWithValue("$td", f.TarixDan); }

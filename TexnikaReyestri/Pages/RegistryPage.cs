@@ -55,7 +55,7 @@ namespace TexnikaReyestri.Pages
             cmbStatus.SelectedIndex = Math.Max(0, si);
             cmbIcra.SelectedIndex = Math.Max(0, Array.IndexOf(IcraKod, f.Qrup is "yaxin" or "late" ? f.Qrup : f.Icra));
             cmbMesul.SelectedIndex = f.Mesul == null ? 0 : Math.Max(0, cmbMesul.Items.IndexOf(f.Mesul));
-            cmbTeminat.SelectedIndex = f.Teminat == null ? 0 : Array.IndexOf(Secimler.Teminat, f.Teminat) + 1;
+            chkTeminat.Checked = f.TeminatGozleyir;
             dtDan.Checked = dtDek.Checked = false;
             txtSearch.Text = f.Axtar ?? "";
             _qrup = f.Qrup is "davam" ? f.Qrup : null; _hazir = true;
@@ -71,7 +71,7 @@ namespace TexnikaReyestri.Pages
         };
         private static readonly string[] IcraKod = { null, "sari", "yaxin", "late", "bos" };
         private static readonly string[] TarixKod = { "GozlenilenBitme", "FaktikiBitme", "DaxilolmaTarixi", "BaslamaTarixi", "TehvilTarixi" };
-        private RoundComboBox cmbIcra, cmbMesul, cmbTarix, cmbTeminat; private RoundDatePicker dtDan, dtDek; private Label lblZavod;
+        private RoundComboBox cmbIcra, cmbMesul, cmbTarix; private CheckBox chkTeminat; private RoundDatePicker dtDan, dtDek; private Label lblZavod;
 
         /// <summary>Filtr paneli (kartların altında): 2 sətir — Zavod, Status, İcra müddəti, Məsul icraçı / Axtarış, Tarix növü, Tarixdən, Tarixədək.</summary>
         private void FiltrPaneliQur()
@@ -82,7 +82,8 @@ namespace TexnikaReyestri.Pages
             cmbIcra = Cmb("Hamısı", "", "", "İcra müddəti keçib", "İcra müddəti müəyyən edilməyib");
             cmbMesul = Cmb("Hamısı");
             cmbTarix = Cmb("Plan üzrə bitmə tarixi", "Faktiki tamamlanma tarixi", "Zavoda daxilolma tarixi", "Diaqnostika tarixi", "Faktiki təhvil tarixi");
-            cmbTeminat = Cmb(new[] { "Hamısı" }.Concat(Secimler.Teminat).ToArray());
+            chkTeminat = new CheckBox { Text = "Təminat gözləyir", AutoSize = true, Font = new Font("Segoe UI Semibold", 9.5f), Anchor = AnchorStyles.Left, Margin = new Padding(0, 14, 12, 0), Cursor = Cursors.Hand };
+            chkTeminat.CheckedChanged += filtr_Changed;
             dtDan = Dt(); dtDek = Dt();
             foreach (var c in new Control[] { cmbZavod, cmbStatus, txtSearch }) { c.Anchor = AnchorStyles.Left | AnchorStyles.Top; c.Dock = DockStyle.Fill; c.Margin = new Padding(0, 0, 12, 0); }
             txtSearch.PlaceholderText = "Texnikanın adı, inventar kodu və ya məktub nömrəsi";
@@ -93,13 +94,8 @@ namespace TexnikaReyestri.Pages
             t.Controls.Add(cmbZavod, 0, 1); t.Controls.Add(cmbStatus, 1, 1); t.Controls.Add(cmbIcra, 2, 1); t.Controls.Add(cmbMesul, 3, 1);
             t.Controls.Add(L("Tarix növü:"), 1, 2); t.Controls.Add(L("Tarixdən:"), 2, 2); t.Controls.Add(L("Tarixədək:"), 3, 2);
             t.Controls.Add(txtSearch, 0, 3); t.Controls.Add(cmbTarix, 1, 3); t.Controls.Add(dtDan, 2, 3); t.Controls.Add(dtDek, 3, 3);
-            // Ehtiyat hissələrinin təminatı: başlıq solda, siyahı yanında (2 sütun eni)
-            var pt = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, BackColor = Color.Transparent, Margin = new Padding(0, 10, 12, 0) };
-            pt.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize)); pt.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
-            var lt = L("Ehtiyat hissələrinin təminatı:"); lt.AutoSize = true; lt.Dock = DockStyle.None; lt.Anchor = AnchorStyles.Left; lt.TextAlign = ContentAlignment.MiddleLeft;
-            cmbTeminat.Margin = new Padding(0);
-            pt.Controls.Add(lt, 0, 0); pt.Controls.Add(cmbTeminat, 1, 0);
-            t.Controls.Add(pt, 0, 4); t.SetColumnSpan(pt, 2);
+            // Ehtiyat hissəsi gözləyən texnikalar: "Təminat gözləyir" statusu
+            t.Controls.Add(chkTeminat, 0, 4); t.SetColumnSpan(chkTeminat, 2);
             var rp = new RoundPanel { Dock = DockStyle.Top, Height = 196, Padding = new Padding(14, 8, 2, 10), Margin = new Padding(0, 0, 0, 8) };
             rp.Controls.Add(t); Controls.Add(rp);
             // Dok sırası: başlıq → kartlar → filtr → cədvəl
@@ -128,7 +124,7 @@ namespace TexnikaReyestri.Pages
             Qrup = cmbStatus.SelectedIndex > 0 && StatusSecim[cmbStatus.SelectedIndex - 1].qrup is { } q ? q : _qrup,
             Icra = IcraKod[Math.Max(0, cmbIcra.SelectedIndex)],
             Mesul = cmbMesul.SelectedIndex > 0 ? (string)cmbMesul.SelectedItem : null,
-            Teminat = cmbTeminat.SelectedIndex > 0 ? Secimler.Teminat[cmbTeminat.SelectedIndex - 1] : null,
+            TeminatGozleyir = chkTeminat.Checked,
             TarixSahe = TarixKod[Math.Max(0, cmbTarix.SelectedIndex)],
             TarixDan = dtDan.Checked ? Vaxt.Iso(dtDan.Value.Date) : null, TarixDek = dtDek.Checked ? Vaxt.Iso(dtDek.Value.Date) : null,
             Axtar = txtSearch.Text.Trim()
@@ -200,7 +196,7 @@ namespace TexnikaReyestri.Pages
                 1 => string.Join(" · ", new[] { r[3], r[4] }.OfType<string>().Where(x => x != "")), 2 => r[7] is string z ? Lang.T(z) : "",
                 3 => r[5] is DBNull ? "" : r[5],   // nişan kimi çəkilir (ModernGrid, ad "Status")
                 4 => r[8] is DBNull ? "" : r[8],
-                5 => r[9] is string tm ? tm : "—",   // təminat: nişan kimi çəkilir (sütun adı "Status..." ilə başlayır)
+                5 => r[5] as string == Secimler.StTeminat ? Secimler.StTeminat : "—",   // təminat: nişan kimi çəkilir; köhnə avtomatik təminat sahəsi göstərilmir
                 6 => Lang.T("Geniş bax →"), _ => null
             };
         }

@@ -115,6 +115,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 - **Anbar** zavod üzrə ümumidir (ad+kod+vahid); sərf ilk qəbul tarixinə görə paylanır (`SorguRepo.TeminatAsync/AnbarAsync`).
 - **Texnika forması 5 bölmə:** "4. Faktiki sərfiyyat" (`Texnikalar.Serfiyyat` JSON): anbardan seçim (qalıqdan çox olmaz) və ya "Yeni ad" (anbardan çıxılmır); yadda saxlanmış qeyd silinmir. Geniş baxışda "Faktiki sərfiyyat" kartı.
 - **Status "Təminat gözləyir"** (yeni bazadakı dəyər, əllə seçilir): aktiv statuslar siyahısına daxildir; ana səhifədə "hissə gözləyən" sayı bu statusdan.
+- **Reyestr:** köhnə "Ehtiyat hissələrinin təminatı" siyahısı əvəzinə "Təminat gözləyir" çek qutusu (Status="Təminat gözləyir"); cədvəlin təminat sütunu da bu statusu göstərir.
 - **Hesabat "Texnika üzrə faktiki material sərfi"** (nov 5): texnika/material axtarışı, sərf tarixi = dövr. "Ehtiyat hissələri üzrə təminat" məktubun hissələrindən.
 - **Köçürmə** (`Miqrasiya.HisseMektuba`, bir dəfə, `Miqrasiyalar` cədvəli): texnikadakı köhnə hissələr ona bağlı ən son məktuba keçir; texnikadakı siyahı silinmir.
 
