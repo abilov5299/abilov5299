@@ -16,10 +16,12 @@ namespace TexnikaReyestri
             Application.ThreadException += (_, e) => Xeta(e.Exception);
             AppDomain.CurrentDomain.UnhandledException += (_, e) => Xeta(e.ExceptionObject as Exception);
             Application.AddMessageFilter(new WheelRouter());
+            Application.AddMessageFilter(new Sesler.KlikFiltr());
 
             LocalDb.Init(AppPaths.Db);
             Ui.SeciminiYukleAsync().GetAwaiter().GetResult();
             Animator.Aktiv = SistemRepo.ParamAsync("Animasiya", 1).GetAwaiter().GetResult() == 1;
+            Sesler.KlikAktiv = SistemRepo.ParamAsync("KlikSes", 1).GetAwaiter().GetResult() == 1;
 
             // İlk açılış: qurum, admin parolu, ilk istifadəçi
             if (!AuthService.AdminVarAsync().GetAwaiter().GetResult())

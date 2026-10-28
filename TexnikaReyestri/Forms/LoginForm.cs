@@ -1,4 +1,4 @@
-using TexnikaReyestri.Controls;
+﻿using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
 using TexnikaReyestri.Services;
@@ -64,10 +64,11 @@ namespace TexnikaReyestri.Forms
         }
 
         // Kölgədən çıxırmış kimi: şəffaflıq 0→1 və 28 px aşağıdan yuxarı, yumşaq yavaşlama (ease-out). Parametrlər Admin → Sistem
+        private static bool _sesCalinib;
         protected override async void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            if (await SistemRepo.ParamAsync("GirisSes", 1) == 1) System.Media.SystemSounds.Asterisk.Play();
+            if (!_sesCalinib && await SistemRepo.ParamAsync("GirisSes", 1) == 1) { _sesCalinib = true; Sesler.Cal(Sesler.Acilis); }   // yalnız proqram açılanda (çıxışdan sonra yox)
             int ms = await SistemRepo.ParamAsync("GirisAnimasiya", 900);
             if (ms <= 0) { Opacity = 1; return; }
             int y0 = Top; var sw = System.Diagnostics.Stopwatch.StartNew();

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -28,5 +28,6 @@
   <ItemGroup>
     <Content Include="Assets\TexnikaReyestri.ico" />
     <Content Include="Telimat\*.html" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\Sesler\*.*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
