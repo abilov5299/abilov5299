@@ -102,13 +102,19 @@
                         while (await r.ReadAsync())
                         {
                             string tex = $"{r.GetString(0)} ({r.GetString(1)})";
-                            foreach (var g in TexnikaJson.Serfler(r.GetString(2))
+                            var serf = TexnikaJson.Serfler(r.GetString(2))
                                          .Where(x => string.CompareOrdinal(x.Tarix ?? "", Vaxt.Iso(d1)) >= 0 && string.CompareOrdinal(x.Tarix ?? "", Vaxt.Iso(d2)) <= 0)
-                                         .Where(x => mq.Length == 0 || (x.Ad ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase) || (x.Kod ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase))
-                                         .GroupBy(x => (Ad: (x.Ad ?? "").Trim(), Kod: (x.Kod ?? "").Trim(), Vahid: (x.Vahid ?? "").Trim())))
-                                sr.Add(new[] { tex, g.Key.Ad + (g.Key.Kod.Length == 0 ? "" : " / " + g.Key.Kod), g.Key.Vahid, F(g.Sum(x => x.Miqdar)) });
+                                         .Where(x => mq.Length == 0 || (x.Ad ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase) || (x.Kod ?? "").Contains(mq, StringComparison.CurrentCultureIgnoreCase));
+                            string Ad(string ad, string kod) => (ad ?? "").Trim() + (string.IsNullOrWhiteSpace(kod) ? "" : " / " + kod.Trim());
+                            if (texnika != null)   // bir texnika: hər sərf ayrıca sətir, tarixi ilə
+                                foreach (var x in serf.OrderBy(x => x.Tarix)) sr.Add(new[] { Ad(x.Ad, x.Kod), x.Vahid, F(x.Miqdar), Vaxt.Tarix(x.Tarix) });
+                            else                   // ümumi: texnika və material üzrə cəm
+                                foreach (var g in serf.GroupBy(x => (Ad: (x.Ad ?? "").Trim(), Kod: (x.Kod ?? "").Trim(), Vahid: (x.Vahid ?? "").Trim())))
+                                    sr.Add(new[] { tex, Ad(g.Key.Ad, g.Key.Kod), g.Key.Vahid, F(g.Sum(x => x.Miqdar)) });
                         }
-                    return new Hesabat(HesabatAdlari[nov], new[] { "Texnika / zavod nömrəsi", "Materialın və ya ehtiyat hissəsinin adı", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar" }, sr, null,
+                    var sutun = texnika != null ? new[] { "Materialın və ya ehtiyat hissəsinin adı", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar", "Sərf tarixi" }
+                                                : new[] { "Texnika / zavod nömrəsi", "Materialın və ya ehtiyat hissəsinin adı", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar" };
+                    return new Hesabat(HesabatAdlari[nov], sutun, sr, null,
                         $"{Core.Lang.T("Sərf tarixi")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}. {Core.Lang.T("Məlumat texnika kartındakı \"Faktiki sərfiyyat\" qeydlərindən avtomatik gəlir")}.");
                 default:
                     return Cedvel(new[] { "Zavod", "Cəmi məktub", "İcrası davam edir", "İcra başa çatıb", "İcra müddəti keçib" },

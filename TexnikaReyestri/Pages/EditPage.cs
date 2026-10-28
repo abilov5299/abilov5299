@@ -24,7 +24,7 @@ namespace TexnikaReyestri.Pages
         // Bölmə 4: faktiki sərfiyyat (anbar — zavodun qəbul edilmiş hissələri)
         private List<Serf> _serfler = new(); private List<AnbarMal> _anbar = new();
         private ModernGrid gridSerf; private RoundPanel pnlSerf;
-        private RoundComboBox sMal; private RoundTextBox sAd, sKod, sVahid, sMiqdar; private RoundDatePicker sTarix; private FlatButton bYeniAd; private bool _yeniAd;
+        private RoundTextBox sMal; private int _malIdx = -1; private List<string> _malAd = new(); private RoundTextBox sAd, sKod, sVahid, sMiqdar; private RoundDatePicker sTarix; private FlatButton bYeniAd; private bool _yeniAd;
         // Bölmə 5
         private RoundComboBox cmbTehvilAlan; private RoundTextBox txtDigerQurum; private RoundTextBox txtGozleme;
         private Label lblQebulInfo;
@@ -275,7 +275,7 @@ namespace TexnikaReyestri.Pages
             var bE = Btn("Sərfiyyat əlavə et", Icons.Add); bE.Click += (_, _) => { if (!pnlSerf.Visible) SerfPaneli(); else pnlSerf.Visible = false; };
             t.Controls.Add(bE, 0, 0);
             pnlSerf = AltPanel(t, 1, "Sərfiyyat", out var st);
-            sMal = new RoundComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Height = 30 };
+            sMal = new RoundTextBox { ReadOnly = true, Cursor = Cursors.Hand, PlaceholderText = Lang.T("Axtarış üçün klikləyin…") };
             sAd = new RoundTextBox { PlaceholderText = Lang.T("Yeni materialın adı"), Visible = false };
             var pm = Sahe(null, "Material / ehtiyat hissəsi", sMal, mecburi: true);
             pm.Controls.Add(sAd); sAd.Dock = DockStyle.Top; sAd.Height = 32; sAd.Font = F(10f); sAd.BringToFront();
@@ -289,14 +289,11 @@ namespace TexnikaReyestri.Pages
             st.Controls.Add(Sahe(null, "Sərf tarixi", sTarix = Dt(), mecburi: true), 1, 1);
             var bS = Btn("Yadda saxla", Icons.Save); bS.Margin = new Padding(0, 26, 12, 6); bS.Click += async (_, _) => await SerfElaveAsync();
             st.Controls.Add(bS, 2, 1);
-            sMal.SelectedIndexChanged += (_, _) => MalSecildi();
-            // Siyahı uzun olur: açılan siyahı əvəzinə axtarış pəncərəsi
-            sMal.DropDown += (_, _) => BeginInvoke(() =>
-            {
-                sMal.DroppedDown = false;
-                int i = Ui.SiyahidanSec(FindForm(), "Material / ehtiyat hissəsi", "Ad və ya kod üzrə axtarış", sMal.Items.Cast<object>().Select(x => x.ToString()).ToList());
-                if (i >= 0) sMal.SelectedIndex = i;
-            });
+            // Klik — axtarış pəncərəsi açılır (anbar siyahısı uzun olur)
+            void Ac() { int i = Ui.SiyahidanSec(FindForm(), "Material / ehtiyat hissəsi", "Ad və ya kod üzrə axtarış", _malAd); if (i >= 0) MalSec(i); }
+            sMal.Click += (_, _) => Ac();
+            foreach (Control c in sMal.Controls) c.Click += (_, _) => Ac();   // içindəki mətn xanası
+            sMal.KeyDown += (_, e) => { if (e.KeyCode is Keys.Enter or Keys.Space or Keys.F4) { Ac(); e.Handled = true; } };
             var ip = Ipucu("Anbardan seçiləndə qalıqdan çox yazmaq olmaz. \"Yeni ad\" ilə yazılan material anbardan çıxılmır. Yadda saxlanmış qeyd silinmir.");
             st.Controls.Add(ip, 0, 2); st.SetColumnSpan(ip, 4);
             gridSerf = Grid(("Ad", "Materialın / ehtiyat hissəsinin adı", 260), ("Kod", "Kodu", 120), ("Vahid", "Ölçü vahidi", 110), ("Miqdar", "Sərf edilmiş miqdar", 150), ("Tarix", "Sərf tarixi", 120), ("Menbe", "Mənbə", 140));
@@ -315,10 +312,9 @@ namespace TexnikaReyestri.Pages
         private void SerfPaneli()
         {
             var l = AnbarSiyahi();
-            sMal.Items.Clear();
-            sMal.Items.AddRange(l.Select(m => (object)$"{m.Ad}{(string.IsNullOrEmpty(m.Kod) ? "" : " · " + m.Kod)} — {Lang.T("qalıq")}: {Rq(Qaliq(m))} {m.Vahid}").ToArray());
+            _malAd = l.Select(m => $"{m.Ad}{(string.IsNullOrEmpty(m.Kod) ? "" : " · " + m.Kod)} — {Lang.T("qalıq")}: {Rq(Qaliq(m))} {m.Vahid}").ToList();
+            _malIdx = -1; sMal.Text = "";
             YeniAdRejimi(l.Count == 0);
-            if (sMal.Items.Count > 0) sMal.SelectedIndex = 0;
             sMiqdar.Text = ""; sTarix.Value = DateTime.Today; sTarix.Checked = true;
             pnlSerf.Visible = true;
         }
@@ -331,11 +327,13 @@ namespace TexnikaReyestri.Pages
             if (yeni) { sAd.Text = sKod.Text = sVahid.Text = ""; } else MalSecildi();
         }
 
+        private void MalSec(int i) { _malIdx = i; sMal.Text = _malAd[i]; MalSecildi(); }
+
         private void MalSecildi()
         {
             if (_yeniAd) return;
             var l = AnbarSiyahi();
-            var m = sMal.SelectedIndex >= 0 && sMal.SelectedIndex < l.Count ? l[sMal.SelectedIndex] : null;
+            var m = _malIdx >= 0 && _malIdx < l.Count ? l[_malIdx] : null;
             sKod.Text = m?.Kod ?? ""; sVahid.Text = m?.Vahid ?? "";
         }
 
@@ -365,8 +363,8 @@ namespace TexnikaReyestri.Pages
             else
             {
                 var l = AnbarSiyahi();
-                if (sMal.SelectedIndex < 0 || sMal.SelectedIndex >= l.Count) { Toast.Show(this, Lang.T("Materialı seçin"), ToastKind.Error); return; }
-                var a = l[sMal.SelectedIndex];
+                if (_malIdx < 0 || _malIdx >= l.Count) { Toast.Show(this, Lang.T("Materialı seçin"), ToastKind.Error); return; }
+                var a = l[_malIdx];
                 if (m > Qaliq(a) + 1e-9) { Toast.Show(this, $"{Lang.T("Anbarda qalıq")}: {Rq(Qaliq(a))} {a.Vahid}", ToastKind.Error); return; }
                 x = new Serf { Ad = a.Ad, Kod = a.Kod, Vahid = a.Vahid, Anbar = true };
             }

@@ -562,6 +562,7 @@
             ["Bütün texnikalar"] = ("All vehicles", "Вся техника"),
             ["Ad və ya kod üzrə axtarış"] = ("Search by name or code", "Поиск по названию или коду"),
             ["texnikanın faktiki material sərfi"] = ("actual material consumption of the vehicle", "фактический расход материалов техники"),
+            ["Axtarış üçün klikləyin…"] = ("Click to search…", "Нажмите для поиска…"),
             ["Sorğu yarat"] = ("Create request", "Создать запрос"),
             ["Addım 1 · Təchizat məktubu"] = ("Step 1 · Supply letter", "Шаг 1 · Письмо снабжения"),
             ["Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin."] = ("First create a new letter or select a registered one.", "Сначала создайте новое письмо или выберите зарегистрированное."),
