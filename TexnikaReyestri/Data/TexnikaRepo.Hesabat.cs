@@ -115,7 +115,7 @@
                     var sutun = texnika != null ? new[] { "Materialın və ya ehtiyat hissəsinin adı", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar", "Sərf tarixi" }
                                                 : new[] { "Texnika / zavod nömrəsi", "Materialın və ya ehtiyat hissəsinin adı", "Ölçü vahidi", "Faktiki sərf edilmiş miqdar" };
                     return new Hesabat(HesabatAdlari[nov], sutun, sr, null,
-                        $"{Core.Lang.T("Sərf tarixi")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}. {Core.Lang.T("Məlumat texnika kartındakı \"Faktiki sərfiyyat\" qeydlərindən avtomatik gəlir")}.");
+                        $"{Core.Lang.T("Sərf tarixi")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}.");
                 default:
                     return Cedvel(new[] { "Zavod", "Cəmi məktub", "İcrası davam edir", "İcra başa çatıb", "İcra müddəti keçib" },
                         await Say(@"SELECT Zavod, COUNT(*), SUM(IFNULL(CavabVez,'İcrası davam edir')='İcrası davam edir'), SUM(CavabVez='İcra başa çatıb'),
