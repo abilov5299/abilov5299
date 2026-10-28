@@ -109,6 +109,8 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **28.10:** Proqramın adı "Təmir və Texniki Təminat Xidməti · Məlumat bazası". "Texnika əlavə et" formasının 4-cü bölməsi çıxarıldı (indi 4 bölmə). Menyuda yeni **"Sorğu yarat"** səhifəsi (`Pages/SorguYaratPage.cs`): 1) məktub yaradılır/seçilir → 2) texnikaya bağlanır → 3) seçilmiş texnikanın ehtiyat hissələri və qəbulu → 4) icra qeydləri; hər addım dərhal yazılır. Təchizat sorğularındakı "Sorğunu aç" düyməsi bu səhifəni açır. Nümunə: `docs/numune-sorgu-yarat.html`. "Texnika seç" pəncərəsi zavodun bütün texnikalarını göstərir (əvvəl 30 ilə məhdud idi), sayı başlıqdadır.
 
+**28.10 (hesabat):** "Ehtiyat hissələri üzrə təminat" hesabatı hər ehtiyat hissəsi üzrə sətirlərdir (məktub, texnika, ad/kod, vahid, tələb, qəbul, qalıq, təmin edən). İki keçid: "Təmin edilməmiş" (ilkin; qalığı > 0) və "Tam təmin edilmiş" (qalıq 0 olanda avtomatik keçir).
+
 **27.10:** Mövcud texnikada yadda saxlanmış məktubu ayırmaq və ehtiyat hissəsini silmək olmaz (xəbərdarlıq çıxır); yeni texnikada saxlanana qədər mümkündür.
 
 **20.10 dəyişikliyi qısaca:**

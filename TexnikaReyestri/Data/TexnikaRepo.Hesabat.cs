@@ -1,4 +1,4 @@
-namespace TexnikaReyestri.Data
+﻿namespace TexnikaReyestri.Data
 {
     /// <summary>Hazır hesabat: başlıq, sütunlar, sətirlər, (varsa) cəmi sətri və izah.</summary>
     public sealed record Hesabat(string Ad, string[] Sutun, List<string[]> Setir, string[] Cem, string Qeyd);
@@ -18,8 +18,8 @@ namespace TexnikaReyestri.Data
         /// <summary>Dövr (Başlanğıc – Son) istifadə edən hesabatlar.</summary>
         public static bool DovrLazim(int nov) => nov is 1 or 5;
 
-        /// <summary>nov: HesabatNovleri indeksi. zavod: null = bütün zavodlar. tarix: hesabat tarixi (müddət hesabı üçün). d1, d2: dövr.</summary>
-        public static async Task<Hesabat> HesabatAsync(int nov, string zavod, DateTime tarix, DateTime d1, DateTime d2)
+        /// <summary>nov: HesabatNovleri indeksi. tamTemin: ehtiyat hissələri hesabatında tam təmin edilmişlər (əks halda qalığı olanlar). zavod: null = bütün zavodlar. tarix: hesabat tarixi (müddət hesabı üçün). d1, d2: dövr.</summary>
+        public static async Task<Hesabat> HesabatAsync(int nov, string zavod, DateTime tarix, DateTime d1, DateTime d2, bool tamTemin = false)
         {
             await using var con = await LocalDb.AcAsync();
             using var c = con.CreateCommand();
@@ -81,23 +81,26 @@ namespace TexnikaReyestri.Data
                     return new Hesabat(HesabatAdlari[nov], new[] { "Zavod", "Texnika", "Zavod nömrəsi", "Faktiki bitmə", "Gözləyir (gün)" }, l, new[] { "Cəmi", l.Count + " texnika", "", "", "" },
                         "Faktiki bitmə tarixi yazılıb, status hələ \"Təhvil verilib\" deyil");
                 case 4:
-                    c.CommandText = "SELECT Zavod, Hisseler FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z);";
-                    var h = new Dictionary<string, double[]>();
+                    // Bölgü hər ehtiyat hissəsi üzrədir: eyni məktubun hissələri hər iki siyahıda ola bilər. Qalıq = tələb olunan − qəbul edilmiş.
+                    var texHis = new Dictionary<string, List<Hisse>>();
+                    c.CommandText = "SELECT Guid, Hisseler FROM Texnikalar WHERE Silinib=0 AND IFNULL(Hisseler,'[]')<>'[]';";
+                    await using (var r = await c.ExecuteReaderAsync())
+                        while (await r.ReadAsync()) texHis[r.GetString(0)] = TexnikaJson.Hisseler(r.IsDBNull(1) ? null : r.GetString(1));
+                    c.CommandText = "SELECT MektubNo, QeydTarixi, TeminEden, Texnikalar FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z) ORDER BY QeydTarixi DESC, Id DESC;";
+                    var hr = new List<string[]>();
                     await using (var r = await c.ExecuteReaderAsync())
                         while (await r.ReadAsync())
                         {
-                            var a = h.TryGetValue(r.IsDBNull(0) ? "" : r.GetString(0), out var x) ? x : h[r.IsDBNull(0) ? "" : r.GetString(0)] = new double[3];
-                            a[0]++; foreach (var s in SorguRepo.HisseJson(r.IsDBNull(1) ? null : r.GetString(1))) { a[1] += s.Teleb; a[2] += s.Qebul; }
+                            string mek = $"{(r.IsDBNull(0) ? "" : r.GetString(0))} · {Vaxt.Tarix(r.IsDBNull(1) ? null : r.GetString(1))}", temin = r.IsDBNull(2) ? "" : r.GetString(2);
+                            foreach (var t in SorguRepo.TexnikaJson(r.IsDBNull(3) ? null : r.GetString(3)))
+                                foreach (var hs in texHis.GetValueOrDefault(t.Guid) ?? new())
+                                {
+                                    if ((hs.Qaliq <= 0) != tamTemin) continue;
+                                    hr.Add(new[] { mek, $"{t.Marka} ({t.ZavodNo})", hs.Ad + (string.IsNullOrEmpty(hs.Kod) ? "" : " / " + hs.Kod), hs.Vahid, F(hs.Teleb), F(hs.Qebul), F(hs.Qaliq), temin });
+                                }
                         }
-                    var hr = new List<string[]>(); var hc = new double[4];
-                    foreach (var z in zavodlar)
-                    {
-                        var a = h.GetValueOrDefault(z) ?? new double[3]; double qal = Math.Max(0, a[1] - a[2]);
-                        hc[0] += a[0]; hc[1] += a[1]; hc[2] += a[2]; hc[3] += qal;
-                        hr.Add(new[] { z, F(a[0]), F(a[1]), F(a[2]), F(qal) });
-                    }
-                    return new Hesabat(HesabatAdlari[nov], new[] { "Zavod", "Sorğu sayı", "Tələb olunan", "Qəbul edilmiş", "Qalıq" }, hr, new[] { "Cəmi" }.Concat(hc.Select(F)).ToArray(),
-                        "Təchizat sorğularındakı ehtiyat hissələrinin cəmi (ölçü vahidindən asılı olmayaraq)");
+                    return new Hesabat(HesabatAdlari[nov], new[] { "Məktubun nömrəsi və tarixi", "Əlaqəli texnika", "Ehtiyat hissəsinin adı / kodu", "Ölçü vahidi", "Tələb olunan", "Qəbul edilmiş", "Qalıq", "Təmin edən qurum" }, hr, null,
+                        $"{Core.Lang.T(tamTemin ? "Tam təmin edilmiş ehtiyat hissələri" : "Təmin edilməmiş ehtiyat hissələri")}: {hr.Count}");
                 default:
                     return Cedvel(new[] { "Zavod", "Cəmi məktub", "İcrası davam edir", "İcra başa çatıb", "İcra müddəti keçib" },
                         await Say(@"SELECT Zavod, COUNT(*), SUM(IFNULL(CavabVez,'İcrası davam edir')='İcrası davam edir'), SUM(CavabVez='İcra başa çatıb'),
