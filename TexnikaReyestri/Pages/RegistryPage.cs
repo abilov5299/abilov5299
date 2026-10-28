@@ -66,7 +66,7 @@ namespace TexnikaReyestri.Pages
         // Status siyahısı: bazadakı dəyər və ya kart qrupu; ad ekranda Secimler.Ekran ilə göstərilir
         private static readonly (string ad, string status, string qrup)[] StatusSecim =
         {
-            ("Qəbul edilib", "Qəbul edilib", null), ("Təmirdədir", "Təmirdə", null), ("Təminat gözləyir", "Təminat gözləyir", null),
+            ("Qəbul edilib", "Qəbul edilib", null), ("Təmirdədir", "Təmirdə", null),
             ("Təmir tamamlanıb, təhvil gözlənilir", null, "gozl"), ("Təhvil verilib", "Təhvil verilib", null), ("Təmirə yararsız", "Təmirə yararsız", null)
         };
         private static readonly string[] IcraKod = { null, "sari", "yaxin", "late", "bos" };
@@ -94,7 +94,7 @@ namespace TexnikaReyestri.Pages
             t.Controls.Add(cmbZavod, 0, 1); t.Controls.Add(cmbStatus, 1, 1); t.Controls.Add(cmbIcra, 2, 1); t.Controls.Add(cmbMesul, 3, 1);
             t.Controls.Add(L("Tarix növü:"), 1, 2); t.Controls.Add(L("Tarixdən:"), 2, 2); t.Controls.Add(L("Tarixədək:"), 3, 2);
             t.Controls.Add(txtSearch, 0, 3); t.Controls.Add(cmbTarix, 1, 3); t.Controls.Add(dtDan, 2, 3); t.Controls.Add(dtDek, 3, 3);
-            // Ehtiyat hissəsi gözləyən texnikalar: "Təminat gözləyir" statusu
+            // Ehtiyat hissəsi gözləyən texnikalar: "Təminat gözləyir" işarəsi
             t.Controls.Add(chkTeminat, 0, 4); t.SetColumnSpan(chkTeminat, 2);
             var rp = new RoundPanel { Dock = DockStyle.Top, Height = 196, Padding = new Padding(14, 8, 2, 10), Margin = new Padding(0, 0, 0, 8) };
             rp.Controls.Add(t); Controls.Add(rp);
@@ -196,7 +196,7 @@ namespace TexnikaReyestri.Pages
                 1 => string.Join(" · ", new[] { r[3], r[4] }.OfType<string>().Where(x => x != "")), 2 => r[7] is string z ? Lang.T(z) : "",
                 3 => r[5] is DBNull ? "" : r[5],   // nişan kimi çəkilir (ModernGrid, ad "Status")
                 4 => r[8] is DBNull ? "" : r[8],
-                5 => r[5] as string == Secimler.StTeminat ? Secimler.StTeminat : "—",   // təminat: nişan kimi çəkilir; köhnə avtomatik təminat sahəsi göstərilmir
+                5 => r[9] as string == Secimler.StTeminat ? Secimler.StTeminat : "—",   // təminat: nişan kimi çəkilir; köhnə avtomatik dəyərlər göstərilmir
                 6 => Lang.T("Geniş bax →"), _ => null
             };
         }

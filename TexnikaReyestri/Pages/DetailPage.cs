@@ -89,7 +89,7 @@ namespace TexnikaReyestri.Pages
             chipStatus.Width = TextRenderer.MeasureText(Lang.T(Secimler.Ekran(chipStatus.Text)), new Font("Segoe UI Semibold", 8f)).Width + 18;
             bool gec = V("GozlenilenBitme") is string g && string.CompareOrdinal(g, Vaxt.Iso(DateTime.Today)) < 0 && Secimler.AktivStatus.Contains(V("Status"));
             chipLate.Visible = gec; chipLate.Left = chipStatus.Right + 6;
-            stepper.CurrentStep = V("Status") switch { "Təmirdə" or Secimler.StTeminat => 1, Secimler.StTamamlanib => 2, Secimler.StTehvil => 4, _ => 0 };
+            stepper.CurrentStep = V("Status") switch { "Təmirdə" => 1, Secimler.StTamamlanib => 2, Secimler.StTehvil => 4, _ => 0 };
             foreach (var s in Saheler.Hamisi)
             {
                 if (Controls.Find("val_" + s.Kod, true).FirstOrDefault() is not Label l) continue;

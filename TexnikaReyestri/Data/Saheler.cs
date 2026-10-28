@@ -41,11 +41,12 @@
             new("MuddetVahidi", "Müddətin vahidi", SaheNov.Secim, "Təmirin icrası", true),
             new("GozlenilenBitme", "Plan üzrə bitmə tarixi", SaheNov.Tarix, "Təmirin icrası"),
             new("GecikmeSebebi", "Gecikmənin və ya plan dəyişikliyinin səbəbi", SaheNov.Metn, "Təmirin icrası"),
+            new("Teminat", "Ehtiyat hissələrinin təminatı", SaheNov.Secim, "Təmirin icrası"),   // "Təminat gözləyir" işarəsi (formada çek qutusu)
             new("ProqnozBitme", "Gözlənilən bitmə tarixi", SaheNov.Tarix, "Təmirin icrası"),
             new("YeniPlanBitme", "Yeni plan üzrə bitmə tarixi", SaheNov.Tarix, "Təmirin icrası"),
             // Köhnə: texnikanın ehtiyat hissələri (indi hissələr məktubdadır — Sorgular.Hisseler; formada göstərilmir)
             new("Hisseler", "Ehtiyat hissələri", SaheNov.Metn, "Ehtiyat hissələri və məktublar"),
-            new("Teminat", "Ehtiyat hissələrinin təminatı", SaheNov.Secim, "Ehtiyat hissələri və məktublar"),
+            
             // Faktiki sərfiyyat (formada 4-cü bölmə)
             new("Serfiyyat", "Faktiki sərfiyyat", SaheNov.Metn, "Faktiki sərfiyyat"),
             // 5. Təmirin tamamlanması və təhvil

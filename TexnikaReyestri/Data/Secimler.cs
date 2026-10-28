@@ -11,17 +11,17 @@
         };
         public const string UstAd = "Təmir və Texniki Təminat xidməti", EnUstAd = "Müdafiə Sənayesi İdarəsi";
 
-        public static readonly string[] Status = { "Qəbul edilib", "Təmirdə", "Təminat gözləyir", "Təmir tamamlanıb, təhvil gözlənilir", "Təhvil verilib", "Təmirə yararsız" };
+        public static readonly string[] Status = { "Qəbul edilib", "Təmirdə", "Təmir tamamlanıb, təhvil gözlənilir", "Təhvil verilib", "Təmirə yararsız" };
         /// <summary>Statusların ekranda göstərilən adı (bazada köhnə dəyər qalır: USB paketləri və Excel pozulmasın).</summary>
         private static readonly Dictionary<string, string> EkranAd = new() { ["Təmirdə"] = "Təmirdədir" };
         public static string Ekran(string s) => s != null && EkranAd.TryGetValue(s, out var e) ? e : s;
         /// <summary>Ekran adı → bazadakı dəyər (Excel-də ekran adı yazılıbsa).</summary>
         public static string Baza(string s) => EkranAd.FirstOrDefault(x => x.Value == s).Key ?? s;
         /// <summary>Təmiri davam edən statuslar (icra müddəti, gecikmə yalnız bunlar üçün).</summary>
-        public static readonly string[] AktivStatus = { "Qəbul edilib", "Təmirdə", "Təminat gözləyir" };
+        public static readonly string[] AktivStatus = { "Qəbul edilib", "Təmirdə" };
         /// <summary>Formada istifadəçinin seçə bildiyi statuslar; qalanları tarixlərə görə avtomatik qoyulur.</summary>
-        public static readonly string[] SecilenStatus = { "Qəbul edilib", "Təmirdə", "Təminat gözləyir", "Təmirə yararsız" };
-        /// <summary>Texnika ehtiyat hissəsi gözləyir (əllə seçilir; sorğudan avtomatik dəyişmir).</summary>
+        public static readonly string[] SecilenStatus = { "Qəbul edilib", "Təmirdə", "Təmirə yararsız" };
+        /// <summary>Teminat sahəsinin dəyəri: texnika (Qəbul edilib / Təmirdə) ehtiyat hissəsi gözləyir. Formada çek qutusu ilə qoyulur; status deyil.</summary>
         public const string StTeminat = "Təminat gözləyir";
         public const string StTamamlanib = "Təmir tamamlanıb, təhvil gözlənilir", StTehvil = "Təhvil verilib";
 

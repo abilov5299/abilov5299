@@ -15,7 +15,7 @@ namespace TexnikaReyestri.Data
         public static int Sari = 20;  // Admin → Sistem → IcraSari: (Yaxin+1)–Sari gün qalıb
         public string Icra;           // null, "sari", "yaxin", "late", "bos" — yalnız təmiri davam edənlərdən
         public string Mesul;          // MesulIcraci
-        public bool TeminatGozleyir;  // yalnız "Təminat gözləyir" statuslu texnikalar
+        public bool TeminatGozleyir;  // yalnız "Təminat gözləyir" işarəli texnikalar (Teminat sahəsi)
         public string TarixSahe;      // GozlenilenBitme, FaktikiBitme, DaxilolmaTarixi, BaslamaTarixi, TehvilTarixi
         public string TarixDan, TarixDek;   // yyyy-MM-dd, null = sərhəd yoxdur
         public bool Gecikenler { get => Qrup == "late"; set => Qrup = value ? "late" : Qrup == "late" ? null : Qrup; }
@@ -172,7 +172,7 @@ namespace TexnikaReyestri.Data
         }
 
         // Kartların tərifi: davam + gözləyir + təhvil = cəmi ("Təmirə yararsız" daxil deyil); müddət kartları yalnız "davam"dan
-        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə','Təminat gözləyir') AND IFNULL(FaktikiBitme,'')='')",
+        private const string DavamSql = "(Status IN ('Qəbul edilib','Təmirdə') AND IFNULL(FaktikiBitme,'')='')",
             GozlSql = "(IFNULL(FaktikiBitme,'')<>'' AND IFNULL(Status,'') NOT IN ('Təhvil verilib','Təmirə yararsız'))",
             TehvilSql = "(Status='Təhvil verilib')";
         internal static string QrupSql(string q) => q switch
@@ -232,7 +232,7 @@ GROUP BY 1;";
                 cmd.Parameters.AddWithValue("$sari", DateTime.Today.AddDays(Math.Max(f.YaxinGun + 1, ReyestrFiltr.Sari)).ToString("yyyy-MM-dd"));
             }
             if (f.Mesul != null) { w.Append(" AND MesulIcraci = $m"); cmd.Parameters.AddWithValue("$m", f.Mesul); }
-            if (f.TeminatGozleyir) w.Append(" AND Status='Təminat gözləyir'");
+            if (f.TeminatGozleyir) w.Append(" AND Teminat='Təminat gözləyir'");
             if ((f.TarixDan != null || f.TarixDek != null) && f.TarixSahe is "GozlenilenBitme" or "FaktikiBitme" or "DaxilolmaTarixi" or "BaslamaTarixi" or "TehvilTarixi")
             {
                 if (f.TarixDan != null) { w.Append($" AND {f.TarixSahe} >= $td"); cmd.Parameters.AddWithValue("$td", f.TarixDan); }

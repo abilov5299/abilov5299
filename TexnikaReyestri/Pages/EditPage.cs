@@ -20,7 +20,7 @@ namespace TexnikaReyestri.Pages
         // Bölmə 2: göstəricilər
         private TableLayoutPanel tlpGost;
         // Bölmə 3: avtomatik xanalar
-        private RoundTextBox txtPlan, txtQalan;
+        private RoundTextBox txtPlan, txtQalan; private CheckBox chkTeminat;
         // Bölmə 4: faktiki sərfiyyat (anbar — zavodun qəbul edilmiş hissələri)
         private List<Serf> _serfler = new(); private List<AnbarMal> _anbar = new();
         private ModernGrid gridSerf; private RoundPanel pnlSerf;
@@ -213,6 +213,10 @@ namespace TexnikaReyestri.Pages
             t = Kart(s, "Təmir məlumatları", 3);
             t.Controls.Add(Sahe("TemirNovu", "Təmirin / işin növü", Cmb(Secimler.Sahe["TemirNovu"]), "Hazırkı qəbul üzrə görüləcək iş seçilir.", true), 0, 0);
             t.Controls.Add(Sahe("Status", "İcra statusu", Cmb(Secimler.Status, false, Secimler.Ekran), "Tamamlanma və təhvil statusları tarixlərə əsasən yenilənir.", true), 1, 0);
+            // Ehtiyat hissəsi gözləyirsə işarələnir (status dəyişmir: Qəbul edilib / Təmirdə qalır); reyestrdə "Ehtiyat hissələrinin təminatı" sütununda görünür
+            chkTeminat = new CheckBox { Text = "Təminat gözləyir", AutoSize = true, Font = F(10f, true), Margin = new Padding(0, 30, 18, 6), Cursor = Cursors.Hand };
+            ((ComboBox)In("Status")).SelectedIndexChanged += (_, _) => TeminatYoxla();
+            t.Controls.Add(chkTeminat, 2, 0);
 
             t = Kart(s, "İcra olunma müddəti", 4);
             t.Controls.Add(Sahe("IcraMuddeti", "Müddət", Txt(), "Hesablama diaqnostika tarixindən aparılır.", true), 0, 0);
@@ -448,6 +452,7 @@ namespace TexnikaReyestri.Pages
                 }
             }
             if (In("TemirZavodu") is ComboBox z) z.Enabled = Session.ZavodFiltri == null;
+            chkTeminat.Checked = r.GetValueOrDefault("Teminat") as string == Secimler.StTeminat;
             // Göstəricilər
             tlpGost.SuspendLayout(); tlpGost.Controls.Clear(); tlpGost.RowCount = 0;
             var gl = TexnikaJson.Gostericiler(r.GetValueOrDefault("Gostericiler"));
@@ -497,6 +502,13 @@ namespace TexnikaReyestri.Pages
             lblQebulInfo.Text = $"{Lang.T("Qəbul edən təmir müəssisəsi")}: {Lang.T(zavod ?? "—")}   •   {Lang.T("İlkin status")}: {Lang.T("Qəbul edilib")}";
         }
 
+        /// <summary>"Təminat gözləyir" yalnız təmiri davam edən texnikada (Qəbul edilib / Təmirdə) qoyula bilər.</summary>
+        private void TeminatYoxla()
+        {
+            bool olar = Deyer((ComboBox)In("Status")) is "Qəbul edilib" or "Təmirdə";
+            chkTeminat.Enabled = olar; if (!olar) chkTeminat.Checked = false;
+        }
+
         /// <summary>Tamamlanma/təhvil tarixi yazılıbsa status avtomatikdir və seçilə bilməz.</summary>
         private void StatusYoxla()
         {
@@ -540,6 +552,7 @@ namespace TexnikaReyestri.Pages
             d["Gostericiler"] = TexnikaJson.Yaz(Gostericiler(gx));
             foreach (var m in gx) X("Gostericiler", m);
             d["Serfiyyat"] = TexnikaJson.Yaz(_serfler);
+            d["Teminat"] = chkTeminat.Checked && chkTeminat.Enabled ? Secimler.StTeminat : null;
             // Tamamlanma və təhvil
             if (d["FaktikiBitme"] != null && d["GorulenIsler"] == null) X("GorulenIsler", $"{Lang.T("Yerinə yetirilmiş işlər haqqında qeyd")}: {Lang.T("Məcburi sahə boşdur")}");
             string alan = cmbTehvilAlan.SelectedIndex == 1 ? (txtDigerQurum.Text.Trim() is { Length: > 0 } q ? q : null) : d["GonderenQurum"] as string;

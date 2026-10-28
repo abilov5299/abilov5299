@@ -114,8 +114,8 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 - **Sorğular üzrə təminat** (`Pages/TeminatPage.cs`, köhnə "Təchizat sorğuları" səhifəsini əvəz edir): hər sətir məktubun hissəsi — tələb, qəbul, texnikaya sərf, anbarda qalıq. Filtr: zavod, məktub, vəziyyət, tarix, təmin edən, axtarış; Excel/PDF, məktub sənədi.
 - **Anbar** zavod üzrə ümumidir (ad+kod+vahid); sərf ilk qəbul tarixinə görə paylanır (`SorguRepo.TeminatAsync/AnbarAsync`).
 - **Texnika forması 5 bölmə:** "4. Faktiki sərfiyyat" (`Texnikalar.Serfiyyat` JSON): anbardan seçim (qalıqdan çox olmaz) və ya "Yeni ad" (anbardan çıxılmır); yadda saxlanmış qeyd silinmir. Geniş baxışda "Faktiki sərfiyyat" kartı.
-- **Status "Təminat gözləyir"** (yeni bazadakı dəyər, əllə seçilir): aktiv statuslar siyahısına daxildir; ana səhifədə "hissə gözləyən" sayı bu statusdan.
-- **Reyestr:** köhnə "Ehtiyat hissələrinin təminatı" siyahısı əvəzinə "Təminat gözləyir" çek qutusu (Status="Təminat gözləyir"); cədvəlin təminat sütunu da bu statusu göstərir.
+- **"Təminat gözləyir" status deyil, işarədir:** formada "3. Təmirin icrası" → "Təmir məlumatları"-nda çek qutusu (yalnız Qəbul edilib / Təmirdə). `Teminat` sahəsinə "Təminat gözləyir" yazılır; status dəyişmir. Ana səhifədə "hissə gözləyən" sayı və bildirişlər bu işarədən. Status kimi yazılmış köhnə qeydlər açılışda düzəlir.
+- **Reyestr:** köhnə "Ehtiyat hissələrinin təminatı" siyahısı əvəzinə "Təminat gözləyir" çek qutusu (Teminat="Təminat gözləyir"); cədvəlin təminat sütunu bu işarəni göstərir, status sütunu Qəbul edilib / Təmirdədir qalır.
 - **Hesabat "Texnika üzrə faktiki material sərfi"** (nov 5): texnika/material axtarışı, sərf tarixi = dövr. "Ehtiyat hissələri üzrə təminat" məktubun hissələrindən.
 - **Köçürmə** (`Miqrasiya.HisseMektuba`, bir dəfə, `Miqrasiyalar` cədvəli): texnikadakı köhnə hissələr ona bağlı ən son məktuba keçir; texnikadakı siyahı silinmir.
 

@@ -110,7 +110,7 @@ namespace TexnikaReyestri.Data
                      .ToDictionary(x => (string)x[0], x => Convert.ToInt64(x[1]));
             string[] sira = Secimler.Status;
             long G(string s) => st.GetValueOrDefault(s);
-            long gec = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Təminat gözləyir') AND IFNULL(FaktikiBitme,'')='';"))[0][0]);
+            long gec = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə') AND IFNULL(FaktikiBitme,'')='';"))[0][0]);
             var ayQ = (await Q($"SELECT substr(DaxilolmaTarixi,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND DaxilolmaTarixi>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
             // Təmirdədir: diaqnostikanın (təmirə başlamanın) olduğu ay
             var ayB = (await Q($"SELECT substr(BaslamaTarixi,1,7), COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND BaslamaTarixi>=$bas GROUP BY 1;")).ToDictionary(x => (string)x[0], x => Convert.ToDouble(x[1]));
@@ -135,10 +135,10 @@ namespace TexnikaReyestri.Data
                 ? (await Q($"SELECT TemirNovu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0{zw} AND TemirNovu IS NOT NULL AND FaktikiBitme IS NOT NULL AND BaslamaTarixi IS NOT NULL GROUP BY TemirNovu ORDER BY 2;"))
                 : (await Q($"SELECT TemirZavodu, ROUND({orta}) FROM Texnikalar WHERE Silinib=0 AND FaktikiBitme > '' AND BaslamaTarixi IS NOT NULL GROUP BY TemirZavodu ORDER BY 2 DESC;"));
             var gecList = (await Q($"SELECT Marka||' · '||IFNULL(ZavodNo,''), CAST(julianday($bugun)-julianday(GozlenilenBitme) AS INTEGER), TemirZavodu, Id FROM Texnikalar " +
-                                   $"WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə','Təminat gözləyir') AND IFNULL(FaktikiBitme,'')='' ORDER BY GozlenilenBitme LIMIT 5;"))
+                                   $"WHERE Silinib=0{zw} AND GozlenilenBitme<$bugun AND Status IN ('Qəbul edilib','Təmirdə') AND IFNULL(FaktikiBitme,'')='' ORDER BY GozlenilenBitme LIMIT 5;"))
                           .Select(x => ((string)x[0], Convert.ToInt32(x[1]), x[2] as string, Convert.ToInt64(x[3]))).ToArray();
             // Hissə gözləyən: təmiri davam edən və təminatı tam olmayanlar
-            long hisse = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND Status='Təminat gözləyir';"))[0][0]);
+            long hisse = Convert.ToInt64((await Q($"SELECT COUNT(*) FROM Texnikalar WHERE Silinib=0{zw} AND Teminat='Təminat gözləyir' AND Status IN ('Qəbul edilib','Təmirdə');"))[0][0]);
             return new EvStat(st.Values.Sum(), G("Təmirdə"), hisse, gec, o1, o0,
                 sira.Select(s => (s, G(s))).ToArray(), aylar.Select(d => adlar[d.Month - 1]).ToArray(),
                 aylar.Select(d => ayQ.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(), aylar.Select(d => ayT.GetValueOrDefault(d.ToString("yyyy-MM"))).ToArray(),
@@ -167,8 +167,8 @@ namespace TexnikaReyestri.Data
 SELECT q.Ad AS Zavod,
   IFNULL((SELECT SUM(Say) FROM Icmal i WHERE i.Zavod=q.Ad),0) AS Cemi,
   IFNULL((SELECT Say FROM Icmal i WHERE i.Zavod=q.Ad AND i.Status='Təmirdə'),0) AS Temirde,
-  (SELECT COUNT(*) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND t.Status='Təminat gözləyir') AS HisseGozleyir,
-  (SELECT COUNT(*) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND t.GozlenilenBitme<$b AND t.Status IN ('Qəbul edilib','Təmirdə','Təminat gözləyir')) AS Geciken,
+  (SELECT COUNT(*) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND t.Teminat='Təminat gözləyir' AND t.Status IN ('Qəbul edilib','Təmirdə')) AS HisseGozleyir,
+  (SELECT COUNT(*) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND t.GozlenilenBitme<$b AND t.Status IN ('Qəbul edilib','Təmirdə')) AS Geciken,
   (SELECT ROUND(AVG(julianday(FaktikiBitme)-julianday(BaslamaTarixi))) FROM Texnikalar t WHERE t.Silinib=0 AND t.TemirZavodu=q.Ad AND FaktikiBitme IS NOT NULL AND BaslamaTarixi IS NOT NULL) AS OrtaGun,
   (SELECT MAX(Tarix) FROM SyncJurnal s WHERE s.Qurum=q.Kod AND s.Emeliyyat='İdxal' AND s.Netice='Uğurlu') AS SonPaket
 FROM Qurumlar q WHERE q.Tip=1 ORDER BY q.Kod;";
