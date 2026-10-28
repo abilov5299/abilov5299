@@ -77,6 +77,7 @@
             this.lblApp.AutoSize = false;
             this.lblApp.Font = new System.Drawing.Font("Bahnschrift SemiBold", 9.5F);
             this.lblApp.ForeColor = System.Drawing.Color.White;
+            this.lblApp.Tag = "white";   // tünd menyuda ağ (tema rəngi tətbiq olunmasın)
             this.lblApp.Location = new System.Drawing.Point(62, 8);
             this.lblApp.Size = new System.Drawing.Size(168, 50);
             this.lblApp.Text = "Təmir və Texniki Təminat Xidməti" + System.Environment.NewLine + "Məlumat bazası";

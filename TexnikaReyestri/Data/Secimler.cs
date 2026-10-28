@@ -36,7 +36,7 @@
 
         public static readonly Dictionary<string, string[]> Sahe = new()
         {
-            ["Nov"] = new[] { "Nəqliyyat vasitəsi", "Zirehli texnika", "Digər texnika" },
+            ["Nov"] = new[] { "Nəqliyyat vasitəsi", "Zirehli texnika", "Digər texnika", "Rabitə vasitəsi", "Silah", "Avadanlıq", "Cihazlar", "Qurğular", "Qoşqu", "Mebel" },   // formada siyahıda olmayan növü yazmaq da olar
             ["Kateqoriya"] = new[] { "I", "II", "III", "IV", "V" },
             ["AktForma"] = new[] { "Forma 12", "Forma 12 (RAS)" },
             ["SonTemirNovu"] = new[] { "Cari təmir", "Orta təmir", "Əsaslı təmir" },

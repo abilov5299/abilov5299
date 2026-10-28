@@ -99,7 +99,18 @@ namespace TexnikaReyestri.Pages
             c.Items.AddRange(o.Select(x => (object)(ekran?.Invoke(x) ?? x)).ToArray()); _orig[c] = o;
             if (c.Items.Count > 0) c.SelectedIndex = 0; return c;
         }
-        private string Deyer(ComboBox c) => (_orig.TryGetValue(c, out var o) && c.SelectedIndex >= 0 && c.SelectedIndex < o.Count ? o[c.SelectedIndex] : c.SelectedItem as string) is { Length: > 0 } v ? v : null;
+        private string Deyer(ComboBox c)
+        {
+            // Yazıla bilən siyahı (məs. texnikanın növü): yazılan mətn; siyahıdakı ekran adına uyğundursa — bazadakı dəyəri
+            if (c.DropDownStyle == ComboBoxStyle.DropDown)
+            {
+                string t = c.Text.Trim(); if (t.Length == 0) return null;
+                int i = c.Items.Cast<object>().Select(x => x?.ToString()).ToList().IndexOf(t);
+                return i >= 0 && _orig.TryGetValue(c, out var oo) && i < oo.Count && oo[i] is { Length: > 0 } v0 ? v0 : t;
+            }
+            return DeyerSec(c);
+        }
+        private string DeyerSec(ComboBox c) => (_orig.TryGetValue(c, out var o) && c.SelectedIndex >= 0 && c.SelectedIndex < o.Count ? o[c.SelectedIndex] : c.SelectedItem as string) is { Length: > 0 } v ? v : null;
         private void Sec(ComboBox c, string v)
         {
             if (!_orig.TryGetValue(c, out var o)) { c.SelectedItem = v; return; }
@@ -119,6 +130,7 @@ namespace TexnikaReyestri.Pages
             var s = Scroll(tab1);
             var t = Kart(s, "Texnika haqqında məlumat", 4);
             t.Controls.Add(Sahe("Nov", "Texnikanın növü", Cmb(Secimler.Sahe["Nov"]), mecburi: true), 0, 0);
+            ((ComboBox)In("Nov")).DropDownStyle = ComboBoxStyle.DropDown;   // siyahıdan seçmək və ya yeni növ yazmaq
             t.Controls.Add(Sahe("Marka", "Texnikanın markası", Txt(), mecburi: true), 1, 0);
             t.Controls.Add(Sahe("ZavodNo", "Zavod nömrəsi", Txt(), mecburi: true), 2, 0);
             t.Controls.Add(Sahe("Kateqoriya", "Kateqoriyası — faktiki", Cmb(Secimler.Sahe["Kateqoriya"]), "Aktda göstərildiyi kimi"), 3, 0);
