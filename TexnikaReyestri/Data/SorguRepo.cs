@@ -228,13 +228,13 @@ FROM Sorgular WHERE Silinib=0 AND ($z IS NULL OR Zavod=$z);";
             return await c.ExecuteNonQueryAsync();
         });
 
-        /// <summary>Sorğuya əlavə etmək üçün texnika axtarışı: zavod nömrəsi, naryad nömrəsi, marka və ya növ (mətn içində). Boş mətn: zavodun texnikaları. Ən çox 30.</summary>
-        public static async Task<List<SorguTexnika>> TexnikaAxtarAsync(string metn, string zavod)
+        /// <summary>Sorğuya əlavə etmək üçün texnika axtarışı: zavod nömrəsi, naryad nömrəsi, marka və ya növ (mətn içində). Boş mətn: zavodun texnikaları. Ən çox <paramref name="limit"/> (0 — hamısı).</summary>
+        public static async Task<List<SorguTexnika>> TexnikaAxtarAsync(string metn, string zavod, int limit = 30)
         {
             await using var con = await LocalDb.AcAsync();
             using var c = con.CreateCommand();
             c.CommandText = "SELECT Guid, IFNULL(Marka,''), IFNULL(ZavodNo,''), IFNULL(Status,'') FROM Texnikalar WHERE Silinib=0 AND ($z IS NULL OR TemirZavodu=$z) " +
-                            "AND ($t='' OR ZavodNo LIKE $l OR NaryadNo LIKE $l OR Marka LIKE $l OR Nov LIKE $l) ORDER BY ZavodNo=$t DESC, Marka LIMIT 30;";
+                            "AND ($t='' OR ZavodNo LIKE $l OR NaryadNo LIKE $l OR Marka LIKE $l OR Nov LIKE $l) ORDER BY ZavodNo=$t DESC, Marka" + (limit > 0 ? $" LIMIT {limit};" : ";");
             c.Parameters.AddWithValue("$z", (object)zavod ?? DBNull.Value); c.Parameters.AddWithValue("$t", metn.Trim()); c.Parameters.AddWithValue("$l", "%" + metn.Trim() + "%");
             var l = new List<SorguTexnika>();
             await using var r = await c.ExecuteReaderAsync();

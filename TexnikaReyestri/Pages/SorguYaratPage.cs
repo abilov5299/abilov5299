@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
@@ -256,7 +256,7 @@ namespace TexnikaReyestri.Pages
             f.Controls.Add(lb); f.Controls.Add(new Panel { Dock = DockStyle.Top, Height = 8 }); f.Controls.Add(axt); f.Controls.Add(ok);
             f.Padding = new Padding(12);
             List<SorguTexnika> l = new();
-            async Task Doldur() { l = await SorguRepo.TexnikaAxtarAsync(axt.Text, zavod); lb.Items.Clear(); lb.Items.AddRange(l.Select(x => (object)$"{x.Marka} · {x.ZavodNo} · {Lang.T(x.Status)}").ToArray()); }
+            async Task Doldur() { l = await SorguRepo.TexnikaAxtarAsync(axt.Text, zavod, 0); lb.BeginUpdate(); lb.Items.Clear(); lb.Items.AddRange(l.Select(x => (object)$"{x.Marka} · {x.ZavodNo} · {Lang.T(x.Status)}").ToArray()); lb.EndUpdate(); f.Text = $"{Lang.T("Texnika seç")} ({l.Count})"; }
             axt.TextChanged += async (_, _) => await Doldur();
             ok.Click += (_, _) => { if (lb.SelectedIndex >= 0) f.DialogResult = DialogResult.OK; };
             lb.DoubleClick += (_, _) => { if (lb.SelectedIndex >= 0) f.DialogResult = DialogResult.OK; };
