@@ -563,6 +563,7 @@
             ["Ad və ya kod üzrə axtarış"] = ("Search by name or code", "Поиск по названию или коду"),
             ["texnikanın faktiki material sərfi"] = ("actual material consumption of the vehicle", "фактический расход материалов техники"),
             ["Axtarış üçün klikləyin…"] = ("Click to search…", "Нажмите для поиска…"),
+            ["Məlumat bazası\r\nTəmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu"] = ("Database\r\nRecording the intake, repair and handover of equipment at repair plants", "База данных\r\nУчёт приёма, ремонта и сдачи техники на ремонтных заводах"),
             ["Sorğu yarat"] = ("Create request", "Создать запрос"),
             ["Addım 1 · Təchizat məktubu"] = ("Step 1 · Supply letter", "Шаг 1 · Письмо снабжения"),
             ["Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin."] = ("First create a new letter or select a registered one.", "Сначала создайте новое письмо или выберите зарегистрированное."),

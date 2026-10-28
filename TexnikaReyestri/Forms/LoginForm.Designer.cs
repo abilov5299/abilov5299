@@ -64,24 +64,24 @@
             // 
             lblBrandSub.AutoSize = true;
             lblBrandSub.Font = new Font("Segoe UI", 10F);
-            lblBrandSub.Location = new Point(40, 306);
+            lblBrandSub.Location = new Point(40, 326);
             lblBrandSub.MaximumSize = new Size(330, 0);
             lblBrandSub.Name = "lblBrandSub";
             lblBrandSub.Size = new Size(307, 38);
             lblBrandSub.TabIndex = 1;
             lblBrandSub.Tag = "navtext";
-            lblBrandSub.Text = "Təmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu";
+            lblBrandSub.Text = "Məlumat bazası\r\nTəmir zavodları üzrə texnikanın qəbulu, təmiri və təhvilinin uçotu";
             // 
             // lblBrand
             // 
             lblBrand.AutoSize = true;
-            lblBrand.Font = new Font("Bahnschrift SemiBold", 30F);
+            lblBrand.Font = new Font("Bahnschrift SemiBold", 24F);
             lblBrand.Location = new Point(36, 196);
             lblBrand.Name = "lblBrand";
             lblBrand.Size = new Size(196, 96);
             lblBrand.TabIndex = 2;
             lblBrand.Tag = "white";
-            lblBrand.Text = "TƏMİR\r\nREYESTRİ";
+            lblBrand.Text = "TƏMİR VƏ\r\nTEXNİKİ TƏMİNAT\r\nXİDMƏTİ";
             // 
             // logo
             // 
