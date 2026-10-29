@@ -37,7 +37,7 @@ namespace TexnikaReyestri.Pages
 
             // --- Addım 1: məktub ---
             var t = Kart(s, "Addım 1 · Təchizat məktubu", 4, "Əvvəlcə yeni məktub yaradın və ya qeydiyyatdakı məktubu seçin.");
-            var bYeni = Btn("Yeni məktub qeyd et", Icons.Add); bYeni.Click += (_, _) => MektubPaneli(true);
+            var bYeni = Btn("Yeni məktub qeyd et", Icons.Add); bYeni.Click += async (_, _) => { await YukleAsync(null); MektubPaneli(true); };   // köhnə məktubun hissələri qalmasın
             var bSec = Btn("Qeydiyyatdakı məktubu seç", Icons.List, ButtonKind.Secondary); bSec.Click += async (_, _) => await MektubSecAsync();
             var bDey = Btn("Məktubu dəyiş", null, ButtonKind.Ghost); bDey.Click += (_, _) => { if (_s != null) MektubPaneli(false); };
             var fl = new FlowLayoutPanel { AutoSize = true, BackColor = Color.Transparent, Margin = new Padding(0) }; fl.Controls.AddRange(new Control[] { bYeni, bSec, bDey });

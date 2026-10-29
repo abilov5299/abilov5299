@@ -57,7 +57,7 @@
                 case 0:
                     return Cedvel(new[] { "Zavod", "Təmiri davam edir", "Təmir tamamlanıb, təhvil gözlənilir", "Təhvil verilib", "Cəmi" },
                         await Say($"SELECT TemirZavodu, SUM({DavamSql}), SUM({GozlSql}), SUM({TehvilSql}) FROM Texnikalar WHERE {zw} GROUP BY 1;"), 3, true,
-                        null);
+                        "Hazırkı vəziyyət: bütün texnikalar, qəbul tarixindən asılı deyil. Dövr üzrə saylar \"Qəbul, təmir və təhvil\" hesabatındadır.");
                 case 1:
                     var q = await Say($"SELECT TemirZavodu, SUM(DaxilolmaTarixi BETWEEN $d1 AND $d2), SUM(FaktikiBitme BETWEEN $d1 AND $d2) FROM Texnikalar WHERE {zw} GROUP BY 1;");
                     // Təhvil tarixi: statusun "Təhvil verilib"ə dəyişdiyi an (tarixçə); tarixçəsi olmayanlar üçün faktiki bitmə
@@ -68,9 +68,9 @@
                     return Cedvel(new[] { "Zavod", "Dövrdə qəbul edilib", "Dövrdə təmir tamamlanıb", "Dövrdə təhvil verilib" }, q, 3, false,
                         $"Dövr: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}");
                 case 2:
-                    return Cedvel(new[] { "Zavod", $"{n + 1}–{m} gün qalıb", $"0–{n} gün qalıb", "İcra müddəti keçib", "Müəyyən edilməyib", "Cəmi" },
-                        await Say($@"SELECT TemirZavodu, SUM(GozlenilenBitme > $yaxin AND GozlenilenBitme <= $sari), SUM(GozlenilenBitme >= $b AND GozlenilenBitme <= $yaxin),
-  SUM(GozlenilenBitme < $b AND GozlenilenBitme > ''), SUM(IFNULL(GozlenilenBitme,'')='') FROM Texnikalar WHERE {zw} AND {DavamSql} GROUP BY 1;"), 4, false,
+                    return Cedvel(new[] { "Zavod", $"{m} gündən çox qalıb", $"{n + 1}–{m} gün qalıb", $"0–{n} gün qalıb", "İcra müddəti keçib", "Müəyyən edilməyib", "Cəmi" },
+                        await Say($@"SELECT TemirZavodu, SUM(GozlenilenBitme > $sari), SUM(GozlenilenBitme > $yaxin AND GozlenilenBitme <= $sari), SUM(GozlenilenBitme >= $b AND GozlenilenBitme <= $yaxin),
+  SUM(GozlenilenBitme < $b AND GozlenilenBitme > ''), SUM(IFNULL(GozlenilenBitme,'')='') FROM Texnikalar WHERE {zw} AND {DavamSql} GROUP BY 1;"), 5, true,
                         "Yalnız təmiri davam edən texnikalar. Hədlər Admin → Sistem bölməsindən götürülür.");
                 case 3:
                     c.CommandText = $"SELECT TemirZavodu, IFNULL(Marka,''), IFNULL(ZavodNo,''), FaktikiBitme, CAST(julianday($b)-julianday(FaktikiBitme) AS INTEGER) FROM Texnikalar " +

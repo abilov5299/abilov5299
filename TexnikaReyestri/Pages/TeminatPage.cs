@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using TexnikaReyestri.Controls;
 using TexnikaReyestri.Core;
 using TexnikaReyestri.Data;
@@ -59,7 +59,7 @@ namespace TexnikaReyestri.Pages
                                                ("Teleb", "Tələb olunan", 100), ("Qebul", "Qəbul edilmiş", 105), ("Serf", "Texnikaya sərf olunub", 150), ("Anbar", "Anbarda qalıq", 110), ("Netice", "Vəziyyət", 160) })
             { int c = grid.Columns.Add(k, b); grid.Columns[c].Width = w; }
             grid.Columns["Ad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            foreach (var k in new[] { "Teleb", "Qebul", "Serf", "Anbar" }) grid.Columns[k].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            foreach (var k in new[] { "Teleb", "Qebul", "Serf", "Anbar" }) grid.Columns[k].DefaultCellStyle.Alignment = grid.Columns[k].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;   // başlıq rəqəmlərin üstündə
             grid.CellDoubleClick += async (_, e) => { if (e.RowIndex >= 0 && Session.YazaBiler && grid.Rows[e.RowIndex].Tag is long id) await MainForm.Current.SorguAcAsync(id); };
             grid.MouseWheel += (_, e) => grid.ScrollRows(e.Delta);
             var alt = new Panel { Dock = DockStyle.Bottom, Height = 40 };

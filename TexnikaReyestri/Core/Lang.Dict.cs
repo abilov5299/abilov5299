@@ -847,6 +847,8 @@
             ["USB-yə yazılan fayl yoxlamadan keçmədi."] = ("The file written to USB failed verification.", "Файл, записанный на USB, не прошёл проверку."),
             ["Həmin tarixdən sonra edilən dəyişikliklər itəcək. İndiki baza əvvəlcə ayrıca nüsxə kimi saxlanılır. Proqram yenidən başlayacaq."] = ("Changes made after that date will be lost. The current database is saved as a separate copy first. The program will restart.", "Изменения, сделанные после этой даты, будут потеряны. Текущая база сначала сохраняется отдельной копией. Программа перезапустится."),
             ["{0} tarixinə"] = ("as of {0}", "на {0}"),
+            ["Dövr"] = ("Period", "Период"),
+            ["Hazırkı vəziyyət: bütün texnikalar, qəbul tarixindən asılı deyil. Dövr üzrə saylar \"Qəbul, təmir və təhvil\" hesabatındadır."] = ("Current state: all vehicles, regardless of intake date. Period counts are in the \"Intake, repair and handover\" report.", "Текущее состояние: вся техника независимо от даты приёма. Данные за период — в отчёте \"Приём, ремонт и передача\"."),
             ["Son tarix:"] = ("End date:", "Дата окончания:"),
             ["{0} üzrə məlumat {1} tarixinə aiddir."] = ("{0}: data is as of {1}.", "{0}: данные на {1}."),
             ["{0} üzrə hələ paket idxal olunmayıb."] = ("{0}: no package imported yet.", "{0}: пакет ещё не импортирован."),

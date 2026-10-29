@@ -183,6 +183,7 @@ namespace TexnikaReyestri.Forms
         public async Task AcAsync(string key, Func<PageBase, Task> hazirliq = null)
         {
             if (key is "log" or "bak") { int t = key == "log" ? 1 : 0; key = "set"; hazirliq = p => ((TenzimlemePage)p).SecAsync(t); }
+            if (key == "sorgu" && hazirliq == null) hazirliq = p => ((SorguYaratPage)p).YukleAsync(null);   // menyudan: boş səhifə
             var page = Sehife(key);
             if (_aktiv != null && _aktiv != page && !await _aktiv.AyrilAsync()) return;
             if (_gozleyen.Remove(page)) page.ResumeLayout(true);

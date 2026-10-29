@@ -113,7 +113,17 @@ namespace TexnikaReyestri.Pages
 
         private string Zavod => Session.ZavodFiltri ?? (cmbZavod.SelectedIndex > 0 ? Secimler.Zavodlar[cmbZavod.SelectedIndex - 1] : null);
 
-        private string AltBasliq => (Zavod ?? $"{Secimler.Zavodlar.Length} {Lang.T("zavod üzrə")}") + " • " + string.Format(Lang.T("{0} tarixinə"), dtTarix.Value.ToString("dd.MM.yyyy"));
+        // Dövr hesabatlarında (qəbul/təmir/təhvil, sərf, məktublar) dövr, qalanlarında hesabat tarixi yazılır
+        private string AltBasliq
+        {
+            get
+            {
+                DateTime d1 = dtBas.Value.Date, d2 = dtSon.Value.Date; if (d2 < d1) (d1, d2) = (d2, d1);
+                string vaxt = TexnikaRepo.DovrLazim(Math.Max(0, cmbNov.SelectedIndex)) ? $"{Lang.T("Dövr")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}"
+                                                                                    : string.Format(Lang.T("{0} tarixinə"), dtTarix.Value.ToString("dd.MM.yyyy"));
+                return (Zavod ?? $"{Secimler.Zavodlar.Length} {Lang.T("zavod üzrə")}") + " • " + vaxt;
+            }
+        }
 
         private async Task GosterAsync()
         {
