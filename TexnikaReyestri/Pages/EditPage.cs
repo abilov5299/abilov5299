@@ -143,9 +143,9 @@ namespace TexnikaReyestri.Pages
             t.Controls.Add(Sahe("GonderenQurum", "Təhvil verən (göndərən)", Txt(), mecburi: true), 3, 0);
 
             t = Kart(s, "Texniki vəziyyət aktı", 3);
-            t.Controls.Add(Sahe("AktForma", "Aktın forması", Cmb(Secimler.Sahe["AktForma"])), 0, 0);
-            t.Controls.Add(Sahe("AktNo", "Aktın nömrəsi", Txt()), 1, 0);
-            t.Controls.Add(Sahe("AktTarixi", "Aktın tarixi", Dt()), 2, 0);
+            t.Controls.Add(Sahe("AktForma", "Aktın forması", Cmb(Secimler.Sahe["AktForma"]), mecburi: true), 0, 0);
+            t.Controls.Add(Sahe("AktNo", "Aktın nömrəsi", Txt(), mecburi: true), 1, 0);
+            t.Controls.Add(Sahe("AktTarixi", "Aktın tarixi", Dt(), mecburi: true), 2, 0);
             t.Controls.Add(Sahe("MesulIcraci", "Zavodda məsul icraçı", Txt()), 0, 1);
             var zv = Sahe("TemirZavodu", "Qəbul edən təmir müəssisəsi", Cmb(Secimler.Zavodlar), mecburi: true);
             t.Controls.Add(zv, 1, 1);

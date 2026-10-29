@@ -19,9 +19,9 @@
             new("NaryadTarixi", "Sənədin tarixi (naryadın tarixi)", SaheNov.Tarix, "Qəbul və sənədlər", true),
             new("DaxilolmaTarixi", "Zavoda faktiki daxilolma tarixi", SaheNov.Tarix, "Qəbul və sənədlər", true),
             new("GonderenQurum", "Təhvil verən (göndərən)", SaheNov.Metn, "Qəbul və sənədlər", true),
-            new("AktForma", "Aktın forması", SaheNov.Secim, "Qəbul və sənədlər"),
-            new("AktNo", "Aktın nömrəsi", SaheNov.Metn, "Qəbul və sənədlər"),
-            new("AktTarixi", "Aktın tarixi", SaheNov.Tarix, "Qəbul və sənədlər"),
+            new("AktForma", "Aktın forması", SaheNov.Secim, "Qəbul və sənədlər", true),
+            new("AktNo", "Aktın nömrəsi", SaheNov.Metn, "Qəbul və sənədlər", true),
+            new("AktTarixi", "Aktın tarixi", SaheNov.Tarix, "Qəbul və sənədlər", true),
             new("TemirZavodu", "Qəbul edən təmir müəssisəsi", SaheNov.Secim, "Qəbul və sənədlər", true),
             new("MesulIcraci", "Zavodda məsul icraçı", SaheNov.Metn, "Qəbul və sənədlər"),
             // 2. İstismar göstəriciləri və son təmir

@@ -125,6 +125,8 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **28.10 (təlimat):** `docs/telimat/qur.py` yeni quruluşa görə yeniləndi (Sorğu yarat, Sorğular üzrə təminat, Faktiki sərfiyyat, "Təminat gözləyir" işarəsi, 7 hesabat, yeni ad); mündəricat paneli açıq fonda. Bütün ekran şəkilləri yenidən çəkildi: `tools/TelimatSekil` (bazanın surətində nümunə məlumat, 3 rol, PrintWindow; `sekil/ikon/` — düymələrin kiçik şəkilləri, `sekil/yer.json` — nömrələrin avtomatik yerləri). Təlimatda düymə/menyu adının yanında kiçik şəkli göstərilir. Yeniləmək: `dotnet run --project tools/TelimatSekil` → `python docs/telimat/qur.py` → build.
 
+**29.10 (akt):** "Texniki vəziyyət aktı" — Aktın forması, nömrəsi, tarixi məcburidir (`Saheler` Mecburi=true, formada ulduz).
+
 **29.10 (düzəlişlər):** Sorğu yarat menyudan və "Yeni məktub qeyd et"dən açılanda boş olur (köhnə məktub qalmır). Sorğular üzrə təminat: rəqəm sütunlarının başlıqları sağa düzlənib. Hesabatlar: dövr hesabatlarının alt başlığında dövr yazılır; "Ümumi icra vəziyyəti"nə qeyd (hazırkı vəziyyət, dövrdən asılı deyil); "İcra müddəti üzrə nəzarət"ə "{m} gündən çox qalıb" və Cəmi sütunu (əvvəl bu texnikalar heç bir sütuna düşmürdü). Bütün 7 hesabat bazanın surətində SQL ilə tutuşdurulub.
 
 **28.10 (detallar):** Detal səhifəsində kartların yeri: 1-ci sütun Qəbul və sənədlər → Dəyişiklik tarixçəsi; 3-cü sütun Təmirin tamamlanması və təhvil → Faktiki sərfiyyat.
