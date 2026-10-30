@@ -161,16 +161,7 @@ namespace TexnikaReyestri.Pages
             if (d.ShowDialog(this) != DialogResult.OK) return;
             try
             {
-                using var wb = new ClosedXML.Excel.XLWorkbook(); var ws = wb.AddWorksheet("Təminat");
-                var h = Cedvel();
-                for (int c = 0; c < h.Sutun.Length; c++) ws.Cell(1, c + 1).Value = h.Sutun[c];
-                for (int r = 0; r < h.Setir.Count; r++)
-                    for (int c = 0; c < h.Sutun.Length; c++)
-                    {
-                        var v = h.Setir[r][c];
-                        if (c is >= 5 and <= 8 && double.TryParse(v.Replace(" ", ""), NumberStyles.Float, CultureInfo.InvariantCulture, out var n)) ws.Cell(r + 2, c + 1).Value = n; else ws.Cell(r + 2, c + 1).Value = v;
-                    }
-                ws.Row(1).Style.Font.Bold = true; ws.Columns().AdjustToContents(); wb.SaveAs(d.FileName);
+                var h = Cedvel(); ExcelService.Hesabat(d.FileName, h, AltBasliq, new[] { h.Qeyd });
                 Toast.Show(this, "Excel hesabatı yaradıldı");
             }
             catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }

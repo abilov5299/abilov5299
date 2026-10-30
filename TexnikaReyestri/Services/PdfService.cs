@@ -82,11 +82,19 @@ namespace TexnikaReyestri.Services
                 g?.Dispose(); page = doc.AddPage(); page.Size = PdfSharp.PageSize.A4; if (genis) page.Orientation = PdfSharp.PageOrientation.Landscape;
                 g = XGraphics.FromPdfPage(page); y = 40;
                 double w = W();
-                // 8 sütunlu (ehtiyat hissələri) hesabatda texnika və hissə adı uzundur — onlara geniş yer
-                double[] ag = h.Sutun.Length == 8 ? new[] { 1.2, 1.7, 1.6, 0.7, 0.8, 0.8, 0.7, 1.1 }
-                            : h.Sutun.Length == 11 ? new[] { 0.8, 0.8, 1.6, 1.4, 0.9, 0.6, 0.65, 0.65, 0.75, 0.65, 0.9 }   // Sorğular üzrə təminat
-                            : null;
-                en = ag != null ? ag.Select(a => w * a / ag.Sum()).ToArray() : h.Sutun.Select((_, i) => i == 0 ? w * 0.28 : w * 0.72 / (h.Sutun.Length - 1)).ToArray();
+                // Sütun eni məzmuna görə: başlığın ən uzun sözü (bölünmür) və dəyərlərin eni (çox uzun mətn 220 pt-də bükülür), sonra səhifəyə uyğunlaşdırılır
+                if (en == null)
+                {
+                    var ist = h.Sutun.Select((s, i) =>
+                    {
+                        double bas = s.Split(' ').Max(x => g.MeasureString(x, fB).Width);
+                        double dey = h.Setir.Concat(h.Cem != null ? new[] { h.Cem } : Array.Empty<string[]>()).Where(r => i < r.Length)
+                                      .Select(r => Math.Min(220, g.MeasureString(r[i] ?? "", fN).Width)).DefaultIfEmpty(0).Max();
+                        return Math.Max(Math.Max(bas, dey), 30) + 12;
+                    }).ToArray();
+                    double cem = ist.Sum();
+                    en = ist.Select(x => w * x / cem).ToArray();
+                }
                 g.DrawString($"Təmir və Texniki Təminat Xidməti · Məlumat bazası · Çap tarixi: {DateTime.Now:dd.MM.yyyy HH:mm}", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 30, w, 12), XStringFormats.TopLeft);
             }
             void Setir(string[] v, XFont f, XBrush fon)

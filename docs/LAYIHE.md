@@ -125,6 +125,8 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **28.10 (təlimat):** `docs/telimat/qur.py` yeni quruluşa görə yeniləndi (Sorğu yarat, Sorğular üzrə təminat, Faktiki sərfiyyat, "Təminat gözləyir" işarəsi, 7 hesabat, yeni ad); mündəricat paneli açıq fonda. Bütün ekran şəkilləri yenidən çəkildi: `tools/TelimatSekil` (bazanın surətində nümunə məlumat, 3 rol, PrintWindow; `sekil/ikon/` — düymələrin kiçik şəkilləri, `sekil/yer.json` — nömrələrin avtomatik yerləri). Təlimatda düymə/menyu adının yanında kiçik şəkli göstərilir. Yeniləmək: `dotnet run --project tools/TelimatSekil` → `python docs/telimat/qur.py` → build.
 
+**30.10 (çap):** PDF hesabatlarında sütun eni məzmuna görə hesablanır (sabit 28%/bərabər bölgü ləğv), sığmayan uzun söz sütun daxilində bölünür. Excel ixracı ortaq `ExcelService.Hesabat`: başlıqlar, rəngli cədvəl başlığı, sərhədlər, rəqəm sütunları rəqəm kimi (kod/№/tarix mətn), en yalnız cədvələ görə (≤60), ilk sətirlər dondurulur, A4 albom çapı. Təminat Excel-də rəqəm sütunlarının indeksi səhv idi — düzəldi. Bütün 9 PDF variantı + pasport + məktub və bütün Excel faylları bazanın surətində yoxlanıldı.
+
 **30.10:** Sorğular üzrə təminat: "Məktub" filtri kliklə açılan axtarış pəncərəsidir (`Ui.SiyahidanSec`), cədvəldə "Məktub №" və "Məktubun tarixi" ayrı sütunlardır. Bütün PDF düymələri (hesabatlar, təminat, məktub sənədi, pasport) `Services/CapService.Menyu` ilə iki seçim verir: "Çap et" (müvəqqəti PDF, WebView2-də açılır, Windows çap pəncərəsi; WebView2 yoxdursa "print" əmri) və "PDF kimi saxla".
 
 **29.10 (akt):** "Texniki vəziyyət aktı" — Aktın forması, nömrəsi, tarixi məcburidir (`Saheler` Mecburi=true, formada ulduz).

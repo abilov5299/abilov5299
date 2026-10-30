@@ -176,16 +176,7 @@ namespace TexnikaReyestri.Pages
             if (d.ShowDialog(this) != DialogResult.OK) return;
             try
             {
-                using var wb = new ClosedXML.Excel.XLWorkbook(); var ws = wb.AddWorksheet("Hesabat");
-                int n = _h.Sutun.Length;
-                ws.Cell(1, 1).Value = "TƏMİR VƏ TƏMİNAT ÜZRƏ HESABAT"; ws.Range(1, 1, 1, n).Merge().Style.Font.SetBold().Font.SetFontSize(14).Alignment.SetHorizontal(ClosedXML.Excel.XLAlignmentHorizontalValues.Center);
-                ws.Cell(2, 1).Value = Cap.Ad; ws.Range(2, 1, 2, n).Merge().Style.Font.SetBold().Alignment.SetHorizontal(ClosedXML.Excel.XLAlignmentHorizontalValues.Center);
-                ws.Cell(3, 1).Value = AltBasliq; ws.Range(3, 1, 3, n).Merge().Style.Alignment.SetHorizontal(ClosedXML.Excel.XLAlignmentHorizontalValues.Center);
-                int y = 5;
-                void Yaz(string[] v, bool bold) { for (int i = 0; i < v.Length; i++) { var c = ws.Cell(y, i + 1); if (i > 0 && double.TryParse(v[i].Replace(" ", ""), out var x)) c.Value = x; else c.Value = v[i]; c.Style.Border.OutsideBorder = ClosedXML.Excel.XLBorderStyleValues.Thin; c.Style.Font.Bold = bold; } y++; }
-                Yaz(_h.Sutun, true); foreach (var r in _h.Setir) Yaz(r, false); if (_h.Cem != null) Yaz(_h.Cem, true);
-                y++; foreach (var q in new[] { _h.Qeyd }.Concat(_xeber)) ws.Cell(y++, 1).Value = q;
-                ws.Columns().AdjustToContents(); wb.SaveAs(d.FileName);
+                ExcelService.Hesabat(d.FileName, Cap, AltBasliq, new[] { _h.Qeyd }.Concat(_xeber));
                 Toast.Show(this, "Excel hesabatı yaradıldı");
             }
             catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }

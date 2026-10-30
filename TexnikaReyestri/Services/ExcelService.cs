@@ -264,5 +264,59 @@ namespace TexnikaReyestri.Services
             }
             ws.Columns().AdjustToContents(); wb.SaveAs(yol);
         }
+
+        /// <summary>Hesabat cədvəli (Hesabatlar, Sorğular üzrə təminat): başlıq, cədvəl, cəm, qeydlər. Sütun eni yalnız cədvələ görə, 60-dan geniş olmur.</summary>
+        public static void Hesabat(string yol, Hesabat h, string altBasliq, IEnumerable<string> qeydler)
+        {
+            using var wb = new XLWorkbook(); var ws = wb.AddWorksheet("Hesabat");
+            var teal = XLColor.FromHtml("#0F4C4A"); var light = XLColor.FromHtml("#DCEFEC");
+            int n = h.Sutun.Length;
+            void Bas(int r, string t, double olcu, bool qalin)
+            {
+                var g = ws.Range(r, 1, r, n); g.Merge().Value = t;
+                g.Style.Font.FontSize = olcu; g.Style.Font.Bold = qalin; g.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            }
+            Bas(1, "TƏMİR VƏ TƏMİNAT ÜZRƏ HESABAT", 14, true); Bas(2, h.Ad, 12, true); Bas(3, altBasliq ?? "", 10, false);
+            int y0 = 5, y = y0;
+            // rəqəm sütunları: bütün dolu xanaları rəqəmdirsə ("1 234" də daxil); kod, nömrə və tarix sütunları mətn qalır
+            static bool Reqem(string v, out double x) => double.TryParse((v ?? "").Replace(" ", "").Replace(" ", ""), NumberStyles.Float, CultureInfo.InvariantCulture, out x);
+            var reqemli = Enumerable.Range(0, n).Select(i => i > 0 && h.Setir.Count > 0 && !System.Text.RegularExpressions.Regex.IsMatch(h.Sutun[i], "Kod|№|nömrə|tarix", System.Text.RegularExpressions.RegexOptions.IgnoreCase) && h.Setir.All(r => string.IsNullOrWhiteSpace(r[i]) || r[i] == "—" || Reqem(r[i], out _))).ToArray();
+            void Yaz(string[] v, bool qalin)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    var c = ws.Cell(y, i + 1); string t = i < v.Length ? v[i] ?? "" : "";
+                    if (reqemli[i] && Reqem(t, out var x)) { c.Value = x; c.Style.NumberFormat.Format = "#,##0.##"; } else c.Value = t;
+                    c.Style.Font.Bold = qalin;
+                }
+                y++;
+            }
+            for (int i = 0; i < n; i++) ws.Cell(y, i + 1).Value = h.Sutun[i];
+            var hd = ws.Range(y, 1, y, n); hd.Style.Fill.BackgroundColor = light; hd.Style.Font.Bold = true; hd.Style.Font.FontColor = teal;
+            hd.Style.Alignment.WrapText = true; hd.Style.Alignment.Vertical = XLAlignmentVerticalValues.Center; hd.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            y++;
+            foreach (var r in h.Setir) Yaz(r, false);
+            if (h.Cem != null) { Yaz(h.Cem, true); ws.Range(y - 1, 1, y - 1, n).Style.Fill.BackgroundColor = XLColor.FromHtml("#F1F5F4"); }
+            var tbl = ws.Range(y0, 1, y - 1, n);
+            tbl.Style.Border.OutsideBorder = XLBorderStyleValues.Thin; tbl.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+            tbl.Style.Alignment.Vertical = XLAlignmentVerticalValues.Top;
+            for (int i = 0; i < n; i++)
+                if (reqemli[i]) ws.Range(y0 + 1, i + 1, y - 1, i + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+            // en: başlıq sözləri və dəyərlər üzrə (birləşdirilmiş başlıq sətirləri və qeydlər nəzərə alınmır)
+            for (int i = 0; i < n; i++)
+            {
+                int en = h.Sutun[i].Split(' ').Max(s => s.Length) + 3;
+                foreach (var r in h.Setir.Concat(h.Cem != null ? new[] { h.Cem } : Array.Empty<string[]>())) if (i < r.Length) en = Math.Max(en, (r[i] ?? "").Length + 3);
+                ws.Column(i + 1).Width = Math.Clamp(en, 8, 60);
+            }
+            ws.Range(y0 + 1, 1, y - 1, n).Style.Alignment.WrapText = true;
+            y++;
+            foreach (var q in qeydler ?? Enumerable.Empty<string>())
+                if (!string.IsNullOrWhiteSpace(q)) { var g = ws.Range(y, 1, y, n); g.Merge().Value = q; g.Style.Alignment.WrapText = true; g.Style.Font.FontColor = XLColor.Gray; ws.Row(y).Height = 15 * Math.Max(1, (int)Math.Ceiling(q.Length / 140.0)); y++; }
+            ws.SheetView.FreezeRows(y0);
+            ws.PageSetup.PageOrientation = XLPageOrientation.Landscape; ws.PageSetup.FitToPages(1, 0); ws.PageSetup.PaperSize = XLPaperSize.A4Paper;
+            ws.PageSetup.SetRowsToRepeatAtTop(y0, y0);
+            wb.SaveAs(yol);
+        }
     }
 }
