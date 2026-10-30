@@ -191,15 +191,10 @@ namespace TexnikaReyestri.Pages
         private async void btnNext_Click(object sender, EventArgs e) { int i = IndexOf(); if (i >= 0 && i < _siyahi.Count - 1) await YukleAsync(_siyahi[i + 1], null); }
         private async void btnEdit_Click(object sender, EventArgs e) => await MainForm.Current.RedakteAcAsync(_id);
 
-        private async void btnPdf_Click(object sender, EventArgs e)
+        private void btnPdf_Click(object sender, EventArgs e)
         {
-            using var d = new SaveFileDialog { Filter = "PDF|*.pdf", FileName = $"Pasport_{_r?.GetValueOrDefault("ZavodNo")}.pdf" };
-            if (d.ShowDialog(this) != DialogResult.OK) return;
-            if (await Ui.Is(this, "PDF hazırlanır...", _ => Task.Run(() => PdfService.Pasport(d.FileName, _r))))
-            {
-                Toast.Show(this, "Pasport PDF kimi saxlanıldı");
-                try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(d.FileName) { UseShellExecute = true }); } catch { }
-            }
+            var r = _r; if (r == null) return;
+            CapService.Menyu(btnPdf, $"Pasport_{r.GetValueOrDefault("ZavodNo")}.pdf", yol => Task.Run(() => PdfService.Pasport(yol, r)));
         }
     }
 }

@@ -194,14 +194,8 @@ namespace TexnikaReyestri.Pages
         private void Pdf()
         {
             if (_h == null) return;
-            using var d = new SaveFileDialog { Filter = "PDF (*.pdf)|*.pdf", FileName = FaylAdi("pdf") };
-            if (d.ShowDialog(this) != DialogResult.OK) return;
-            try
-            {
-                PdfService.Hesabat(d.FileName, Cap, AltBasliq, _xeber);
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(d.FileName) { UseShellExecute = true });   // çap üçün PDF oxuyucuda açılır
-            }
-            catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }
+            var (h, alt, x) = (Cap, AltBasliq, _xeber.ToList());
+            CapService.Menyu(btnPdf, FaylAdi("pdf"), yol => Task.Run(() => PdfService.Hesabat(yol, h, alt, x)));
         }
     }
 }

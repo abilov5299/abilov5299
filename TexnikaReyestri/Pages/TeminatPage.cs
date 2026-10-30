@@ -18,6 +18,8 @@ namespace TexnikaReyestri.Pages
         private readonly RoundDatePicker dtDek = new() { ShowCheckBox = true, Checked = false, Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) };
         private readonly RoundTextBox txtAxtar = new() { PlaceholderText = "Hissə, kod və ya texnika", Font = new Font("Segoe UI", 10f), Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) };
         private readonly ModernGrid grid = new() { Dock = DockStyle.Fill };
+        // Məktub: kliklə axtarış pəncərəsi açılır (siyahı uzun olur); seçim cmbMektub-da saxlanır (ekranda görünmür)
+        private readonly RoundTextBox txtMektub = new() { ReadOnly = true, Cursor = Cursors.Hand, Font = new Font("Segoe UI", 10f), Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) };
         private readonly Label lblZavod, lblSay = new() { Dock = DockStyle.Bottom, Height = 24, Tag = "muted", TextAlign = ContentAlignment.MiddleLeft };
         private readonly FlatButton btnExcel = new() { Text = "Excel", Glyph = Icons.Excel, Kind = ButtonKind.Secondary, Size = new Size(110, 34) };
         private readonly FlatButton btnPdf = new() { Text = "Çap et (PDF)", Glyph = Icons.Print, Kind = ButtonKind.Secondary, Size = new Size(140, 34) };
@@ -46,7 +48,7 @@ namespace TexnikaReyestri.Pages
             for (int i = 0; i < 4; i++) tl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25f));
             foreach (var h in new[] { 22, 36, 26, 36 }) tl.RowStyles.Add(new RowStyle(SizeType.Absolute, h));
             tl.Controls.Add(lblZavod = L("Zavod:"), 0, 0); tl.Controls.Add(L("Məktub:"), 1, 0); tl.Controls.Add(L("Təminat vəziyyəti:"), 2, 0); tl.Controls.Add(L("Təmin edən qurum:"), 3, 0);
-            tl.Controls.Add(cmbZavod, 0, 1); tl.Controls.Add(cmbMektub, 1, 1); tl.Controls.Add(cmbNetice, 2, 1); tl.Controls.Add(cmbTemin, 3, 1);
+            tl.Controls.Add(cmbZavod, 0, 1); tl.Controls.Add(txtMektub, 1, 1); tl.Controls.Add(cmbNetice, 2, 1); tl.Controls.Add(cmbTemin, 3, 1);
             tl.Controls.Add(L("Məktubun tarixi (başlanğıc):"), 0, 2); tl.Controls.Add(L("Son:"), 1, 2); tl.Controls.Add(L("Axtarış:"), 2, 2);
             tl.Controls.Add(dtDan, 0, 3); tl.Controls.Add(dtDek, 1, 3); tl.Controls.Add(txtAxtar, 2, 3);
             var bt = new FlowLayoutPanel { Dock = DockStyle.Fill, BackColor = Color.Transparent, WrapContents = false, Margin = new Padding(0) };
@@ -55,7 +57,7 @@ namespace TexnikaReyestri.Pages
             var rpF = new RoundPanel { Dock = DockStyle.Top, Height = 150, Padding = new Padding(14, 8, 2, 10) }; rpF.Controls.Add(tl);
 
             // --- Cədvəl ---
-            foreach (var (k, b, w) in new[] { ("Mektub", "Məktub №", 130), ("Tex", "Hansı texnika üçün", 200), ("Ad", "Adı", 200), ("Kod", "Kodu", 110), ("Vahid", "Ölçü vahidi", 90),
+            foreach (var (k, b, w) in new[] { ("Mektub", "Məktub №", 90), ("MTarix", "Məktubun tarixi", 100), ("Tex", "Hansı texnika üçün", 200), ("Ad", "Adı", 200), ("Kod", "Kodu", 110), ("Vahid", "Ölçü vahidi", 90),
                                                ("Teleb", "Tələb olunan", 100), ("Qebul", "Qəbul edilmiş", 105), ("Serf", "Texnikaya sərf olunub", 150), ("Anbar", "Anbarda qalıq", 110), ("Netice", "Vəziyyət", 160) })
             { int c = grid.Columns.Add(k, b); grid.Columns[c].Width = w; }
             grid.Columns["Ad"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -71,6 +73,16 @@ namespace TexnikaReyestri.Pages
 
             Controls.Add(rpGrid); Controls.Add(new Panel { Dock = DockStyle.Top, Height = 10 }); Controls.Add(rpF); Controls.Add(head);
 
+            void MektubAc()
+            {
+                var l = cmbMektub.Items.Cast<object>().Select(x => x.ToString()).ToList();
+                int i = Ui.SiyahidanSec(FindForm(), "Məktub", "Nömrə, tarix və ya qurum üzrə axtarış", l);
+                if (i >= 0) cmbMektub.SelectedIndex = i;
+            }
+            txtMektub.Click += (_, _) => MektubAc();
+            foreach (Control c in txtMektub.Controls) c.Click += (_, _) => MektubAc();   // içindəki mətn xanası
+            txtMektub.KeyDown += (_, e) => { if (e.KeyCode is Keys.Enter or Keys.Space or Keys.F4) { MektubAc(); e.Handled = true; } };
+            cmbMektub.SelectedIndexChanged += (_, _) => txtMektub.Text = cmbMektub.SelectedItem as string ?? "";
             foreach (var c in new[] { cmbMektub, cmbNetice, cmbTemin }) c.SelectedIndexChanged += (_, _) => { if (_hazir) Goster(); };
             cmbZavod.SelectedIndexChanged += async (_, _) => { if (_hazir) await YukleAsync(); };
             foreach (var d in new[] { dtDan, dtDek }) d.ValueChanged += (_, _) => { if (_hazir) Goster(); };
@@ -133,7 +145,7 @@ namespace TexnikaReyestri.Pages
 
         private string[] Setir(TeminatSetir x) => new[]
         {
-            $"{x.MektubNo} · {Vaxt.Tarix(x.MektubTarix)}", string.IsNullOrEmpty(x.Texnika) ? "—" : x.Texnika, x.Ad, string.IsNullOrEmpty(x.Kod) ? "—" : x.Kod, x.Vahid,
+            x.MektubNo, Vaxt.Tarix(x.MektubTarix), string.IsNullOrEmpty(x.Texnika) ? "—" : x.Texnika, x.Ad, string.IsNullOrEmpty(x.Kod) ? "—" : x.Kod, x.Vahid,
             R(x.Teleb), R(x.Qebul), R(x.Serf), R(x.Anbar), Lang.T(x.Netice)
         };
 
@@ -167,24 +179,15 @@ namespace TexnikaReyestri.Pages
         private void Pdf()
         {
             if (_gorunen.Count == 0) { Toast.Show(this, "Siyahı boşdur", ToastKind.Warn); return; }
-            using var d = new SaveFileDialog { Filter = "PDF (*.pdf)|*.pdf", FileName = $"Sorgular_uzre_teminat_{DateTime.Today:yyyyMMdd}.pdf" };
-            if (d.ShowDialog(this) != DialogResult.OK) return;
-            try
-            {
-                PdfService.Hesabat(d.FileName, Cedvel(), AltBasliq, null);
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(d.FileName) { UseShellExecute = true });
-            }
-            catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }
+            var (h, alt) = (Cedvel(), AltBasliq);
+            CapService.Menyu(btnPdf, $"Sorgular_uzre_teminat_{DateTime.Today:yyyyMMdd}.pdf", yol => Task.Run(() => PdfService.Hesabat(yol, h, alt, null)));
         }
 
         /// <summary>Seçilmiş sətrin məktubu üçün təchizat sorğusu sənədi.</summary>
         private async Task MektubPdfAsync()
         {
             if (grid.CurrentRow?.Tag is not long id || await SorguRepo.GetAsync(id) is not { } s) { Toast.Show(this, Lang.T("Sətir seçin"), ToastKind.Warn); return; }
-            using var d = new SaveFileDialog { Filter = "PDF (*.pdf)|*.pdf", FileName = $"Sorgu_{(s.V["MektubNo"] ?? "").Replace("/", "-")}.pdf" };
-            if (d.ShowDialog(this) != DialogResult.OK) return;
-            try { PdfService.Sorgu(d.FileName, s); System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(d.FileName) { UseShellExecute = true }); }
-            catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }
+            CapService.Menyu(btnMektub, $"Sorgu_{(s.V["MektubNo"] ?? "").Replace("/", "-")}.pdf", yol => Task.Run(() => PdfService.Sorgu(yol, s)));
         }
     }
 }
