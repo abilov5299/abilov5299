@@ -127,7 +127,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **30.10 (çap):** PDF hesabatlarında sütun eni məzmuna görə hesablanır (sabit 28%/bərabər bölgü ləğv), sığmayan uzun söz sütun daxilində bölünür. Excel ixracı ortaq `ExcelService.Hesabat`: başlıqlar, rəngli cədvəl başlığı, sərhədlər, rəqəm sütunları rəqəm kimi (kod/№/tarix mətn), en yalnız cədvələ görə (≤60), ilk sətirlər dondurulur, A4 albom çapı. Təminat Excel-də rəqəm sütunlarının indeksi səhv idi — düzəldi. Bütün 9 PDF variantı + pasport + məktub və bütün Excel faylları bazanın surətində yoxlanıldı.
 
-**30.10 (məktub):** Təminat səhifəsində "Məktub sənədi (PDF)" filtrdə seçilmiş məktubu çap edir; "Hamısı" seçiləndə düymə passivdir. Ekrandakı "Anbarda qalıq = …" izahı silindi.
+**30.10 (məktub):** Təminat səhifəsində "Məktub sənədi (PDF)" filtrdə seçilmiş məktubu çap edir; "Hamısı" seçiləndə düymə yalnız cədvəldə sətir kliklənəndə aktivdir (o sətrin məktubu çap olunur). Ekrandakı "Anbarda qalıq = …" izahı silindi.
 
 **30.10:** Sorğular üzrə təminat: "Məktub" filtri kliklə açılan axtarış pəncərəsidir (`Ui.SiyahidanSec`), cədvəldə "Məktub №" və "Məktubun tarixi" ayrı sütunlardır. Bütün PDF düymələri (hesabatlar, təminat, məktub sənədi, pasport) `Services/CapService.Menyu` ilə iki seçim verir: "Çap et" (müvəqqəti PDF, WebView2-də açılır, Windows çap pəncərəsi; WebView2 yoxdursa "print" əmri) və "PDF kimi saxla".
 

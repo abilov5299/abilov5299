@@ -82,7 +82,7 @@ namespace TexnikaReyestri.Pages
             txtMektub.Click += (_, _) => MektubAc();
             foreach (Control c in txtMektub.Controls) c.Click += (_, _) => MektubAc();   // içindəki mətn xanası
             txtMektub.KeyDown += (_, e) => { if (e.KeyCode is Keys.Enter or Keys.Space or Keys.F4) { MektubAc(); e.Handled = true; } };
-            cmbMektub.SelectedIndexChanged += (_, _) => { txtMektub.Text = cmbMektub.SelectedItem as string ?? ""; btnMektub.Enabled = cmbMektub.SelectedIndex > 0; };   // məktub sənədi yalnız bir məktub seçiləndə
+            cmbMektub.SelectedIndexChanged += (_, _) => { txtMektub.Text = cmbMektub.SelectedItem as string ?? ""; MektubDuymesi(); };
             foreach (var c in new[] { cmbMektub, cmbNetice, cmbTemin }) c.SelectedIndexChanged += (_, _) => { if (_hazir) Goster(); };
             cmbZavod.SelectedIndexChanged += async (_, _) => { if (_hazir) await YukleAsync(); };
             foreach (var d in new[] { dtDan, dtDek }) d.ValueChanged += (_, _) => { if (_hazir) Goster(); };
@@ -90,6 +90,7 @@ namespace TexnikaReyestri.Pages
             _axtar.Tick += (_, _) => { _axtar.Stop(); Goster(); };
             btnExcel.Click += (_, _) => Excel();
             btnPdf.Click += (_, _) => Pdf();
+            grid.SelectionChanged += (_, _) => { if (IsHandleCreated) BeginInvoke(MektubDuymesi); };   // CurrentRow seçimdən sonra yenilənir
             btnMektub.Click += async (_, _) => await MektubPdfAsync();
             _hazir = true;
         }
@@ -140,6 +141,8 @@ namespace TexnikaReyestri.Pages
                 grid.Rows[i].Tag = x.SorguId;
                 grid.Rows[i].Cells["Netice"].Style.ForeColor = x.Netice switch { "Tam təmin edilib" => Theme.Ok, "Qismən təmin edilib" => Theme.Warn, _ => Theme.Bad };
             }
+            grid.ClearSelection();   // məktub düyməsi yalnız sətir kliklənəndə aktiv olsun
+            MektubDuymesi();
             lblSay.Text = $"{Lang.T("Sətir sayı")}: {_gorunen.Count}";
         }
 
@@ -174,11 +177,20 @@ namespace TexnikaReyestri.Pages
             CapService.Menyu(btnPdf, $"Sorgular_uzre_teminat_{DateTime.Today:yyyyMMdd}.pdf", yol => Task.Run(() => PdfService.Hesabat(yol, h, alt, null)));
         }
 
-        /// <summary>Filtrdə seçilmiş məktubun təchizat sorğusu sənədi.</summary>
-        private async Task MektubPdfAsync()
+        /// <summary>Məktub: filtrdə seçilmiş, yoxdursa cədvəldə seçilmiş sətrin məktubu.</summary>
+        private long? SeciliMektub()
         {
             int i = cmbMektub.SelectedIndex - 1;
-            if (i < 0 || i >= _mektublar.Count || await SorguRepo.GetAsync(_mektublar[i].id) is not { } s) { Toast.Show(this, Lang.T("Əvvəlcə məktub seçin"), ToastKind.Warn); return; }
+            if (i >= 0 && i < _mektublar.Count) return _mektublar[i].id;
+            return grid.CurrentRow?.Selected == true && grid.CurrentRow.Tag is long id ? id : null;
+        }
+
+        private void MektubDuymesi() => btnMektub.Enabled = SeciliMektub() != null;
+
+        /// <summary>Seçilmiş məktubun təchizat sorğusu sənədi.</summary>
+        private async Task MektubPdfAsync()
+        {
+            if (SeciliMektub() is not long id || await SorguRepo.GetAsync(id) is not { } s) { Toast.Show(this, Lang.T("Əvvəlcə məktub seçin"), ToastKind.Warn); return; }
             CapService.Menyu(btnMektub, $"Sorgu_{(s.V["MektubNo"] ?? "").Replace("/", "-")}.pdf", yol => Task.Run(() => PdfService.Sorgu(yol, s)));
         }
     }
