@@ -42,7 +42,7 @@ namespace TexnikaReyestri.Pages
             Label L(string s) => new() { Text = s, AutoSize = false, Dock = DockStyle.Fill, Tag = "muted", Font = new Font("Segoe UI Semibold", 9f), TextAlign = ContentAlignment.BottomLeft, Margin = new Padding(0, 0, 12, 2) };
             cmbZavod.Items.Add("Hamısı"); cmbZavod.Items.AddRange(Secimler.Zavodlar); cmbZavod.SelectedIndex = 0;
             cmbNetice.Items.Add("Hamısı"); cmbNetice.Items.AddRange(Netice); cmbNetice.SelectedIndex = 0;
-            cmbMektub.Items.Add("Hamısı"); cmbMektub.SelectedIndex = 0;
+            cmbMektub.Items.Add("Hamısı"); cmbMektub.SelectedIndex = 0; btnMektub.Enabled = false;
             cmbTemin.Items.Add("Hamısı"); cmbTemin.SelectedIndex = 0;
             var tl = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 4, RowCount = 4, BackColor = Color.Transparent };
             for (int i = 0; i < 4; i++) tl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25f));
@@ -67,7 +67,7 @@ namespace TexnikaReyestri.Pages
             var alt = new Panel { Dock = DockStyle.Bottom, Height = 40 };
             alt.Controls.Add(btnMektub); alt.Resize += (_, _) => { btnMektub.Left = alt.Width - btnMektub.Width; btnMektub.Top = 4; };
             var ipucu = new Label { Dock = DockStyle.Bottom, Height = 22, Tag = "muted", Font = new Font("Segoe UI", 8.5f), TextAlign = ContentAlignment.MiddleLeft,
-                Text = "Anbarda qalıq = qəbul edilmiş − texnikaya sərf olunan. Anbar zavod üzrə ümumidir. Sətrə iki dəfə klikləyin — məktub \"Sorğu yarat\"da açılır." };
+                Text = "Sətrə iki dəfə klikləyin — məktub \"Sorğu yarat\"da açılır." };
             var rpGrid = new RoundPanel { Dock = DockStyle.Fill, Padding = new Padding(10, 6, 10, 6) };
             rpGrid.Controls.Add(grid); rpGrid.Controls.Add(lblSay); rpGrid.Controls.Add(ipucu); rpGrid.Controls.Add(alt); grid.BringToFront();
 
@@ -82,7 +82,7 @@ namespace TexnikaReyestri.Pages
             txtMektub.Click += (_, _) => MektubAc();
             foreach (Control c in txtMektub.Controls) c.Click += (_, _) => MektubAc();   // içindəki mətn xanası
             txtMektub.KeyDown += (_, e) => { if (e.KeyCode is Keys.Enter or Keys.Space or Keys.F4) { MektubAc(); e.Handled = true; } };
-            cmbMektub.SelectedIndexChanged += (_, _) => txtMektub.Text = cmbMektub.SelectedItem as string ?? "";
+            cmbMektub.SelectedIndexChanged += (_, _) => { txtMektub.Text = cmbMektub.SelectedItem as string ?? ""; btnMektub.Enabled = cmbMektub.SelectedIndex > 0; };   // məktub sənədi yalnız bir məktub seçiləndə
             foreach (var c in new[] { cmbMektub, cmbNetice, cmbTemin }) c.SelectedIndexChanged += (_, _) => { if (_hazir) Goster(); };
             cmbZavod.SelectedIndexChanged += async (_, _) => { if (_hazir) await YukleAsync(); };
             foreach (var d in new[] { dtDan, dtDek }) d.ValueChanged += (_, _) => { if (_hazir) Goster(); };
@@ -174,10 +174,11 @@ namespace TexnikaReyestri.Pages
             CapService.Menyu(btnPdf, $"Sorgular_uzre_teminat_{DateTime.Today:yyyyMMdd}.pdf", yol => Task.Run(() => PdfService.Hesabat(yol, h, alt, null)));
         }
 
-        /// <summary>Seçilmiş sətrin məktubu üçün təchizat sorğusu sənədi.</summary>
+        /// <summary>Filtrdə seçilmiş məktubun təchizat sorğusu sənədi.</summary>
         private async Task MektubPdfAsync()
         {
-            if (grid.CurrentRow?.Tag is not long id || await SorguRepo.GetAsync(id) is not { } s) { Toast.Show(this, Lang.T("Sətir seçin"), ToastKind.Warn); return; }
+            int i = cmbMektub.SelectedIndex - 1;
+            if (i < 0 || i >= _mektublar.Count || await SorguRepo.GetAsync(_mektublar[i].id) is not { } s) { Toast.Show(this, Lang.T("Əvvəlcə məktub seçin"), ToastKind.Warn); return; }
             CapService.Menyu(btnMektub, $"Sorgu_{(s.V["MektubNo"] ?? "").Replace("/", "-")}.pdf", yol => Task.Run(() => PdfService.Sorgu(yol, s)));
         }
     }

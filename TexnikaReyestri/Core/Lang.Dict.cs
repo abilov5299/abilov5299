@@ -530,6 +530,7 @@
             ["Məktub sənədi (PDF)"] = ("Letter document (PDF)", "Документ письма (PDF)"),
             ["Sətir sayı"] = ("Rows", "Количество строк"),
             ["Sətir seçin"] = ("Select a row", "Выберите строку"),
+            ["Əvvəlcə məktub seçin"] = ("Select a letter first", "Сначала выберите письмо"),
             ["4. Faktiki sərfiyyat"] = ("4. Actual consumption", "4. Фактический расход"),
             ["5. Təmirin tamamlanması və təhvil"] = ("5. Repair completion and handover", "5. Завершение ремонта и передача"),
             ["Faktiki sərfiyyat"] = ("Actual consumption", "Фактический расход"),
