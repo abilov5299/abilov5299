@@ -83,7 +83,9 @@ namespace TexnikaReyestri.Services
                 g = XGraphics.FromPdfPage(page); y = 40;
                 double w = W();
                 // 8 sütunlu (ehtiyat hissələri) hesabatda texnika və hissə adı uzundur — onlara geniş yer
-                double[] ag = h.Sutun.Length == 8 ? new[] { 1.2, 1.7, 1.6, 0.7, 0.8, 0.8, 0.7, 1.1 } : null;
+                double[] ag = h.Sutun.Length == 8 ? new[] { 1.2, 1.7, 1.6, 0.7, 0.8, 0.8, 0.7, 1.1 }
+                            : h.Sutun.Length == 11 ? new[] { 0.8, 0.8, 1.6, 1.4, 0.9, 0.6, 0.65, 0.65, 0.75, 0.65, 0.9 }   // Sorğular üzrə təminat
+                            : null;
                 en = ag != null ? ag.Select(a => w * a / ag.Sum()).ToArray() : h.Sutun.Select((_, i) => i == 0 ? w * 0.28 : w * 0.72 / (h.Sutun.Length - 1)).ToArray();
                 g.DrawString($"Təmir və Texniki Təminat Xidməti · Məlumat bazası · Çap tarixi: {DateTime.Now:dd.MM.yyyy HH:mm}", fS, XBrushes.Gray, new XRect(L, page.Height.Point - 30, w, 12), XStringFormats.TopLeft);
             }
@@ -181,6 +183,12 @@ namespace TexnikaReyestri.Services
             {
                 var t = cur.Length == 0 ? word : cur + " " + word;
                 if (g.MeasureString(t, f).Width > w && cur.Length > 0) { l.Add(cur); cur = word; } else cur = t;
+                // Tək söz sütuna sığmırsa (məs. uzun kod), hərflər üzrə bölünür — yazı sütundan daşmasın
+                while (cur.Length > 1 && g.MeasureString(cur, f).Width > w)
+                {
+                    int n = cur.Length - 1; while (n > 1 && g.MeasureString(cur[..n], f).Width > w) n--;
+                    l.Add(cur[..n]); cur = cur[n..];
+                }
             }
             l.Add(cur); return l;
         }

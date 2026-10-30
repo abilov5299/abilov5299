@@ -150,7 +150,7 @@ namespace TexnikaReyestri.Pages
         };
 
         private Hesabat Cedvel() => new("Sorğular üzrə təminat", grid.Columns.Cast<DataGridViewColumn>().Select(c => c.HeaderText).ToArray(), _gorunen.Select(Setir).ToList(), null,
-            "Təchizat sorğuları əsasında qəbul edilmiş ehtiyat hissələri və materiallar. Anbarda qalıq = qəbul edilmiş − texnikaya sərf olunan.");
+            "Təchizat sorğuları əsasında qəbul edilmiş ehtiyat hissələri və materiallar.");
 
         private string AltBasliq => (Zavod ?? $"{Secimler.Zavodlar.Length} {Lang.T("zavod üzrə")}") + " • " + string.Format(Lang.T("{0} tarixinə"), DateTime.Today.ToString("dd.MM.yyyy"));
 
