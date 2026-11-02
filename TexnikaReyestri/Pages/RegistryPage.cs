@@ -69,7 +69,7 @@ namespace TexnikaReyestri.Pages
             ("Qəbul edilib", "Qəbul edilib", null), ("Təmirdədir", "Təmirdə", null),
             ("Təmir tamamlanıb, təhvil gözlənilir", null, "gozl"), ("Təhvil verilib", "Təhvil verilib", null), ("Təmirə yararsız", "Təmirə yararsız", null)
         };
-        private static readonly string[] IcraKod = { null, "sari", "yaxin", "late", "bos" };
+        private static readonly string[] IcraKod = { null, "sari", "yaxin", "late" };
         private static readonly string[] TarixKod = { "GozlenilenBitme", "FaktikiBitme", "DaxilolmaTarixi", "BaslamaTarixi", "TehvilTarixi" };
         private RoundComboBox cmbIcra, cmbMesul, cmbTarix; private CheckBox chkTeminat; private RoundDatePicker dtDan, dtDek; private Label lblZavod;
 
@@ -79,7 +79,7 @@ namespace TexnikaReyestri.Pages
             RoundComboBox Cmb(params string[] items) { var c = new RoundComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font("Segoe UI", 10f), Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) }; c.Items.AddRange(items); c.SelectedIndex = 0; c.SelectedIndexChanged += filtr_Changed; return c; }
             RoundDatePicker Dt() { var d = new RoundDatePicker { ShowCheckBox = true, Checked = false, Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) }; d.ValueChanged += filtr_Changed; return d; }
             Label L(string t) => new() { Text = t, AutoSize = false, Dock = DockStyle.Fill, Tag = "muted", Font = new Font("Segoe UI Semibold", 9f), TextAlign = ContentAlignment.BottomLeft, Margin = new Padding(0, 0, 12, 2) };
-            cmbIcra = Cmb("Hamısı", "", "", "İcra müddəti keçib", "İcra müddəti müəyyən edilməyib");
+            cmbIcra = Cmb("Hamısı", "", "", "İcra müddəti keçib");
             cmbMesul = Cmb("Hamısı");
             cmbTarix = Cmb("Plan üzrə bitmə tarixi", "Faktiki tamamlanma tarixi", "Zavoda daxilolma tarixi", "Diaqnostika tarixi", "Faktiki təhvil tarixi");
             chkTeminat = new CheckBox { Text = "Təminat gözləyir", AutoSize = true, Font = new Font("Segoe UI Semibold", 9.5f), Anchor = AnchorStyles.Left, Margin = new Padding(0, 14, 12, 0), Cursor = Cursors.Hand };

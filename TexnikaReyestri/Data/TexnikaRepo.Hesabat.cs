@@ -68,10 +68,10 @@
                     return Cedvel(new[] { "Zavod", "Dövrdə qəbul edilib", "Dövrdə təmir tamamlanıb", "Dövrdə təhvil verilib" }, q, 3, false,
                         $"Dövr: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}");
                 case 2:
-                    return Cedvel(new[] { "Zavod", $"{m} gündən çox qalıb", $"{n + 1}–{m} gün qalıb", $"0–{n} gün qalıb", "İcra müddəti keçib", "Müəyyən edilməyib", "Cəmi" },
+                    return Cedvel(new[] { "Zavod", $"{m} gündən çox qalıb", $"{n + 1}–{m} gün qalıb", $"0–{n} gün qalıb", "İcra müddəti keçib", "Cəmi" },
                         await Say($@"SELECT TemirZavodu, SUM(GozlenilenBitme > $sari), SUM(GozlenilenBitme > $yaxin AND GozlenilenBitme <= $sari), SUM(GozlenilenBitme >= $b AND GozlenilenBitme <= $yaxin),
-  SUM(GozlenilenBitme < $b AND GozlenilenBitme > ''), SUM(IFNULL(GozlenilenBitme,'')='') FROM Texnikalar WHERE {zw} AND {DavamSql} GROUP BY 1;"), 5, true,
-                        "Yalnız təmiri davam edən texnikalar. Hədlər Admin → Sistem bölməsindən götürülür.");
+  SUM(GozlenilenBitme < $b AND GozlenilenBitme > '') FROM Texnikalar WHERE {zw} AND {DavamSql} GROUP BY 1;"), 4, true,
+                        "Yalnız təmiri davam edən, plan bitmə tarixi olan texnikalar. Hədlər Admin → Sistem bölməsindən götürülür.");
                 case 3:
                     c.CommandText = $"SELECT TemirZavodu, IFNULL(Marka,''), IFNULL(ZavodNo,''), FaktikiBitme, CAST(julianday($b)-julianday(FaktikiBitme) AS INTEGER) FROM Texnikalar " +
                                     $"WHERE {zw} AND {GozlSql} ORDER BY FaktikiBitme LIMIT 5000;";

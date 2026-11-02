@@ -146,7 +146,7 @@ namespace TexnikaReyestri.Pages
             t.Controls.Add(Sahe("AktForma", "Aktın forması", Cmb(Secimler.Sahe["AktForma"]), mecburi: true), 0, 0);
             t.Controls.Add(Sahe("AktNo", "Aktın nömrəsi", Txt(), mecburi: true), 1, 0);
             t.Controls.Add(Sahe("AktTarixi", "Aktın tarixi", Dt(), mecburi: true), 2, 0);
-            t.Controls.Add(Sahe("MesulIcraci", "Zavodda məsul icraçı", Txt()), 0, 1);
+            t.Controls.Add(Sahe("MesulIcraci", "Zavodda məsul icraçı", Txt(ro: true)), 0, 1);
             var zv = Sahe("TemirZavodu", "Qəbul edən təmir müəssisəsi", Cmb(Secimler.Zavodlar), mecburi: true);
             t.Controls.Add(zv, 1, 1);
             lblQebulInfo = new Label { AutoSize = false, Height = 34, Dock = DockStyle.Fill, Font = F(9.5f, true), Tag = "title", TextAlign = ContentAlignment.MiddleLeft, Margin = new Padding(0, 8, 18, 4) };
@@ -456,7 +456,7 @@ namespace TexnikaReyestri.Pages
             if (id == null)
             {
                 r["TemirZavodu"] = Session.ZavodFiltri; r["Status"] = "Qəbul edilib"; r["MuddetVahidi"] = "Gün";
-                r["DaxilolmaTarixi"] = r["BaslamaTarixi"] = Vaxt.Iso(DateTime.Today); r["MesulIcraci"] = Session.AdSoyad;   // məsul icraçı: daxil edən istifadəçi (dəyişdirilə bilər)
+                r["DaxilolmaTarixi"] = r["BaslamaTarixi"] = Vaxt.Iso(DateTime.Today); r["MesulIcraci"] = Session.AdSoyad;   // məsul icraçı: daxil edən istifadəçi (dəyişdirilmir)
             }
             foreach (var s in Saheler.Hamisi)
             {

@@ -13,7 +13,7 @@ namespace TexnikaReyestri.Data
         public int YaxinGun = Yaxin; // "yaxin" üçün
         public static int Yaxin = 3;  // Admin → Sistem → BildirisYaxin (KartPaneli yükləyəndə yenilənir)
         public static int Sari = 20;  // Admin → Sistem → IcraSari: (Yaxin+1)–Sari gün qalıb
-        public string Icra;           // null, "sari", "yaxin", "late", "bos" — yalnız təmiri davam edənlərdən
+        public string Icra;           // null, "sari", "yaxin", "late" — yalnız təmiri davam edənlərdən
         public string Mesul;          // MesulIcraci
         public bool TeminatGozleyir;  // yalnız "Təminat gözləyir" işarəli texnikalar (Teminat sahəsi)
         public string TarixSahe;      // GozlenilenBitme, FaktikiBitme, DaxilolmaTarixi, BaslamaTarixi, TehvilTarixi
@@ -222,7 +222,6 @@ GROUP BY 1;";
             if (f.Icra != null) w.Append(" AND ").Append(f.Icra switch
             {
                 "sari" => $"({DavamSql} AND GozlenilenBitme > $yaxin AND GozlenilenBitme <= $sari)",
-                "bos" => $"({DavamSql} AND IFNULL(GozlenilenBitme,'')='')",
                 _ => QrupSql(f.Icra)
             });
             if (f.Qrup != null || f.Icra != null)

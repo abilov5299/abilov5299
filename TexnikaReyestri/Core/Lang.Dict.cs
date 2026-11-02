@@ -472,7 +472,7 @@
             ["Dövrdə qəbul edilib"] = ("Received in period", "Принято за период"),
             ["Dövrdə təmir tamamlanıb"] = ("Repaired in period", "Отремонтировано за период"),
             ["Dövrdə təhvil verilib"] = ("Handed over in period", "Сдано за период"),
-            ["Yalnız təmiri davam edən texnikalar. Hədlər Admin → Sistem bölməsindən götürülür."] = ("Only vehicles under repair. Thresholds come from Admin → System.", "Только техника в ремонте. Пороги берутся из Админ → Система."),
+            ["Yalnız təmiri davam edən, plan bitmə tarixi olan texnikalar. Hədlər Admin → Sistem bölməsindən götürülür."] = ("Only vehicles under repair with a planned end date. Thresholds come from Admin → System.", "Только техника в ремонте с плановой датой окончания. Пороги задаются в Админ → Система."),
             ["Faktiki bitmə"] = ("Actual completion", "Фактическое окончание"),
             ["Gözləyir (gün)"] = ("Waiting (days)", "Ожидает (дн.)"),
             ["Faktiki bitmə tarixi yazılıb, status hələ \"Təhvil verilib\" deyil"] = ("Actual completion date is set, status is not yet \"Handed over\"", "Фактическая дата окончания указана, статус ещё не «Сдано»"),
