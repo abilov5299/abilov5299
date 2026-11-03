@@ -129,6 +129,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 
 **30.10 (məktub):** Təminat səhifəsində "Məktub sənədi (PDF)" filtrdə seçilmiş məktubu çap edir; "Hamısı" seçiləndə düymə yalnız cədvəldə sətir kliklənəndə aktivdir (o sətrin məktubu çap olunur). Ekrandakı "Anbarda qalıq = …" izahı silindi.
 **02.11:** Reyestr filtrindən "İcra müddəti müəyyən edilməyib" seçimi, "İcra müddəti üzrə nəzarət" hesabatından "Müəyyən edilməyib" sütunu silindi (plan tarixi olmayan texnika bu hesabatda sayılmır, qeyddə yazılıb). Texnika qəbulunda "Zavodda məsul icraçı" dəyişdirilmir: daxil edən istifadəçi.
+**03.11 (32 bit):** `toolsPaylama.ps1` → `Paylamawin-x86` (32 və 64 bit Windows) və `Paylamawin-x64` qovluqları + zip; .NET quraşdırmaq lazım deyil (self-contained). 32 bit prosesdə SQLite, hesabat, PDF, Excel, WebView2 yoxlanıldı.
 
 **30.10:** Sorğular üzrə təminat: "Məktub" filtri kliklə açılan axtarış pəncərəsidir (`Ui.SiyahidanSec`), cədvəldə "Məktub №" və "Məktubun tarixi" ayrı sütunlardır. Bütün PDF düymələri (hesabatlar, təminat, məktub sənədi, pasport) `Services/CapService.Menyu` ilə iki seçim verir: "Çap et" (müvəqqəti PDF, WebView2-də açılır, Windows çap pəncərəsi; WebView2 yoxdursa "print" əmri) və "PDF kimi saxla".
 
@@ -171,7 +172,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 - [ ] Girişi kompüterin öz qurumu ilə məhdudlaşdırmaq; bir zavodda bir neçə kompüter
 - [ ] Excel idxal pəncərəsinin dizaynı
 - [x] İstifadə təlimatı (26.10): 3 təlimat (Zavod, Xidmət, İdarə) — `TexnikaReyestri/Telimat/*.html`, mənbə `docs/telimat/qur.py`, şəkillər `docs/telimat/sekil/`. Proqramda menyu → "Təlimat" (`TelimatPage`): istifadəçinin öz rolunun təlimatı proqramın içində açılır (WebView2; mühit yoxdursa brauzerdə). Ekran dəyişəndə şəkillər yenidən çəkilib `python docs/telimat/qur.py` işə salınır
-- [ ] Quraşdırma faylı (`dotnet publish -r win-x64 --self-contained` + Inno Setup)
+- [ ] Quraşdırma faylı (Inno Setup); paylama qovluqları artıq `toolsPaylama.ps1` ilə hazırlanır
 
 ### Texniki borc (kiçik)
 
