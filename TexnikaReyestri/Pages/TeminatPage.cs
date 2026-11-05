@@ -160,12 +160,11 @@ namespace TexnikaReyestri.Pages
         private void Excel()
         {
             if (_gorunen.Count == 0) { Toast.Show(this, "Siyahı boşdur", ToastKind.Warn); return; }
-            using var d = new SaveFileDialog { Filter = "Excel (*.xlsx)|*.xlsx", FileName = $"Sorgular_uzre_teminat_{DateTime.Today:yyyyMMdd}.xlsx" };
-            if (d.ShowDialog(this) != DialogResult.OK) return;
             try
             {
-                var h = Cedvel(); ExcelService.Hesabat(d.FileName, h, AltBasliq, new[] { h.Qeyd });
-                Toast.Show(this, "Excel hesabatı yaradıldı");
+                string yol = CapService.MuveqqetiYol($"Sorgular_uzre_teminat_{DateTime.Today:yyyyMMdd}.xlsx");   // birbaşa açılır
+                var h = Cedvel(); ExcelService.Hesabat(yol, h, AltBasliq, new[] { h.Qeyd });
+                CapService.Ac(yol);
             }
             catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }
         }

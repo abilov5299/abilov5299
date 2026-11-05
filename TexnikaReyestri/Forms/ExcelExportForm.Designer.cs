@@ -230,6 +230,7 @@
             this.chkOpen.Text = "Hazır olanda faylı aç";
             this.chkOpen.Location = new System.Drawing.Point(370, 174);
             this.chkOpen.Checked = true;
+            this.chkOpen.Visible = false;   // fayl həmişə birbaşa açılır
             this.chkOpen.Name = "chkOpen";
             // 
             // ExcelExportForm

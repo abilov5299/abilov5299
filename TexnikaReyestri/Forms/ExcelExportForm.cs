@@ -28,14 +28,13 @@ namespace TexnikaReyestri.Forms
                 YalnizIdler = radSelected.Checked && _secilmis is long id ? new[] { id } : null, BesSutun = radFive.Checked,
                 QrupBasliqlari = chkGroups.Checked && !radFive.Checked, StatusReng = chkStatus.Checked, GecikenQirmizi = chkLate.Checked, DondurVeFiltr = chkFreeze.Checked, IcmalVereqi = chkSummary.Checked
             };
-            using var d = new SaveFileDialog { Filter = "Excel|*.xlsx", FileName = $"Reyestr_{(Session.ZavodFiltri ?? "hamisi").Replace(" ", "")}_{DateTime.Now:dd-MM-yyyy}.xlsx" };
-            if (d.ShowDialog(this) != DialogResult.OK) return;
+            // Fayl müvəqqəti qovluqda yaranır və birbaşa açılır; istəyən Excel-də yadda saxlayır
+            string yol = CapService.MuveqqetiYol($"Reyestr_{(Session.ZavodFiltri ?? "hamisi").Replace(" ", "")}_{DateTime.Now:dd-MM-yyyy}.xlsx");
             int n = 0;
-            if (await Ui.Is(this, "Excel faylı hazırlanır...", async ov => n = await ExcelService.IxracAsync(d.FileName, s, new Progress<int>(p => ov.Report(p)), default)))
+            if (await Ui.Is(this, "Excel faylı hazırlanır...", async ov => n = await ExcelService.IxracAsync(yol, s, new Progress<int>(p => ov.Report(p)), default)))
             {
-                await SistemRepo.LogAsync("İxrac", $"Excel: {Path.GetFileName(d.FileName)} ({n} sətir)");
-                if (chkOpen.Checked) try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(d.FileName) { UseShellExecute = true }); } catch { }
-                Toast.Show(Owner ?? this, $"{Path.GetFileName(d.FileName)} {Lang.T("saxlanıldı")} ({n} {Lang.T("sətir")})");
+                await SistemRepo.LogAsync("İxrac", $"Excel: {Path.GetFileName(yol)} ({n} sətir)");
+                CapService.Ac(yol);
                 DialogResult = DialogResult.OK;
             }
         }

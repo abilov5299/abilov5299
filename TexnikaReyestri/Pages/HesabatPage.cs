@@ -138,7 +138,7 @@ namespace TexnikaReyestri.Pages
             _h = await Task.Run(() => TexnikaRepo.HesabatAsync(nov, z, t, d1, d2, tam, tx, ml));
             _xeber = await TexnikaRepo.KohneMelumatAsync(z);
             if (nov == 5 && _tex != null) _h = _h with { Ad = $"{_tex.Marka} ({_tex.ZavodNo}) — {Lang.T("texnikanın faktiki material sərfi")}" };   // seçilmiş texnikanın hesabatı
-            lblAd.Text = Lang.T(_h.Ad).ToUpper(); lblAlt.Text = AltBasliq; lblQeyd.Text = Lang.T(_h.Qeyd);
+            lblAd.Text = Lang.Boyuk(Lang.T(_h.Ad)); lblAlt.Text = AltBasliq; lblQeyd.Text = Lang.T(_h.Qeyd);
             lblXeber.Text = _xeber.Count == 0 ? "" : "⚠  " + string.Join("   ", _xeber);
             lblXeber.Height = _xeber.Count == 0 ? 0 : 30; lblXeber.BackColor = Theme.Mix(Theme.Warn, Theme.Card, 0.82f); lblXeber.ForeColor = Theme.Ink;
             grid.Rows.Clear(); grid.Columns.Clear();
@@ -172,12 +172,11 @@ namespace TexnikaReyestri.Pages
         private void Excel()
         {
             if (_h == null) return;
-            using var d = new SaveFileDialog { Filter = "Excel (*.xlsx)|*.xlsx", FileName = FaylAdi("xlsx") };
-            if (d.ShowDialog(this) != DialogResult.OK) return;
             try
             {
-                ExcelService.Hesabat(d.FileName, Cap, AltBasliq, new[] { _h.Qeyd }.Concat(_xeber));
-                Toast.Show(this, "Excel hesabatı yaradıldı");
+                string yol = CapService.MuveqqetiYol(FaylAdi("xlsx"));   // birbaşa açılır, istəyən Excel-də yadda saxlayır
+                ExcelService.Hesabat(yol, Cap, AltBasliq, new[] { _h.Qeyd }.Concat(_xeber));
+                CapService.Ac(yol);
             }
             catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }
         }

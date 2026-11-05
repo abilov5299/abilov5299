@@ -195,6 +195,17 @@ namespace TexnikaReyestri.Data
             return l;
         }
 
+        /// <summary>Bazada yazılmış bütün texnika növləri (formada əl ilə yazılan yeni növlər siyahıda görünsün).</summary>
+        public static async Task<List<string>> NovlerAsync()
+        {
+            await using var con = await LocalDb.AcAsync();
+            using var cmd = con.CreateCommand();
+            cmd.CommandText = "SELECT DISTINCT TRIM(Nov) FROM Texnikalar WHERE Silinib=0 AND TRIM(IFNULL(Nov,''))<>'' ORDER BY 1 LIMIT 500;";
+            var l = new List<string>(); await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync()) l.Add(r.GetString(0));
+            return l;
+        }
+
         /// <summary>6 kartın sayları zavodlar üzrə (açar: zavod adı). zavod = null → hamısı.</summary>
         public static async Task<Dictionary<string, KartStat>> KartStatAsync(string zavod, int yaxinGun, CancellationToken ct = default)
         {

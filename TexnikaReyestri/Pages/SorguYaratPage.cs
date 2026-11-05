@@ -128,7 +128,7 @@ namespace TexnikaReyestri.Pages
             p.Height = l.Height + c.Height + 8;
             return p;
         }
-        private Panel M(string kod, string ad, Control c) { _mk[kod] = c; return Sahe(ad, c, kod is not ("Telefon" or "Zavod")); }
+        private Panel M(string kod, string ad, Control c) { _mk[kod] = c; return Sahe(ad, c, kod is not ("Telefon" or "Zavod" or "TeminIcraci")); }
         private RoundComboBox Cmb(IEnumerable<string> items)
         {
             var c = new RoundComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Height = 30 };
@@ -185,7 +185,7 @@ namespace TexnikaReyestri.Pages
             foreach (var (k, c) in _mk)
             {
                 string v = c switch { DateTimePicker { Checked: true } d => Vaxt.Iso(d.Value.Date), DateTimePicker => null, ComboBox cb => Deyer(cb), _ => c.Text.Trim() };
-                if (string.IsNullOrEmpty(v) && k != "Telefon") x.Add(((Label)c.Parent.Controls.OfType<Label>().First()).Text.TrimEnd(' ', '*'));
+                if (string.IsNullOrEmpty(v) && k is not ("Telefon" or "TeminIcraci")) x.Add(((Label)c.Parent.Controls.OfType<Label>().First()).Text.TrimEnd(' ', '*'));
                 s.V[k] = v;
             }
             if (x.Count > 0) { Toast.Show(this, $"{Lang.T("Doldurun")}: {string.Join(", ", x.Take(3))}", ToastKind.Error); return; }

@@ -186,19 +186,25 @@ namespace TexnikaReyestri.Services
 
         private static List<string> Wrap(XGraphics g, string s, XFont f, double w)
         {
-            var l = new List<string>(); var cur = "";
-            foreach (var word in (s ?? "").Split(' '))
+            var l = new List<string>();
+            // Çoxsətirli mətndə \r\n, \t PDF-də kvadrat kimi çıxır: hər sətir ayrıca bölünür
+            foreach (var setir in (s ?? "").Replace("\r\n", "\n").Replace('\r', '\n').Replace('\t', ' ').Split('\n'))
             {
-                var t = cur.Length == 0 ? word : cur + " " + word;
-                if (g.MeasureString(t, f).Width > w && cur.Length > 0) { l.Add(cur); cur = word; } else cur = t;
-                // Tək söz sütuna sığmırsa (məs. uzun kod), hərflər üzrə bölünür — yazı sütundan daşmasın
-                while (cur.Length > 1 && g.MeasureString(cur, f).Width > w)
+                var cur = "";
+                foreach (var word in setir.Split(' '))
                 {
-                    int n = cur.Length - 1; while (n > 1 && g.MeasureString(cur[..n], f).Width > w) n--;
-                    l.Add(cur[..n]); cur = cur[n..];
+                    var t = cur.Length == 0 ? word : cur + " " + word;
+                    if (g.MeasureString(t, f).Width > w && cur.Length > 0) { l.Add(cur); cur = word; } else cur = t;
+                    // Tək söz sütuna sığmırsa (məs. uzun kod), hərflər üzrə bölünür — yazı sütundan daşmasın
+                    while (cur.Length > 1 && g.MeasureString(cur, f).Width > w)
+                    {
+                        int n = cur.Length - 1; while (n > 1 && g.MeasureString(cur[..n], f).Width > w) n--;
+                        l.Add(cur[..n]); cur = cur[n..];
+                    }
                 }
+                l.Add(cur);
             }
-            l.Add(cur); return l;
+            return l;
         }
     }
 }

@@ -16,7 +16,7 @@
             "Təmiri tamamlanıb, təhvil gözlənilən texnikalar", "Ehtiyat hissələri üzrə təminat", "Texnika üzrə faktiki material sərfi", "Məktubların icra vəziyyəti"
         };
         /// <summary>Dövr (Başlanğıc – Son) istifadə edən hesabatlar.</summary>
-        public static bool DovrLazim(int nov) => nov is 1 or 5 or 6;
+        public static bool DovrLazim(int nov) => nov is 1 or 4 or 5 or 6;
 
         /// <summary>nov: HesabatNovleri indeksi. texnika (Guid), material: faktiki sərf hesabatında seçim və axtarış. tamTemin: ehtiyat hissələri hesabatında tam təmin edilmişlər (əks halda qalığı olanlar). zavod: null = bütün zavodlar. tarix: hesabat tarixi (müddət hesabı üçün). d1, d2: dövr.</summary>
         public static async Task<Hesabat> HesabatAsync(int nov, string zavod, DateTime tarix, DateTime d1, DateTime d2, bool tamTemin = false, string texnika = null, string material = null)
@@ -71,7 +71,7 @@
                     return Cedvel(new[] { "Zavod", $"{m} gündən çox qalıb", $"{n + 1}–{m} gün qalıb", $"0–{n} gün qalıb", "İcra müddəti keçib", "Cəmi" },
                         await Say($@"SELECT TemirZavodu, SUM(GozlenilenBitme > $sari), SUM(GozlenilenBitme > $yaxin AND GozlenilenBitme <= $sari), SUM(GozlenilenBitme >= $b AND GozlenilenBitme <= $yaxin),
   SUM(GozlenilenBitme < $b AND GozlenilenBitme > '') FROM Texnikalar WHERE {zw} AND {DavamSql} GROUP BY 1;"), 4, true,
-                        "Yalnız təmiri davam edən, plan bitmə tarixi olan texnikalar. Hədlər Admin → Sistem bölməsindən götürülür.");
+                        null);   // cədvəl altında qeyd yazılmır
                 case 3:
                     c.CommandText = $"SELECT TemirZavodu, IFNULL(Marka,''), IFNULL(ZavodNo,''), FaktikiBitme, CAST(julianday($b)-julianday(FaktikiBitme) AS INTEGER) FROM Texnikalar " +
                                     $"WHERE {zw} AND {GozlSql} ORDER BY FaktikiBitme LIMIT 5000;";
@@ -87,6 +87,8 @@
                     {
                         double qal = Math.Max(0, x.Teleb - x.Qebul);
                         if ((qal <= 0) != tamTemin) continue;
+                        string mt = (x.MektubTarix ?? "").Length > 10 ? x.MektubTarix[..10] : x.MektubTarix ?? "";
+                        if (string.CompareOrdinal(mt, Vaxt.Iso(d1)) < 0 || string.CompareOrdinal(mt, Vaxt.Iso(d2)) > 0) continue;   // məktubun tarixi dövrdədir
                         hr.Add(new[] { $"{x.MektubNo} · {Vaxt.Tarix(x.MektubTarix)}", x.Texnika ?? "", x.Ad + (string.IsNullOrEmpty(x.Kod) ? "" : " / " + x.Kod), x.Vahid, F(x.Teleb), F(x.Qebul), F(qal), x.TeminEden });
                     }
                     return new Hesabat(HesabatAdlari[nov], new[] { "Məktubun nömrəsi və tarixi", "Hansı texnika üçün", "Ehtiyat hissəsinin adı / kodu", "Ölçü vahidi", "Tələb olunan", "Qəbul edilmiş", "Qalıq", "Təmin edən qurum" }, hr, null,

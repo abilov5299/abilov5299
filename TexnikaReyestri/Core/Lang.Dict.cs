@@ -852,6 +852,7 @@
             ["Çap et"] = ("Print", "Печать"),
             ["PDF kimi saxla"] = ("Save as PDF", "Сохранить как PDF"),
             ["PDF kimi saxlanıldı"] = ("Saved as PDF", "Сохранено как PDF"),
+            ["PDF kimi aç"] = ("Open as PDF", "Открыть как PDF"),
             ["Məktubun tarixi"] = ("Letter date", "Дата письма"),
             ["Nömrə, tarix və ya qurum üzrə axtarış"] = ("Search by number, date or organization", "Поиск по номеру, дате или организации"),
             ["Hazırkı vəziyyət: bütün texnikalar, qəbul tarixindən asılı deyil. Dövr üzrə saylar \"Qəbul, təmir və təhvil\" hesabatındadır."] = ("Current state: all vehicles, regardless of intake date. Period counts are in the \"Intake, repair and handover\" report.", "Текущее состояние: вся техника независимо от даты приёма. Данные за период — в отчёте \"Приём, ремонт и передача\"."),

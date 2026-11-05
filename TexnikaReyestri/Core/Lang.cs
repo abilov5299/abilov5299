@@ -33,6 +33,10 @@ namespace TexnikaReyestri.Core
         /// <summary>Kodda yazılan mətnlər üçün: Lang.T("Yadda saxla")</summary>
         public static string T(string az) => T(az, Current);
 
+        /// <summary>Böyük hərflə: azərbaycanca "i" → "İ" (adi ToUpper "I" verir).</summary>
+        public static string Boyuk(string s) => s?.ToUpper(Current == Language.Az ? AzMedeniyyet : System.Globalization.CultureInfo.CurrentCulture);
+        private static readonly System.Globalization.CultureInfo AzMedeniyyet = new("az-Latn-AZ");
+
         /// <summary>Mətn bu orijinalın istənilən dildəki tərcüməsidirmi (dil dəyişəndə köhnə dildəki mətni tanımaq üçün).</summary>
         private static bool Tercumesi(string az, string current) => current == az || current == T(az, Language.En) || current == T(az, Language.Ru);
 

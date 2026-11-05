@@ -50,7 +50,7 @@ namespace TexnikaReyestri.Controls
             using var fs = new Font("Segoe UI", 7.5f);
             var tf = TextFormatFlags.NoPrefix | TextFormatFlags.EndEllipsis | TextFormatFlags.SingleLine;
             // Uzun başlıq dar kartda iki sətrə keçir, rəqəm aşağı sürüşür
-            string bas = Lang.T(_title).ToUpper();
+            string bas = Lang.Boyuk(Lang.T(_title));
             int ust = TextRenderer.MeasureText(g, bas, ft).Width > w && _sub.Length == 0 ? 13 : 0;
             if (ust > 0) { top = Math.Max((int)r.Y + 6, top - 6); TextRenderer.DrawText(g, bas, ft, new Rectangle(x, top, w, 29), Theme.Muted, TextFormatFlags.NoPrefix | TextFormatFlags.WordBreak | TextFormatFlags.EndEllipsis); }
             else TextRenderer.DrawText(g, bas, ft, new Rectangle(x, top, w, 16), Theme.Muted, tf);

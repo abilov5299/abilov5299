@@ -24,6 +24,9 @@ namespace TexnikaReyestri.Pages
             InitializeComponent();
             grid.BasliqSrift = new Font("Segoe UI", 11f, FontStyle.Bold); grid.ColumnHeadersHeight = 44; grid.ApplyColors();
             colBitme.DisplayIndex = colStatus.DisplayIndex;   // "Ehtiyat hissələrinin təminatı" — İcra statusu ilə Məsul icraçı arasında
+            // Pəncərə kiçilib-böyüyəndə sütunlar enə görə paylanır (sabit en üfüqi sürüşməyə səbəb olurdu)
+            foreach (var (c, w, min) in new[] { (colNov, 300, 160), (colMarka, 200, 110), (colZavodNo, 230, 130), (colStatus, 190, 110), (colBitme, 220, 120) })
+            { c.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; c.FillWeight = w; c.MinimumWidth = min; }
             _axtar.Tick += async (_, _) => { _axtar.Stop(); await YenidenAsync(); };
             txtSearch.TextChanged += (_, _) => { if (_hazir) { _axtar.Stop(); _axtar.Start(); } };
             cmbZavod.Items.Add("Hamısı"); cmbZavod.Items.AddRange(Secimler.Sahe["TemirZavodu"]);

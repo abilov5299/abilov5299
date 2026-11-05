@@ -458,6 +458,12 @@ namespace TexnikaReyestri.Pages
                 r["TemirZavodu"] = Session.ZavodFiltri; r["Status"] = "Qəbul edilib"; r["MuddetVahidi"] = "Gün";
                 r["DaxilolmaTarixi"] = r["BaslamaTarixi"] = Vaxt.Iso(DateTime.Today); r["MesulIcraci"] = Session.AdSoyad;   // məsul icraçı: daxil edən istifadəçi (dəyişdirilmir)
             }
+            if (In("Nov") is ComboBox nv)   // əvvəl əl ilə yazılmış növlər də siyahıda
+                foreach (var n in await TexnikaRepo.NovlerAsync())
+                {
+                    var o = _orig.TryGetValue(nv, out var l) ? l : nv.Items.Cast<object>().Select(x => x as string).ToList();
+                    if (!o.Any(x => string.Equals(x, n, StringComparison.CurrentCultureIgnoreCase))) { if (l != null) l.Add(n); nv.Items.Add(n); }
+                }
             foreach (var s in Saheler.Hamisi)
             {
                 var v = r.GetValueOrDefault(s.Kod); string str = v is null or DBNull ? "" : Convert.ToString(v, CultureInfo.InvariantCulture);

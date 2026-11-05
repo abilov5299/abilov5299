@@ -7,7 +7,7 @@ namespace TexnikaReyestri.Services
 {
     /// <summary>
     /// "Çap et (PDF)" düymələri: klikdə iki seçim — "Çap et" (PDF müvəqqəti hazırlanır, çap pəncərəsi açılır)
-    /// və "PDF kimi saxla" (fayl seçilir, saxlanır və açılır).
+    /// və "PDF kimi aç" (müvəqqəti qovluqda yaranır və birbaşa açılır; istəyən oradan yadda saxlayır).
     /// </summary>
     public static class CapService
     {
@@ -16,27 +16,41 @@ namespace TexnikaReyestri.Services
         {
             var m = new ContextMenuStrip { ShowImageMargin = false, Font = new Font("Segoe UI", 10f), Renderer = new Renderer(), Padding = new Padding(2) };
             m.Items.Add(Lang.T("Çap et"), null, async (_, _) => await CapAsync(duyme, yarat));
-            m.Items.Add(Lang.T("PDF kimi saxla"), null, async (_, _) => await SaxlaAsync(duyme, faylAdi, yarat));
+            m.Items.Add(Lang.T("PDF kimi aç"), null, async (_, _) => await AcAsync(duyme, faylAdi, yarat));
             foreach (ToolStripItem i in m.Items) { i.Padding = new Padding(10, 6, 24, 6); i.ForeColor = Theme.Ink; }
             m.Closed += (_, _) => duyme.BeginInvoke(m.Dispose);
             m.Show(duyme, new Point(0, duyme.Height + 2));
         }
 
-        private static async Task SaxlaAsync(Control owner, string faylAdi, Func<string, Task> yarat)
+        private static async Task AcAsync(Control owner, string faylAdi, Func<string, Task> yarat)
         {
-            using var d = new SaveFileDialog { Filter = "PDF (*.pdf)|*.pdf", FileName = faylAdi };
-            if (d.ShowDialog(owner) != DialogResult.OK) return;
-            if (!await Ui.Is(owner, Lang.T("PDF hazırlanır..."), _ => yarat(d.FileName))) return;
-            Toast.Show(owner, Lang.T("PDF kimi saxlanıldı"));
-            try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(d.FileName) { UseShellExecute = true }); } catch { }
+            string yol = MuveqqetiYol(faylAdi);
+            if (!await Ui.Is(owner, Lang.T("PDF hazırlanır..."), _ => yarat(yol))) return;
+            Ac(yol);
+        }
+
+        /// <summary>Müvəqqəti qovluqda fayl yolu (%TEMP%\TexnikaReyestri\Fayllar); 1 gündən köhnə fayllar silinir. Eyni adlı fayl açıqdırsa, ada vaxt əlavə olunur.</summary>
+        public static string MuveqqetiYol(string faylAdi)
+        {
+            string q = Path.Combine(Path.GetTempPath(), "TexnikaReyestri", "Fayllar");
+            Directory.CreateDirectory(q);
+            foreach (var f in Directory.GetFiles(q)) try { if (File.GetLastWriteTime(f) < DateTime.Now.AddDays(-1)) File.Delete(f); } catch { }
+            foreach (var c in Path.GetInvalidFileNameChars()) faylAdi = faylAdi.Replace(c, '_');
+            string yol = Path.Combine(q, faylAdi);
+            try { if (File.Exists(yol)) File.Delete(yol); }
+            catch { yol = Path.Combine(q, $"{Path.GetFileNameWithoutExtension(faylAdi)}_{DateTime.Now:HHmmss}{Path.GetExtension(faylAdi)}"); }   // köhnəsi açıqdır
+            return yol;
+        }
+
+        /// <summary>Faylı Windows-un uyğun proqramında açır (PDF oxuyucu, Excel).</summary>
+        public static void Ac(string yol)
+        {
+            try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(yol) { UseShellExecute = true }); } catch { }
         }
 
         private static async Task CapAsync(Control owner, Func<string, Task> yarat)
         {
-            string q = Path.Combine(Path.GetTempPath(), "TexnikaReyestri", "Cap");
-            Directory.CreateDirectory(q);
-            foreach (var f in Directory.GetFiles(q, "*.pdf")) try { if (File.GetLastWriteTime(f) < DateTime.Now.AddDays(-1)) File.Delete(f); } catch { }
-            string yol = Path.Combine(q, $"cap_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
+            string yol = MuveqqetiYol($"cap_{DateTime.Now:yyyyMMdd_HHmmss}.pdf");
             if (!await Ui.Is(owner, Lang.T("PDF hazırlanır..."), _ => yarat(yol))) return;
             await CapPenceresiAsync(owner, yol);
         }

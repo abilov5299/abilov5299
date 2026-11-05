@@ -188,7 +188,7 @@ namespace TexnikaReyestri.Services
                     int c0 = 2;
                     foreach (var grp in sahe.GroupBy(x => x.Qrup))
                     {
-                        int n = grp.Count(); var rng = ws.Range(1, c0, 1, c0 + n - 1); rng.Merge().Value = grp.Key.ToUpper();
+                        int n = grp.Count(); var rng = ws.Range(1, c0, 1, c0 + n - 1); rng.Merge().Value = TexnikaReyestri.Core.Lang.Boyuk(grp.Key);
                         rng.Style.Fill.BackgroundColor = teal; rng.Style.Font.FontColor = XLColor.White; rng.Style.Font.Bold = true; rng.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                         c0 += n;
                     }

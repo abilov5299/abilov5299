@@ -137,10 +137,9 @@ namespace TexnikaReyestri.Forms
 
         private void btnErrReport_Click(object sender, EventArgs e)
         {
-            using var d = new SaveFileDialog { Filter = "Excel|*.xlsx", FileName = "Idxal_xetalari.xlsx" };
-            if (d.ShowDialog(this) != DialogResult.OK) return;
-            ExcelService.XetaHesabati(d.FileName, _s.Where(x => x.Veziyyet == SetirVeziyyet.Xeta));
-            Toast.Show(this, "Xəta hesabatı saxlanıldı");
+            string yol = CapService.MuveqqetiYol("Idxal_xetalari.xlsx");   // birbaşa açılır
+            ExcelService.XetaHesabati(yol, _s.Where(x => x.Veziyyet == SetirVeziyyet.Xeta));
+            CapService.Ac(yol);
         }
 
         private async void btnNext_Click(object sender, EventArgs e)
