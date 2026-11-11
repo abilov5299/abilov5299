@@ -118,8 +118,7 @@ namespace TexnikaReyestri.Pages
             get
             {
                 DateTime d1 = dtBas.Value.Date, d2 = dtSon.Value.Date; if (d2 < d1) (d1, d2) = (d2, d1);
-                string vaxt = TexnikaRepo.DovrLazim(Math.Max(0, cmbNov.SelectedIndex)) ? $"{Lang.T("Dövr")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}"
-                                                                                    : string.Format(Lang.T("{0} tarixinə"), DateTime.Today.ToString("dd.MM.yyyy"));
+                string vaxt = $"{Lang.T("Dövr")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}";   // bütün hesabatlarda seçilmiş tarix aralığı
                 return (Zavod ?? $"{Secimler.Zavodlar.Length} {Lang.T("zavod üzrə")}") + " • " + vaxt;
             }
         }
