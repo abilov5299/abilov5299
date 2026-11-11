@@ -133,11 +133,10 @@ namespace TexnikaReyestri.Pages
                 var gc = gridZav.Rows[i].Cells["colZavGec"]; gc.Style.ForeColor = Theme.C("#6A3FC8"); gc.Style.Font = new Font(gridZav.Font, FontStyle.Bold | FontStyle.Underline);
                 if (kohne) { var sc = gridZav.Rows[i].Cells["colZavSon"]; sc.Style.BackColor = sc.Style.SelectionBackColor = Theme.Mix(Theme.Warn, Theme.Card, 0.75f); sc.Style.ForeColor = sc.Style.SelectionForeColor = Theme.Bad; }
             }
-            var kz = Secimler.Zavodlar.Where(z => !_paket.TryGetValue(z, out var t) || (DateTime.Now - DateTimeOffset.FromUnixTimeMilliseconds(t).LocalDateTime).TotalDays >= 7).ToList();
             if (lblXeber != null)
             {
-                lblXeber.Text = kz.Count == 0 ? "" : string.Join(", ", kz.Select(Lang.T)) + " " + Lang.T("üzrə məlumatın yenilənməsi gözlənilir.");
-                lblXeber.Height = kz.Count == 0 ? 0 : 36; lblXeber.BackColor = Theme.Mix(Theme.Warn, Theme.Card, 0.82f); lblXeber.ForeColor = Theme.Ink;
+                lblXeber.Text = "";   // sarı xəbərdarlıq göstərilmir
+                lblXeber.Height = 0; lblXeber.BackColor = Theme.Mix(Theme.Warn, Theme.Card, 0.82f); lblXeber.ForeColor = Theme.Ink;
             }
             if (Session.ZavodFiltri == null)
             {

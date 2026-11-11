@@ -135,7 +135,7 @@ namespace TexnikaReyestri.Pages
             btnTeminsiz.Kind = _tam ? ButtonKind.Ghost : ButtonKind.Primary; btnTam.Kind = _tam ? ButtonKind.Primary : ButtonKind.Ghost;
             bool tam = _tam;
             _h = await Task.Run(() => TexnikaRepo.HesabatAsync(nov, z, t, d1, d2, tam, tx, ml));
-            _xeber = await TexnikaRepo.KohneMelumatAsync(z);
+            _xeber = new();   // "paket idxal olunmayıb" xəbərdarlıqları göstərilmir
             if (nov == 5 && _tex != null) _h = _h with { Ad = $"{_tex.Marka} ({_tex.ZavodNo}) — {Lang.T("texnikanın faktiki material sərfi")}" };   // seçilmiş texnikanın hesabatı
             lblAd.Text = Lang.Boyuk(Lang.T(_h.Ad)); lblAlt.Text = AltBasliq; lblQeyd.Text = Lang.T(_h.Qeyd);
             lblXeber.Text = _xeber.Count == 0 ? "" : "⚠  " + string.Join("   ", _xeber);
@@ -174,7 +174,7 @@ namespace TexnikaReyestri.Pages
             try
             {
                 string yol = CapService.MuveqqetiYol(FaylAdi("xlsx"));   // birbaşa açılır, istəyən Excel-də yadda saxlayır
-                ExcelService.Hesabat(yol, Cap, AltBasliq, new[] { _h.Qeyd }.Concat(_xeber));
+                ExcelService.Hesabat(yol, Cap with { Qeyd = null }, AltBasliq, null);   // cədvəl altında yazı yoxdur
                 CapService.Ac(yol);
             }
             catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }
@@ -183,8 +183,8 @@ namespace TexnikaReyestri.Pages
         private void Pdf()
         {
             if (_h == null) return;
-            var (h, alt, x) = (Cap, AltBasliq, _xeber.ToList());
-            CapService.Menyu(btnPdf, FaylAdi("pdf"), yol => Task.Run(() => PdfService.Hesabat(yol, h, alt, x)));
+            var (h, alt) = (Cap with { Qeyd = null }, AltBasliq);   // cədvəl altında yazı yoxdur
+            CapService.Menyu(btnPdf, FaylAdi("pdf"), yol => Task.Run(() => PdfService.Hesabat(yol, h, alt, null)));
         }
     }
 }

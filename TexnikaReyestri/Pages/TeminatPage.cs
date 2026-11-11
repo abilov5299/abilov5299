@@ -163,7 +163,7 @@ namespace TexnikaReyestri.Pages
             try
             {
                 string yol = CapService.MuveqqetiYol($"Sorgular_uzre_teminat_{DateTime.Today:yyyyMMdd}.xlsx");   // birbaşa açılır
-                var h = Cedvel(); ExcelService.Hesabat(yol, h, AltBasliq, new[] { h.Qeyd });
+                var h = Cedvel() with { Qeyd = null }; ExcelService.Hesabat(yol, h, AltBasliq, null);
                 CapService.Ac(yol);
             }
             catch (Exception ex) { Toast.Show(this, ex.Message, ToastKind.Error); }
@@ -172,7 +172,7 @@ namespace TexnikaReyestri.Pages
         private void Pdf()
         {
             if (_gorunen.Count == 0) { Toast.Show(this, "Siyahı boşdur", ToastKind.Warn); return; }
-            var (h, alt) = (Cedvel(), AltBasliq);
+            var (h, alt) = (Cedvel() with { Qeyd = null }, AltBasliq);   // cədvəl altında yazı yoxdur
             CapService.Menyu(btnPdf, $"Sorgular_uzre_teminat_{DateTime.Today:yyyyMMdd}.pdf", yol => Task.Run(() => PdfService.Hesabat(yol, h, alt, null)));
         }
 
