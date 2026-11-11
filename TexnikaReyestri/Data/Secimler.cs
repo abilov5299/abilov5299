@@ -7,7 +7,7 @@
         public static readonly string[] Zavodlar =
         {
             "939 nömrəli hərbi hissə", "328 nömrəli hərbi hissə", "329 nömrəli hərbi hissə",
-            "114 nömrəli hərbi hissə", "412 nömrəli hərbi hissə", "339 nömrəli hərbi hissə"
+            "114 nömrəli hərbi hissə", "412 nömrəli hərbi hissə", "339 nömrəli hərbi hissə", "090 nömrəli hərbi hissə"
         };
         public const string UstAd = "Təmir və Texniki Təminat xidməti", EnUstAd = "Müdafiə Sənayesi İdarəsi";
 

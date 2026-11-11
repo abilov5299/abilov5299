@@ -11,7 +11,7 @@
 | Platforma | C# WinForms, .NET 8 (`net8.0-windows`), Visual Studio 2022 17.13+ |
 | Baza | SQLite, hər kompüterdə ayrıca (`C:\ProgramData\TexnikaReyestri\Data\reyestr.db`) |
 | Məlumat ötürmə | Şifrəli USB paketi (`.tqx`): zavod → Xidmət (üst qurum) → İdarə (ən üst qurum) |
-| Qurumlar | 6 zavod (939, 328, 329, 114, 412, 339 nömrəli hərbi hissə), "Təmir və Texniki Təminat xidməti", "Müdafiə Sənayesi İdarəsi" |
+| Qurumlar | 7 zavod (939, 328, 329, 114, 412, 339, 090 nömrəli hərbi hissə), "Təmir və Texniki Təminat xidməti", "Müdafiə Sənayesi İdarəsi" |
 | Dil / tema | AZ / EN / RU; işıqlı / qaranlıq |
 | Repo | `abilov5299/abilov5299`, branch `claude/trusting-gates-twb5gz` |
 | Qovluq / namespace | Kodda köhnə ad qalır: `TexnikaReyestri` (yalnız ekranda "Təmir Reyestri") |
@@ -132,6 +132,7 @@ Son edilənlər (köhnədən yeniyə): 6 kart hər üç səhifədə → Reyestr 
 **03.11 (32 bit):** `toolsPaylama.ps1` → `Paylamawin-x86` (32 və 64 bit Windows) və `Paylamawin-x64` qovluqları + zip; .NET quraşdırmaq lazım deyil (self-contained). 32 bit prosesdə SQLite, hesabat, PDF, Excel, WebView2 yoxlanıldı.
 
 **05.11:** Texnika növünə "Özüyeriyən artilleriya qurğusu" əlavə edildi; əl ilə yazılan yeni növ bazadan oxunub sonrakı dəfə siyahıda görünür. Məktubda "Təmin edən qurum üzrə məsul icraçı" məcburi deyil. PDF ("PDF kimi aç") və bütün Excel ixracları müvəqqəti qovluqda (%TEMP%\TexnikaReyestri\Fayllar) yaranıb birbaşa açılır; istəyən özü yadda saxlayır. PDF-də çoxsətirli mətndəki sətir sonları kvadrat çıxırdı — düzəldi. Böyük hərflə yazılan başlıqlarda "i" → "İ" (`Lang.Boyuk`). "Ehtiyat hissələri üzrə təminat" hesabatı dövr filtri ilə (məktubun tarixi). Reyestr cədvəlinin sütunları pəncərə eninə görə paylanır. "İcra müddəti üzrə nəzarət"in cədvəl altı qeydi silindi.
+**11.11:** Zavodlar siyahısına "090 nömrəli hərbi hissə" (Z7) əlavə edildi; köhnə bazada qurum avtomatik yaranır. Hesabatlar səhifəsindən "Hesabat tarixi" filtri silindi — vəziyyət hesabatları həmişə bu günə görədir.
 
 **30.10:** Sorğular üzrə təminat: "Məktub" filtri kliklə açılan axtarış pəncərəsidir (`Ui.SiyahidanSec`), cədvəldə "Məktub №" və "Məktubun tarixi" ayrı sütunlardır. Bütün PDF düymələri (hesabatlar, təminat, məktub sənədi, pasport) `Services/CapService.Menyu` ilə iki seçim verir: "Çap et" (müvəqqəti PDF, WebView2-də açılır, Windows çap pəncərəsi; WebView2 yoxdursa "print" əmri) və "PDF kimi saxla".
 

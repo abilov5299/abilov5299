@@ -10,7 +10,6 @@ namespace TexnikaReyestri.Pages
     {
         private readonly RoundComboBox cmbNov = new() { DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font("Segoe UI", 10f), Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) };
         private readonly RoundComboBox cmbZavod = new() { DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font("Segoe UI", 10f), Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) };
-        private readonly RoundDatePicker dtTarix = new() { Dock = DockStyle.Fill, Margin = new Padding(0, 0, 12, 0) };
         private readonly RoundDatePicker dtBas = new() { Width = 150 }, dtSon = new() { Width = 150 };
         private readonly FlatButton btnGoster = new() { Text = "Hesabatı göstər", Size = new Size(160, 34) };
         private readonly FlatButton btnExcel = new() { Text = "Excel-ə çıxar", Glyph = Icons.Excel, Kind = ButtonKind.Secondary, Size = new Size(150, 34) };
@@ -42,13 +41,13 @@ namespace TexnikaReyestri.Pages
 
             cmbNov.Items.AddRange(TexnikaRepo.HesabatAdlari); cmbNov.SelectedIndex = 0;
             cmbZavod.Items.Add("Hamısı"); cmbZavod.Items.AddRange(Secimler.Zavodlar); cmbZavod.SelectedIndex = 0;
-            dtTarix.Value = DateTime.Today; dtSon.Value = DateTime.Today; dtBas.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            dtSon.Value = DateTime.Today; dtBas.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             Label L(string s) => new() { Text = s, AutoSize = false, Dock = DockStyle.Fill, Tag = "muted", Font = new Font("Segoe UI Semibold", 9f), TextAlign = ContentAlignment.BottomLeft, Margin = new Padding(0, 0, 12, 2) };
-            var tl = new TableLayoutPanel { Dock = DockStyle.Top, Height = 60, ColumnCount = 3, RowCount = 2, BackColor = Color.Transparent };
-            tl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45)); tl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35)); tl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20));
+            var tl = new TableLayoutPanel { Dock = DockStyle.Top, Height = 60, ColumnCount = 2, RowCount = 2, BackColor = Color.Transparent };
+            tl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55)); tl.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45));   // hesabat tarixi həmişə bu gündür
             tl.RowStyles.Add(new RowStyle(SizeType.Absolute, 22)); tl.RowStyles.Add(new RowStyle(SizeType.Absolute, 36));
-            tl.Controls.Add(L("Hesabat növü:"), 0, 0); tl.Controls.Add(lblZavod = L("Zavod:"), 1, 0); tl.Controls.Add(L("Hesabat tarixi:"), 2, 0);
-            tl.Controls.Add(cmbNov, 0, 1); tl.Controls.Add(cmbZavod, 1, 1); tl.Controls.Add(dtTarix, 2, 1);
+            tl.Controls.Add(L("Hesabat növü:"), 0, 0); tl.Controls.Add(lblZavod = L("Zavod:"), 1, 0);
+            tl.Controls.Add(cmbNov, 0, 1); tl.Controls.Add(cmbZavod, 1, 1);
             var bt = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 46, Padding = new Padding(0, 8, 0, 0), BackColor = Color.Transparent };
             foreach (var b in new[] { btnGoster, btnExcel, btnPdf }) { b.Margin = new Padding(0, 0, 10, 0); bt.Controls.Add(b); }
             var rpF = new RoundPanel { Dock = DockStyle.Top, Height = 130, Padding = new Padding(14, 8, 14, 8) };
@@ -100,7 +99,7 @@ namespace TexnikaReyestri.Pages
             btnPdf.Click += (_, _) => Pdf();
             cmbNov.SelectedIndexChanged += async (_, _) => { if (_hazir) await GosterAsync(); };
             cmbZavod.SelectedIndexChanged += async (_, _) => { if (_hazir) await GosterAsync(); };
-            foreach (var d in new[] { dtTarix, dtBas, dtSon }) d.ValueChanged += async (_, _) => { if (_hazir) await GosterAsync(); };
+            foreach (var d in new[] { dtBas, dtSon }) d.ValueChanged += async (_, _) => { if (_hazir) await GosterAsync(); };
             _hazir = true;
         }
 
@@ -120,7 +119,7 @@ namespace TexnikaReyestri.Pages
             {
                 DateTime d1 = dtBas.Value.Date, d2 = dtSon.Value.Date; if (d2 < d1) (d1, d2) = (d2, d1);
                 string vaxt = TexnikaRepo.DovrLazim(Math.Max(0, cmbNov.SelectedIndex)) ? $"{Lang.T("Dövr")}: {d1:dd.MM.yyyy} – {d2:dd.MM.yyyy}"
-                                                                                    : string.Format(Lang.T("{0} tarixinə"), dtTarix.Value.ToString("dd.MM.yyyy"));
+                                                                                    : string.Format(Lang.T("{0} tarixinə"), DateTime.Today.ToString("dd.MM.yyyy"));
                 return (Zavod ?? $"{Secimler.Zavodlar.Length} {Lang.T("zavod üzrə")}") + " • " + vaxt;
             }
         }
@@ -130,7 +129,7 @@ namespace TexnikaReyestri.Pages
             int nov = Math.Max(0, cmbNov.SelectedIndex);
             for (int i = 0; i < lst.Controls.Count; i++) ((FlatButton)lst.Controls[i]).Kind = i == nov ? ButtonKind.Secondary : ButtonKind.Ghost;
             DateTime d1 = dtBas.Value.Date, d2 = dtSon.Value.Date; if (d2 < d1) (d1, d2) = (d2, d1);
-            string z = Zavod; DateTime t = dtTarix.Value.Date;
+            string z = Zavod; DateTime t = DateTime.Today;
             pnlKecid.Visible = nov == 4; pnlSerf.Visible = nov == 5;
             string tx = _tex?.Guid, ml = txtMal.Text; btnTexHamisi.Visible = _tex != null;
             btnTeminsiz.Kind = _tam ? ButtonKind.Ghost : ButtonKind.Primary; btnTam.Kind = _tam ? ButtonKind.Primary : ButtonKind.Ghost;
@@ -167,7 +166,7 @@ namespace TexnikaReyestri.Pages
             await GosterAsync();
         }
 
-        private string FaylAdi(string ext) => $"Hesabat_{TexnikaRepo.HesabatNovleri[cmbNov.SelectedIndex].Replace(" ", "_").Replace(",", "")}{(cmbNov.SelectedIndex == 4 ? (_tam ? "_tam" : "_temin_edilmemis") : "")}_{dtTarix.Value:yyyyMMdd}.{ext}";
+        private string FaylAdi(string ext) => $"Hesabat_{TexnikaRepo.HesabatNovleri[cmbNov.SelectedIndex].Replace(" ", "_").Replace(",", "")}{(cmbNov.SelectedIndex == 4 ? (_tam ? "_tam" : "_temin_edilmemis") : "")}_{DateTime.Today:yyyyMMdd}.{ext}";
 
         private void Excel()
         {

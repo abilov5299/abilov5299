@@ -379,6 +379,7 @@
             ["114 nömrəli hərbi hissə"] = ("Military unit 114", "Войсковая часть 114"),
             ["412 nömrəli hərbi hissə"] = ("Military unit 412", "Войсковая часть 412"),
             ["339 nömrəli hərbi hissə"] = ("Military unit 339", "Войсковая часть 339"),
+            ["090 nömrəli hərbi hissə"] = ("Military unit 090", "Войсковая часть 090"),
             ["Təmir və Texniki Təminat xidməti"] = ("Repair and Technical Support Service", "Служба ремонта и технического обеспечения"),
             ["Müdafiə Sənayesi İdarəsi"] = ("Defence Industry Department", "Управление оборонной промышленности"),
             ["Təmir və Texniki Təminat Xidməti · Məlumat bazası"] = ("Repair and Technical Support Service · Database", "Служба ремонта и технического обеспечения · База данных"),
